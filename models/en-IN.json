@@ -1,0 +1,624 @@
+{
+	"invocation": "front desk",
+	"intents": [
+		{
+			"name": "Hotel_Device_Setup",
+			"phrases": [
+				"setup the device",
+				"device setup",
+				"please setup my device",
+				"what is the address of this device",
+				"can you setup this device",
+				"add this device "
+			]
+		},
+		{
+			"name": "Hotel_Facilities",
+			"inputs": [
+				{
+					"name": "facility",
+					"type": "facilities"
+				}
+			],
+			"phrases": [
+				"Does the hotel have a {facility}",
+				"Is there a {facility}",
+				"Do you have a {facility}",
+				"Can I use {facility}",
+				"How about {facility}",
+				"Is there a {facility} in the hotel"
+			]
+		},
+		{
+			"name": "Hotel_Facilities_Timing",
+			"inputs": [
+				{
+					"name": "facility",
+					"type": "facilities"
+				},
+				{
+					"name": "date",
+					"type": {
+						"alexa": "AMAZON.DATE",
+						"dialogflow": "@sys.date"
+					}
+				}
+			],
+			"phrases": [
+				"What is the opening time for {facility}",
+				"When does the {facility} open",
+				"Until what time is {facility} available",
+				"Until when can I use {facility}",
+				"When will I get to use the {facility}",
+				"How about the timings for {facility}",
+				"Is the {facility} open {date}",
+				"What are the closing timings for {facility}",
+				"I would like to use {facility} Is it open now",
+				"Is {facility} open now",
+				"Can I go to {facility} {date}",
+				"Can I use {facility} {facility}",
+				"Is it okay to use {facility} {date}"
+			]
+		},
+		{
+			"name": "Hotel_Policy_Alcohol",
+			"inputs": [
+				{
+					"name": "alcohol",
+					"type": "alcohol_types"
+				}
+			],
+			"phrases": [
+				"Is {alcohol} consumption allowed",
+				"Is it okay to drink {alcohol}",
+				"Can I drink {alcohol}",
+				"Is it okay to bring {alcohol} to the hotel",
+				"Is {alcohol} allowed",
+				"Can I consume {alcohol}",
+				"Can I {alcohol}",
+				"Is {alcohol} okay",
+				"Can I {alcohol} in the hotel",
+				"Am I allowed to {alcohol}",
+				"Whats the policy on {alcohol}",
+				"Is it okay to drink {alcohol} here"
+			]
+		},
+		{
+			"name": "Hotel_Policy_OnlineFoodOrder",
+			"inputs": [],
+			"phrases": [
+				"Is it okay to order food online",
+				"Can I get food from outside",
+				"Is it fine to bring outside food to the hotel",
+				"Is it okay to bring outside food to my room",
+				"Can I order food online",
+				"What is the policy for online food orde",
+				"Will the hotel allow me to get food from outside",
+				"Is it okay if I get food delivered from outside",
+				"Can my friend get food from outside",
+				"Is there a fine if I get food from outside the hotel"
+			]
+		},
+		{
+			"name": "Hotel_Policy_Smoking",
+			"inputs": [
+				{
+					"name": "smoking",
+					"type": "smoking_types"
+				}
+			],
+			"phrases": [
+				"Is {smoking} allowed",
+				"Is it okay to {smoking}",
+				"Can I {smoking}",
+				"Can I chew {smoking}",
+				"Do you allow {smoking}",
+				"Is {smoking} okay",
+				"Can I {smoking} in the hotel",
+				"Whats the policy on {smoking}",
+				"Is it okay to light a {smoking} here"
+			]
+		},
+		{
+			"name": "Kitchen_Enquiry_BottleSterilize",
+			"inputs": [],
+			"phrases": [
+				"Is it possible to sterilize bottles",
+				"Can you strelize milk bottles",
+				"Can I sterilize bottles",
+				"Can I boil baby milk bottles",
+				"Can you boil baby milk bottles",
+				"Is it possible to boil with hot water baby milk bottles"
+			]
+		},
+		{
+			"name": "Kitchen_Enquiry_Equipment",
+			"inputs": [
+				{
+					"name": "equipment",
+					"type": "equipment_types"
+				}
+			],
+			"phrases": [
+				"Do you have a {equipment}",
+				"Does the kitchen have {equipment}",
+				"Can I use {equipment} in your kitchen",
+				"Is {equipment} available",
+				" Can I use {equipment}",
+				"Is there a {equipment} in the hotel",
+				"Does the hotel have {equipment}",
+				"Is it possible to warm in {equipment} in the kitchen",
+				"Is it possible to reheat my food in the kitchen",
+				"Can you reheat my food in the kitchen"
+			]
+		},
+		{
+			"name": "Order_Res_Enquiry_Alcohol",
+			"inputs": [
+				{
+					"name": "alcohol",
+					"type": "alcohol_types"
+				}
+			],
+			"phrases": [
+				"Is {alcohol} served here",
+				"Is {alcohol} available",
+				"Can I get {alcohol}",
+				"Can I get {alcohol} here",
+				"How about {alcohol}",
+				"Are {alcohol} available",
+				"I would like to order {alcohol} to my room"
+			]
+		},
+		{
+			"name": "Order_Res_Enquiry_Meals",
+			"inputs": [
+				{
+					"name": "meal",
+					"type": "meal_types"
+				}
+			],
+			"phrases": [
+				"Does the restaurant serve {meal}",
+				"Is {meal} served",
+				"Is {meal} available",
+				"Can I get {meal} here",
+				"How about {meal}",
+				"What {meal} types are available",
+				"What kind of food is served here",
+				"What is the food type",
+				"Do I get {meal} here"
+			]
+		},
+		{
+			"name": "Order_Res_PlaceOrder",
+			"inputs": [
+				{
+					"name": "menu_item",
+					"type": "menu"
+				},
+				{
+					"name": "takeaway",
+					"type": "takeaway"
+				}
+			],
+			"phrases": [
+				"I would like to order a {menu_item}",
+				"I would like to place an order for {menu_item}",
+				"I need a {menu_item}",
+				"I would like a {menu_item} for dinne",
+				"Can you place an order for {menu_item} for dinner",
+				"Can you send {menu_item} to my room",
+				"I would like to get a {menu_item} for lunch",
+				"Is {menu_item} available for breakfast",
+				"I would like to place an order for food",
+				"I would like to order food",
+				"Can you order some food",
+				"Please order some food",
+				"I need some food"
+			]
+		},
+		{
+			"name": "Res_Enquiry_Billing",
+			"inputs": [],
+			"phrases": [
+				"How are my restaurant spends billed",
+				"Will my food bill be added to my room bill",
+				"How is my food bill charge",
+				"How am I charged for food",
+				"Are my food charged added to my hotel bill",
+				"Are food charges included in the final bill",
+				"Will the final bill have food charges",
+				"What about food bill",
+				"Is food bill part of final bill",
+				"Can you add food bill to final bill",
+				"Please add food bill to final bill",
+				"Add restaurant bill to final bill",
+				"Is my restaurant bill part of the total bill"
+			]
+		},
+		{
+			"name": "Res_Enquiry_BillPay",
+			"inputs": [],
+			"phrases": [
+				"Can I pay my food bill at the time of checkout",
+				"Can I pay restaurant bill while checking out",
+				"Is it okay to pay restaurant bill at the time of checkout",
+				"Is restaurant bill accepted at the time of checkout",
+				"Should I pay the food bill now or at the time of checkout",
+				"Should I pay the food bill now",
+				"Can I pay the food bill now",
+				"I would like to pay the food bill at checkout. Is that okay"
+			]
+		},
+		{
+			"name": "Res_Enquiry_CuisineType",
+			"inputs": [
+				{
+					"name": "cuisine",
+					"type": "cuisine_types"
+				}
+			],
+			"phrases": [
+				"What kind of food is available in the restaurant",
+				"What are the various food items available",
+				"Is {cuisine} available",
+				"Does the restaurant serve {cuisine} food",
+				"Does the hotel serve {cuisine}",
+				"What kind of food is served",
+				"Do I get {cuisine} here"
+			]
+		},
+		{
+			"name": "Res_Enquiry_FoodCost",
+			"inputs": [
+				{
+					"name": "menu_item",
+					"type": "menu"
+				},
+				{
+					"name": "cost",
+					"type": {
+						"alexa": "AMAZON.NUMBER",
+						"dialogflow":"@sys.number-integer"
+					}
+				}
+			],
+			"phrases": [
+				"How much does a {menu_item} cost",
+				"What is the cost of {menu_item}",
+				"What is the price of {menu_item}",
+				"Is the price of {menu_item} {cost}",
+				"How much do I have to spend for {menu_item}",
+				"Is {menu_item} costly",
+				"Is {menu_item} cheap",
+				"Am I going to spend too much on {menu_item}",
+				"Please tell me the cost of {menu_item}"
+			]
+		},
+		{
+			"name": "Res_Enquiry_FoodOrder",
+			"inputs": [],
+			"phrases": [
+				"How can I order food",
+				"What is the way to order food in this restaurant",
+				"Do I have to call the front desk to order food",
+				"Whom should I call to order food",
+				"Can you help me with ordering food",
+				"Can you help me to order food",
+				"How to get some food",
+				"I want to eat. How can I get food",
+				"I am hungry. How to get some food",
+				"I am hungry",
+				"Please help me to get some food",
+				"get me some food",
+				"Please get some food",
+				"Get some food now",
+				"Order food for me"
+			]
+		},
+		{
+			"name": "Res_Enquiry_FoodSchedule",
+			"inputs": [
+				{
+					"name": "menu_item",
+					"type": "menu"
+				},
+				{
+					"name": "date",
+					"type": {
+						"alexa":"AMAZON.DATE",
+						"dialogflow":"@sys.date"
+					}
+				}
+			],
+			"phrases": [
+				"Can you order {menu_item} for {date}",
+				"Can I schedule a food order for {date}",
+				"Can I order food for {date} now",
+				"How about ordering food for {date}",
+				"Can you schedule a food order for me",
+				"Is food order for {date} possible",
+				"Do you take restaurant orders for {date}"
+			]
+		},
+		{
+			"name": "Res_Enquiry_Location",
+			"inputs": [],
+			"phrases": [
+				"Where is the restaurant located",
+				"What is the location of the restaurant",
+				"How can I go to the restaurant",
+				"How can I reach the food place",
+				"What is the easiest way to reach the restaurant",
+				"Is there a lift to the restaurant",
+				"Can you help with the directions to the restaurant",
+				"What are the directions to the restaurant",
+				"How far to the restaurant"
+			]
+		},
+		{
+			"name": "Res_Enquiry_Menu",
+			"inputs": [
+				{
+					"name": "menu_item",
+					"type": "menu"
+				}
+			],
+			"phrases": [
+				"What is on the menu",
+				"What food is available ",
+				"What does the restaurant serve",
+				"What kind of food I can get",
+				"Where can I find menu items",
+				"Where is the menu",
+				"Should I call the front desk to know the menu items",
+				"Where are the menu items",
+				"Is there a menu in the room",
+				"What are the different food items",
+				"Do you serve {menu_item}",
+				"Does the restaurant have {menu_item}",
+				"Is {menu_item} available",
+				"Can I get {menu_item} ",
+				"Do you have {menu_item}"
+			]
+		},
+		{
+			"name": "Res_Enquiry_Nearest",
+			"inputs": [],
+			"phrases": [
+				"Where is the nearest restaurant",
+				"Is there a restaurant nearby",
+				"What is the closest restaurant",
+				"How far is the nearest restaurant",
+				"where can I get food",
+				"is there a place to buy some food",
+				"what is the nearest place to get food"
+			]
+		},
+		{
+			"name": "Res_Enquiry_OrderTime",
+			"inputs": [],
+			"phrases": [
+				"How much time would it take for my order to get delivered",
+				"How much time for the order",
+				"What is the delivery time",
+				"How much is the delivery time for food",
+				"What is the food delivery time",
+				"How much more time for the food",
+				"What is the status of my food order",
+				"Status of my food order please",
+				"Can I get the time to get my food delivered",
+				"How much time for the food room service",
+				"How much time does it take to get my food order delivered",
+				"Does it take more than one hour to get my food delivered",
+				"Please get my food delivered as soon as possible"
+			]
+		},
+		{
+			"name": "Res_Enquiry_Timings",
+			"inputs": [
+				{
+					"name": "date",
+					"type": {
+						"alexa":"AMAZON.DATE",
+						"dialogflow":"@sys.date"
+					}
+				}
+			],
+			"phrases": [
+				"When is the restaurant open",
+				"What are the restaurant timings",
+				"At what time is the food serve",
+				"Do you have the timings for the restaurant",
+				"Can I order the food now",
+				"What time are the food orders taken",
+				"How about the timings of the restaurant",
+				"What about restaurant timings",
+				"Is food available now",
+				"Can I order something now",
+				"When does the food counter open",
+				"Until what time is the food served",
+				"Will the restaurant be open {date}",
+				"Is the restaurant open {date}",
+				"Can I go to the restaurant now"
+			]
+		},
+		{
+			"name": "Taxi_Booking",
+			"inputs": [
+				{
+					"name": "time",
+					"type": {
+						"alexa":"AMAZON.TIME",
+						"dialogflow":"@sys.time"
+					}
+				}
+			],
+			"phrases": [
+				"Can you book a taxi at {time}",
+				"I need a taxi at {time}",
+				"Is a cab available at {time}",
+				"I need a cab",
+				"Please book a cab",
+				"I need a taxi to the airport",
+				"Please book a taxi to airport",
+				"Can I get a taxi to the railway station"
+			]
+		}
+	],
+	"inputTypes": [
+		{
+			"name": "alcohol_types",
+			"values": [
+				{"value": "whiskey"},
+				{"value": "brandy"},
+				{"value": "gin"},
+				{"value": "rum"},
+				{"value": "beer"},
+				{"value": "alcohol","synonyms": ["booze","drink","drinking"]},
+				{"value": "vodka"},
+				{"value": "karhu"},
+				{"value": "bud weiser"},
+				{"value": "hard drink"}
+			]
+		},
+		{
+			"name": "cuisine_types",
+			"values": [
+				{"value": "Indian"},
+				{"value": "Chinese"},
+				{"value": "North India"},
+				{"value": "South Indian"},
+				{"value": "Bengali"},
+				{"value": "Gujarathi"},
+				{"value": "Veg","synonyms": ["vegetarian","vegan"]},
+				{"value": "Non Veg","synonyms": ["non vegetarian"]},
+				{"value": "continental"},
+				{"value": "oriental"},
+				{"value": "Andhra"},
+				{"value": "Kannada"},
+				{"value": "Maharastrian"},
+				{"value": "Punjabi"},
+				{"value": "kerala"}
+			]
+		},
+		{
+			"name": "equipment_types",
+			"values": [
+				{"value": "microwave"},
+				{"value": "bottle sterilizer"},
+				{"value": "oven"},
+				{"value": "refrigerator"},
+				{"value": "cooking facilities","synonyms": ["cooking equipment","stove","cutlery","knife"]}
+			]
+		},
+		{
+			"name": "facilities",
+			"values": [
+				{"value": "gym"},
+				{"value":"swimming pool"},
+				{"value":"restaurant"},
+				{"value":"childrens play area", "synonyms": ["play area", "play ground", "child play area"]},
+				{"value":"children day care facility", "synonyms":["day care", "child care", "day care facility", "child care facility"]},
+				{"value":"laundry", "synonyms":["self laundry", "washing clothes", "drying clothes", "laundry services", "coin laundry"]},
+				{"value":"spa"},
+				{"value":"massage"},
+				{"value":"children swimming pool", "synonyms":["child pool", "baby pool", "kids pool", "swimming for kids"]},
+				{"value":"bar", "synonyms":["drinking place"]},
+				{"value":"pub"},
+				{"value":"room service"},
+				{"value":"cab", "synonyms":["taxi","cab booking", "taxi booking"]},
+				{"value":"airport shuttle","synonyms":["airport transport", "airport cab", "airport taxi"]}
+
+			]
+		},
+		{
+			"name": "meal_types",
+			"values": [
+				{"value": "breakfast"},
+				{"value": "lunch"},
+				{"value": "dinner"},
+				{"value": "supper"},
+				{"value": "evening snacks"},
+				{"value": "light meals"}
+			]
+		},
+		{
+			"name": "menu",
+            "values": [
+                {"value": "dosa"},
+                {"value": "idly"},
+				{"value": "samosa"},
+				{"value": "chicken curry"}
+			]
+		},
+		{
+			"name": "smoking_types",
+			"values": [
+				{"value": "cigerette", "synonyms": ["smoking","cigar","tobacco","bidi"]}
+			]
+		},
+		{
+			"name": "takeaway",
+			"values": [
+				{"value": "take away", "synonyms":["parcel","packed"]}
+			]
+		}
+	],
+	"alexa": {
+		"interactionModel": {
+			"languageModel": {
+				"intents": [
+					{
+						"name": "AMAZON.CancelIntent",
+						"samples": []
+					},
+					{
+						"name": "AMAZON.HelpIntent",
+						"samples": [
+							"How does this help",
+							"Help please",
+							"what all features do you have",
+							"Please help me",
+							"What is this alex",
+							"What is this thing",
+							"Does this work",
+							"What all this does",
+							"What kind of help I can get",
+							"Can you help"
+						]
+					},
+					{
+						"name": "AMAZON.StopIntent",
+						"samples": []
+					},
+					{
+						"name": "AMAZON.NavigateHomeIntent",
+						"samples": []
+					}
+				]
+			}
+		}
+	},
+	"dialogflow": {
+		"intents": [
+			{
+				"name": "Default Fallback Intent",
+				"auto": true,
+				"webhookUsed": true,
+				"fallbackIntent": true
+			},
+			{
+				"name": "Default Welcome Intent",
+				"auto": true,
+				"webhookUsed": true,
+				"events": [
+					{
+						"name": "WELCOME"
+					}
+				]
+			}
+		]
+	}
+}

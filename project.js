@@ -10,5 +10,18 @@ module.exports = {
        nlu: 'dialogflow',
     },
     endpoint: '${JOVO_WEBHOOK_URL}',
+
+    stages: {
+       defaultStage: 'dev',
+       dev: {
+
+       },
+       test: {
+
+       },
+       prod: {
+
+       }
+    }
 };
  
