@@ -9,10 +9,16 @@ module.exports = {
        'AMAZON.StopIntent': 'END',
     },
  
-    db: {
-         FileDb: {
-             pathToFile: '../db/db.json',
-         }
-     },
+    // db: {
+    //      DynamoDb: {
+    //          tableName: 'conversations',
+    //      }
+    //  },
+
+     db: {
+        FileDb: {
+            pathToFile: '../db/db.json',
+        }
+     }
  };
  
