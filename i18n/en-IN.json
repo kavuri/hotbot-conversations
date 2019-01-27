@@ -1,0 +1,15 @@
+{
+  "translation": {
+      "NOTIFY_MISSING_PERMISSIONS": "Please enable Location permissions in the Amazon Alexa app.",
+      "REGISTRATION_SUCCESS": "Your device at address {{addressLine1}}, {{stateOrRegion}}, {{postalCode}} has been successfully registered.",
+      "NO_ADDRESS": "Address is not set for device. Please set the address with room number in Alexa app and re-initiate the registration",
+      "NOTIFY_MISSING_PERMISSIONS": "Please enable Location permissions in the Amazon Alexa app.",
+      "LOCATION_FAILURE": "There was an error with the Device Address API. Please try again.",
+      "DEVICE_REGISTER_ERROR": "Uh Oh. Looks like something went wrong. Please try again. ",
+
+      "WELCOME": " Hello, {{hotel_name}} front desk. How can I help? ",
+      "HELP_MESSAGE": " I am the assistant for your stay. I can help with facilities available at the hotel, ordering services like food, laundry and also can provide info about this place. How can I help you today? ",
+      "REPEAT_REQUEST": " I did not understand your request. Can you please repeat? ",
+      "ON_STOP_MESSAGE": " Thank you. Please call back incase of need; we are here to make your stay pleasant. "
+  }
+}

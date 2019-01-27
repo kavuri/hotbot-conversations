@@ -196,10 +196,6 @@
 				{
 					"name": "menu_item",
 					"type": "menu"
-				},
-				{
-					"name": "takeaway",
-					"type": "takeaway"
 				}
 			],
 			"phrases": [
@@ -562,7 +558,7 @@
 		{
 			"name": "takeaway",
 			"values": [
-				{"value": "take away", "synonyms":["parcel","packed"]}
+				{"value": "takeaway", "synonyms":["parcel","packed"]}
 			]
 		}
 	],

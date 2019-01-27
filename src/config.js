@@ -24,6 +24,10 @@ module.exports = {
         FileDb: {
             pathToFile: '../db/db.json',
         }
-     }
+     },
+
+     i18n: {
+        filesDir: '../i18n/',
+    },
  };
  
