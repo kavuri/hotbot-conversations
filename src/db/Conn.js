@@ -8,7 +8,7 @@
 var _ = require('lodash');
 var AWS = require('aws-sdk');
 
-class DB {
+class Conn {
   constructor(config) {
 
     if (config) {
@@ -46,7 +46,7 @@ class DB {
   }
 }
 
-exports.DB = DB;
+module.exports.Conn = Conn;
 
 // var DBConn = require('./db_connection.js');
 // var constants = require('../constants')

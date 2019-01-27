@@ -29,5 +29,10 @@ module.exports = {
      i18n: {
         filesDir: '../i18n/',
     },
+
+    intentsToSkipUnhandled: [
+        'CancelIntent',
+        'HelpIntent'
+    ]
  };
  
