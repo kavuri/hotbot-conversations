@@ -8,45 +8,33 @@
 var _ = require('lodash');
 var AWS = require('aws-sdk');
 
-class Conn {
-  constructor(config) {
-
-    if (config) {
-        this.config = {
-            local: true,
-            api_version: '2012-08-10',
-            region: 'eu-west-1',
-            local_url: 'http://docker.for.mac.localhost:8000'   //http://localhost:8000
-        };
-    } else {
-        this.config = config;
-    }
-    console.info('config:', config);
-
-    // Set the region
-    AWS.config.update({region: config.region});
-
-    if (_.isEqual(config.local, true)) {
-      this.dynamoDB = new AWS.DynamoDB({api_version: config.api_version});
-      this.doc_client = new AWS.DynamoDB.DocumentClient({api_version: config.api_version});
-    } else {
-      this.dynamoDB = new AWS.DynamoDB({ endpoint: new AWS.Endpoint(config.local_url) });
-      this.doc_client = new AWS.DynamoDB.DocumentClient({ endpoint: new AWS.Endpoint(config.local_url) });
-    }
-
-    return this;
+module.exports.get = function(config) {
+  if (_.isNull(config)) {
+    config = {
+        local: true,
+        api_version: '2012-08-10',
+        region: 'eu-west-1',
+        // local_url: 'http://docker.for.mac.localhost:8000'
+        local_url: 'http://localhost:8000'
+    };
   }
 
-  dynDB() {
-    return this.dynamoDB;
+  console.info('config:', config);
+
+  // Set the region
+  AWS.config.update({region: config.region});
+
+  let dynamoDB, docClient;
+  if (_.isEqual(config.local, false)) {
+    dynamoDB = new AWS.DynamoDB({api_version: config.api_version});
+    docClient = new AWS.DynamoDB.DocumentClient({api_version: config.api_version});
+  } else {
+    dynamoDB = new AWS.DynamoDB({ endpoint: new AWS.Endpoint(config.local_url) });
+    docClient = new AWS.DynamoDB.DocumentClient({ endpoint: new AWS.Endpoint(config.local_url) });
   }
 
-  dynDC() {
-    return this.doc_client;
-  }
+  return docClient;
 }
-
-module.exports.Conn = Conn;
 
 // var DBConn = require('./db_connection.js');
 // var constants = require('../constants')

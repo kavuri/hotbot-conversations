@@ -13,53 +13,57 @@ const TableName = 'Device';
  * Table schema
  * Partition key=device_id, sort key=hotel_id
  */
-class Device {
-    constructor(device_id) {
-        this.conn = new Conn(null).doc_client;
-        this.device_id = device_id;
-    }
+module.exports.save = async function(device) {
+    let params = {
+        TableName: TableName,
+        Item: device
+    };
 
-    static async save() {
-        let params = {
-            TableName: TableName,
-            Item: this.device_id
-        };
-
-        let data;
-        try {
-            data = await this.conn.put(params).promise();
-        } catch(error) {
-            console.error('error while saving device:', this.device_id);
-            throw error;
-        }
-    }
-
-    async get() {
-        let params = {
-            TableName: TableName,
-            Key: {
-                HashKey: this.device_id
-            }
-        };
-
-        let data;
-        try {
-            data = await this.conn.get(params).promise();
-        } catch(error) {
-            console.error('error getting device info:', this.device_id, error);
-            throw error;
-        }
-
-        return data;
-    }
-
-    /**
-     *  Method to check if the device is registered and active
-     * @returns {result: true, message: null}, or {result: false, message: "error"}
-     */
-    async isDeviceRegistered() {
-        //TODO: Implement this
+    let data;
+    try {
+        data = await Conn.get(null).put(params).promise();
+    } catch(error) {
+        console.error('error in saving device:', device);
+        throw error;
     }
 }
 
-module.exports.Device = Device;
+module.exports.get = async function(device_id) {
+    let params = {
+        TableName: TableName,
+        Key: {
+            HashKey: device_id
+        }
+    };
+
+    let data;
+    try {
+        data = await Conn.get(params).promise();
+    } catch(error) {
+        console.error('error getting device info:', device_id, error);
+        throw error;
+    }
+
+    return data;
+}
+
+/*
+const device = {
+    device_id: "100",
+    hotel_id: "100", // this is the "address1" field
+    room: "106", // this is "address2" field
+    user_id: "123",
+    address3: "nothing",
+    status: 0, // active
+    last_reset: "none",
+    created_at: new Date(),
+    updated_at: new Date()
+  };
+
+var Device = require('./Device');
+try {
+    Device.save(device);
+} catch(error) {
+    console.log(error);
+}
+*/

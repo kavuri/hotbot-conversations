@@ -21,10 +21,11 @@ const ALL_ADDRESS_PERMISSION = "read::alexa:device:all:address";
 
 const PERMISSIONS = [ALL_ADDRESS_PERMISSION];
 
-let Device = require('../db/Device');
-
 module.exports = {
-  Hotel_Device_Setup() {
+  /*
+   * Will enable this when I get the real device address details. With emulator, this does not work
+
+  Device_setup() {
     console.info("Starting deviceInfoHandlers():@@", this.$request.context);
 
     // If we have not been provided with a consent token, this means that the user has not
@@ -104,4 +105,41 @@ module.exports = {
       console.info("Ending getAddressHandler()");
     });
   }
+
+  */
+
+ Device_setup() {
+
+   const device = {
+     device_id: this.$request.context.System.device.deviceId,
+     hotel_id: "100", // this is the "address1" field
+     room: "106", // this is "address2" field
+     user_id: this.$request.context.System.user.userId,
+     address3: "nothing",
+     coordinates: {
+       lat: "12.979409",
+       lng: "77.710037"
+     },
+     status: 0, // active
+     last_reset: "na",
+     created_at: new Date(),
+     updated_at: new Date()
+   };
+
+   console.log(device);
+   let Device = require('../db/Device');
+   //  console.log('device obj=',Device)
+   
+    try {
+      Device.save(device);
+      this.$speech.addText(this.t('DEVICE_REGISTRATION_SUCCESS', {addressLine1: device.room}))
+                  .addBreak('200ms')
+                  .addText(this.t('FOLLOWUP_QUESTION'));
+      // this.tell(this.t('DEVICE_REGISTRATION_SUCCESS', {addressLine1: device.room}));
+      this.ask(this.$speech);
+    } catch(error) {
+      console.log('device setup error...', error);
+      this.tell(this.t('DEVICE_REGISTER_ERROR'));
+    }
+ }  
 }

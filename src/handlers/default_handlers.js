@@ -20,7 +20,7 @@ module.exports = {
 
     LAUNCH() {
         console.info('LAUNCH handler')
-        this.tell(this.t('WELCOME', {hotel_name: 'ABC'}));
+        this.ask(this.t('WELCOME', {hotel_name: 'ABC'}));
     },
 
     END() {
