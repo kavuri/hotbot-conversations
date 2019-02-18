@@ -1,0 +1,350 @@
+[
+	{
+		"data": [
+			{
+				"text": "at what time is the food served",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i go to the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			},
+			{
+				"text": " now",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i go to the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
+				"text": "datetime",
+				"userDefined": true,
+				"alias": "datetime",
+				"meta": "@sys.time"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i order something now",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i order something ",
+				"userDefined": false
+			},
+			{
+				"text": "datetime",
+				"userDefined": true,
+				"alias": "datetime",
+				"meta": "@sys.time"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i order the food now",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i order the food ",
+				"userDefined": false
+			},
+			{
+				"text": "datetime",
+				"userDefined": true,
+				"alias": "datetime",
+				"meta": "@sys.time"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "do you have the time for the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "do you have the timings for the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how about the time of the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how about the timings of the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is food available now",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is food available ",
+				"userDefined": false
+			},
+			{
+				"text": "datetime",
+				"userDefined": true,
+				"alias": "datetime",
+				"meta": "@sys.time"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "until what time is the food serve",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "until what time is the food served",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what about ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			},
+			{
+				"text": " time",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what about ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			},
+			{
+				"text": " timings",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			},
+			{
+				"text": " time",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			},
+			{
+				"text": " timings",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what time are the food orders take",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what time are the food orders taken",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when does the food counter open",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when is the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility",
+				"userDefined": true,
+				"alias": "facility",
+				"meta": "@facilities"
+			},
+			{
+				"text": " open",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

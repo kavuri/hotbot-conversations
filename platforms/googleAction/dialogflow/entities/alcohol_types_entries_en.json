@@ -1,0 +1,65 @@
+[
+	{
+		"value": "whiskey",
+		"synonyms": [
+			"whiskey"
+		]
+	},
+	{
+		"value": "brandy",
+		"synonyms": [
+			"brandy"
+		]
+	},
+	{
+		"value": "gin",
+		"synonyms": [
+			"gin"
+		]
+	},
+	{
+		"value": "rum",
+		"synonyms": [
+			"rum"
+		]
+	},
+	{
+		"value": "beer",
+		"synonyms": [
+			"beer"
+		]
+	},
+	{
+		"value": "alcohol",
+		"synonyms": [
+			"alcohol",
+			"booze",
+			"drink",
+			"drinking"
+		]
+	},
+	{
+		"value": "vodka",
+		"synonyms": [
+			"vodka"
+		]
+	},
+	{
+		"value": "karhu",
+		"synonyms": [
+			"karhu"
+		]
+	},
+	{
+		"value": "bud weiser",
+		"synonyms": [
+			"bud weiser"
+		]
+	},
+	{
+		"value": "hard drink",
+		"synonyms": [
+			"hard drink"
+		]
+	}
+]

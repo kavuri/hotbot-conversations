@@ -1,0 +1,26 @@
+[
+	{
+		"value": "dosa",
+		"synonyms": [
+			"dosa"
+		]
+	},
+	{
+		"value": "idly",
+		"synonyms": [
+			"idly"
+		]
+	},
+	{
+		"value": "samosa",
+		"synonyms": [
+			"samosa"
+		]
+	},
+	{
+		"value": "chicken curry",
+		"synonyms": [
+			"chicken curry"
+		]
+	}
+]

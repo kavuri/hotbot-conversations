@@ -1,0 +1,82 @@
+[
+	{
+		"data": [
+			{
+				"text": "can i pay my food bill at the time of checkout",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i pay restaurant bill while checking out",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i pay the food bill now",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "i would like to pay the food bill at checkout. is that okay",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is it okay to pay restaurant bill at the time of checkout",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is restaurant bill accepted at the time of checkout",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "should i pay the food bill now",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "should i pay the food bill now or at the time of checkout",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

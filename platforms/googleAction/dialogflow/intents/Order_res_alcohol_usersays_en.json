@@ -1,0 +1,154 @@
+[
+	{
+		"data": [
+			{
+				"text": "are ",
+				"userDefined": false
+			},
+			{
+				"text": "alcoholslot",
+				"userDefined": true,
+				"alias": "alcoholslot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i get ",
+				"userDefined": false
+			},
+			{
+				"text": "alcoholslot",
+				"userDefined": true,
+				"alias": "alcoholslot",
+				"meta": "@alcohol_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i get ",
+				"userDefined": false
+			},
+			{
+				"text": "alcoholslot",
+				"userDefined": true,
+				"alias": "alcoholslot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how about ",
+				"userDefined": false
+			},
+			{
+				"text": "alcoholslot",
+				"userDefined": true,
+				"alias": "alcoholslot",
+				"meta": "@alcohol_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "i would like to order ",
+				"userDefined": false
+			},
+			{
+				"text": "alcoholslot",
+				"userDefined": true,
+				"alias": "alcoholslot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " to my room",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "alcoholslot",
+				"userDefined": true,
+				"alias": "alcoholslot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "alcoholslot",
+				"userDefined": true,
+				"alias": "alcoholslot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " serve here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "alcoholslot",
+				"userDefined": true,
+				"alias": "alcoholslot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " served here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

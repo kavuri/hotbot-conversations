@@ -1,0 +1,100 @@
+[
+	{
+		"data": [
+			{
+				"text": "how far is the nearest ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is there a place to buy some food",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is there a ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the closest ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the nearest place to get food",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where can i get food",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where is the nearest ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

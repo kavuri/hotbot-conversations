@@ -1,0 +1,126 @@
+[
+	{
+		"data": [
+			{
+				"text": "can i use ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " free of cost",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "do i have to pay for ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "does ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " cost me anything",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how much do i have to pay for ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " free",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the cost of ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "who pays for ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

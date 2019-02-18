@@ -1,0 +1,22 @@
+[
+	{
+		"data": [
+			{
+				"text": "are pet allowed",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "are pets allowed",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

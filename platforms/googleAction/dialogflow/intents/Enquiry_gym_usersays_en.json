@@ -1,0 +1,116 @@
+[
+	{
+		"data": [
+			{
+				"text": "can i work out here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how can i use the ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is a ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is there a place to work out",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is there a ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "tell me about the ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where is the work out place",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where is the ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

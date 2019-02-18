@@ -1,0 +1,1067 @@
+{
+	"interactionModel": {
+		"languageModel": {
+			"invocationName": "hotel reception",
+			"types": [
+				{
+					"name": "smoking_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "cigerette",
+								"synonyms": [
+									"smoking",
+									"cigar",
+									"tobacco",
+									"bidi"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "alcohol_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "whiskey"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "brandy"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gin"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "rum"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "beer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "alcohol",
+								"synonyms": [
+									"booze",
+									"drink",
+									"drinking"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "vodka"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "karhu"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bud weiser"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hard drink"
+							}
+						}
+					]
+				},
+				{
+					"name": "facilities",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "gym"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "swimming pool"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "restaurant"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "childrens play area",
+								"synonyms": [
+									"play area",
+									"play ground",
+									"child play area"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "children day care facility",
+								"synonyms": [
+									"day care",
+									"child care",
+									"day care facility",
+									"child care facility"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "laundry",
+								"synonyms": [
+									"self laundry",
+									"washing clothes",
+									"drying clothes",
+									"laundry services",
+									"coin laundry"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "spa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "massage"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "children swimming pool",
+								"synonyms": [
+									"child pool",
+									"baby pool",
+									"kids pool",
+									"swimming for kids"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bar",
+								"synonyms": [
+									"drinking place"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "pub"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "room service"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cab",
+								"synonyms": [
+									"taxi",
+									"cab booking",
+									"taxi booking"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "airport shuttle",
+								"synonyms": [
+									"airport transport",
+									"airport cab",
+									"airport taxi"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "meal_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "breakfast"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lunch"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dinner"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "supper"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "evening snacks"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "light meals"
+							}
+						}
+					]
+				},
+				{
+					"name": "equipment_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "microwave"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bottle sterilizer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "oven"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "refrigerator"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cooking facilities",
+								"synonyms": [
+									"cooking equipment",
+									"stove",
+									"cutlery",
+									"knife"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "menu",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "dosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "idly"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "samosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "chicken curry"
+							}
+						}
+					]
+				},
+				{
+					"name": "cuisine_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "Indian"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Chinese"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "North India"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "South Indian"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Bengali"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Gujarathi"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Veg",
+								"synonyms": [
+									"vegetarian",
+									"vegan"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Non Veg",
+								"synonyms": [
+									"non vegetarian"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "continental"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "oriental"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Andhra"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Kannada"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Maharastrian"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Punjabi"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "kerala"
+							}
+						}
+					]
+				},
+				{
+					"name": "takeaway",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "takeaway",
+								"synonyms": [
+									"parcel",
+									"packed"
+								]
+							}
+						}
+					]
+				}
+			],
+			"intents": [
+				{
+					"name": "Policy_smoking",
+					"samples": [
+						"can i chew {smokingslot}",
+						"can i {smokingslot}",
+						"can i {smokingslot} in the hotel",
+						"do you allow {smokingslot}",
+						"is it okay to light a {smokingslot} here",
+						"is it okay to {smokingslot}",
+						"is {smokingslot} allowed",
+						"is {smokingslot} okay",
+						"what the policy on {smokingslot}",
+						"whats the policy on {smokingslot}"
+					],
+					"slots": [
+						{
+							"name": "smokingslot",
+							"type": "smoking_types"
+						}
+					]
+				},
+				{
+					"name": "Policy_cancellation",
+					"samples": [
+						"can i cancel mid-way",
+						"can i cancel my booking",
+						"can i cancel my stay",
+						"money back on cancellation",
+						"rule for cancellation",
+						"what are the cancellation rule",
+						"what are the cancellation rules",
+						"what is the cancellation policy",
+						"will i get my money back if i cancel now",
+						"will i get my money back if i cancel {datetimeslot}"
+					],
+					"slots": [
+						{
+							"name": "datetimeslot",
+							"type": "AMAZON.DATE"
+						}
+					]
+				},
+				{
+					"name": "Policy_alcohol",
+					"samples": [
+						"am i allowed to {alcoholslot}",
+						"can i consume {alcoholslot}",
+						"can i drink {alcoholslot}",
+						"can i {alcoholslot}",
+						"can i {alcoholslot} in the hotel",
+						"can i {alcoholslot} {alcoholslot}",
+						"is it okay to bring {alcoholslot} to the hotel",
+						"is it okay to drink {alcoholslot}",
+						"is it okay to {alcoholslot} {alcoholslot}",
+						"is it okay to {alcoholslot} {alcoholslot} here",
+						"is {alcoholslot} allowed",
+						"is {alcoholslot} consumption allowed",
+						"is {alcoholslot} okay",
+						"what the policy on {alcoholslot}",
+						"whats the policy on {alcoholslot}"
+					],
+					"slots": [
+						{
+							"name": "alcoholslot",
+							"type": "alcohol_types"
+						}
+					]
+				},
+				{
+					"name": "Policy_infants",
+					"samples": [
+						"can infant stay",
+						"can infants stay",
+						"can my child stay for free",
+						"do you charge for infant",
+						"do you charge for infants",
+						"how mane child can stay for free",
+						"how many children can stay for free",
+						"is there extra charge for infant",
+						"what is the maximum age for free stay",
+						"what is the policy for infant stay"
+					]
+				},
+				{
+					"name": "Policy_checkout_time",
+					"samples": [
+						"at what time is the check out",
+						"check out time",
+						"is it possible for a late checkout",
+						"time for check out",
+						"what is the checkout policy",
+						"what is the checkout time"
+					]
+				},
+				{
+					"name": "Policy_noshow",
+					"samples": [
+						"are there no show charge",
+						"are there no show charges",
+						"if i do not check in on the check-in date will",
+						"if i do not check-in on the check-in date will i be charged",
+						"what are the no show charge",
+						"what are the no show charges",
+						"what if i do not check in on the specific date",
+						"what is the policy for no show",
+						"will i be charged for no show"
+					]
+				},
+				{
+					"name": "Policy_outside_food",
+					"samples": [
+						"can i get food from outside",
+						"can i order food online",
+						"can my friend get food from outside",
+						"is it fine to bring outside food to the hotel",
+						"is it okay if i get food deliver from outside",
+						"is it okay if i get food delivered from outside",
+						"is it okay to bring outside food to my room",
+						"is it okay to order food online",
+						"is there a fine if i get food from outside the hotel",
+						"what is the policy for online food order",
+						"will the hotel allow me to get food from outside"
+					]
+				},
+				{
+					"name": "Enquiry_res_foodorder",
+					"samples": [
+						"can you help me to order food",
+						"can you help me with ordering food",
+						"do i have to call the front desk to order food",
+						"get me some food",
+						"get some food now",
+						"how can i order food",
+						"how to get some food",
+						"i am hungry",
+						"i am hungry. how to get some food",
+						"i want to eat. how can i get food",
+						"order food for me",
+						"please get some food",
+						"please help me to get some food",
+						"whom should i call to order food"
+					]
+				},
+				{
+					"name": "Enquiry_Facility_timings",
+					"samples": [
+						"at what time is the food served",
+						"can i go to the {facility} now",
+						"can i go to the {facility} {datetime}",
+						"can i order something now",
+						"can i order something {datetime}",
+						"can i order the food now",
+						"can i order the food {datetime}",
+						"do you have the time for the {facility}",
+						"do you have the timings for the {facility}",
+						"how about the time of the {facility}",
+						"how about the timings of the {facility}",
+						"is food available now",
+						"is food available {datetime}",
+						"until what time is the food serve",
+						"until what time is the food served",
+						"what about {facility} time",
+						"what about {facility} timings",
+						"what are the {facility} time",
+						"what are the {facility} timings",
+						"what time are the food orders take",
+						"what time are the food orders taken",
+						"when does the food counter open",
+						"when is the {facility} open"
+					],
+					"slots": [
+						{
+							"name": "facility",
+							"type": "facilities"
+						},
+						{
+							"name": "datetime",
+							"type": "AMAZON.TIME"
+						}
+					]
+				},
+				{
+					"name": "Device_setup",
+					"samples": [
+						"add device",
+						"add this device",
+						"can you setup this device",
+						"device setup",
+						"i want to add this device",
+						"i want to register device",
+						"please setup my device",
+						"register this device",
+						"setup the device",
+						"what is the address of this device"
+					]
+				},
+				{
+					"name": "Order_taxi",
+					"samples": [
+						"can i get a {facilityslot} to the railway station",
+						"i need a {facilityslot}",
+						"i need a {facilityslot} to the airport",
+						"please book a {facilityslot}",
+						"please book a {facilityslot} to airport"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_gym",
+					"samples": [
+						"can i work out here",
+						"how can i use the {facilityslot}",
+						"is a {facilityslot} available",
+						"is there a place to work out",
+						"is there a {facilityslot}",
+						"tell me about the {facilityslot}",
+						"where is the work out place",
+						"where is the {facilityslot}"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_res_foodschedule",
+					"samples": [
+						"can you schedule a food order for me"
+					]
+				},
+				{
+					"name": "Policy_checkin_time",
+					"samples": [
+						"at what time is the check in",
+						"can i checkin at {timeperiodslot}",
+						"is it possible to checkin at time",
+						"what the check in time",
+						"what time can i checkin",
+						"whats the check in time",
+						"when can a guest checkin"
+					],
+					"slots": [
+						{
+							"name": "timeperiodslot",
+							"type": "AMAZON.TIME"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_res_menu",
+					"samples": [
+						"is there a menu in the room",
+						"should i call the front desk to know the menu items",
+						"what are the different food items",
+						"what does the restaurant serve",
+						"what food is available",
+						"what is on the menu",
+						"what kind of food i can get",
+						"where are the menu items",
+						"where can i find menu items",
+						"where is the menu"
+					]
+				},
+				{
+					"name": "Enquiry_res_cuisinetype",
+					"samples": [
+						"what are the various food item available",
+						"what are the various food items available",
+						"what kind of food is available in the restaurant",
+						"what kind of food is serve",
+						"what kind of food is served"
+					]
+				},
+				{
+					"name": "Enquiry_all_facilities",
+					"samples": [
+						"hotel amenities",
+						"hotel features",
+						"hotel {facilityslot}",
+						"what all {facilityslot} do you have",
+						"what amenities do you have",
+						"what are all the amenities",
+						"what are all the hotel amenities",
+						"what are all the hotel features",
+						"what are the hotel {facilityslot}",
+						"what facilities does this hotel provide",
+						"which amenities can i use",
+						"which {facilityslot} can i use",
+						"your {facilityslot}"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_res_nearest",
+					"samples": [
+						"how far is the nearest {facilityslot}",
+						"is there a place to buy some food",
+						"is there a {facilityslot} nearby",
+						"what is the closest {facilityslot}",
+						"what is the nearest place to get food",
+						"where can i get food",
+						"where is the nearest {facilityslot}"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_kitchen_bottlesterilize",
+					"samples": [
+						"can i boil baby milk bottle",
+						"can i boil baby milk bottles",
+						"can i sterilize bottle",
+						"can i sterilize bottles",
+						"can you boil baby milk bottle",
+						"can you boil baby milk bottles",
+						"can you strelize milk bottle",
+						"can you strelize milk bottles",
+						"is it possible to boil with hot water baby milk bottle",
+						"is it possible to boil with hot water baby milk bottles",
+						"is it possible to sterilize bottle",
+						"is it possible to sterilize bottles"
+					]
+				},
+				{
+					"name": "Order_res_meals",
+					"samples": [
+						"can i get {meal_typesslot} here",
+						"do i get {meal_typesslot} here",
+						"does the restaurant serve {meal_typesslot}",
+						"does the {facilityslot} serve {meal_typesslot}",
+						"how about {meal_typesslot}",
+						"is {meal_typesslot} available",
+						"is {meal_typesslot} serve",
+						"is {meal_typesslot} served",
+						"what is the food type",
+						"what kind of food is serve here",
+						"what kind of food is served here",
+						"what {meal_typesslot} type are available",
+						"what {meal_typesslot} types are available"
+					],
+					"slots": [
+						{
+							"name": "meal_typesslot",
+							"type": "meal_types"
+						},
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_res_location",
+					"samples": [
+						"can you help with the directions to the {facilityslot}",
+						"how can i go to the {facilityslot}",
+						"how can i reach the food place",
+						"how far to the {facilityslot}",
+						"is there a lift to the {facilityslot}",
+						"what are the directions to the {facilityslot}",
+						"what is the easiest way to reach the {facilityslot}",
+						"what is the location of the {facilityslot}",
+						"where is the {facilityslot} located"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						}
+					]
+				},
+				{
+					"name": "Policy_pets",
+					"samples": [
+						"are pet allowed",
+						"are pets allowed"
+					]
+				},
+				{
+					"name": "Policy_payment_method",
+					"samples": [
+						"what payment methods are accepted"
+					]
+				},
+				{
+					"name": "Enquiry_kitchen_equipment",
+					"samples": [
+						"can i use {equipment_typesslot}",
+						"can i use {equipment_typesslot} in your kitchen",
+						"can you {equipment_typesslot} in the kitchen",
+						"do you have a {equipment_typesslot}",
+						"does the hotel have {equipment_typesslot}",
+						"does the kitchen have {equipment_typesslot}",
+						"is it possible to warm in {equipment_typesslot} in the kitchen",
+						"is it possible to {equipment_typesslot} in the kitchen",
+						"is there a {equipment_typesslot} in the hotel",
+						"is {equipment_typesslot} available"
+					],
+					"slots": [
+						{
+							"name": "equipment_typesslot",
+							"type": "equipment_types"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_facilities_timing",
+					"samples": [
+						"can i go to {facilityslot} {dateslot}",
+						"can i use {facilityslot}",
+						"how about the timings for {facilityslot}",
+						"i would like to use {facilityslot} is it open {dateslot}",
+						"is it okay to use {facilityslot} {dateslot}",
+						"is the {facilityslot} open {dateslot}",
+						"is {facilityslot} open {dateslot}",
+						"until what time is {facilityslot} available",
+						"until when can i use {facilityslot}",
+						"what are the closing timings for {facilityslot}",
+						"what is the opening time for {facilityslot}",
+						"when does the {facilityslot} open",
+						"when will i get to use the {facilityslot}"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						},
+						{
+							"name": "dateslot",
+							"type": "AMAZON.DATE"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_swimming_pool",
+					"samples": [
+						"does this hotel have a {facilityslot}",
+						"is there a {facilityslot}",
+						"tell me about the {facilityslot}",
+						"what about {facilityslot}"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_res_orderdeliverytime",
+					"samples": [
+						"can i get the time to get my food delivered",
+						"does it take more than one hour to get my food delivered",
+						"how much is the delivery time for food",
+						"how much time does it take to get my food order delivered",
+						"how much time for the food {facilityslot}",
+						"how much time for the order",
+						"how much time would it take for my order to get delivered",
+						"please get my food delivered as soon as possible",
+						"what is the delivery time",
+						"what is the food delivery time"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						}
+					]
+				},
+				{
+					"name": "Order_res_placeorder",
+					"samples": [
+						"can you order some food",
+						"can you place an order for {menuslot} for {meal_typesslot}",
+						"i need a {menuslot}",
+						"i need some food",
+						"i would like a {menuslot} for {meal_typesslot}",
+						"i would like to order a {menuslot}",
+						"i would like to order food",
+						"i would like to place an order for food",
+						"i would like to place an order for {menuslot}",
+						"please order some food"
+					],
+					"slots": [
+						{
+							"name": "meal_typesslot",
+							"type": "meal_types"
+						},
+						{
+							"name": "menuslot",
+							"type": "menu"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_res_billing",
+					"samples": [
+						"add restaurant bill to final bill",
+						"are food charges included in the final bill",
+						"are my food charged add to my hotel bill",
+						"are my food charged added to my hotel bill",
+						"can you add food bill to final bill",
+						"how am i charged for food",
+						"how are my restaurant spends billed",
+						"how is my food bill charge",
+						"is food bill part of final bill",
+						"is my restaurant bill part of the total bill",
+						"please add food bill to final bill",
+						"what about food bill",
+						"will my food bill be added to my room bill",
+						"will the final bill have food charge",
+						"will the final bill have food charges"
+					]
+				},
+				{
+					"name": "Order_res_alcohol",
+					"samples": [
+						"are {alcoholslot} available",
+						"can i get {alcoholslot}",
+						"can i get {alcoholslot} here",
+						"how about {alcoholslot}",
+						"i would like to order {alcoholslot} to my room",
+						"is {alcoholslot} available",
+						"is {alcoholslot} serve here",
+						"is {alcoholslot} served here"
+					],
+					"slots": [
+						{
+							"name": "alcoholslot",
+							"type": "alcohol_types"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_facility_cost",
+					"samples": [
+						"can i use {facilityslot} free of cost",
+						"do i have to pay for {facilityslot}",
+						"does {facilityslot} cost me anything",
+						"how much do i have to pay for {facilityslot}",
+						"is {facilityslot} free",
+						"what is the cost of {facilityslot}",
+						"who pays for {facilityslot}"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facilities"
+						}
+					]
+				},
+				{
+					"name": "Enquiry_res_billpay",
+					"samples": [
+						"can i pay my food bill at the time of checkout",
+						"can i pay restaurant bill while checking out",
+						"can i pay the food bill now",
+						"i would like to pay the food bill at checkout. is that okay",
+						"is it okay to pay restaurant bill at the time of checkout",
+						"is restaurant bill accepted at the time of checkout",
+						"should i pay the food bill now",
+						"should i pay the food bill now or at the time of checkout"
+					]
+				},
+				{
+					"name": "AMAZON.CancelIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.YesIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.NoIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.HelpIntent",
+					"samples": [
+						"How does this help",
+						"Help please",
+						"what all features do you have",
+						"Please help me",
+						"What is this alex",
+						"What is this thing",
+						"Does this work",
+						"What all this does",
+						"What kind of help I can get",
+						"Can you help"
+					]
+				},
+				{
+					"name": "AMAZON.StopIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.NavigateHomeIntent",
+					"samples": []
+				}
+			]
+		}
+	}
+}

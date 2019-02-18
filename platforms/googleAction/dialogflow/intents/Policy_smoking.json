@@ -1,0 +1,17 @@
+{
+	"name": "Policy_smoking",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "smokingslot",
+					"value": "$smokingslot",
+					"dataType": "@smoking_types"
+				}
+			]
+		}
+	]
+}

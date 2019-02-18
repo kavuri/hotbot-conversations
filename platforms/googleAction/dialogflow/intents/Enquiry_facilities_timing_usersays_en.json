@@ -1,0 +1,268 @@
+[
+	{
+		"data": [
+			{
+				"text": "can i go to ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true,
+				"alias": "dateslot",
+				"meta": "@sys.date"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i use ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how about the timings for ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "i would like to use ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " is it open ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true,
+				"alias": "dateslot",
+				"meta": "@sys.date"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is it okay to use ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true,
+				"alias": "dateslot",
+				"meta": "@sys.date"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is the ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " open ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true,
+				"alias": "dateslot",
+				"meta": "@sys.date"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " open ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true,
+				"alias": "dateslot",
+				"meta": "@sys.date"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "until what time is ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "until when can i use ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the closing timings for ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the opening time for ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when does the ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " open",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when will i get to use the ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

@@ -1,0 +1,45 @@
+[
+	{
+		"value": "microwave",
+		"synonyms": [
+			"microwave",
+			"food reheat",
+			"reheat",
+			"microwave oven"
+		]
+	},
+	{
+		"value": "oven",
+		"synonyms": [
+			"oven"
+		]
+	},
+	{
+		"value": "bottle sterilizer",
+		"synonyms": [
+			"bottle sterilizer"
+		]
+	},
+	{
+		"value": "refrigerator",
+		"synonyms": [
+			"refrigerator"
+		]
+	},
+	{
+		"value": "cooking",
+		"synonyms": [
+			"cooking",
+			"utinsels",
+			"cutlery",
+			"cooking equipment"
+		]
+	},
+	{
+		"value": "dish washer",
+		"synonyms": [
+			"dish washer",
+			"dish washing facility"
+		]
+	}
+]

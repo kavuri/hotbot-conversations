@@ -1,0 +1,94 @@
+[
+	{
+		"data": [
+			{
+				"text": "can i get a ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " to the railway station",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "i need a ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "i need a ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " to the airport",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please book a ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please book a ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " to airport",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

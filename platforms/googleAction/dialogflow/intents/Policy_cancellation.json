@@ -1,0 +1,17 @@
+{
+	"name": "Policy_cancellation",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "datetimeslot",
+					"value": "$datetimeslot",
+					"dataType": "@sys.date"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"name": "Order_res_alcohol",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "alcoholslot",
+					"value": "$alcoholslot",
+					"dataType": "@alcohol_types"
+				}
+			]
+		}
+	]
+}

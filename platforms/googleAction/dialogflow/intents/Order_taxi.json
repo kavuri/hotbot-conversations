@@ -1,0 +1,17 @@
+{
+	"name": "Order_taxi",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "facilityslot",
+					"value": "$facilityslot",
+					"dataType": "@facilities"
+				}
+			]
+		}
+	]
+}

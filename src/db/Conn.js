@@ -8,8 +8,8 @@
 var _ = require('lodash');
 var AWS = require('aws-sdk');
 
-module.exports.get = function(config) {
-  if (_.isNull(config)) {
+module.exports = function(config) {
+  if (_.isNull(config) || _.isUndefined(config)) {
     config = {
         local: true,
         api_version: '2012-08-10',
@@ -19,7 +19,7 @@ module.exports.get = function(config) {
     };
   }
 
-  console.info('config:', config);
+  // console.info('config:', config);
 
   // Set the region
   AWS.config.update({region: config.region});

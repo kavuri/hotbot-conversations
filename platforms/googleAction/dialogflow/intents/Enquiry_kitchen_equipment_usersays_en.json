@@ -1,0 +1,186 @@
+[
+	{
+		"data": [
+			{
+				"text": "can i use ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i use ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " in your kitchen",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " in the kitchen",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "do you have a ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "does the hotel have ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "does the kitchen have ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is it possible to warm in ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " in the kitchen",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is it possible to ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " in the kitchen",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is there a ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " in the hotel",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_typesslot",
+				"userDefined": true,
+				"alias": "equipment_typesslot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

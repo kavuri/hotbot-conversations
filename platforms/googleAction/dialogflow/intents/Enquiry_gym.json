@@ -1,0 +1,17 @@
+{
+	"name": "Enquiry_gym",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "facilityslot",
+					"value": "$facilityslot",
+					"dataType": "@facilities"
+				}
+			]
+		}
+	]
+}

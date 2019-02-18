@@ -1,0 +1,109 @@
+[
+	{
+		"value": "gym",
+		"synonyms": [
+			"gym"
+		]
+	},
+	{
+		"value": "swimming pool",
+		"synonyms": [
+			"swimming pool"
+		]
+	},
+	{
+		"value": "restaurant",
+		"synonyms": [
+			"restaurant"
+		]
+	},
+	{
+		"value": "childrens play area",
+		"synonyms": [
+			"childrens play area",
+			"play area",
+			"play ground",
+			"child play area"
+		]
+	},
+	{
+		"value": "children day care facility",
+		"synonyms": [
+			"children day care facility",
+			"day care",
+			"child care",
+			"day care facility",
+			"child care facility"
+		]
+	},
+	{
+		"value": "laundry",
+		"synonyms": [
+			"laundry",
+			"self laundry",
+			"washing clothes",
+			"drying clothes",
+			"laundry services",
+			"coin laundry"
+		]
+	},
+	{
+		"value": "spa",
+		"synonyms": [
+			"spa"
+		]
+	},
+	{
+		"value": "massage",
+		"synonyms": [
+			"massage"
+		]
+	},
+	{
+		"value": "children swimming pool",
+		"synonyms": [
+			"children swimming pool",
+			"child pool",
+			"baby pool",
+			"kids pool",
+			"swimming for kids"
+		]
+	},
+	{
+		"value": "bar",
+		"synonyms": [
+			"bar",
+			"drinking place"
+		]
+	},
+	{
+		"value": "pub",
+		"synonyms": [
+			"pub"
+		]
+	},
+	{
+		"value": "room service",
+		"synonyms": [
+			"room service"
+		]
+	},
+	{
+		"value": "cab",
+		"synonyms": [
+			"cab",
+			"taxi",
+			"cab booking",
+			"taxi booking"
+		]
+	},
+	{
+		"value": "airport shuttle",
+		"synonyms": [
+			"airport shuttle",
+			"airport transport",
+			"airport cab",
+			"airport taxi"
+		]
+	}
+]

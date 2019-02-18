@@ -1,0 +1,230 @@
+[
+	{
+		"data": [
+			{
+				"text": "can i get ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			},
+			{
+				"text": " here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "do i get ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			},
+			{
+				"text": " here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "does the restaurant serve ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "does the ",
+				"userDefined": false
+			},
+			{
+				"text": "facilityslot",
+				"userDefined": true,
+				"alias": "facilityslot",
+				"meta": "@facilities"
+			},
+			{
+				"text": " serve ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how about ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			},
+			{
+				"text": " available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			},
+			{
+				"text": " serve",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			},
+			{
+				"text": " served",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the food type",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what kind of food is serve here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what kind of food is served here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			},
+			{
+				"text": " type are available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_typesslot",
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
+			},
+			{
+				"text": " types are available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

@@ -1,0 +1,66 @@
+{
+	"manifest": {
+		"publishingInformation": {
+			"locales": {
+				"en-IN": {
+					"summary": "This skill digitises a guest interaction to get services at the hotel",
+					"examplePhrases": [
+						"Alexa, talk to front desk",
+						"Alexa, open front desk",
+						"Alexa, launch front desk"
+					],
+					"keywords": [
+						"hotel",
+						"digital",
+						"assistant"
+					],
+					"name": "Kamamishu - The Hotel Bot",
+					"smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/56b5/fdf2827363a34919949b7e88c7f04198/APP_ICON?versionId=4I3jpr_qBO4_lbOo8I3WxBWSTYJTR4_N&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548042554&Signature=KazKSLyKn6dUd%2FrE%2BA8cmw5rwP0%3D",
+					"description": "The hotel bot"
+				}
+			},
+			"isAvailableWorldwide": false,
+			"testingInstructions": "Sample Testing Instructions.",
+			"category": "ORGANIZERS_AND_ASSISTANTS",
+			"distributionCountries": [
+				"IN"
+			]
+		},
+		"apis": {
+			"custom": {
+				"endpoint": {
+					"sslCertificateType": "Wildcard",
+					"uri": "https://n0po10h001rsrjel.v1.p.beameio.net/webhook"
+				}
+			}
+		},
+		"manifestVersion": "1.0",
+		"permissions": [
+			{
+				"name": "alexa::devices:all:address:full:read"
+			},
+			{
+				"name": "alexa::profile:name:read"
+			},
+			{
+				"name": "alexa::profile:email:read"
+			},
+			{
+				"name": "alexa::profile:mobile_number:read"
+			},
+			{
+				"name": "alexa::alerts:reminders:skill:readwrite"
+			},
+			{
+				"name": "alexa::devices:all:geolocation:read"
+			}
+		],
+		"privacyAndCompliance": {
+			"allowsPurchases": true,
+			"isExportCompliant": true,
+			"containsAds": false,
+			"isChildDirected": false,
+			"usesPersonalInfo": true
+		}
+	}
+}

@@ -594,6 +594,49 @@
         ]
       }
     ],
+    "alexa": {
+      "interactionModel": {
+              "languageModel": {
+                      "intents": [
+                              {
+                                      "name": "AMAZON.CancelIntent",
+                                      "samples": []
+                              },
+                              {
+                                "name": "AMAZON.YesIntent",
+                                "samples": []
+                              },
+                              {
+                                "name": "AMAZON.NoIntent",
+                                "samples": []
+                              },
+                              {
+                                      "name": "AMAZON.HelpIntent",
+                                      "samples": [
+                                              "How does this help",
+                                              "Help please",
+                                              "what all features do you have",
+                                              "Please help me",
+                                              "What is this alex",
+                                              "What is this thing",
+                                              "Does this work",
+                                              "What all this does",
+                                              "What kind of help I can get",
+                                              "Can you help"
+                                      ]
+                              },
+                              {
+                                      "name": "AMAZON.StopIntent",
+                                      "samples": []
+                              },
+                              {
+                                      "name": "AMAZON.NavigateHomeIntent",
+                                      "samples": []
+                              }
+                      ]
+              }
+      }
+    },
     "inputTypes": [
 		{
 			"name": "alcohol_types",

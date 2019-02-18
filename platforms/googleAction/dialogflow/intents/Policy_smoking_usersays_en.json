@@ -1,0 +1,178 @@
+[
+	{
+		"data": [
+			{
+				"text": "can i chew ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " in the hotel",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "do you allow ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is it okay to light a ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is it okay to ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " allowed",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " okay",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what the policy on ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "whats the policy on ",
+				"userDefined": false
+			},
+			{
+				"text": "smokingslot",
+				"userDefined": true,
+				"alias": "smokingslot",
+				"meta": "@smoking_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

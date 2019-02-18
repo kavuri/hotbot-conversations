@@ -110,6 +110,7 @@ module.exports = {
 
  Device_setup() {
 
+   console.log('In Device_setup...');
    const device = {
      device_id: this.$request.context.System.device.deviceId,
      hotel_id: "100", // this is the "address1" field
@@ -127,11 +128,15 @@ module.exports = {
    };
 
    console.log(device);
-   let Device = require('../db/Device');
+   let Device = require('../db/Device'),
+       DeviceToHotel = require('../db/DeviceToHotel');
+  
    //  console.log('device obj=',Device)
    
     try {
       Device.save(device);
+      DeviceToHotel.save(device.device_id, device.hotel_id, device.user_id);
+
       this.$speech.addText(this.t('DEVICE_REGISTRATION_SUCCESS', {addressLine1: device.room}))
                   .addBreak('200ms')
                   .addText(this.t('FOLLOWUP_QUESTION'));
@@ -141,5 +146,10 @@ module.exports = {
       console.log('device setup error...', error);
       this.tell(this.t('DEVICE_REGISTER_ERROR'));
     }
- }  
+ },
+
+ Unhandled() {
+   console.log('Unhandled in Device_setup');
+   this.tell('Unhandled in device setup');
+ }
 }

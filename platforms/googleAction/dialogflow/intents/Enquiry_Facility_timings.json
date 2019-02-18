@@ -1,0 +1,23 @@
+{
+	"name": "Enquiry_Facility_timings",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "facility",
+					"value": "$facility",
+					"dataType": "@facilities"
+				},
+				{
+					"isList": false,
+					"name": "datetime",
+					"value": "$datetime",
+					"dataType": "@sys.time"
+				}
+			]
+		}
+	]
+}

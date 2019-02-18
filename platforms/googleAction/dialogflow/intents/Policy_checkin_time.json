@@ -1,0 +1,17 @@
+{
+	"name": "Policy_checkin_time",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "timeperiodslot",
+					"value": "$timeperiodslot",
+					"dataType": "@sys.time"
+				}
+			]
+		}
+	]
+}

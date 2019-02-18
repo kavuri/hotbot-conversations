@@ -21,24 +21,25 @@ module.exports.save = async function(device) {
 
     let data;
     try {
-        data = await Conn.get(null).put(params).promise();
+        data = await Conn().put(params).promise();
     } catch(error) {
         console.error('error in saving device:', device);
         throw error;
     }
 }
 
-module.exports.get = async function(device_id) {
+module.exports.get = async function(device_id, hotel_id) {
     let params = {
         TableName: TableName,
         Key: {
-            HashKey: device_id
+            'device_id': device_id,
+            'hotel_id': hotel_id
         }
     };
 
     let data;
     try {
-        data = await Conn.get(params).promise();
+        data = await Conn().get(params).promise();
     } catch(error) {
         console.error('error getting device info:', device_id, error);
         throw error;
@@ -47,23 +48,28 @@ module.exports.get = async function(device_id) {
     return data;
 }
 
-/*
-const device = {
-    device_id: "100",
-    hotel_id: "100", // this is the "address1" field
-    room: "106", // this is "address2" field
-    user_id: "123",
-    address3: "nothing",
-    status: 0, // active
-    last_reset: "none",
-    created_at: new Date(),
-    updated_at: new Date()
-  };
-
-var Device = require('./Device');
-try {
-    Device.save(device);
-} catch(error) {
-    console.log(error);
+const test = async function() {
+    const device = {
+        device_id: "100",
+        hotel_id: "100", // this is the "address1" field
+        room: "106", // this is "address2" field
+        user_id: "123",
+        address3: "nothing",
+        status: 0, // active
+        last_reset: "none",
+        created_at: new Date(),
+        updated_at: new Date()
+      };
+    
+    var Device = require('./Device');
+    try {
+        // Device.save(device);
+        var d = await Device.get("100", "100");
+        console.log(d);
+    } catch(error) {
+        console.log(error);
+    }
+    
 }
-*/
+
+// test();
