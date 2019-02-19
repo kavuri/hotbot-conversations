@@ -6,9 +6,35 @@
 				"userDefined": false
 			},
 			{
-				"text": "smokingslot",
+				"text": "smoking_slot",
 				"userDefined": true,
-				"alias": "smokingslot",
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " at ",
+				"userDefined": false
+			},
+			{
+				"text": "place_slot",
+				"userDefined": true,
+				"alias": "place_slot",
+				"meta": "@place_in_hotel"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
 				"meta": "@smoking_types"
 			}
 		],
@@ -22,30 +48,20 @@
 				"userDefined": false
 			},
 			{
-				"text": "smokingslot",
+				"text": "smoking_slot",
 				"userDefined": true,
-				"alias": "smokingslot",
-				"meta": "@smoking_types"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "can i ",
-				"userDefined": false
-			},
-			{
-				"text": "smokingslot",
-				"userDefined": true,
-				"alias": "smokingslot",
+				"alias": "smoking_slot",
 				"meta": "@smoking_types"
 			},
 			{
-				"text": " in the hotel",
+				"text": " in the ",
 				"userDefined": false
+			},
+			{
+				"text": "place_slot",
+				"userDefined": true,
+				"alias": "place_slot",
+				"meta": "@place_in_hotel"
 			}
 		],
 		"isTemplate": false,
@@ -58,9 +74,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "smokingslot",
+				"text": "smoking_slot",
 				"userDefined": true,
-				"alias": "smokingslot",
+				"alias": "smoking_slot",
 				"meta": "@smoking_types"
 			}
 		],
@@ -74,9 +90,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "smokingslot",
+				"text": "smoking_slot",
 				"userDefined": true,
-				"alias": "smokingslot",
+				"alias": "smoking_slot",
 				"meta": "@smoking_types"
 			},
 			{
@@ -94,9 +110,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "smokingslot",
+				"text": "smoking_slot",
 				"userDefined": true,
-				"alias": "smokingslot",
+				"alias": "smoking_slot",
 				"meta": "@smoking_types"
 			}
 		],
@@ -110,14 +126,20 @@
 				"userDefined": false
 			},
 			{
-				"text": "smokingslot",
+				"text": "smoking_slot",
 				"userDefined": true,
-				"alias": "smokingslot",
+				"alias": "smoking_slot",
 				"meta": "@smoking_types"
 			},
 			{
-				"text": " allowed",
+				"text": " allowed in ",
 				"userDefined": false
+			},
+			{
+				"text": "place_slot",
+				"userDefined": true,
+				"alias": "place_slot",
+				"meta": "@place_in_hotel"
 			}
 		],
 		"isTemplate": false,
@@ -130,9 +152,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "smokingslot",
+				"text": "smoking_slot",
 				"userDefined": true,
-				"alias": "smokingslot",
+				"alias": "smoking_slot",
 				"meta": "@smoking_types"
 			},
 			{
@@ -150,9 +172,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "smokingslot",
+				"text": "smoking_slot",
 				"userDefined": true,
-				"alias": "smokingslot",
+				"alias": "smoking_slot",
 				"meta": "@smoking_types"
 			}
 		],
@@ -166,9 +188,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "smokingslot",
+				"text": "smoking_slot",
 				"userDefined": true,
-				"alias": "smokingslot",
+				"alias": "smoking_slot",
 				"meta": "@smoking_types"
 			}
 		],

@@ -4,21 +4,25 @@
         {
             "name": "Policy_smoking",
             "phrases": [
-                "can i chew {smokingslot}",
-                "can i {smokingslot}",
-                "can i {smokingslot} in the hotel",
-                "do you allow {smokingslot}",
-                "is it okay to light a {smokingslot} here",
-                "is it okay to {smokingslot}",
-                "is {smokingslot} allowed",
-                "is {smokingslot} okay",
-                "what the policy on {smokingslot}",
-                "whats the policy on {smokingslot}"
+                "can i chew {smoking_slot} at {place_slot}",
+                "can i {smoking_slot}",
+                "can i {smoking_slot} in the {place_slot}",
+                "do you allow {smoking_slot}",
+                "is it okay to light a {smoking_slot} here",
+                "is it okay to {smoking_slot}",
+                "is {smoking_slot} allowed in {place_slot}",
+                "is {smoking_slot} okay",
+                "what the policy on {smoking_slot}",
+                "whats the policy on {smoking_slot}"
             ],
             "inputs": [
               {
-                "name": "smokingslot",
+                "name": "smoking_slot",
                 "type": "smoking_types"
+              },
+              {
+                "name": "place_slot",
+                "type": "place_in_hotel"
               }
             ]
           },
@@ -726,9 +730,21 @@
 		{
 			"name": "smoking_types",
 			"values": [
-				{"value": "cigerette", "synonyms": ["smoking","cigar","tobacco","bidi"]}
+				{"value": "cigerette", "synonyms": ["smoke", "smoking","cigar","tobacco","bidi"]}
 			]
-		},
+    },
+    {
+      "name": "place_in_hotel",
+      "values": [
+        {"value": "hotel"},
+        {"value": "room"},
+        {"value": "lobby", "synonyms": ["open area"]},
+        {"value": "bar"},
+        {"value": "kitchen"},
+        {"value": "gym"},
+        {"value": "play area"}
+      ]
+    },
 		{
 			"name": "takeaway",
 			"values": [

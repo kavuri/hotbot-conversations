@@ -5,8 +5,13 @@
 
 'using strict';
 
+let Hotel = require('../db/Hotel');
+
 module.exports = {
     Policy_smoking() {
+        var smoking_slot = this.$inputs.smoking_slot,
+            place_slot = this.$inputs.place_slot;
+        console.log('--', smoking_slot, place_slot);
         this.tell('smoking is not allowed');
     },
     

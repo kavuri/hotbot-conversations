@@ -44,7 +44,8 @@ module.exports = {
 
     'RegisterDeviceState': {
         YesIntent() {
-            console.log('Registering this device...');
+            // Have to use 'toStatelessIntent' since, the new intent resides in a separate global state, 
+            // whereas this current state is 'RegisterDeviceState'
             return this.toStatelessIntent('Device_setup');
         },
 
@@ -57,16 +58,6 @@ module.exports = {
             // Triggered when the requested intent could not be found in the handlers variable
             console.log('unhandled in followup state');
         }
-    },
-
-    YesIntent() {
-        console.log('general yes intent')
-        this.tell('general yes intent');
-    },
-
-    NoIntent() {
-        console.log('general NO intent')
-        this.tell('general no intent');
     },
 
     NEW_USER() {
@@ -88,6 +79,6 @@ module.exports = {
 
     Unhandled() {
         // Triggered when the requested intent could not be found in the handlers variable
-        console.log('Unhandled intent...');
+        console.log('Global unhandled intent...');
     }
 }

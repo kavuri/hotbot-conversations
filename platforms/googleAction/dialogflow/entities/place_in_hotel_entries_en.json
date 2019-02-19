@@ -1,0 +1,45 @@
+[
+	{
+		"value": "hotel",
+		"synonyms": [
+			"hotel"
+		]
+	},
+	{
+		"value": "room",
+		"synonyms": [
+			"room"
+		]
+	},
+	{
+		"value": "lobby",
+		"synonyms": [
+			"lobby",
+			"open area"
+		]
+	},
+	{
+		"value": "bar",
+		"synonyms": [
+			"bar"
+		]
+	},
+	{
+		"value": "kitchen",
+		"synonyms": [
+			"kitchen"
+		]
+	},
+	{
+		"value": "gym",
+		"synonyms": [
+			"gym"
+		]
+	},
+	{
+		"value": "play area",
+		"synonyms": [
+			"play area"
+		]
+	}
+]

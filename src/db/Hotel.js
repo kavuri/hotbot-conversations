@@ -8,9 +8,13 @@ var _ = require('lodash');
 let Conn = require('./Conn');
 const TableName = 'Hotel';
 
-module.exports.get = async function(device_id, hotel_id) {
+module.exports.get = async function(hotel_id, projection) {
+    if (_.isNull(projection) || _.isUndefined(projection)) {
+        throw new Error('project for getting data not provided')
+    }
     let params = {
         TableName: TableName,
+        ProjectionExpression: projection,
         Key: {
             'hotel_id': hotel_id
         }
@@ -47,13 +51,13 @@ module.exports.all_facilities = async function(hotel_id) {
     return data;
 }
 
-module.exports.all_policies = async function(hotel_id) {
+module.exports.policies = async function(hotel_id, specific_policy=null) {
     let params = {
         TableName: TableName,
+        ProjectionExpression: specific_policy,
         Key: {
             'hotel_id': hotel_id
-        },
-        AttributesToGet: ['policies']
+        }
     };
 
     let data;
@@ -86,3 +90,11 @@ module.exports.info = async function(hotel_id) {
 
     return data;
 }
+
+const test = async function(hotel_id) {
+    let Hotel = require('./Hotel');
+    var p = await Hotel.get("100", "policies.smoking");
+    console.log('policies=', JSON.stringify(p));
+}
+
+// test();
