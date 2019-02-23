@@ -28,7 +28,7 @@ module.exports.get = async function(hotel_id, projection) {
         throw error;
     }
 
-    return data;
+    return data.Item;
 }
 
 module.exports.all_facilities = async function(hotel_id) {

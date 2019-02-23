@@ -4,6 +4,7 @@
   "description": "A Hotel reception voice bot",
   "main": "src/index.js",
   "dependencies": {
+    "fuse.js": "^3.4.2",
     "jovo-db-dynamodb": "^2.0.13",
     "jovo-db-filedb": "^2.0.13",
     "jovo-framework": "^2.0.14",

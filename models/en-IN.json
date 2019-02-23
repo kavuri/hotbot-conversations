@@ -742,7 +742,10 @@
         {"value": "bar"},
         {"value": "kitchen"},
         {"value": "gym"},
-        {"value": "play area"}
+        {"value": "play area"},
+        {"value": "lounge"},
+        {"value": "terrace"},
+        {"value": "swimming pool", "synonyms": ["pool", "swimming", "kids pool"]}
       ]
     },
 		{
