@@ -27,6 +27,37 @@
             ]
           },
           {
+            "name": "Policy_alcohol",
+            "phrases": [
+                "am i allowed to {alcohol_slot} in my {place_slot}",
+                "can i consume {alcohol_slot}",
+                "can i drink {alcohol_slot} in the {place_slot}",
+                "can i drink {alcohol_slot}",
+                "where can I drink {alcohol_slot}",
+                "can i {alcohol_slot} in the hotel",
+                "can i {alcohol_slot} {alcohol_slot}",
+                "is it okay to bring {alcohol_slot} to the hotel",
+                "is it okay to drink {alcohol_slot}",
+                "is it okay to drink {alcohol_slot}",
+                "is it okay to {alcohol_slot} {alcohol_slot} here",
+                "is {alcohol_slot} allowed",
+                "is {alcohol_slot} consumption allowed",
+                "is {alcohol_slot} okay",
+                "what the policy on {alcohol_slot}",
+                "whats the policy on {alcohol_slot}"
+            ],
+            "inputs": [
+              {
+                "name": "alcohol_slot",
+                "type": "alcohol_types"
+              },
+              {
+                "name": "place_slot",
+                "type": "place_in_hotel"
+              }
+            ]
+          },
+          {
             "name": "Policy_cancellation",
             "phrases": [
                 "can i cancel mid-way",
@@ -38,41 +69,16 @@
                 "what are the cancellation rules",
                 "what is the cancellation policy",
                 "will i get my money back if i cancel now",
-                "will i get my money back if i cancel {datetimeslot}"
+                "will i get my money back if i cancel {datetime_slot}",
+                "what is the policy around room booking cancellation"
             ],
             "inputs": [
               {
-                "name": "datetimeslot",
+                "name": "datetime_slot",
                 "type": {
                   "alexa": "AMAZON.DATE",
                   "dialogflow": "@sys.date"
                 }
-              }
-            ]
-          },
-          {
-            "name": "Policy_alcohol",
-            "phrases": [
-                "am i allowed to {alcoholslot}",
-                "can i consume {alcoholslot}",
-                "can i drink {alcoholslot}",
-                "can i {alcoholslot}",
-                "can i {alcoholslot} in the hotel",
-                "can i {alcoholslot} {alcoholslot}",
-                "is it okay to bring {alcoholslot} to the hotel",
-                "is it okay to drink {alcoholslot}",
-                "is it okay to {alcoholslot} {alcoholslot}",
-                "is it okay to {alcoholslot} {alcoholslot} here",
-                "is {alcoholslot} allowed",
-                "is {alcoholslot} consumption allowed",
-                "is {alcoholslot} okay",
-                "what the policy on {alcoholslot}",
-                "whats the policy on {alcoholslot}"
-            ],
-            "inputs": [
-              {
-                "name": "alcoholslot",
-                "type": "alcohol_types"
               }
             ]
           },
@@ -550,18 +556,18 @@
       {
         "name": "Order_res_alcohol",
         "phrases": [
-            "are {alcoholslot} available",
-            "can i get {alcoholslot}",
-            "can i get {alcoholslot} here",
-            "how about {alcoholslot}",
-            "i would like to order {alcoholslot} to my room",
-            "is {alcoholslot} available",
-            "is {alcoholslot} serve here",
-            "is {alcoholslot} served here"
+            "are {alcohol_slot} available",
+            "can i get {alcohol_slot}",
+            "can i get {alcohol_slot} here",
+            "how about {alcohol_slot}",
+            "i would like to order {alcohol_slot} to my room",
+            "is {alcohol_slot} available",
+            "is {alcohol_slot} serve here",
+            "is {alcohol_slot} served here"
         ],
         "inputs": [
           {
-            "name": "alcoholslot",
+            "name": "alcohol_slot",
             "type": "alcohol_types"
           }
         ]

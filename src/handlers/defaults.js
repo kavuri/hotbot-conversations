@@ -28,11 +28,10 @@ module.exports = {
                   .addText(this.t('ASK_TO_REGISTER_DEVICE'));
                 
                 console.log('device is not registered...');
-                let reprompt = 'Please answer with yes or no.';
                 return this.followUpState('RegisterDeviceState')
-                    .ask(this.$speech, reprompt);
+                    .ask(this.$speech, this.t('YES_NO_REPROMPT'));
             } else {
-                console.log('setting hotel_id in session attribute')
+                console.log('setting hotel_id in session attribute');
                 // Set the hotel_id in the session data
                 this.$session.$data.hotel_id = data.hotel_id;
             }

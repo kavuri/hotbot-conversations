@@ -6,10 +6,20 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
+			},
+			{
+				"text": " in my ",
+				"userDefined": false
+			},
+			{
+				"text": "place_slot",
+				"userDefined": true,
+				"alias": "place_slot",
+				"meta": "@place_in_hotel"
 			}
 		],
 		"isTemplate": false,
@@ -22,9 +32,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			}
 		],
@@ -38,9 +48,51 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " in the ",
+				"userDefined": false
+			},
+			{
+				"text": "place_slot",
+				"userDefined": true,
+				"alias": "place_slot",
+				"meta": "@place_in_hotel"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i drink ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where can I drink ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			}
 		],
@@ -54,25 +106,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
-				"meta": "@alcohol_types"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "can i ",
-				"userDefined": false
-			},
-			{
-				"text": "alcoholslot",
-				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			},
 			{
@@ -90,9 +126,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			},
 			{
@@ -100,9 +136,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			}
 		],
@@ -116,9 +152,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			},
 			{
@@ -136,9 +172,25 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is it okay to drink ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			}
 		],
@@ -152,9 +204,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			},
 			{
@@ -162,35 +214,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
-				"meta": "@alcohol_types"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "is it okay to ",
-				"userDefined": false
-			},
-			{
-				"text": "alcoholslot",
-				"userDefined": true,
-				"alias": "alcoholslot",
-				"meta": "@alcohol_types"
-			},
-			{
-				"text": " ",
-				"userDefined": false
-			},
-			{
-				"text": "alcoholslot",
-				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			},
 			{
@@ -208,9 +234,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			},
 			{
@@ -228,9 +254,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			},
 			{
@@ -248,9 +274,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			},
 			{
@@ -268,9 +294,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			}
 		],
@@ -284,9 +310,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "alcoholslot",
+				"text": "alcohol_slot",
 				"userDefined": true,
-				"alias": "alcoholslot",
+				"alias": "alcohol_slot",
 				"meta": "@alcohol_types"
 			}
 		],

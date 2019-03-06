@@ -7,9 +7,15 @@
 			"parameters": [
 				{
 					"isList": false,
-					"name": "alcoholslot",
-					"value": "$alcoholslot",
+					"name": "alcohol_slot",
+					"value": "$alcohol_slot",
 					"dataType": "@alcohol_types"
+				},
+				{
+					"isList": false,
+					"name": "place_slot",
+					"value": "$place_slot",
+					"dataType": "@place_in_hotel"
 				}
 			]
 		}
