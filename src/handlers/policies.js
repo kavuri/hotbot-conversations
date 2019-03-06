@@ -165,14 +165,75 @@ module.exports = {
     },
 
     async Policy_checkout_time() {
+        var hotel_id = this.$session.$data.hotel_id;
 
+        let hotel_policies;
+        try {
+            hotel_policies = await pre_check(hotel_id, "policies.checkout_time");
+        } catch(error) {
+            console.log('error while fetching hotel policies:', error);
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+
+        let checkout_time_policy = hotel_policies.policies.checkout_time[0];
+        let flag = checkout_time_policy.flag;
+        let message = checkout_time_policy.message[flag];
+
+        // Replace the age in the message with the number that is part of the object
+        var template = _.template(message);
+        var text = template({'time': checkout_time_policy.time});
+
+        this.$speech.addText(text)
+                    .addBreak('200ms')
+                    .addText(this.t('FOLLOWUP_QUESTION'));
+
+        // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
+        return this.ask(this.$speech);
     },
 
     async Policy_noshow() {
+        var hotel_id = this.$session.$data.hotel_id;
 
+        let hotel_policies;
+        try {
+            hotel_policies = await pre_check(hotel_id, "policies.noshow");
+        } catch(error) {
+            console.log('error while fetching hotel policies:', error);
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+
+        let noshow_policy = hotel_policies.policies.noshows[0];
+        let flag = noshow_policy.flag;
+        let message = noshow_policy.message[flag];
+
+        this.$speech.addText(message)
+                    .addBreak('200ms')
+                    .addText(this.t('FOLLOWUP_QUESTION'));
+
+        // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
+        return this.ask(this.$speech);
     },
 
     async Policy_outside_food() {
+        var hotel_id = this.$session.$data.hotel_id;
 
+        let hotel_policies;
+        try {
+            hotel_policies = await pre_check(hotel_id, "policies.outside_food");
+        } catch(error) {
+            console.log('error while fetching hotel policies:', error);
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+
+        let outside_food_policy = hotel_policies.policies.outside_food[0];
+        let flag = outside_food_policy.flag;
+        let message = outside_food_policy.message[flag];
+
+        this.$speech.addText(message)
+                    .addBreak('200ms')
+                    .addText(this.t('FOLLOWUP_QUESTION'));
+
+        // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
+        return this.ask(this.$speech);
     }
 };
