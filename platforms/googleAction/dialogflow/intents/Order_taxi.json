@@ -9,7 +9,7 @@
 					"isList": false,
 					"name": "facilityslot",
 					"value": "$facilityslot",
-					"dataType": "@facilities"
+					"dataType": "@facility_types"
 				}
 			]
 		}

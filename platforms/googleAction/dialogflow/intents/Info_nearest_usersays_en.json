@@ -6,10 +6,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facilityslot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -32,10 +32,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facilityslot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			},
 			{
 				"text": " nearby",
@@ -52,10 +52,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facilityslot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -88,10 +88,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facilityslot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,

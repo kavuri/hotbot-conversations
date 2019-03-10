@@ -1,0 +1,94 @@
+[
+	{
+		"data": [
+			{
+				"text": "does this hotel have a ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is there a ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true
+			},
+			{
+				"text": " here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "do you have ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can I use ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the chances of my using ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "does the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true
+			},
+			{
+				"text": " exist",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

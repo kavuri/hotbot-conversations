@@ -1,0 +1,48 @@
+[
+	{
+		"value": "credit card",
+		"synonyms": [
+			"credit card"
+		]
+	},
+	{
+		"value": "debit card",
+		"synonyms": [
+			"debit card",
+			"bank card"
+		]
+	},
+	{
+		"value": "forex card",
+		"synonyms": [
+			"forex card",
+			"foreign currency card"
+		]
+	},
+	{
+		"value": "cash",
+		"synonyms": [
+			"cash",
+			"dollar",
+			"rupees"
+		]
+	},
+	{
+		"value": "wallet",
+		"synonyms": [
+			"wallet",
+			"apple pay",
+			"google pay",
+			"pay tm",
+			"phone pay"
+		]
+	},
+	{
+		"value": "wire transfer",
+		"synonyms": [
+			"wire transfer",
+			"bank transfer",
+			"internet banking transfer"
+		]
+	}
+]

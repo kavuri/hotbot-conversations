@@ -2,7 +2,17 @@
 	{
 		"data": [
 			{
-				"text": "can i work out here",
+				"text": "can i ",
+				"userDefined": false
+			},
+			{
+				"text": "workout_slot",
+				"userDefined": true,
+				"alias": "workout_slot",
+				"meta": "@workout_types"
+			},
+			{
+				"text": " here",
 				"userDefined": false
 			}
 		],
@@ -12,14 +22,14 @@
 	{
 		"data": [
 			{
-				"text": "how can i use the ",
+				"text": "where can I do ",
 				"userDefined": false
 			},
 			{
-				"text": "facilityslot",
+				"text": "workout_slot",
 				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"alias": "workout_slot",
+				"meta": "@workout_types"
 			}
 		],
 		"isTemplate": false,
@@ -32,10 +42,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facilityslot",
+				"text": "workout_slot",
 				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"alias": "workout_slot",
+				"meta": "@workout_types"
 			},
 			{
 				"text": " available",
@@ -48,8 +58,14 @@
 	{
 		"data": [
 			{
-				"text": "is there a place to work out",
+				"text": "is there a place to ",
 				"userDefined": false
+			},
+			{
+				"text": "workout_slot",
+				"userDefined": true,
+				"alias": "workout_slot",
+				"meta": "@workout_types"
 			}
 		],
 		"isTemplate": false,
@@ -62,10 +78,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facilityslot",
+				"text": "workout_slot",
 				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"alias": "workout_slot",
+				"meta": "@workout_types"
 			}
 		],
 		"isTemplate": false,
@@ -78,10 +94,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facilityslot",
+				"text": "workout_slot",
 				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"alias": "workout_slot",
+				"meta": "@workout_types"
 			}
 		],
 		"isTemplate": false,
@@ -90,7 +106,17 @@
 	{
 		"data": [
 			{
-				"text": "where is the work out place",
+				"text": "where is the ",
+				"userDefined": false
+			},
+			{
+				"text": "workout_slot",
+				"userDefined": true,
+				"alias": "workout_slot",
+				"meta": "@workout_types"
+			},
+			{
+				"text": " place",
 				"userDefined": false
 			}
 		],
@@ -104,10 +130,26 @@
 				"userDefined": false
 			},
 			{
-				"text": "facilityslot",
+				"text": "workout_slot",
 				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"alias": "workout_slot",
+				"meta": "@workout_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where can I do ",
+				"userDefined": false
+			},
+			{
+				"text": "workout_slot",
+				"userDefined": true,
+				"alias": "workout_slot",
+				"meta": "@workout_types"
 			}
 		],
 		"isTemplate": false,

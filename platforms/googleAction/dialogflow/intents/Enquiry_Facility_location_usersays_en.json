@@ -2,7 +2,27 @@
 	{
 		"data": [
 			{
-				"text": "what are the charges for ",
+				"text": "where is the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " located",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how can I reach ",
 				"userDefined": false
 			},
 			{
@@ -18,7 +38,7 @@
 	{
 		"data": [
 			{
-				"text": "how much do I have to pay for ",
+				"text": "what is the way to ",
 				"userDefined": false
 			},
 			{
@@ -34,7 +54,7 @@
 	{
 		"data": [
 			{
-				"text": "is using ",
+				"text": "Does ",
 				"userDefined": false
 			},
 			{
@@ -44,7 +64,7 @@
 				"meta": "@facility_types"
 			},
 			{
-				"text": " free",
+				"text": " have a lift?",
 				"userDefined": false
 			}
 		],
@@ -54,7 +74,7 @@
 	{
 		"data": [
 			{
-				"text": "how much does ",
+				"text": "Can I reach ",
 				"userDefined": false
 			},
 			{
@@ -64,7 +84,7 @@
 				"meta": "@facility_types"
 			},
 			{
-				"text": " cost?",
+				"text": " by walk",
 				"userDefined": false
 			}
 		],
@@ -74,27 +94,7 @@
 	{
 		"data": [
 			{
-				"text": "is ",
-				"userDefined": false
-			},
-			{
-				"text": "facility_slot",
-				"userDefined": true,
-				"alias": "facility_slot",
-				"meta": "@facility_types"
-			},
-			{
-				"text": " free",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "any charges for ",
+				"text": "can I walk to ",
 				"userDefined": false
 			},
 			{
@@ -110,7 +110,27 @@
 	{
 		"data": [
 			{
-				"text": "should I pay for ",
+				"text": "should I drive to ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": "?",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how far is ",
 				"userDefined": false
 			},
 			{
@@ -126,7 +146,7 @@
 	{
 		"data": [
 			{
-				"text": "what is the cost of ",
+				"text": "can you help with the directions to the ",
 				"userDefined": false
 			},
 			{
@@ -142,27 +162,7 @@
 	{
 		"data": [
 			{
-				"text": "can I use ",
-				"userDefined": false
-			},
-			{
-				"text": "facility_slot",
-				"userDefined": true,
-				"alias": "facility_slot",
-				"meta": "@facility_types"
-			},
-			{
-				"text": " for free",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "how about the cost of ",
+				"text": "how can i go to the ",
 				"userDefined": false
 			},
 			{
@@ -178,17 +178,7 @@
 	{
 		"data": [
 			{
-				"text": "can i use ",
-				"userDefined": false
-			},
-			{
-				"text": "facility_slot",
-				"userDefined": true,
-				"alias": "facility_slot",
-				"meta": "@facility_types"
-			},
-			{
-				"text": " free of cost",
+				"text": "how can i reach the food place",
 				"userDefined": false
 			}
 		],
@@ -198,7 +188,7 @@
 	{
 		"data": [
 			{
-				"text": "do i have to pay for ",
+				"text": "how far to the ",
 				"userDefined": false
 			},
 			{
@@ -214,27 +204,7 @@
 	{
 		"data": [
 			{
-				"text": "does ",
-				"userDefined": false
-			},
-			{
-				"text": "facility_slot",
-				"userDefined": true,
-				"alias": "facility_slot",
-				"meta": "@facility_types"
-			},
-			{
-				"text": " cost me anything",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "how much do i have to pay for ",
+				"text": "is there a lift to the ",
 				"userDefined": false
 			},
 			{
@@ -250,27 +220,7 @@
 	{
 		"data": [
 			{
-				"text": "is ",
-				"userDefined": false
-			},
-			{
-				"text": "facility_slot",
-				"userDefined": true,
-				"alias": "facility_slot",
-				"meta": "@facility_types"
-			},
-			{
-				"text": " free",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "what is the cost of ",
+				"text": "what are the directions to the ",
 				"userDefined": false
 			},
 			{
@@ -286,7 +236,7 @@
 	{
 		"data": [
 			{
-				"text": "who pays for ",
+				"text": "what is the easiest way to reach the ",
 				"userDefined": false
 			},
 			{
@@ -294,6 +244,42 @@
 				"userDefined": true,
 				"alias": "facility_slot",
 				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the location of the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where is the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " located",
+				"userDefined": false
 			}
 		],
 		"isTemplate": false,

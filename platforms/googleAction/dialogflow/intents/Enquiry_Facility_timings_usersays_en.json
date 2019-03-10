@@ -2,8 +2,254 @@
 	{
 		"data": [
 			{
-				"text": "at what time is the food served",
+				"text": "can i go to ",
 				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i use ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how about the timings for ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "i would like to use ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " is it open ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is it okay to use ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " open ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " open ",
+				"userDefined": false
+			},
+			{
+				"text": "dateslot",
+				"userDefined": true
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "until what time is ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "until when can i use ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the closing timings for ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the opening time for ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when does the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " open",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when will i get to use the ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -16,10 +262,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facility",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			},
 			{
 				"text": " now",
@@ -36,65 +282,13 @@
 				"userDefined": false
 			},
 			{
-				"text": "facility",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			},
 			{
 				"text": " ",
-				"userDefined": false
-			},
-			{
-				"text": "datetime",
-				"userDefined": true,
-				"alias": "datetime",
-				"meta": "@sys.time"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "can i order something now",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "can i order something ",
-				"userDefined": false
-			},
-			{
-				"text": "datetime",
-				"userDefined": true,
-				"alias": "datetime",
-				"meta": "@sys.time"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "can i order the food now",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "can i order the food ",
 				"userDefined": false
 			},
 			{
@@ -114,10 +308,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facility",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -130,10 +324,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facility",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -146,10 +340,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facility",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -162,56 +356,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facility",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "is food available now",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "is food available ",
-				"userDefined": false
-			},
-			{
-				"text": "datetime",
-				"userDefined": true,
-				"alias": "datetime",
-				"meta": "@sys.time"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "until what time is the food serve",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "until what time is the food served",
-				"userDefined": false
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -224,10 +372,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facility",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			},
 			{
 				"text": " time",
@@ -244,83 +392,13 @@
 				"userDefined": false
 			},
 			{
-				"text": "facility",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			},
 			{
 				"text": " timings",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "what are the ",
-				"userDefined": false
-			},
-			{
-				"text": "facility",
-				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
-			},
-			{
-				"text": " time",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "what are the ",
-				"userDefined": false
-			},
-			{
-				"text": "facility",
-				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
-			},
-			{
-				"text": " timings",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "what time are the food orders take",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "what time are the food orders taken",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "when does the food counter open",
 				"userDefined": false
 			}
 		],
@@ -334,10 +412,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "facility",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "facility",
-				"meta": "@facilities"
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			},
 			{
 				"text": " open",

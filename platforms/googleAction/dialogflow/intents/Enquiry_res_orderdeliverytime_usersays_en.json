@@ -49,7 +49,7 @@
 				"text": "facilityslot",
 				"userDefined": true,
 				"alias": "facilityslot",
-				"meta": "@facilities"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,

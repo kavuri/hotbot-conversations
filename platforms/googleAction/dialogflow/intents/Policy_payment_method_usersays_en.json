@@ -8,5 +8,77 @@
 		],
 		"isTemplate": false,
 		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can I pay the bill with my ",
+				"userDefined": false
+			},
+			{
+				"text": "payment_method_slot",
+				"userDefined": true,
+				"alias": "payment_method_slot",
+				"meta": "@payment_method_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "payment_method_slot",
+				"userDefined": true,
+				"alias": "payment_method_slot",
+				"meta": "@payment_method_types"
+			},
+			{
+				"text": " accepted",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can I pay the hotel expenses by ",
+				"userDefined": false
+			},
+			{
+				"text": "payment_method_slot",
+				"userDefined": true,
+				"alias": "payment_method_slot",
+				"meta": "@payment_method_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I only have ",
+				"userDefined": false
+			},
+			{
+				"text": "payment_method_slot",
+				"userDefined": true,
+				"alias": "payment_method_slot",
+				"meta": "@payment_method_types"
+			},
+			{
+				"text": ". can I pay using that?",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
 	}
 ]

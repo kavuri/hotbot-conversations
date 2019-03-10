@@ -7,9 +7,9 @@
 			"parameters": [
 				{
 					"isList": false,
-					"name": "facilityslot",
-					"value": "$facilityslot",
-					"dataType": "@facilities"
+					"name": "workout_slot",
+					"value": "$workout_slot",
+					"dataType": "@workout_types"
 				}
 			]
 		}

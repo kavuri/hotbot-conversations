@@ -1,5 +1,5 @@
 {
-	"name": "Enquiry_swimming_pool",
+	"name": "Info_nearest",
 	"auto": true,
 	"webhookUsed": true,
 	"responses": [
@@ -7,9 +7,9 @@
 			"parameters": [
 				{
 					"isList": false,
-					"name": "facilityslot",
-					"value": "$facilityslot",
-					"dataType": "@facilities"
+					"name": "facility_slot",
+					"value": "$facility_slot",
+					"dataType": "@facility_types"
 				}
 			]
 		}

@@ -18,5 +18,63 @@
 		],
 		"isTemplate": false,
 		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can I bring my ",
+				"userDefined": false
+			},
+			{
+				"text": "animal_slot",
+				"userDefined": true,
+				"alias": "animal_slot",
+				"meta": "@animal_type"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "are there any extra charges for pets",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where can I leave my ",
+				"userDefined": false
+			},
+			{
+				"text": "animal_slot",
+				"userDefined": true,
+				"alias": "animal_slot",
+				"meta": "@animal_type"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "does this hotel allow ",
+				"userDefined": false
+			},
+			{
+				"text": "animal_slot",
+				"userDefined": true,
+				"alias": "animal_slot",
+				"meta": "@animal_type"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
 	}
 ]

@@ -235,5 +235,80 @@ module.exports = {
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
+    },
+
+    async Policy_checkin_time() {
+        var hotel_id = this.$session.$data.hotel_id;
+
+        let hotel_policies;
+        try {
+            hotel_policies = await pre_check(hotel_id, "policies.checkin_time");
+        } catch(error) {
+            console.log('error while fetching hotel policies:', error);
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+
+        let checkin_time = hotel_policies.policies.checkin_time[0];
+        let flag = checkin_time.flag;
+        let message = checkin_time.message[flag];
+
+        this.$speech.addText(message)
+                    .addBreak('200ms')
+                    .addText(this.t('FOLLOWUP_QUESTION'));
+
+        // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
+        return this.ask(this.$speech);
+    },
+
+    async Policy_pets() {
+        var hotel_id = this.$session.$data.hotel_id;
+
+        let hotel_policies;
+        try {
+            hotel_policies = await pre_check(hotel_id, "policies.pets");
+        } catch(error) {
+            console.log('error while fetching hotel policies:', error);
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+
+        let pets = hotel_policies.policies.pets[0];
+        let flag = pets.flag;
+        let message = pets.message[flag];
+
+        this.$speech.addText(message)
+                    .addBreak('200ms')
+                    .addText(this.t('FOLLOWUP_QUESTION'));
+
+        // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
+        return this.ask(this.$speech);
+    },
+
+    async Policy_payment_method() {
+        var hotel_id = this.$session.$data.hotel_id;
+
+        let hotel_policies;
+        try {
+            hotel_policies = await pre_check(hotel_id, "policies.payment_methods");
+        } catch(error) {
+            console.log('error while fetching hotel policies:', error);
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+
+        let payment_methods = hotel_policies.policies.payment_methods[0];
+        let methods = _.join(payment_methods.methods, ', ');
+
+        let flag = payment_methods.flag;
+        let message = payment_methods.message[flag];
+
+        // Replace the payment_methods in the message with the 'methods' string above
+        var template = _.template(message);
+        var text = template({'payment_methods': methods});
+
+        this.$speech.addText(text)
+                    .addBreak('200ms')
+                    .addText(this.t('FOLLOWUP_QUESTION'));
+
+        // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
+        return this.ask(this.$speech);
     }
 };
