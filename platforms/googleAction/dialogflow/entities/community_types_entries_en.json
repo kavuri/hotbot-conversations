@@ -1,0 +1,539 @@
+[
+	{
+		"value": "restaurant",
+		"synonyms": [
+			"restaurant"
+		]
+	},
+	{
+		"value": "cafe",
+		"synonyms": [
+			"cafe"
+		]
+	},
+	{
+		"value": "bar",
+		"synonyms": [
+			"bar"
+		]
+	},
+	{
+		"value": "hindu_temple",
+		"synonyms": [
+			"hindu_temple"
+		]
+	},
+	{
+		"value": "beauty_salon",
+		"synonyms": [
+			"beauty_salon",
+			"salon",
+			"parlour"
+		]
+	},
+	{
+		"value": "bank",
+		"synonyms": [
+			"bank"
+		]
+	},
+	{
+		"value": "post_office",
+		"synonyms": [
+			"post_office"
+		]
+	},
+	{
+		"value": "library",
+		"synonyms": [
+			"library"
+		]
+	},
+	{
+		"value": "hospital",
+		"synonyms": [
+			"doctor",
+			"clinic"
+		]
+	},
+	{
+		"value": "accounting",
+		"synonyms": [
+			"accounting"
+		]
+	},
+	{
+		"value": "airport",
+		"synonyms": [
+			"airport"
+		]
+	},
+	{
+		"value": "aquarium",
+		"synonyms": [
+			"aquarium"
+		]
+	},
+	{
+		"value": "art_gallery",
+		"synonyms": [
+			"art_gallery"
+		]
+	},
+	{
+		"value": "atm",
+		"synonyms": [
+			"atm"
+		]
+	},
+	{
+		"value": "bakery",
+		"synonyms": [
+			"bakery"
+		]
+	},
+	{
+		"value": "bicycle_store",
+		"synonyms": [
+			"bicycle_store"
+		]
+	},
+	{
+		"value": "book_store",
+		"synonyms": [
+			"book_store"
+		]
+	},
+	{
+		"value": "bowling_alley",
+		"synonyms": [
+			"bowling_alley"
+		]
+	},
+	{
+		"value": "bus_station",
+		"synonyms": [
+			"bus_station"
+		]
+	},
+	{
+		"value": "campground",
+		"synonyms": [
+			"campground"
+		]
+	},
+	{
+		"value": "car_dealer",
+		"synonyms": [
+			"car_dealer"
+		]
+	},
+	{
+		"value": "car_rental",
+		"synonyms": [
+			"car_rental"
+		]
+	},
+	{
+		"value": "car_repair",
+		"synonyms": [
+			"car_repair"
+		]
+	},
+	{
+		"value": "car_wash",
+		"synonyms": [
+			"car_wash"
+		]
+	},
+	{
+		"value": "casino",
+		"synonyms": [
+			"casino"
+		]
+	},
+	{
+		"value": "cemetery",
+		"synonyms": [
+			"cemetery"
+		]
+	},
+	{
+		"value": "church",
+		"synonyms": [
+			"church"
+		]
+	},
+	{
+		"value": "city_hall",
+		"synonyms": [
+			"city_hall"
+		]
+	},
+	{
+		"value": "clothing_store",
+		"synonyms": [
+			"clothing_store"
+		]
+	},
+	{
+		"value": "convenience_store",
+		"synonyms": [
+			"convenience_store"
+		]
+	},
+	{
+		"value": "courthouse",
+		"synonyms": [
+			"courthouse"
+		]
+	},
+	{
+		"value": "dentist",
+		"synonyms": [
+			"dentist"
+		]
+	},
+	{
+		"value": "department_store",
+		"synonyms": [
+			"department_store"
+		]
+	},
+	{
+		"value": "electrician",
+		"synonyms": [
+			"electrician"
+		]
+	},
+	{
+		"value": "electronics_store",
+		"synonyms": [
+			"electronics_store"
+		]
+	},
+	{
+		"value": "embassy",
+		"synonyms": [
+			"embassy"
+		]
+	},
+	{
+		"value": "fire_station",
+		"synonyms": [
+			"fire_station"
+		]
+	},
+	{
+		"value": "florist",
+		"synonyms": [
+			"florist"
+		]
+	},
+	{
+		"value": "furniture_store",
+		"synonyms": [
+			"furniture_store"
+		]
+	},
+	{
+		"value": "gas_station",
+		"synonyms": [
+			"gas_station"
+		]
+	},
+	{
+		"value": "gym",
+		"synonyms": [
+			"gym"
+		]
+	},
+	{
+		"value": "hair_care",
+		"synonyms": [
+			"hair_care"
+		]
+	},
+	{
+		"value": "hardware_store",
+		"synonyms": [
+			"hardware_store"
+		]
+	},
+	{
+		"value": "hindu_temple",
+		"synonyms": [
+			"hindu_temple"
+		]
+	},
+	{
+		"value": "home_goods_store",
+		"synonyms": [
+			"home_goods_store"
+		]
+	},
+	{
+		"value": "insurance_agency",
+		"synonyms": [
+			"insurance_agency"
+		]
+	},
+	{
+		"value": "jewelry_store",
+		"synonyms": [
+			"jewelry_store"
+		]
+	},
+	{
+		"value": "laundry",
+		"synonyms": [
+			"laundry"
+		]
+	},
+	{
+		"value": "lawyer",
+		"synonyms": [
+			"lawyer"
+		]
+	},
+	{
+		"value": "library",
+		"synonyms": [
+			"library"
+		]
+	},
+	{
+		"value": "liquor_store",
+		"synonyms": [
+			"liquor_store"
+		]
+	},
+	{
+		"value": "local_government_office",
+		"synonyms": [
+			"local_government_office"
+		]
+	},
+	{
+		"value": "locksmith",
+		"synonyms": [
+			"locksmith"
+		]
+	},
+	{
+		"value": "lodging",
+		"synonyms": [
+			"lodging"
+		]
+	},
+	{
+		"value": "meal_delivery",
+		"synonyms": [
+			"meal_delivery"
+		]
+	},
+	{
+		"value": "meal_takeaway",
+		"synonyms": [
+			"meal_takeaway"
+		]
+	},
+	{
+		"value": "mosque",
+		"synonyms": [
+			"mosque"
+		]
+	},
+	{
+		"value": "movie_rental",
+		"synonyms": [
+			"movie_rental"
+		]
+	},
+	{
+		"value": "movie_theater",
+		"synonyms": [
+			"movie_theater"
+		]
+	},
+	{
+		"value": "moving_company",
+		"synonyms": [
+			"moving_company"
+		]
+	},
+	{
+		"value": "museum",
+		"synonyms": [
+			"museum"
+		]
+	},
+	{
+		"value": "night_club",
+		"synonyms": [
+			"night_club"
+		]
+	},
+	{
+		"value": "painter",
+		"synonyms": [
+			"painter"
+		]
+	},
+	{
+		"value": "park",
+		"synonyms": [
+			"park"
+		]
+	},
+	{
+		"value": "parking",
+		"synonyms": [
+			"parking"
+		]
+	},
+	{
+		"value": "pet_store",
+		"synonyms": [
+			"pet_store"
+		]
+	},
+	{
+		"value": "pharmacy",
+		"synonyms": [
+			"pharmacy"
+		]
+	},
+	{
+		"value": "physiotherapist",
+		"synonyms": [
+			"physiotherapist"
+		]
+	},
+	{
+		"value": "plumber",
+		"synonyms": [
+			"plumber"
+		]
+	},
+	{
+		"value": "police",
+		"synonyms": [
+			"police"
+		]
+	},
+	{
+		"value": "real_estate_agency",
+		"synonyms": [
+			"real_estate_agency"
+		]
+	},
+	{
+		"value": "roofing_contractor",
+		"synonyms": [
+			"roofing_contractor"
+		]
+	},
+	{
+		"value": "rv_park",
+		"synonyms": [
+			"rv_park"
+		]
+	},
+	{
+		"value": "school",
+		"synonyms": [
+			"school"
+		]
+	},
+	{
+		"value": "shoe_store",
+		"synonyms": [
+			"shoe_store"
+		]
+	},
+	{
+		"value": "shopping_mall",
+		"synonyms": [
+			"shopping_mall"
+		]
+	},
+	{
+		"value": "spa",
+		"synonyms": [
+			"spa"
+		]
+	},
+	{
+		"value": "stadium",
+		"synonyms": [
+			"stadium"
+		]
+	},
+	{
+		"value": "storage",
+		"synonyms": [
+			"storage"
+		]
+	},
+	{
+		"value": "store",
+		"synonyms": [
+			"store"
+		]
+	},
+	{
+		"value": "subway_station",
+		"synonyms": [
+			"subway_station"
+		]
+	},
+	{
+		"value": "supermarket",
+		"synonyms": [
+			"supermarket"
+		]
+	},
+	{
+		"value": "synagogue",
+		"synonyms": [
+			"synagogue"
+		]
+	},
+	{
+		"value": "taxi_stand",
+		"synonyms": [
+			"taxi_stand"
+		]
+	},
+	{
+		"value": "train_station",
+		"synonyms": [
+			"train_station"
+		]
+	},
+	{
+		"value": "transit_station",
+		"synonyms": [
+			"transit_station"
+		]
+	},
+	{
+		"value": "travel_agency",
+		"synonyms": [
+			"travel_agency"
+		]
+	},
+	{
+		"value": "veterinary_care",
+		"synonyms": [
+			"veterinary_care"
+		]
+	},
+	{
+		"value": "zoo",
+		"synonyms": [
+			"zoo"
+		]
+	}
+]
