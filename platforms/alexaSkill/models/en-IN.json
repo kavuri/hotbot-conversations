@@ -36,17 +36,10 @@
 						{
 							"id": null,
 							"name": {
-								"value": "night_club"
-							}
-						},
-						{
-							"id": null,
-							"name": {
 								"value": "beauty_salon",
 								"synonyms": [
 									"salon",
-									"parlour",
-									"spa"
+									"parlour"
 								]
 							}
 						},
@@ -71,7 +64,11 @@
 						{
 							"id": null,
 							"name": {
-								"value": "hospital"
+								"value": "hospital",
+								"synonyms": [
+									"doctor",
+									"clinic"
+								]
 							}
 						},
 						{
@@ -281,6 +278,12 @@
 						{
 							"id": null,
 							"name": {
+								"value": "hindu_temple"
+							}
+						},
+						{
+							"id": null,
+							"name": {
 								"value": "home_goods_store"
 							}
 						},
@@ -415,7 +418,8 @@
 							"name": {
 								"value": "pharmacy"
 							}
-						},{
+						},
+						{
 							"id": null,
 							"name": {
 								"value": "physiotherapist"
@@ -468,7 +472,8 @@
 							"name": {
 								"value": "shopping_mall"
 							}
-						},{
+						},
+						{
 							"id": null,
 							"name": {
 								"value": "spa"
