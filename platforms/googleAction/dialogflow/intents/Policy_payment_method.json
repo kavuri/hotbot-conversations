@@ -1,5 +1,17 @@
 {
 	"name": "Policy_payment_method",
 	"auto": true,
-	"webhookUsed": true
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "payment_method_slot",
+					"value": "$payment_method_slot",
+					"dataType": "@payment_method_types"
+				}
+			]
+		}
+	]
 }

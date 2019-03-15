@@ -96,10 +96,20 @@
 				"userDefined": false
 			},
 			{
-				"text": "datetimeslot",
+				"text": "datetime_slot",
 				"userDefined": true,
-				"alias": "datetimeslot",
+				"alias": "datetime_slot",
 				"meta": "@sys.date"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the policy around room booking cancellation",
+				"userDefined": false
 			}
 		],
 		"isTemplate": false,

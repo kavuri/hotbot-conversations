@@ -2,13 +2,30 @@
 	{
 		"value": "gym",
 		"synonyms": [
-			"gym"
+			"gym",
+			"work out",
+			"exercise",
+			"fitness center",
+			"yoga",
+			"walk area",
+			"philates",
+			"jogging"
 		]
 	},
 	{
 		"value": "swimming pool",
 		"synonyms": [
-			"swimming pool"
+			"swimming pool",
+			"swim",
+			"pool"
+		]
+	},
+	{
+		"value": "breakfast",
+		"synonyms": [
+			"breakfast",
+			"tiffin",
+			"morning snacks"
 		]
 	},
 	{

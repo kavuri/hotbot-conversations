@@ -7,8 +7,8 @@
 			"parameters": [
 				{
 					"isList": false,
-					"name": "datetimeslot",
-					"value": "$datetimeslot",
+					"name": "datetime_slot",
+					"value": "$datetime_slot",
 					"dataType": "@sys.date"
 				}
 			]

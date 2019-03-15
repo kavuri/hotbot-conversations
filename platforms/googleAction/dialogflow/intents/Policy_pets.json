@@ -1,5 +1,17 @@
 {
 	"name": "Policy_pets",
 	"auto": true,
-	"webhookUsed": true
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "animal_slot",
+					"value": "$animal_slot",
+					"dataType": "@animal_type"
+				}
+			]
+		}
+	]
 }

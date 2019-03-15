@@ -41,5 +41,26 @@
 		"synonyms": [
 			"play area"
 		]
+	},
+	{
+		"value": "lounge",
+		"synonyms": [
+			"lounge"
+		]
+	},
+	{
+		"value": "terrace",
+		"synonyms": [
+			"terrace"
+		]
+	},
+	{
+		"value": "swimming pool",
+		"synonyms": [
+			"swimming pool",
+			"pool",
+			"swimming",
+			"kids pool"
+		]
 	}
 ]

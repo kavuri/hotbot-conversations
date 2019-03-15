@@ -2,14 +2,62 @@
 	{
 		"data": [
 			{
+				"text": "what are the various food item available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the various food items available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what kind of food is available in the restaurant",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what kind of food is serve",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what kind of food is served",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "can i get ",
 				"userDefined": false
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			},
 			{
 				"text": " here",
@@ -27,9 +75,7 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			},
 			{
 				"text": " here",
@@ -47,9 +93,7 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			}
 		],
 		"isTemplate": false,
@@ -63,9 +107,7 @@
 			},
 			{
 				"text": "facilityslot",
-				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
+				"userDefined": true
 			},
 			{
 				"text": " serve ",
@@ -73,9 +115,7 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			}
 		],
 		"isTemplate": false,
@@ -89,9 +129,7 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			}
 		],
 		"isTemplate": false,
@@ -105,9 +143,7 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			},
 			{
 				"text": " available",
@@ -125,9 +161,7 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			},
 			{
 				"text": " serve",
@@ -145,9 +179,7 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			},
 			{
 				"text": " served",
@@ -195,9 +227,7 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			},
 			{
 				"text": " type are available",
@@ -215,9 +245,7 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true,
-				"alias": "meal_typesslot",
-				"meta": "@meal_types"
+				"userDefined": true
 			},
 			{
 				"text": " types are available",

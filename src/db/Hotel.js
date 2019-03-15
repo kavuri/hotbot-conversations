@@ -24,7 +24,7 @@ module.exports.get = async function(hotel_id, projection) {
     try {
         data = await Conn().get(params).promise();
     } catch (error) {
-        console.error('error getting device info:', hotel_id, error);
+        console.error('error getting hotel info:', hotel_id, error);
         throw error;
     }
 

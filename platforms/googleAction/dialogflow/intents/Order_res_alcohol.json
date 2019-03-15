@@ -7,8 +7,8 @@
 			"parameters": [
 				{
 					"isList": false,
-					"name": "alcoholslot",
-					"value": "$alcoholslot",
+					"name": "alcohol_slot",
+					"value": "$alcohol_slot",
 					"dataType": "@alcohol_types"
 				}
 			]

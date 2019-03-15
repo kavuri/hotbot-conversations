@@ -13,10 +13,11 @@
     "AND": " and ",
     "ANSWER_WITH_YES_NO": "Please answer with a Yes or No.",
 
-      "WELCOME": " Hello, {{hotel_name}} front desk. How can I help? ",
-      "HELP_MESSAGE": " I am the assistant for your stay. I can help with facilities available at the hotel, ordering services like food, laundry and also can provide info about this place. How can I help you today? ",
-      "REPEAT_REQUEST": " I did not understand your request. Can you please repeat? ",
-      "END": " Thank you. Please call back incase of need; we are here to make your stay pleasant. ",
-      "FOLLOWUP_QUESTION": "Would you like anything else?"
+    "WELCOME": " Hello, {{hotel_name}} front desk. How can I help? ",
+    "HELP_MESSAGE": " I am the assistant for your stay. I can help with facilities available at the hotel, ordering services like food, laundry and also can provide info about this place. How can I help you today? ",
+    "REPEAT_REQUEST": " I did not understand your request. Can you please repeat? ",
+    "END": " Thank you. Please call back incase of need; we are here to make your stay pleasant. ",
+    "FOLLOWUP_QUESTION": "Would you like to know anything else?",
+    "YES_NO_REPROMPT": "Please answer with yes or no."
   }
 }

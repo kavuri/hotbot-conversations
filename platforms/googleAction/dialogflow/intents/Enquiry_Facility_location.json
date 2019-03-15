@@ -1,5 +1,5 @@
 {
-	"name": "Enquiry_res_orderdeliverytime",
+	"name": "Enquiry_Facility_location",
 	"auto": true,
 	"webhookUsed": true,
 	"responses": [
@@ -7,8 +7,8 @@
 			"parameters": [
 				{
 					"isList": false,
-					"name": "facilityslot",
-					"value": "$facilityslot",
+					"name": "facility_slot",
+					"value": "$facility_slot",
 					"dataType": "@facility_types"
 				}
 			]

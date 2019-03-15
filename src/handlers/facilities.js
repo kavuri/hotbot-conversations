@@ -8,6 +8,10 @@
 */
 
 module.exports = {
+    Enquiry_Facility_timings() {
+
+    },
+    
     Hotel_Facilities() {
         
     }

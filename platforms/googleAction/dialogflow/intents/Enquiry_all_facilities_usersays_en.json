@@ -22,14 +22,8 @@
 	{
 		"data": [
 			{
-				"text": "hotel ",
+				"text": "hotel facilities",
 				"userDefined": false
-			},
-			{
-				"text": "facilityslot",
-				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
 			}
 		],
 		"isTemplate": false,
@@ -38,17 +32,7 @@
 	{
 		"data": [
 			{
-				"text": "what all ",
-				"userDefined": false
-			},
-			{
-				"text": "facilityslot",
-				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
-			},
-			{
-				"text": " do you have",
+				"text": "what all amenities do you have",
 				"userDefined": false
 			}
 		],
@@ -98,14 +82,8 @@
 	{
 		"data": [
 			{
-				"text": "what are the hotel ",
+				"text": "what are the hotel facilities",
 				"userDefined": false
-			},
-			{
-				"text": "facilityslot",
-				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
 			}
 		],
 		"isTemplate": false,
@@ -134,17 +112,7 @@
 	{
 		"data": [
 			{
-				"text": "which ",
-				"userDefined": false
-			},
-			{
-				"text": "facilityslot",
-				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
-			},
-			{
-				"text": " can i use",
+				"text": "which hotel features can i use",
 				"userDefined": false
 			}
 		],
@@ -154,14 +122,8 @@
 	{
 		"data": [
 			{
-				"text": "your ",
+				"text": "your amenities",
 				"userDefined": false
-			},
-			{
-				"text": "facilityslot",
-				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facilities"
 			}
 		],
 		"isTemplate": false,

@@ -34,3 +34,9 @@ module.exports.user_temperature_unit = async (jovo_obj) => {
         return null;
     }
 }
+
+module.exports.ERROR = [
+    "HOTEL_DOES_NOT_EXIST",
+    "POLICY_DOES_NOT_EXIST",
+    "DB_ERROR"
+];
