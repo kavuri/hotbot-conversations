@@ -18,6 +18,9 @@
     "REPEAT_REQUEST": " I did not understand your request. Can you please repeat? ",
     "END": " Thank you. Please call back incase of need; we are here to make your stay pleasant. ",
     "FOLLOWUP_QUESTION": "Would you like to know anything else?",
-    "YES_NO_REPROMPT": "Please answer with yes or no."
+    "YES_NO_REPROMPT": "Please answer with yes or no.",
+    "PLACES_NEARBY": "Here are few nearby {{slot}}. One {{nearby1}}, two {{nearby2}} , three {{nearby3}}. Would you like details about any of these ?",
+    "NO_SLOT_NEARBY" : "Sorry there is no {{slot}} nearby. Would you like to know about any other place ?"
+
   }
 }

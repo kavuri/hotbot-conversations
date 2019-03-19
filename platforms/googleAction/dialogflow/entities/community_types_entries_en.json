@@ -20,7 +20,8 @@
 	{
 		"value": "hindu_temple",
 		"synonyms": [
-			"hindu_temple"
+			"hindu_temple",
+			"temple"
 		]
 	},
 	{
@@ -52,6 +53,7 @@
 	{
 		"value": "hospital",
 		"synonyms": [
+			"hospital",
 			"doctor",
 			"clinic"
 		]

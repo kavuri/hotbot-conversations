@@ -6,56 +6,40 @@
 'using strict';
 
 let _ = require('lodash'),
-    fetch = require('node-fetch');
+    google_helper = require('../google_helper'),
+    ERROR = require('../helpers').ERROR;
 
 module.exports = {
     async Community_nearby() {
-
         var community_slot = this.$inputs.community_slot;
         var  slot = community_slot.value;
+        var location = this.$session.$data.location;
+        //var location = "12.9718837,77.743491";
+        var keyword = "";
+
         console.log("community_slot : " + slot);
-        //var location = this.$session.$data.location;
-        var location = "12.9718837,77.743491";
 
         if (_.isEmpty(slot) || _.isNull(slot) || _.isUndefined(slot)) {
             console.log('Empty community_slot. Looks like community slot is not in the utterance.');
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        var community ={
-                        "radius" : "1500",
-                        "key" : "GOOGLE_PLACE_API_KEY",
-                        "keyword" : ""
-        }
-        var community_nearby = [];
-
-        var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" + "key=" + community.key + "&type=" + slot + "&location=" + location + "&radius=" + community.radius;
-        console.log(url);
-
         try {
-            const response = await fetch(url);
-            const places = await response.json();
-            var locations = places.results;
-            for(var i=0 ; i<locations.length; i++){
-                community_nearby.push(locations[i].name);
-            }
+            var community_nearby = await google_helper.nearby(slot, location, keyword);
         } catch(error) {
             console.log(error);
+            throw ERROR["NO_SLOT_NEARBY"];
         }
 
-        var message = slot + " near you are " +
-                   community_nearby[0] + "," + community_nearby[1] + "," +
-                   community_nearby[2];
-        console.log("Community Nearby : " + message);
-        if (_.isEmpty(message)) {
-            this.tell(this.t('SYSTEM_ERROR'));
+        if (_.isEmpty(community_nearby) || _.isNull(community_nearby) || _.isUndefined(community_nearby)) {
+            console.log('Empty community_nearby');
+            this.ask(this.t('NO_SLOT_NEARBY', {slot: slot}));
         }
 
-        this.tell(message);
-
-        }
-
-
+        this.ask(this.t('PLACES_NEARBY' , {slot: slot,
+        nearby1:community_nearby[0], nearby2:community_nearby[1],
+        nearby3:community_nearby[2]}));
+    }
 };
 
-module.exports.Community_nearby();
+
