@@ -1,0 +1,218 @@
+[
+	{
+		"data": [
+			{
+				"text": "i would like to know about any ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i know about ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you please let me know about ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you get me ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is there any ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "let me know about any ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please help me with a ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "tell me about any ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "find me a ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " in the area",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where can i get ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what's a great ",
+				"userDefined": false
+			},
+			{
+				"text": "community_slot",
+				"userDefined": true,
+				"alias": "community_slot",
+				"meta": "@community_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]
