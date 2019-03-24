@@ -4,6 +4,556 @@
 			"invocationName": "hotel reception",
 			"types": [
 				{
+					"name": "community_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "restaurant"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cafe"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bar"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hindu_temple",
+								"synonyms": [
+									"temple"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "beauty_salon",
+								"synonyms": [
+									"salon",
+									"parlour"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bank"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "post_office"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "library"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hospital",
+								"synonyms": [
+									"doctor",
+									"clinic"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "accounting"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "airport"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "aquarium"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "art_gallery"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "atm"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bakery"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bicycle_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "book_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bowling_alley"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bus_station"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "campground"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "car_dealer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "car_rental"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "car_repair"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "car_wash"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "casino"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cemetery"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "church"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "city_hall"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "clothing_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "convenience_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "courthouse"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dentist"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "department_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "electrician"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "electronics_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "embassy"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "fire_station"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "florist"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "furniture_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gas_station"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gym"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hair_care"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hardware_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hindu_temple"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "home_goods_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "insurance_agency"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "jewelry_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "laundry"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lawyer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "library"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "liquor_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "local_government_office"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "locksmith"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lodging"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "meal_delivery"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "meal_takeaway"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "mosque"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "movie_rental"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "movie_theater"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "moving_company"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "museum"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "night_club"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "painter"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "park"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "parking"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "pet_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "pharmacy"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "physiotherapist"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "plumber"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "police"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "real_estate_agency"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "roofing_contractor"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "rv_park"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "school"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "shoe_store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "shopping_mall"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "spa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "stadium"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "storage"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "store"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "subway_station"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "supermarket"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "synagogue"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "taxi_stand"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "train_station"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "transit_station"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "travel_agency"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "veterinary_care"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "zoo"
+							}
+						}
+					]
+				},
+				{
 					"name": "smoking_types",
 					"values": [
 						{
@@ -677,6 +1227,28 @@
 				}
 			],
 			"intents": [
+				{
+					"name": "Community_nearby",
+					"samples": [
+						"i would like to know about any {community_slot} nearby",
+						"can i know about {community_slot} nearby",
+						"can you please let me know about {community_slot} nearby",
+						"can you get me {community_slot} nearby",
+						"is there any {community_slot} nearby",
+						"let me know about any {community_slot} nearby",
+						"please help me with a {community_slot} nearby",
+						"tell me about any {community_slot} nearby",
+						"find me a {community_slot} in the area",
+						"where can i get {community_slot}",
+						"what's a great {community_slot} nearby"
+					],
+					"slots": [
+						{
+							"name": "community_slot",
+							"type": "community_types"
+						}
+					]
+				},
 				{
 					"name": "Device_setup",
 					"samples": [

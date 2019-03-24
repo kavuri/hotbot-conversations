@@ -1,0 +1,17 @@
+{
+	"name": "Community_nearby",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "community_slot",
+					"value": "$community_slot",
+					"dataType": "@community_types"
+				}
+			]
+		}
+	]
+}

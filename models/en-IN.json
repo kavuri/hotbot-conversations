@@ -1,9 +1,31 @@
 {  
   "invocation":"hotel reception",
-  "intents":[  
+  "intents":[
+     {
+       "name": "Community_nearby",
+       "phrases": [
+         "i would like to know about any {community_slot} nearby",
+         "can i know about {community_slot} nearby",
+         "can you please let me know about {community_slot} nearby",
+         "can you get me {community_slot} nearby",
+         "is there any {community_slot} nearby",
+         "let me know about any {community_slot} nearby",
+         "please help me with a {community_slot} nearby",
+         "tell me about any {community_slot} nearby",
+         "find me a {community_slot} in the area",
+         "where can i get {community_slot}",
+         "what's a great {community_slot} nearby"
+       ],
+       "inputs": [
+         {
+           "name": "community_slot",
+           "type": "community_types"
+         }
+       ]
+     },
      {  
         "name":"Device_setup",
-        "phrases":[  
+        "phrases":[
            "add device",
            "add this device",
            "can you setup this device",
@@ -649,8 +671,102 @@
         }
      }
   },
-  "inputTypes":[ 
-     {  
+  "inputTypes":[
+     {
+        "name": "community_types",
+        "values": [
+           {"value": "restaurant"},
+           {"value": "cafe"},
+           {"value": "bar"},
+           {"value": "hindu_temple","synonyms": ["temple"]},
+           {"value": "beauty_salon","synonyms": ["salon","parlour"]},
+           {"value": "bank"},
+           {"value": "post_office"},
+           {"value": "library"},
+           {"value": "hospital","synonyms": ["doctor","clinic"]},
+           {"value": "accounting"},
+           {"value": "airport"},
+           {"value": "aquarium"},
+           {"value": "art_gallery"},
+           {"value": "atm"},
+           {"value": "bakery"},
+           {"value": "bicycle_store"},
+           {"value": "book_store"},
+           {"value": "bowling_alley"},
+           {"value": "bus_station"},
+           {"value": "campground"},
+           {"value": "car_dealer"},
+           {"value": "car_rental"},
+           {"value": "car_repair"},
+           {"value": "car_wash"},
+           {"value": "casino"},
+           {"value": "cemetery"},
+           {"value": "church"},
+           {"value": "city_hall"},
+           {"value": "clothing_store"},
+           {"value": "convenience_store"},
+           {"value": "courthouse"},
+           {"value": "dentist"},
+           {"value": "department_store"},
+           {"value": "electrician"},
+           {"value": "electronics_store"},
+           {"value": "embassy"},
+           {"value": "fire_station"},
+           {"value": "florist"},
+           {"value": "furniture_store"},
+           {"value": "gas_station"},
+           {"value": "gym"},
+           {"value": "hair_care"},
+           {"value": "hardware_store"},
+           {"value": "hindu_temple"},
+           {"value": "home_goods_store"},
+           {"value": "insurance_agency"},
+           {"value": "jewelry_store"},
+           {"value": "laundry"},
+           {"value": "lawyer"},
+           {"value": "library"},
+           {"value": "liquor_store"},
+           {"value": "local_government_office"},
+           {"value": "locksmith"},
+           {"value": "lodging"},
+           {"value": "meal_delivery"},
+           {"value": "meal_takeaway"},
+           {"value": "mosque"},
+           {"value": "movie_rental"},
+           {"value": "movie_theater"},
+           {"value": "moving_company"},
+           {"value": "museum"},
+           {"value": "night_club"},
+           {"value": "painter"},
+           {"value": "park"},
+           {"value": "parking"},
+           {"value": "pet_store"},
+           {"value": "pharmacy"},
+           {"value": "physiotherapist"},
+           {"value": "plumber"},
+           {"value": "police"},
+           {"value": "real_estate_agency"},
+           {"value": "roofing_contractor"},
+           {"value": "rv_park"},
+           {"value": "school"},
+           {"value": "shoe_store"},
+           {"value": "shopping_mall"},
+           {"value": "spa"},
+           {"value": "stadium"},
+           {"value": "storage"},
+           {"value": "store"},
+           {"value": "subway_station"},
+           {"value": "supermarket"},
+           {"value": "synagogue"},
+           {"value": "taxi_stand"},
+           {"value": "train_station"},
+           {"value": "transit_station"},
+           {"value": "travel_agency"},
+           {"value": "veterinary_care"},
+           {"value": "zoo"}
+       ]
+     },
+     {
         "name":"alcohol_types",
         "values":[  
            {  
