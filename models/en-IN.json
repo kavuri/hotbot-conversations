@@ -180,6 +180,7 @@
          "are pet allowed",
          "are pets allowed",
          "can I bring my {animal_slot}",
+         "can I get my {animal_slot} to the hotel",
          "are there any extra charges for pets",
          "where can I leave my {animal_slot}",
          "does this hotel allow {animal_slot}"
@@ -201,7 +202,7 @@
          "can I pay the bill with my {payment_method_slot}",
          "is {payment_method_slot} accepted",
          "can I pay the hotel expenses by {payment_method_slot}",
-         "I only have {payment_method_slot}. can I pay using that?"
+         "I only have {payment_method_slot} can I pay using that"
       ],
       "inputs":[
         {
@@ -237,18 +238,24 @@
          "can I use {facility_slot}",
          "what are the chances of my using {facility_slot}",
          "does the {facility_slot} exist"
+       ],
+       "inputs":[
+          {  
+             "name":"facility_slot",
+             "type":"facility_types"
+          }
        ]
      },
      {  
         "name":"Enquiry_Facility_timings",
         "phrases":[
-          "can i go to {facility_slot} {dateslot}",
+          "can i go to {facility_slot} {datetime}",
           "can i use {facility_slot}",
           "how about the timings for {facility_slot}",
-          "i would like to use {facility_slot} is it open {dateslot}",
-          "is it okay to use {facility_slot} {dateslot}",
-          "is the {facility_slot} open {dateslot}",
-          "is {facility_slot} open {dateslot}",
+          "i would like to use {facility_slot} is it open {datetime}",
+          "is it okay to use {facility_slot} {datetime}",
+          "is the {facility_slot} open {datetime}",
+          "is {facility_slot} open {datetime}",
           "until what time is {facility_slot} available",
           "until when can i use {facility_slot}",
           "what are the closing timings for {facility_slot}",
@@ -265,7 +272,7 @@
            "what about {facility_slot} timings",
            "when is the {facility_slot} open"
         ],
-        "inputs":[  
+        "inputs":[
            {  
               "name":"facility_slot",
               "type":"facility_types"
@@ -285,7 +292,7 @@
          "what are the charges for {facility_slot}",
          "how much do I have to pay for {facility_slot}",
          "is using {facility_slot} free",
-         "how much does {facility_slot} cost?",
+         "how much does {facility_slot} cost",
          "is {facility_slot} free",
          "any charges for {facility_slot}",
          "should I pay for {facility_slot}",
@@ -313,10 +320,10 @@
          "where is the {facility_slot} located",
          "how can I reach {facility_slot}",
          "what is the way to {facility_slot}",
-         "Does {facility_slot} have a lift?",
+         "Does {facility_slot} have a lift",
          "Can I reach {facility_slot} by walk",
          "can I walk to {facility_slot}",
-         "should I drive to {facility_slot}?",
+         "should I drive to {facility_slot}",
          "how far is {facility_slot}",
          "can you help with the directions to the {facility_slot}",
          "how can i go to the {facility_slot}",
@@ -381,7 +388,7 @@
            "can i get {meal_typesslot} here",
            "do i get {meal_typesslot} here",
            "does the restaurant serve {meal_typesslot}",
-           "does the {facilityslot} serve {meal_typesslot}",
+           "does the restaurant serve {meal_typesslot}",
            "how about {meal_typesslot}",
            "is {meal_typesslot} available",
            "is {meal_typesslot} serve",
@@ -391,6 +398,12 @@
            "what kind of food is served here",
            "what {meal_typesslot} type are available",
            "what {meal_typesslot} types are available"
+        ],
+        "inputs":[  
+           {  
+              "name":"meal_typesslot",
+              "type":"meal_types"
+           }
         ]
      },
      {  
@@ -442,8 +455,8 @@
          "how can i order food",
          "how to get some food",
          "i am hungry",
-         "i am hungry. how to get some food",
-         "i want to eat. how can i get food",
+         "i am hungry how to get some food",
+         "i want to eat how can i get food",
          "order food for me",
          "please get some food",
          "please help me to get some food",

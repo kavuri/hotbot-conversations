@@ -82,7 +82,7 @@
 	{
 		"data": [
 			{
-				"text": "i am hungry. how to get some food",
+				"text": "i am hungry how to get some food",
 				"userDefined": false
 			}
 		],
@@ -92,7 +92,7 @@
 	{
 		"data": [
 			{
-				"text": "i want to eat. how can i get food",
+				"text": "i want to eat how can i get food",
 				"userDefined": false
 			}
 		],

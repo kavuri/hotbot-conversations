@@ -57,7 +57,9 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			},
 			{
 				"text": " here",
@@ -75,7 +77,9 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			},
 			{
 				"text": " here",
@@ -93,7 +97,9 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -102,20 +108,14 @@
 	{
 		"data": [
 			{
-				"text": "does the ",
-				"userDefined": false
-			},
-			{
-				"text": "facilityslot",
-				"userDefined": true
-			},
-			{
-				"text": " serve ",
+				"text": "does the restaurant serve ",
 				"userDefined": false
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -129,7 +129,9 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -143,7 +145,9 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			},
 			{
 				"text": " available",
@@ -161,7 +165,9 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			},
 			{
 				"text": " serve",
@@ -179,7 +185,9 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			},
 			{
 				"text": " served",
@@ -227,7 +235,9 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			},
 			{
 				"text": " type are available",
@@ -245,7 +255,9 @@
 			},
 			{
 				"text": "meal_typesslot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "meal_typesslot",
+				"meta": "@meal_types"
 			},
 			{
 				"text": " types are available",
