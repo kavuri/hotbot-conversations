@@ -7,7 +7,9 @@
 			},
 			{
 				"text": "facility_slot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -21,7 +23,9 @@
 			},
 			{
 				"text": "facility_slot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			},
 			{
 				"text": " here",
@@ -39,7 +43,9 @@
 			},
 			{
 				"text": "facility_slot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -53,7 +59,9 @@
 			},
 			{
 				"text": "facility_slot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -67,7 +75,9 @@
 			},
 			{
 				"text": "facility_slot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -81,7 +91,9 @@
 			},
 			{
 				"text": "facility_slot",
-				"userDefined": true
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
 			},
 			{
 				"text": " exist",

@@ -74,7 +74,7 @@
 				"meta": "@payment_method_types"
 			},
 			{
-				"text": ". can I pay using that?",
+				"text": " can I pay using that",
 				"userDefined": false
 			}
 		],

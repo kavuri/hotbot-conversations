@@ -16,8 +16,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "dateslot",
-				"userDefined": true
+				"text": "datetime",
+				"userDefined": true,
+				"alias": "datetime",
+				"meta": "@sys.time"
 			}
 		],
 		"isTemplate": false,
@@ -72,8 +74,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "dateslot",
-				"userDefined": true
+				"text": "datetime",
+				"userDefined": true,
+				"alias": "datetime",
+				"meta": "@sys.time"
 			}
 		],
 		"isTemplate": false,
@@ -96,8 +100,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "dateslot",
-				"userDefined": true
+				"text": "datetime",
+				"userDefined": true,
+				"alias": "datetime",
+				"meta": "@sys.time"
 			}
 		],
 		"isTemplate": false,
@@ -120,8 +126,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "dateslot",
-				"userDefined": true
+				"text": "datetime",
+				"userDefined": true,
+				"alias": "datetime",
+				"meta": "@sys.time"
 			}
 		],
 		"isTemplate": false,
@@ -144,8 +152,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "dateslot",
-				"userDefined": true
+				"text": "datetime",
+				"userDefined": true,
+				"alias": "datetime",
+				"meta": "@sys.time"
 			}
 		],
 		"isTemplate": false,

@@ -64,7 +64,7 @@
 				"meta": "@facility_types"
 			},
 			{
-				"text": " have a lift?",
+				"text": " have a lift",
 				"userDefined": false
 			}
 		],
@@ -118,10 +118,6 @@
 				"userDefined": true,
 				"alias": "facility_slot",
 				"meta": "@facility_types"
-			},
-			{
-				"text": "?",
-				"userDefined": false
 			}
 		],
 		"isTemplate": false,

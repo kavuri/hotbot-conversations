@@ -38,6 +38,26 @@
 	{
 		"data": [
 			{
+				"text": "can I get my ",
+				"userDefined": false
+			},
+			{
+				"text": "animal_slot",
+				"userDefined": true,
+				"alias": "animal_slot",
+				"meta": "@animal_type"
+			},
+			{
+				"text": " to the hotel",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "are there any extra charges for pets",
 				"userDefined": false
 			}

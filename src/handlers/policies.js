@@ -8,6 +8,7 @@
 let Hotel = require('../db/Hotel'),
     _ = require('lodash'),
     ERROR = require('../helpers').ERROR,
+    HELPER = require('../helpers'),
     Fuse = require('fuse.js');
 
 var fuse_options = {
@@ -23,34 +24,6 @@ var fuse_options = {
     ]
   };
 
-async function pre_check(hotel_id, hotel_item) {
-    if (_.isEmpty(hotel_id) || _.isNull(hotel_id) || _.isUndefined(hotel_id)) {
-        // Something is wrong. Send out system problem to user
-        console.log('Empty hotel_id. Looks like this device is not registered properly.', hotel_id);
-        throw ERROR["HOTEL_DOES_NOT_EXIST"];
-        // this.tell(this.t('SYSTEM_ERROR'));
-    }
-
-    // console.log('--', smoking_slot, place_slot, hotel_id);
-
-    let hotel_info;
-    try {
-        console.log('hotel_id='+ hotel_id, 'hotel_item='+ hotel_item);
-        hotel_info = await Hotel.get(hotel_id, hotel_item);
-        console.log('==hotel_policies;', JSON.stringify(hotel_info));
-        if (_.isEmpty(hotel_info) || _.isNull(hotel_info) || _.isUndefined(hotel_info)) {
-            // This should not happen, basically means that smoking policies are not present in the database
-            throw ERROR["POLICY_DOES_NOT_EXIST"];
-            // this.tell(this.t('SYSTEM_ERROR'));
-        }
-    } catch(error) {
-        console.log('pre_check:error:', error);
-        throw ERROR["DB_ERROR"];
-    }
-
-    return hotel_info;
-}
-
 module.exports = {
     async Policy_smoking() {
         var place_slot = this.$inputs.place_slot,
@@ -58,7 +31,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.smoking");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.smoking");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -90,7 +63,7 @@ module.exports = {
     
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.alcohol");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.alcohol");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -104,7 +77,7 @@ module.exports = {
         var fuse = new Fuse(hotel_policies.policies.alcohol, fuse_options);
 
         var result = fuse.search(drinking_place);
-
+        
         let message = result[0].item.message[result[0].item.flag];
         this.$speech.addText(message)
                     .addBreak('200ms')
@@ -119,7 +92,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.cancellation");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.cancellation");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -142,7 +115,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.infants");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.infants");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -169,7 +142,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.checkout_time");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.checkout_time");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -181,7 +154,8 @@ module.exports = {
 
         // Replace the age in the message with the number that is part of the object
         var template = _.template(message);
-        var text = template({'time': checkout_time_policy.time});
+        // FIXME: If "phone1" is empty, go to "phone2"
+        var text = template({'time': checkout_time_policy.time, 'reception_no': this.$session.$data.hotel_info.info.contact.phone1});
 
         this.$speech.addText(text)
                     .addBreak('200ms')
@@ -196,13 +170,13 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.noshow");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.noshow");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let noshow_policy = hotel_policies.policies.noshows[0];
+        let noshow_policy = hotel_policies.policies.noshow[0];
         let flag = noshow_policy.flag;
         let message = noshow_policy.message[flag];
 
@@ -219,7 +193,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.outside_food");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.outside_food");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -242,7 +216,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.checkin_time");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.checkin_time");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -265,7 +239,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.pets");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.pets");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -288,7 +262,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await pre_check(hotel_id, "policies.payment_methods");
+            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.payment_methods");
         } catch(error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
