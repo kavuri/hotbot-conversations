@@ -13,8 +13,8 @@ module.exports = {
     async Community_nearby() {
         var community_slot = this.$inputs.community_slot;
         var  slot = community_slot.value;
-        var location = this.$session.$data.location;
-        //var location = "12.9718837,77.743491";
+        //var location = this.$session.$data.location;
+        var location = "12.9718837,77.743491";
         var keyword = "";
 
         console.log("community_slot : " + slot);
@@ -28,7 +28,7 @@ module.exports = {
             var community_nearby = await google_helper.nearby(slot, location, keyword);
         } catch(error) {
             console.log(error);
-            throw ERROR["NO_SLOT_NEARBY"];
+            this.tell(this.t('SYSTEM_ERROR'));
         }
 
         if (_.isEmpty(community_nearby) || _.isNull(community_nearby) || _.isUndefined(community_nearby)) {
@@ -39,6 +39,30 @@ module.exports = {
         this.ask(this.t('PLACES_NEARBY' , {slot: slot,
         nearby1:community_nearby[0], nearby2:community_nearby[1],
         nearby3:community_nearby[2]}));
+    },
+
+    async Community_nearby_all() {
+        console.log("community nearby all");
+        this.$speech.addText(this.t('PLACES_NEARBY_ALL'));
+        return this.followUpState('NearbyState').ask(this.$speech, this.t('YES_NO_REPROMPT'));
+    },
+
+    'NearbyState': {
+        YesIntent() {
+        // Have to use 'toStatelessIntent' since, the new intent resides in a separate global state,
+        // whereas this current state is 'RegisterDeviceState'
+        return this.tell(this.t('PLACES_NEARBY_OPTION'));
+        },
+
+        NoIntent() {
+        console.log('not interested in any nearby place');
+        return this.tell(this.t('END'));
+        },
+
+        Unhandled() {
+        // Triggered when the requested intent could not be found in the handlers variable
+        console.log('unhandled in followup state');
+        }
     }
 };
 

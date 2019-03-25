@@ -2,6 +2,21 @@
   "invocation":"hotel reception",
   "intents":[
      {
+        "name": "Community_nearby_all",
+        "phrases": [
+           "do you know about places nearby",
+           "do you have information about places nearby",
+           "tell me about places nearby",
+           "can I know about nearby places",
+           "can you tell me about nearby places",
+           "do you know about nearby places",
+           "do you have information about nearby places",
+           "tell me about nearby places",
+           "can I know about places nearby",
+           "can you tell me about places nearby"
+        ]
+     },
+     {
        "name": "Community_nearby",
        "phrases": [
          "i would like to know about any {community_slot} nearby",
