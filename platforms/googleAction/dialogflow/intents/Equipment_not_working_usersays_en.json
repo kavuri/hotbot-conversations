@@ -1,0 +1,118 @@
+[
+	{
+		"data": [
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " is not working",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "the ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " in my room is not working",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you please fix ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " in my room",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I cant make ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " working in my room",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I need help with using ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " in my room",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "why is ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " not working",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

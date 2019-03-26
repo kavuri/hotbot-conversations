@@ -9,15 +9,15 @@
 		]
 	},
 	{
-		"value": "oven",
-		"synonyms": [
-			"oven"
-		]
-	},
-	{
 		"value": "bottle sterilizer",
 		"synonyms": [
 			"bottle sterilizer"
+		]
+	},
+	{
+		"value": "oven",
+		"synonyms": [
+			"oven"
 		]
 	},
 	{
@@ -27,12 +27,30 @@
 		]
 	},
 	{
-		"value": "cooking",
+		"value": "cooking facilities",
 		"synonyms": [
-			"cooking",
-			"utinsels",
+			"cooking facilities",
+			"cooking equipment",
+			"stove",
 			"cutlery",
-			"cooking equipment"
+			"knife"
+		]
+	},
+	{
+		"value": "fan",
+		"synonyms": [
+			"fan"
+		]
+	},
+	{
+		"value": "ac",
+		"synonyms": [
+			"ac",
+			"air conditioner",
+			"air cooler",
+			"room cooler",
+			"air heater",
+			"room warmer"
 		]
 	},
 	{
@@ -40,6 +58,56 @@
 		"synonyms": [
 			"dish washer",
 			"dish washing facility"
+		]
+	},
+	{
+		"value": "water",
+		"synonyms": [
+			"water"
+		]
+	},
+	{
+		"value": "shower",
+		"synonyms": [
+			"shower"
+		]
+	},
+	{
+		"value": "flush",
+		"synonyms": [
+			"flush"
+		]
+	},
+	{
+		"value": "commode",
+		"synonyms": [
+			"commode",
+			"loo",
+			"poo place"
+		]
+	},
+	{
+		"value": "lock",
+		"synonyms": [
+			"lock",
+			"key",
+			"room lock",
+			"room key",
+			"automatic lock"
+		]
+	},
+	{
+		"value": "door",
+		"synonyms": [
+			"door",
+			"room door",
+			"door knob"
+		]
+	},
+	{
+		"value": "fan",
+		"synonyms": [
+			"fan"
 		]
 	}
 ]

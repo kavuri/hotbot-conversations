@@ -2,6 +2,16 @@
 	{
 		"data": [
 			{
+				"text": "what kind of food i can get",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "what are the various food item available",
 				"userDefined": false
 			}
@@ -23,16 +33,6 @@
 		"data": [
 			{
 				"text": "what kind of food is available in the restaurant",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "what kind of food is serve",
 				"userDefined": false
 			}
 		],
@@ -261,6 +261,16 @@
 			},
 			{
 				"text": " types are available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what cuisines does this hotel serve",
 				"userDefined": false
 			}
 		],

@@ -1,0 +1,17 @@
+{
+	"name": "Order_room_item",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "room_item_slot",
+					"value": "$room_item_slot",
+					"dataType": "@room_item_types"
+				}
+			]
+		}
+	]
+}

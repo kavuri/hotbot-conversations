@@ -1,0 +1,126 @@
+[
+	{
+		"value": "towels",
+		"synonyms": [
+			"towels"
+		]
+	},
+	{
+		"value": "napkins",
+		"synonyms": [
+			"napkins",
+			"wipes"
+		]
+	},
+	{
+		"value": "toilet paper",
+		"synonyms": [
+			"toilet paper",
+			"toilet wipes"
+		]
+	},
+	{
+		"value": "tooth brush",
+		"synonyms": [
+			"tooth brush",
+			"brush"
+		]
+	},
+	{
+		"value": "toung cleaner",
+		"synonyms": [
+			"toung cleaner"
+		]
+	},
+	{
+		"value": "shampoo",
+		"synonyms": [
+			"shampoo",
+			"hair wash",
+			"hair cleaner"
+		]
+	},
+	{
+		"value": "conditioner",
+		"synonyms": [
+			"conditioner",
+			"hair conditioner"
+		]
+	},
+	{
+		"value": "soap",
+		"synonyms": [
+			"soap",
+			"bathing soap",
+			"body soap",
+			"body shampoo",
+			"body cleaner"
+		]
+	},
+	{
+		"value": "comb",
+		"synonyms": [
+			"comb",
+			"hair comb"
+		]
+	},
+	{
+		"value": "pillows",
+		"synonyms": [
+			"pillows",
+			"bed pillows"
+		]
+	},
+	{
+		"value": "bed sheets",
+		"synonyms": [
+			"bed sheets",
+			"sheets"
+		]
+	},
+	{
+		"value": "chair",
+		"synonyms": [
+			"chair",
+			"extra chair"
+		]
+	},
+	{
+		"value": "clothes dryer",
+		"synonyms": [
+			"clothes dryer"
+		]
+	},
+	{
+		"value": "hanger",
+		"synonyms": [
+			"hanger",
+			"clothes hanger"
+		]
+	},
+	{
+		"value": "body lotion",
+		"synonyms": [
+			"body lotion",
+			"lotion",
+			"body cream",
+			"face cream",
+			"cream"
+		]
+	},
+	{
+		"value": "hair gel",
+		"synonyms": [
+			"hair gel",
+			"hair cream"
+		]
+	},
+	{
+		"value": "cot",
+		"synonyms": [
+			"cot",
+			"child bed",
+			"extra bed"
+		]
+	}
+]

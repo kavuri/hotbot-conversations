@@ -1,5 +1,23 @@
 {
 	"name": "Order_food",
 	"auto": true,
-	"webhookUsed": true
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "meal_typesslot",
+					"value": "$meal_typesslot",
+					"dataType": "@meal_types"
+				},
+				{
+					"isList": false,
+					"name": "menuslot",
+					"value": "$menuslot",
+					"dataType": "@menu"
+				}
+			]
+		}
+	]
 }

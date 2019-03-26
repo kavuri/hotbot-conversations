@@ -44,12 +44,6 @@
 			{
 				"text": "how much time for the food ",
 				"userDefined": false
-			},
-			{
-				"text": "facilityslot",
-				"userDefined": true,
-				"alias": "facilityslot",
-				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -88,7 +82,7 @@
 	{
 		"data": [
 			{
-				"text": "what is the delivery time",
+				"text": "what is the food delivery time",
 				"userDefined": false
 			}
 		],
@@ -98,7 +92,7 @@
 	{
 		"data": [
 			{
-				"text": "what is the food delivery time",
+				"text": "how much time does room service for food take",
 				"userDefined": false
 			}
 		],

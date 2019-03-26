@@ -816,6 +816,28 @@
 						{
 							"id": null,
 							"name": {
+								"value": "parking",
+								"synonyms": [
+									"car parking",
+									"vehicle parking",
+									"two wheeler parking",
+									"valet"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lift",
+								"synonyms": [
+									"elevator",
+									"escalator"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
 								"value": "restaurant"
 							}
 						},
@@ -921,6 +943,16 @@
 									"airport taxi"
 								]
 							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "fridge",
+								"synonyms": [
+									"room fridge",
+									"refrigerator"
+								]
+							}
 						}
 					]
 				},
@@ -1018,7 +1050,12 @@
 						{
 							"id": null,
 							"name": {
-								"value": "microwave"
+								"value": "microwave",
+								"synonyms": [
+									"food reheat",
+									"reheat",
+									"microwave oven"
+								]
 							}
 						},
 						{
@@ -1048,6 +1085,247 @@
 									"stove",
 									"cutlery",
 									"knife"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "fan"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "ac",
+								"synonyms": [
+									"air conditioner",
+									"air cooler",
+									"room cooler",
+									"air heater",
+									"room warmer"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dish washer",
+								"synonyms": [
+									"dish washing facility"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "water"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "shower"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "flush"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "commode",
+								"synonyms": [
+									"loo",
+									"poo place"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lock",
+								"synonyms": [
+									"key",
+									"room lock",
+									"room key",
+									"automatic lock"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "door",
+								"synonyms": [
+									"room door",
+									"door knob"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "fan"
+							}
+						}
+					]
+				},
+				{
+					"name": "room_item_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "towels"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "napkins",
+								"synonyms": [
+									"wipes"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "toilet paper",
+								"synonyms": [
+									"toilet wipes"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tooth brush",
+								"synonyms": [
+									"brush"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "toung cleaner"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "shampoo",
+								"synonyms": [
+									"hair wash",
+									"hair cleaner"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "conditioner",
+								"synonyms": [
+									"hair conditioner"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "soap",
+								"synonyms": [
+									"bathing soap",
+									"body soap",
+									"body shampoo",
+									"body cleaner"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "comb",
+								"synonyms": [
+									"hair comb"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "pillows",
+								"synonyms": [
+									"bed pillows"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bed sheets",
+								"synonyms": [
+									"sheets"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "chair",
+								"synonyms": [
+									"extra chair"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "clothes dryer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hanger",
+								"synonyms": [
+									"clothes hanger"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "body lotion",
+								"synonyms": [
+									"lotion",
+									"body cream",
+									"face cream",
+									"cream"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hair gel",
+								"synonyms": [
+									"hair cream"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cot",
+								"synonyms": [
+									"child bed",
+									"extra bed"
 								]
 							}
 						}
@@ -1354,7 +1632,8 @@
 						"how many children can stay for free",
 						"is there extra charge for infant",
 						"what is the maximum age for free stay",
-						"what is the policy for infant stay"
+						"what is the policy for infant stay",
+						"do children stay for free"
 					]
 				},
 				{
@@ -1451,6 +1730,26 @@
 					]
 				},
 				{
+					"name": "Enquiry_reception_languages",
+					"samples": [
+						"Which languages are spoken at Reception",
+						"What all languages does the receptionist know",
+						"Does the receptionist know my language"
+					]
+				},
+				{
+					"name": "Enquiry_room_last_refurbished_date",
+					"samples": [
+						"When was the room last refurbished"
+					]
+				},
+				{
+					"name": "Enquiry_hotel_floors",
+					"samples": [
+						"How many floors does the hotel have"
+					]
+				},
+				{
 					"name": "Enquiry_all_facilities",
 					"samples": [
 						"hotel amenities",
@@ -1476,7 +1775,8 @@
 						"do you have {facility_slot}",
 						"can I use {facility_slot}",
 						"what are the chances of my using {facility_slot}",
-						"does the {facility_slot} exist"
+						"does the {facility_slot} exist",
+						"how many {facility_slot} does the hotel have"
 					],
 					"slots": [
 						{
@@ -1509,7 +1809,8 @@
 						"how about the timings of the {facility_slot}",
 						"what about {facility_slot} time",
 						"what about {facility_slot} timings",
-						"when is the {facility_slot} open"
+						"when is the {facility_slot} open",
+						"what time is {facility_slot} served"
 					],
 					"slots": [
 						{
@@ -1541,7 +1842,8 @@
 						"how much do i have to pay for {facility_slot}",
 						"is {facility_slot} free",
 						"what is the cost of {facility_slot}",
-						"who pays for {facility_slot}"
+						"who pays for {facility_slot}",
+						"is {facility_slot} included in the price"
 					],
 					"slots": [
 						{
@@ -1607,7 +1909,6 @@
 						"what does the restaurant serve",
 						"what food is available",
 						"what is on the menu",
-						"what kind of food i can get",
 						"where are the menu items",
 						"where can i find menu items",
 						"where is the menu"
@@ -1616,10 +1917,10 @@
 				{
 					"name": "Enquiry_menu_cuisinetype",
 					"samples": [
+						"what kind of food i can get",
 						"what are the various food item available",
 						"what are the various food items available",
 						"what kind of food is available in the restaurant",
-						"what kind of food is serve",
 						"what kind of food is served",
 						"can i get {meal_typesslot} here",
 						"do i get {meal_typesslot} here",
@@ -1633,7 +1934,8 @@
 						"what kind of food is serve here",
 						"what kind of food is served here",
 						"what {meal_typesslot} type are available",
-						"what {meal_typesslot} types are available"
+						"what {meal_typesslot} types are available",
+						"what cuisines does this hotel serve"
 					],
 					"slots": [
 						{
@@ -1681,6 +1983,113 @@
 					]
 				},
 				{
+					"name": "Enquiry_res_billing",
+					"samples": [
+						"add restaurant bill to final bill",
+						"are food charges included in the final bill",
+						"are my food charged add to my hotel bill",
+						"are my food charged added to my hotel bill",
+						"can you add food bill to final bill",
+						"how am i charged for food",
+						"how are my restaurant spends billed",
+						"how is my food bill charge",
+						"is food bill part of final bill",
+						"is my restaurant bill part of the total bill",
+						"please add food bill to final bill",
+						"what about food bill",
+						"will my food bill be added to my room bill",
+						"will the final bill have food charge",
+						"will the final bill have food charges",
+						"can i pay my food bill at the time of checkout",
+						"can i pay restaurant bill while checking out",
+						"can i pay the food bill now",
+						"i would like to pay the food bill at checkout. is that okay",
+						"is it okay to pay restaurant bill at the time of checkout",
+						"is restaurant bill accepted at the time of checkout",
+						"should i pay the food bill now",
+						"should i pay the food bill now or at the time of checkout"
+					]
+				},
+				{
+					"name": "Equipment_not_working",
+					"samples": [
+						"{equipment_slot} is not working",
+						"the {equipment_slot} in my room is not working",
+						"can you please fix {equipment_slot} in my room",
+						"I cant make {equipment_slot} working in my room",
+						"I need help with using {equipment_slot} in my room",
+						"why is {equipment_slot} not working"
+					],
+					"slots": [
+						{
+							"name": "equipment_slot",
+							"type": "equipment_types"
+						}
+					]
+				},
+				{
+					"name": "Equipment_info",
+					"samples": [
+						"is there a {equipment_slot} in the room",
+						"tell me about {equipment_slot}",
+						"how can I use {equipment_slot}",
+						"I am unable to make {equipment_slot} work please help",
+						"help me with using {equipment_slot}",
+						"does this room have a {equipment_slot}",
+						"can I use {equipment_slot} in this room",
+						"how about having {equipment_slot} in this room",
+						"I am not sure if there is {equipment_slot}",
+						"can you tell me if this room has {equipment_slot}"
+					],
+					"slots": [
+						{
+							"name": "equipment_slot",
+							"type": "equipment_types"
+						}
+					]
+				},
+				{
+					"name": "Order_delivery_time",
+					"samples": [
+						"can i get the time to get my food delivered",
+						"does it take more than one hour to get my food delivered",
+						"how much is the delivery time for food",
+						"how much time does it take to get my food order delivered",
+						"how much time for the food ",
+						"how much time for the order",
+						"how much time would it take for my order to get delivered",
+						"please get my food delivered as soon as possible",
+						"what is the food delivery time",
+						"how much time does room service for food take"
+					],
+					"slots": [
+						{
+							"name": "facilityslot",
+							"type": "facility_types"
+						}
+					]
+				},
+				{
+					"name": "Order_room_item",
+					"samples": [
+						"I would like new {room_item_slot}",
+						"can you please get some set of new {room_item_slot}",
+						"I need a replacement for {room_item_slot}",
+						"can you please send {room_item_slot}",
+						"I am out of {room_item_slot} can you please send some",
+						"there are no {room_item_slot} in the room can you please send the same",
+						"I need a replacement for {room_item_slot}",
+						"Can you get me a pair of {room_item_slot}",
+						"I quickly need some {room_item_slot}"
+					],
+					"slots": [
+						{
+							"name": "room_item_slot",
+							"type": "room_item_types"
+						}
+					]
+				},
+				{
 					"name": "Order_food",
 					"samples": [
 						"can you help me to order food",
@@ -1696,33 +2105,7 @@
 						"order food for me",
 						"please get some food",
 						"please help me to get some food",
-						"whom should i call to order food"
-					]
-				},
-				{
-					"name": "Enquiry_res_orderdeliverytime",
-					"samples": [
-						"can i get the time to get my food delivered",
-						"does it take more than one hour to get my food delivered",
-						"how much is the delivery time for food",
-						"how much time does it take to get my food order delivered",
-						"how much time for the food {facilityslot}",
-						"how much time for the order",
-						"how much time would it take for my order to get delivered",
-						"please get my food delivered as soon as possible",
-						"what is the delivery time",
-						"what is the food delivery time"
-					],
-					"slots": [
-						{
-							"name": "facilityslot",
-							"type": "facility_types"
-						}
-					]
-				},
-				{
-					"name": "Order_res_placeorder",
-					"samples": [
+						"whom should i call to order food",
 						"can you order some food",
 						"can you place an order for {menuslot} for {meal_typesslot}",
 						"i need a {menuslot}",
@@ -1743,26 +2126,6 @@
 							"name": "menuslot",
 							"type": "menu"
 						}
-					]
-				},
-				{
-					"name": "Enquiry_res_billing",
-					"samples": [
-						"add restaurant bill to final bill",
-						"are food charges included in the final bill",
-						"are my food charged add to my hotel bill",
-						"are my food charged added to my hotel bill",
-						"can you add food bill to final bill",
-						"how am i charged for food",
-						"how are my restaurant spends billed",
-						"how is my food bill charge",
-						"is food bill part of final bill",
-						"is my restaurant bill part of the total bill",
-						"please add food bill to final bill",
-						"what about food bill",
-						"will my food bill be added to my room bill",
-						"will the final bill have food charge",
-						"will the final bill have food charges"
 					]
 				},
 				{
@@ -1798,19 +2161,6 @@
 							"name": "facilityslot",
 							"type": "facility_types"
 						}
-					]
-				},
-				{
-					"name": "Enquiry_res_billpay",
-					"samples": [
-						"can i pay my food bill at the time of checkout",
-						"can i pay restaurant bill while checking out",
-						"can i pay the food bill now",
-						"i would like to pay the food bill at checkout. is that okay",
-						"is it okay to pay restaurant bill at the time of checkout",
-						"is restaurant bill accepted at the time of checkout",
-						"should i pay the food bill now",
-						"should i pay the food bill now or at the time of checkout"
 					]
 				},
 				{
