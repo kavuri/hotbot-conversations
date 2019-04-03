@@ -93,8 +93,8 @@ module.exports.info = async function(hotel_id) {
 
 const test = async function(hotel_id) {
     let Hotel = require('./Hotel');
-    var p = await Hotel.get("100", "policies.smoking");
+    var p = await Hotel.get("100", "facilities");
     console.log('policies=', JSON.stringify(p));
 }
 
-// test();
+test();

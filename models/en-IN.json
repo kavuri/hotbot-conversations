@@ -1035,6 +1035,10 @@
                 "jogging"
               ]
            },
+           {
+            "value":"reception",
+            "synonyms":["front desk", "receptionist"]
+           },
            {  
               "value":"swimming pool",
               "synonyms":[
