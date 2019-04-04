@@ -1,0 +1,17 @@
+{
+	"name": "Community_options",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "option_number",
+					"value": "$option_number",
+					"dataType": "@option_types"
+				}
+			]
+		}
+	]
+}
