@@ -62,16 +62,6 @@
 	{
 		"data": [
 			{
-				"text": "what kind of food i can get",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
 				"text": "where are the menu items",
 				"userDefined": false
 			}

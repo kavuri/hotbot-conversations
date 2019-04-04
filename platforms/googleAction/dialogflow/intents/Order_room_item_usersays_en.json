@@ -1,0 +1,154 @@
+[
+	{
+		"data": [
+			{
+				"text": "I would like new ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you please get some set of new ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I need a replacement for ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you please send ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I am out of ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			},
+			{
+				"text": " can you please send some",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "there are no ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			},
+			{
+				"text": " in the room can you please send the same",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I need a replacement for ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "Can you get me a pair of ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I quickly need some ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

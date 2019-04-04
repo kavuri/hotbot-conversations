@@ -29,6 +29,24 @@
 		]
 	},
 	{
+		"value": "parking",
+		"synonyms": [
+			"parking",
+			"car parking",
+			"vehicle parking",
+			"two wheeler parking",
+			"valet"
+		]
+	},
+	{
+		"value": "lift",
+		"synonyms": [
+			"lift",
+			"elevator",
+			"escalator"
+		]
+	},
+	{
 		"value": "restaurant",
 		"synonyms": [
 			"restaurant"
@@ -121,6 +139,14 @@
 			"airport transport",
 			"airport cab",
 			"airport taxi"
+		]
+	},
+	{
+		"value": "fridge",
+		"synonyms": [
+			"fridge",
+			"room fridge",
+			"refrigerator"
 		]
 	}
 ]

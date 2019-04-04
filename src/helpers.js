@@ -17,7 +17,7 @@ module.exports.user_local_time = async (jovo_obj) => {
     } catch (error) {
         return null;
     }
-}
+};
 
 module.exports.user_distance_unit = async (jovo_obj) => {
     try {
@@ -35,7 +35,7 @@ module.exports.user_temperature_unit = async (jovo_obj) => {
     } catch(error) {
         return null;
     }
-}
+};
 
 module.exports.hotel_info = async (hotel_id, hotel_item) => {
     if (_.isEmpty(hotel_id) || _.isNull(hotel_id) || _.isUndefined(hotel_id)) {
@@ -64,10 +64,23 @@ module.exports.hotel_info = async (hotel_id, hotel_item) => {
     }
 
     return hotel_info;
-}
+};
 
 module.exports.ERROR = [
     "HOTEL_DOES_NOT_EXIST",
     "POLICY_DOES_NOT_EXIST",
     "DB_ERROR"
 ];
+
+module.exports.FUSE_OPTIONS = {
+    shouldSort: true,
+    includeScore: true,
+    threshold: 0.5,
+    location: 0,
+    distance: 10,
+    maxPatternLength: 32,
+    minMatchCharLength: 4,
+    keys: [
+      "name"
+    ]
+  };
