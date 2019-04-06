@@ -4,6 +4,38 @@
 			"invocationName": "hotel reception",
 			"types": [
 				{
+					"name": "option_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "1",
+								"synonyms": [
+									"one"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "2",
+								"synonyms": [
+									"two"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "3",
+								"synonyms": [
+									"three"
+								]
+							}
+						}
+					]
+				},
+				{
 					"name": "community_types",
 					"values": [
 						{
@@ -796,6 +828,16 @@
 						{
 							"id": null,
 							"name": {
+								"value": "reception",
+								"synonyms": [
+									"front desk",
+									"receptionist"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
 								"value": "swimming pool",
 								"synonyms": [
 									"swim",
@@ -1506,6 +1548,26 @@
 			],
 			"intents": [
 				{
+					"name": "Community_options",
+					"samples": [
+						"option {option_number}",
+						"tell me about option {option_number}",
+						"tell me more about option {option_number}",
+						"please tell me about option {option_number}",
+						"give me details about option {option_number}",
+						"i would like to know about {option_number}",
+						"i would like to know more about {option_number}",
+						"i want to know about {option_number}",
+						"i want to know more about {option_number}"
+					],
+					"slots": [
+						{
+							"name": "option_number",
+							"type": "option_types"
+						}
+					]
+				},
+				{
 					"name": "Community_nearby_all",
 					"samples": [
 						"do you know about places nearby",
@@ -1533,7 +1595,24 @@
 						"tell me about any {community_slot} nearby",
 						"find me a {community_slot} in the area",
 						"where can i get {community_slot}",
-						"what's a great {community_slot} nearby"
+						"what's a great {community_slot} nearby",
+						"where is the nearest {community_slot}",
+						"i would like to know about the nearest {community_slot}",
+						"can you tell me about nearest {community_slot}",
+						"can you please tell me about nearest {community_slot}",
+						"can you get me nearest {community_slot}",
+						"can you please get me nearest {community_slot}",
+						"let me know about nearest {community_slot}",
+						"tell me about the nearest {community_slot}",
+						"please tell me about the nearest {community_slot}",
+						"i would like to know about {community_slot}",
+						"can you tell me about {community_slot}",
+						"can you please tell me about {community_slot}",
+						"can you get me {community_slot}",
+						"can you please get me {community_slot}",
+						"let me know about {community_slot}",
+						"tell me about the {community_slot}",
+						"please tell me about the {community_slot}"
 					],
 					"slots": [
 						{
@@ -1791,7 +1870,11 @@
 						"can I use {facility_slot}",
 						"what are the chances of my using {facility_slot}",
 						"does the {facility_slot} exist",
-						"how many {facility_slot} does the hotel have"
+						"how many {facility_slot} does the hotel have",
+						"tell me about {facility_slot}",
+						"can you give more information about {facility_slot}",
+						"Please give me info about {facility_slot}",
+						"I would like to know about {facility_slot}"
 					],
 					"slots": [
 						{

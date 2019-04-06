@@ -63,7 +63,50 @@ module.exports = {
         var common = _.intersection(facility_names, some_facilities);
         var stitched_facilities = _.join(common, ',');
 
-        this.ask(this.t('HOTEL_FACILITIES', {facilities: stitched_facilities}));
+        this.$speech.addText(this.t('HOTEL_FACILITIES', {facilities: stitched_facilities}))
+                    .addBreak('200ms')
+                    .addText(this.t('QUESTION_WANT_ALL_FACILITIES'));
+
+        return this.followUpState('AllFacilitiesState')
+                    .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        // this.ask(this.t('HOTEL_FACILITIES', {facilities: stitched_facilities}));
+    },
+
+    'AllFacilitiesState': {
+        async YesIntent() {
+            var hotel_id = this.$session.$data.hotel_id;
+
+            let facilities;
+            try {
+                facilities = await HELPER.hotel_info(hotel_id, "facilities");
+            } catch(error) {
+                console.log('error while fetching hotel facilities:', error);
+                this.tell(this.t('SYSTEM_ERROR'));
+            }
+
+            var all_facilities = facilities.facilities;
+            // Iterate thru the facilities and pick the top 5 of them to play to the user
+            var facility_names = [];
+            _.forEach(all_facilities, function(facility) {
+                facility_names.push(facility.name);
+            });
+
+            this.$speech.addText(this.t('HOTEL_FACILITIES', {facilities: facility_names}))
+                        .addBreak('200ms')
+                        .addText(this.t('FOLLOWUP_QUESTION'));
+            return this.ask(this.$speech);
+        },
+
+        NoIntent() {
+            console.log('not registering this device');
+            return this.tell(this.t('END'));
+        },
+
+        Unhandled() {
+            // Triggered when the requested intent could not be found in the handlers variable
+            console.log('unhandled in followup state');
+            return
+        }
     },
 
     async Enquiry_facility_exists() {
