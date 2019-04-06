@@ -66,12 +66,41 @@ module.exports = {
         this.ask(this.t('HOTEL_FACILITIES', {facilities: stitched_facilities}));
     },
 
+    async Enquiry_facility_exists() {
+        var hotel_id = this.$session.$data.hotel_id,
+            facility_slot = this.$inputs.facility_slot;
+
+        //FIXME: Can the facilities be fetched the first time and stored in memory so that the future looks can be done from in-memory
+        let facilities;
+        try {
+            facilities = await HELPER.hotel_info(hotel_id, "facilities");
+        } catch(error) {
+            console.log('error while fetching hotel facilities:', error);
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+
+        var all_facilities = facilities.facilities;
+        
+        var fuse = new Fuse(facilities.facilities, HELPER.FUSE_OPTIONS);
+        var result = fuse.search(facility_slot);
+
+        console.log('@@@result=', result);
+        var facility = result[0];
+        if (_.isEmpty(facility) || _.isUndefined(facility) || _.isNull(facility)) {
+            // Facility is not part of the list
+            this.ask(this.t('FACILITY_NOT_AVAILABLE', {facility: facility_slot}))
+        }
+        if (facility.availability.message[flag])
+
+        this.ask(this.t('HOTEL_FACILITIES', {facilities: stitched_facilities}));
+    },
+
     async Enquiry_Facility_timings() {
         var hotel_id = this.$session.$data.hotel_id,
             facility = this.$inputs.facility_slot;
 
-            var fuse = new Fuse(facilities.facilities, HELPER.FUSE_OPTIONS);
-            var result = fuse.search(drinking_place);
+        var fuse = new Fuse(facilities.facilities, HELPER.FUSE_OPTIONS);
+        var result = fuse.search(drinking_place);
 
         let facility_obj;
         try {

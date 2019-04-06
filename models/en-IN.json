@@ -333,7 +333,11 @@
          "can I use {facility_slot}",
          "what are the chances of my using {facility_slot}",
          "does the {facility_slot} exist",
-         "how many {facility_slot} does the hotel have"
+         "how many {facility_slot} does the hotel have",
+         "tell me about {facility_slot}",
+         "can you give more information about {facility_slot}",
+         "Please give me info about {facility_slot}",
+         "I would like to know about {facility_slot}"
        ],
        "inputs":[
           {  

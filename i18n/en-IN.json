@@ -26,7 +26,11 @@
     "SLOT_NOT_AVAILABLE": "Please mention the place you would like to know about.",
     "COMMUNITY_NEARBY_NAME": "Option {{option_number}} is {{community_name}}. It is open now.",
     "COMMUNITY_NEARBY_ADDRESS": "The address is {{community_address}}. Would you like to book a cab ?",
-    "SPECIFIC_COMMUNITY_NEARBY": "The nearest {{slot}} is at {{community_address}}. It is open now and has a user rating {{rating}}. Would you like to book a cab ?"
-    "HOTEL_FACILITIES": "This hotel has facilities like {{facilities}}. Which facility would you like to know more about?"
+    "SPECIFIC_COMMUNITY_NEARBY": "The nearest {{slot}} is at {{community_address}}. It is open now and has a user rating {{rating}}. Would you like to book a cab ?",
+    
+    "HOTEL_FACILITIES": "This hotel has facilities like {{facilities}}. Which facility would you like to know more about?",
+    "FACILITY_NOT_AVAILABLE": "This hotel does not have the facility {{facility}}"
+
+
   }
 }
