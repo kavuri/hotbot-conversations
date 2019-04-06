@@ -2,6 +2,41 @@
   "invocation":"hotel reception",
   "intents":[
      {
+        "name": "Community_options",
+        "phrases": [
+           "option {option_number}",
+           "tell me about option {option_number}",
+           "tell me more about option {option_number}",
+           "please tell me about option {option_number}",
+           "give me details about option {option_number}",
+           "i would like to know about {option_number}",
+           "i would like to know more about {option_number}",
+           "i want to know about {option_number}",
+           "i want to know more about {option_number}"
+        ],
+        "inputs": [
+          {
+            "name": "option_number",
+            "type": "option_types"
+          }
+        ]
+     },
+     {
+        "name": "Community_nearby_all",
+        "phrases": [
+           "do you know about places nearby",
+           "do you have information about places nearby",
+           "tell me about places nearby",
+           "can I know about nearby places",
+           "can you tell me about nearby places",
+           "do you know about nearby places",
+           "do you have information about nearby places",
+           "tell me about nearby places",
+           "can I know about places nearby",
+           "can you tell me about places nearby"
+        ]
+     },
+     {
        "name": "Community_nearby",
        "phrases": [
          "i would like to know about any {community_slot} nearby",
@@ -14,7 +49,24 @@
          "tell me about any {community_slot} nearby",
          "find me a {community_slot} in the area",
          "where can i get {community_slot}",
-         "what's a great {community_slot} nearby"
+         "what's a great {community_slot} nearby",
+         "where is the nearest {community_slot}",
+         "i would like to know about the nearest {community_slot}",
+         "can you tell me about nearest {community_slot}",
+         "can you please tell me about nearest {community_slot}",
+         "can you get me nearest {community_slot}",
+         "can you please get me nearest {community_slot}",
+         "let me know about nearest {community_slot}",
+         "tell me about the nearest {community_slot}",
+         "please tell me about the nearest {community_slot}",
+         "i would like to know about {community_slot}",
+         "can you tell me about {community_slot}",
+         "can you please tell me about {community_slot}",
+         "can you get me {community_slot}",
+         "can you please get me {community_slot}",
+         "let me know about {community_slot}",
+         "tell me about the {community_slot}",
+         "please tell me about the {community_slot}"
        ],
        "inputs": [
          {
@@ -1350,7 +1402,30 @@
          }
        ]
      },
-     {
+    {
+      "name": "option_number",
+      "values": [
+        {
+          "value": "1",
+          "synonyms": [
+            "one"
+          ]
+        },
+        {
+          "value": "2",
+          "synonyms": [
+            "two"
+          ]
+        },
+        {
+          "value": "3",
+          "synonyms": [
+            "three"
+          ]
+        }
+      ]
+    },
+    {
         "name":"room_item_types",
         "values":[
            {

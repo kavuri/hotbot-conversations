@@ -19,10 +19,14 @@
     "END": " Thank you. Please call back incase of need; we are here to make your stay pleasant. ",
     "FOLLOWUP_QUESTION": "Would you like to know anything else?",
     "YES_NO_REPROMPT": "Please answer with yes or no.",
-    "PLACES_NEARBY": "Here are few nearby {{slot}}. One {{nearby1}}, two {{nearby2}} , three {{nearby3}}. Would you like details about any of these ?",
-    "NO_SLOT_NEARBY" : "Sorry there is no {{slot}} nearby. Would you like to know about any other place ?",
 
+    "PLACES_NEARBY": "Here are few nearby {{slot}}. Option 1 {{nearby1}}, Option 2 {{nearby2}} , Option 3 {{nearby3}}. Would you like details about any of these options ?",
+    "PLACES_NEARBY_ALL": "Sure. I can tell you about restaurants, movie theatres and other utility places nearby. Which place would you like to know about ?",
+    "NO_SLOT_NEARBY": "Sorry there is no {{slot}} nearby. Would you like to know about any other place ?",
+    "SLOT_NOT_AVAILABLE": "Please mention the place you would like to know about.",
+    "COMMUNITY_NEARBY_NAME": "Option {{option_number}} is {{community_name}}. It is open now.",
+    "COMMUNITY_NEARBY_ADDRESS": "The address is {{community_address}}. Would you like to book a cab ?",
+    "SPECIFIC_COMMUNITY_NEARBY": "The nearest {{slot}} is at {{community_address}}. It is open now and has a user rating {{rating}}. Would you like to book a cab ?"
     "HOTEL_FACILITIES": "This hotel has facilities like {{facilities}}. Which facility would you like to know more about?"
-
   }
 }
