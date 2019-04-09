@@ -7,6 +7,7 @@ module.exports = {
     async nearby(slot, location) {
 
         var community ={
+            //TODO Need to make the radius configurable.
             "radius" : "1500",
             "key" : "GOOGLE_NEARBY_API_KEY"
         }
@@ -23,7 +24,7 @@ module.exports = {
             locations = places.results;
         } catch(error) {
             console.log(error);
-            throw ERROR[this.t('SYSTEM_ERROR')];
+            throw ERROR[this.t('GOOGLE_NEARBY_API_ERROR')];
         }
         return locations;
     },
@@ -47,7 +48,7 @@ module.exports = {
             locations = places.candidates;
         } catch(error) {
             console.log(error);
-            throw ERROR[this.t('SYSTEM_ERROR')];
+            throw ERROR[this.t('GOOGLE_NEARBY_API_ERROR')];
         }
         return locations;
     }

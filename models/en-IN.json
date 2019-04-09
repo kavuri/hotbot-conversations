@@ -4,6 +4,7 @@
      {
         "name": "Community_options",
         "phrases": [
+           "{option_number}",
            "option {option_number}",
            "tell me about option {option_number}",
            "tell me more about option {option_number}",
@@ -796,6 +797,29 @@
      }
   },
   "inputTypes":[
+     {
+       "name":"option_types",
+       "values":[
+         {
+           "value":"1",
+           "synonyms":[
+             "one"
+           ]
+         },
+         {
+           "value":"2",
+           "synonyms":[
+             "two"
+           ]
+         },
+         {
+           "value":"3",
+           "synonyms":[
+             "three"
+           ]
+         }
+       ]
+     },
      {
         "name": "community_types",
         "values": [
