@@ -13,6 +13,14 @@
 		]
 	},
 	{
+		"value": "reception",
+		"synonyms": [
+			"reception",
+			"front desk",
+			"receptionist"
+		]
+	},
+	{
 		"value": "swimming pool",
 		"synonyms": [
 			"swimming pool",
