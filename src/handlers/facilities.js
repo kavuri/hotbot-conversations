@@ -1,11 +1,11 @@
 /* Copyright (C) Kamamishu Pvt. Ltd. - All Rights Reserved
-* Unauthorized copying of this file, via any medium is strictly prohibited
-* Proprietary and confidential
-*/
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
 
 /*
-* This handler answers queries related to the hotel facility
-*/
+ * This handler answers queries related to the hotel facility
+ */
 'using strict';
 
 let Hotel = require('../db/Hotel'),
@@ -15,26 +15,27 @@ let Hotel = require('../db/Hotel'),
     Fuse = require('fuse.js');
 
 module.exports = {
+    //FIXME: Does not work with the new model
     async Enquiry_reception_languages() {
         var hotel_id = this.$session.$data.hotel_id;
 
         let reception_lang;
         try {
             reception_lang = await HELPER.hotel_info(hotel_id, "facilities.reception_lang");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel facilities:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        console.log('languages=',reception_lang);
+        console.log('languages=', reception_lang);
 
         let lang = reception_lang.facilities.reception_lang[0];
         let flag = lang.flag;
         let message = lang.message[flag];
 
         this.$speech.addText(message)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -44,61 +45,47 @@ module.exports = {
         var hotel_id = this.$session.$data.hotel_id;
         let some_facilities = ['restaurant', 'gym', 'swimming pool', 'breakfast', 'laundry'];
 
-        let facilities;
+        let facility_names;
         try {
-            facilities = await HELPER.hotel_info(hotel_id, "facilities");
-        } catch(error) {
+            facility_names = await HELPER.all_facility_names(hotel_id);
+        }catch(error) {
             console.log('error while fetching hotel facilities:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        var all_facilities = facilities.facilities;
-        // Iterate thru the facilities and pick the top 5 of them to play to the user
-        var facility_names = [];
-        _.forEach(all_facilities, function(facility) {
-            facility_names.push(facility.name);
-        });
-        
         // Find the intersection of some_facilities and all the facilities that the hotel supports
         var common = _.intersection(facility_names, some_facilities);
         var stitched_facilities = _.join(common, ',');
 
-        this.$speech.addText(this.t('HOTEL_FACILITIES', {facilities: stitched_facilities}))
-                    .addBreak('200ms')
-                    .addText(this.t('QUESTION_WANT_ALL_FACILITIES'));
+        // Set the facilities as part of data, so that it can be used in 'AllFacilitiesState'
+        this.$session.$data.all_facilities = facility_names;
+
+        this.$speech.addText(this.t('HOTEL_FACILITIES', {
+                facilities: stitched_facilities
+            }))
+            .addBreak('200ms')
+            .addText(this.t('QUESTION_WANT_ALL_FACILITIES'));
 
         return this.followUpState('AllFacilitiesState')
-                    .ask(this.$speech, this.t('YES_NO_REPROMPT'));
-        // this.ask(this.t('HOTEL_FACILITIES', {facilities: stitched_facilities}));
+            .ask(this.$speech, this.t('YES_NO_REPROMPT'));
     },
 
     'AllFacilitiesState': {
         async YesIntent() {
-            var hotel_id = this.$session.$data.hotel_id;
 
-            let facilities;
-            try {
-                facilities = await HELPER.hotel_info(hotel_id, "facilities");
-            } catch(error) {
-                console.log('error while fetching hotel facilities:', error);
-                this.tell(this.t('SYSTEM_ERROR'));
-            }
+            // Take the facilities info from the session object
+            var facility_names = this.$session.$data.all_facilities;
 
-            var all_facilities = facilities.facilities;
-            // Iterate thru the facilities and pick the top 5 of them to play to the user
-            var facility_names = [];
-            _.forEach(all_facilities, function(facility) {
-                facility_names.push(facility.name);
-            });
-
-            this.$speech.addText(this.t('HOTEL_FACILITIES', {facilities: facility_names}))
-                        .addBreak('200ms')
-                        .addText(this.t('FOLLOWUP_QUESTION'));
+            this.$speech.addText(this.t('HOTEL_FACILITIES', {
+                    facilities: facility_names
+                }))
+                .addBreak('200ms')
+                .addText(this.t('FACILITY_FOLLOWUP_QUESTION'));
             return this.ask(this.$speech);
         },
 
         NoIntent() {
-            console.log('not registering this device');
+            console.log('Ending session at "AllFacilitiesState"');
             return this.tell(this.t('END'));
         },
 
@@ -113,29 +100,74 @@ module.exports = {
         var hotel_id = this.$session.$data.hotel_id,
             facility_slot = this.$inputs.facility_slot;
 
-        //FIXME: Can the facilities be fetched the first time and stored in memory so that the future looks can be done from in-memory
-        let facilities;
+        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
+        let facility_name = facility_slot.value,
+            facility;
         try {
-            facilities = await HELPER.hotel_info(hotel_id, "facilities");
+            facility = await HELPER.hotel_facility(hotel_id, facility_name, null);
         } catch(error) {
-            console.log('error while fetching hotel facilities:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            if (error instanceof HELPER.ERRORS.FacilityDoesNotExist) {
+                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_slot.value
+                }));
+            } else {
+                this.tell(this.t('SYSTEM_ERROR'));
+            }
         }
 
-        var all_facilities = facilities.facilities;
-        
-        var fuse = new Fuse(facilities.facilities, HELPER.FUSE_OPTIONS);
-        var result = fuse.search(facility_slot);
+        console.log('+++facility=', facility);
+        var flag = facility.availability.flag;
+        var message = facility.availability.message[flag];
+        if (!_.isEmpty(message) || !_.isUndefined(message)) {
+            this.$speech.addText(message)
+                .addBreak('200ms')
+                .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
+                        facility: facility.name
+                }));
 
-        console.log('@@@result=', result);
-        var facility = result[0];
-        if (_.isEmpty(facility) || _.isUndefined(facility) || _.isNull(facility)) {
-            // Facility is not part of the list
-            this.ask(this.t('FACILITY_NOT_AVAILABLE', {facility: facility_slot}))
+            // Store the facility info for this session
+            this.$session.$data.facility = facility;
+
+            return this.followUpState('FacilityExistsState')
+                    .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        } else {
+            console.log('something wrong with the database setup:', flag, message);
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
-        if (facility.availability.message[flag])
+    },
 
-        this.ask(this.t('HOTEL_FACILITIES', {facilities: stitched_facilities}));
+    'FacilityExistsState': {
+        async YesIntent() {
+            console.log('#####facility=', this.$session.$data.facility);
+            var facility = this.$session.$data.facility;
+
+            var p_template = _.template(facility.price.message[facility.price.flag]);
+            var p_text = p_template({
+                'price': facility.price.price
+            });
+
+            var t_template = _.template(facility.timing.message[facility.timing.flag]);
+            var t_text = t_template({
+                'from': facility.timing.timings.from,
+                'to': facility.timing.timings.to
+            });
+
+            this.$speech.addText(p_text)
+                .addBreak('200ms')
+                .addText(t_text)
+                .addText(this.t('FOLLOWUP_QUESTION'));
+
+            return this.ask(this.$speech);
+        },
+
+        NoIntent() {
+            console.log('Ending session at "FacilityExistsState"');
+            return this.tell(this.t('END'));
+        },
+
+        Unhandled() {
+
+        }
     },
 
     async Enquiry_Facility_timings() {
@@ -148,26 +180,62 @@ module.exports = {
         let facility_obj;
         try {
             facility_obj = await HELPER.hotel_info(hotel_id, "facilities.reception_lang");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel facilities:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        console.log('languages=',reception_lang);
+        console.log('languages=', reception_lang);
 
         let lang = reception_lang.facilities.reception_lang[0];
         let flag = lang.flag;
         let message = lang.message[flag];
 
         this.$speech.addText(message)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
     },
-    
-    Hotel_Facilities() {
-        
+
+    async Enquiry_Facility_price() {
+
+    },
+
+    async Enquiry_Facility_location() {
+
+    },
+
+    async Enquiry_gym() {
+
+    },
+
+    async Enquiry_menu() {
+
+    },
+
+    async Enquiry_menu_cuisinetype() {
+
+    },
+
+    async Enquiry_kitchen_equipment() {
+
+    },
+
+    async Enquiry_kitchen_bottlesterilize() {
+
+    },
+
+    async Enquiry_res_billing() {
+
+    },
+
+    async Equipment_not_working() {
+
+    },
+
+    async Equipment_info() {
+
     }
 }

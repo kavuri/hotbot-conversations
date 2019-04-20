@@ -20,9 +20,9 @@ var fuse_options = {
     maxPatternLength: 32,
     minMatchCharLength: 4,
     keys: [
-      "name"
+        "name"
     ]
-  };
+};
 
 module.exports = {
     async Policy_smoking() {
@@ -32,12 +32,12 @@ module.exports = {
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.smoking");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        console.log('policies=',hotel_policies);
+        console.log('policies=', hotel_policies);
 
         let smoking_place = place_slot.value;
         if (_.isEmpty(smoking_place) || _.isNull(smoking_place) || _.isUndefined(smoking_place)) {
@@ -50,8 +50,8 @@ module.exports = {
 
         let message = result[0].item.message[result[0].item.flag];
         this.$speech.addText(message)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -60,11 +60,11 @@ module.exports = {
     async Policy_alcohol() {
         var place_slot = this.$inputs.place_slot,
             hotel_id = this.$session.$data.hotel_id;
-    
+
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.alcohol");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -77,11 +77,11 @@ module.exports = {
         var fuse = new Fuse(hotel_policies.policies.alcohol, fuse_options);
 
         var result = fuse.search(drinking_place);
-        
+
         let message = result[0].item.message[result[0].item.flag];
         this.$speech.addText(message)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -93,7 +93,7 @@ module.exports = {
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.cancellation");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -103,8 +103,8 @@ module.exports = {
 
         let message = cancellation_policy.message[flag];
         this.$speech.addText(message)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -116,7 +116,7 @@ module.exports = {
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.infants");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -127,11 +127,13 @@ module.exports = {
 
         // Replace the age in the message with the number that is part of the object
         var template = _.template(message);
-        var text = template({'age': infants_policy.age});
+        var text = template({
+            'age': infants_policy.age
+        });
 
         this.$speech.addText(text)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -143,7 +145,7 @@ module.exports = {
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.checkout_time");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -155,11 +157,14 @@ module.exports = {
         // Replace the age in the message with the number that is part of the object
         var template = _.template(message);
         // FIXME: If "phone1" is empty, go to "phone2"
-        var text = template({'time': checkout_time_policy.time, 'reception_no': this.$session.$data.hotel_info.info.contact.phone1});
+        var text = template({
+            'time': checkout_time_policy.time,
+            'reception_no': this.$session.$data.hotel_info.info.contact.phone1
+        });
 
         this.$speech.addText(text)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -171,7 +176,7 @@ module.exports = {
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.noshow");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -181,8 +186,8 @@ module.exports = {
         let message = noshow_policy.message[flag];
 
         this.$speech.addText(message)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -194,7 +199,7 @@ module.exports = {
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.outside_food");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -204,8 +209,8 @@ module.exports = {
         let message = outside_food_policy.message[flag];
 
         this.$speech.addText(message)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -217,7 +222,7 @@ module.exports = {
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.checkin_time");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -227,8 +232,8 @@ module.exports = {
         let message = checkin_time.message[flag];
 
         this.$speech.addText(message)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -240,7 +245,7 @@ module.exports = {
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.pets");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -250,8 +255,8 @@ module.exports = {
         let message = pets.message[flag];
 
         this.$speech.addText(message)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -263,7 +268,7 @@ module.exports = {
         let hotel_policies;
         try {
             hotel_policies = await HELPER.hotel_info(hotel_id, "policies.payment_methods");
-        } catch(error) {
+        } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -276,11 +281,13 @@ module.exports = {
 
         // Replace the payment_methods in the message with the 'methods' string above
         var template = _.template(message);
-        var text = template({'payment_methods': methods});
+        var text = template({
+            'payment_methods': methods
+        });
 
         this.$speech.addText(text)
-                    .addBreak('200ms')
-                    .addText(this.t('FOLLOWUP_QUESTION'));
+            .addBreak('200ms')
+            .addText(this.t('FOLLOWUP_QUESTION'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
