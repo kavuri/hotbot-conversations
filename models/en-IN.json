@@ -4,6 +4,7 @@
      {
         "name": "Community_options",
         "phrases": [
+           "{option_number}",
            "option {option_number}",
            "tell me about option {option_number}",
            "tell me more about option {option_number}",
@@ -251,7 +252,7 @@
      },
      {  
       "name":"Policy_pets",
-      "phrases":[  
+      "phrases":[
          "are pet allowed",
          "are pets allowed",
          "can I bring my {animal_slot}",
@@ -802,6 +803,29 @@
      }
   },
   "inputTypes":[
+     {
+       "name":"option_types",
+       "values":[
+         {
+           "value":"1",
+           "synonyms":[
+             "one"
+           ]
+         },
+         {
+           "value":"2",
+           "synonyms":[
+             "two"
+           ]
+         },
+         {
+           "value":"3",
+           "synonyms":[
+             "three"
+           ]
+         }
+       ]
+     },
      {
         "name": "community_types",
         "values": [
