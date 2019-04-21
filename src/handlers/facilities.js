@@ -194,8 +194,7 @@ module.exports = {
             text = HELPER.template_to_text(message, {'from': from, 'to': to});
         }
         
-
-        this.$speech.addText(message)
+        this.$speech.addText(text)
             .addBreak('200ms')
             .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
                     facility: facility.name
@@ -207,7 +206,52 @@ module.exports = {
     },
 
     async Enquiry_Facility_price() {
+        var hotel_id = this.$session.$data.hotel_id,
+            facility_slot = this.$inputs.facility_slot;
 
+        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
+        let facility_name = facility_slot.value,
+            facility;
+        try {
+            facility = await HELPER.hotel_facility(hotel_id, facility_name, null);
+        } catch(error) {
+            if (error instanceof HELPER.ERRORS.FacilityDoesNotExist) {
+                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_slot.value
+                }));
+            } else {
+                this.tell(this.t('SYSTEM_ERROR'));
+            }
+        }
+
+        /*
+        "price":{
+                    "name":"price",
+                    "synonyms":["cost"],
+                    "flag":"true",
+                    "price":1000,
+                    "message":{
+                        "true":"The price of renting a bike is <%= price %> per day",
+                        "false":"none"
+                    }
+                },
+        */
+        var price = facility.price.price;
+        var message = facility.price.message[facility.price.flag];
+        let text = message;
+        if (!_.isEqual(price, "0")) { // facility is *not* free of cost
+            text = HELPER.template_to_text(message, {'price': price});
+        }
+
+        this.$speech.addText(text)
+            .addBreak('200ms')
+            .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
+                    facility: facility.name
+        }));
+
+        // Store the facility info for this session
+        this.$session.$data.facility = facility;
+        return this.ask(this.$speech);
     },
 
     async Enquiry_Facility_location() {
