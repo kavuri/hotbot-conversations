@@ -102,6 +102,12 @@ module.exports.hotel_facility = async (hotel_id, facility_name, facility_names) 
     }
 };
 
+module.exports.message_from_template = (tmpl, fields) => {
+    var template = _.template(tmpl);
+    var text = template(fields);
+    return text;
+};
+
 module.exports.ERROR = [
     "HOTEL_DOES_NOT_EXIST",
     "POLICY_DOES_NOT_EXIST",

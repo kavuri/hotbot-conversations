@@ -15,25 +15,22 @@ let Hotel = require('../db/Hotel'),
     Fuse = require('fuse.js');
 
 module.exports = {
-    //FIXME: Does not work with the new model
     async Enquiry_reception_languages() {
         var hotel_id = this.$session.$data.hotel_id;
 
-        let reception_lang;
+        console.log('Enquiry_reception_languages: hotel_id=', hotel_id);
+        let facility;
         try {
-            reception_lang = await HELPER.hotel_info(hotel_id, "facilities.reception_lang");
-        } catch (error) {
-            console.log('error while fetching hotel facilities:', error);
+            facility = await HELPER.hotel_facility(hotel_id, "reception", null);
+        } catch(error) {
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        console.log('languages=', reception_lang);
+        let langs = facility.spoken.languages;  // This is an array
+        let message = facility.spoken.message.true;
+        var text = HELPER.message_from_template(message, {'languages': _.join(langs, ',')});
 
-        let lang = reception_lang.facilities.reception_lang[0];
-        let flag = lang.flag;
-        let message = lang.message[flag];
-
-        this.$speech.addText(message)
+        this.$speech.addText(text)
             .addBreak('200ms')
             .addText(this.t('FOLLOWUP_QUESTION'));
 
