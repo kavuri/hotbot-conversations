@@ -28,7 +28,7 @@ module.exports = {
 
         let langs = facility.spoken.languages;  // This is an array
         let message = facility.spoken.message.true;
-        var text = HELPER.message_from_template(message, {'languages': _.join(langs, ',')});
+        var text = HELPER.template_to_text(message, {'languages': _.join(langs, ',')});
 
         this.$speech.addText(text)
             .addBreak('200ms')
@@ -169,30 +169,40 @@ module.exports = {
 
     async Enquiry_Facility_timings() {
         var hotel_id = this.$session.$data.hotel_id,
-            facility = this.$inputs.facility_slot;
+        facility_slot = this.$inputs.facility_slot;
 
-        var fuse = new Fuse(facilities.facilities, HELPER.FUSE_OPTIONS);
-        var result = fuse.search(drinking_place);
-
-        let facility_obj;
+        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
+        let facility_name = facility_slot.value,
+            facility;
         try {
-            facility_obj = await HELPER.hotel_info(hotel_id, "facilities.reception_lang");
-        } catch (error) {
-            console.log('error while fetching hotel facilities:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            facility = await HELPER.hotel_facility(hotel_id, facility_name, null);
+        } catch(error) {
+            if (error instanceof HELPER.ERRORS.FacilityDoesNotExist) {
+                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_slot.value
+                }));
+            } else {
+                this.tell(this.t('SYSTEM_ERROR'));
+            }
         }
 
-        console.log('languages=', reception_lang);
-
-        let lang = reception_lang.facilities.reception_lang[0];
-        let flag = lang.flag;
-        let message = lang.message[flag];
+        var from = facility.timing.timings.from, to = facility.timing.timings.to;
+        var message = facility.timing.message[facility.timing.flag];
+        let text = message;
+        if (!_.isEqual(from, "0000") && !_.isEqual(to, "0000")) { // facility is open 24x7
+            // this is not 24x7 open, use templating
+            text = HELPER.template_to_text(message, {'from': from, 'to': to});
+        }
+        
 
         this.$speech.addText(message)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
+                    facility: facility.name
+        }));
 
-        // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
+        // Store the facility info for this session
+        this.$session.$data.facility = facility;
         return this.ask(this.$speech);
     },
 

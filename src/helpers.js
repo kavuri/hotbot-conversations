@@ -102,7 +102,7 @@ module.exports.hotel_facility = async (hotel_id, facility_name, facility_names) 
     }
 };
 
-module.exports.message_from_template = (tmpl, fields) => {
+module.exports.template_to_text = (tmpl, fields) => {
     var template = _.template(tmpl);
     var text = template(fields);
     return text;
