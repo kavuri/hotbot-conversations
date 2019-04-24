@@ -30,6 +30,7 @@
     "SPECIFIC_COMMUNITY_NEARBY": "The nearest {{slot}} is at {{community_address}}. It is open now and has a user rating {{rating}}. Would you like to book a cab ?",
     "HOTEL_FACILITIES": "This hotel has facilities like {{facilities}}.",
     "QUESTION_WANT_ALL_FACILITIES": "Would you like to know the full list of facilities?",
-    "FACILITY_NOT_AVAILABLE": "This hotel does not have the facility {{facility}}"
+    "FACILITY_NOT_AVAILABLE": "This hotel does not have the facility {{facility}}",
+    "WELCOME_USER": " Hello, {{name}} . How are you doing today? "
   }
 }
