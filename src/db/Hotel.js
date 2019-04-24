@@ -31,7 +31,7 @@ module.exports.get = async function(hotel_id, projection) {
     return data.Item;
 }
 
-module.exports.all_facilities = async function(hotel_id) {
+module.exports.facility_names = async function(hotel_id) {
     let params = {
         TableName: TableName,
         Key: {
@@ -48,53 +48,15 @@ module.exports.all_facilities = async function(hotel_id) {
         throw error;
     }
 
-    return data;
-}
 
-module.exports.policies = async function(hotel_id, specific_policy=null) {
-    let params = {
-        TableName: TableName,
-        ProjectionExpression: specific_policy,
-        Key: {
-            'hotel_id': hotel_id
-        }
-    };
-
-    let data;
-    try {
-        data = await Conn().get(params).promise();
-    } catch (error) {
-        console.error('error while getting hotel policies:', hotel_id, error);
-        throw error;
-    }
 
     return data;
 }
 
-module.exports.info = async function(hotel_id) {
-    let params = {
-        TableName: TableName,
-        Key: {
-            HashKey: hotel_id
-        },
-        AttributesToGet: ['info']
-    };
-
-    let data;
-    try {
-        data = await Conn().get(params).promise();
-    } catch (error) {
-        console.error('error while getting hotel info:', hotel_id, error);
-        throw error;
-    }
-
-    return data;
-}
-
-const test = async function(hotel_id) {
+const test = async function() {
     let Hotel = require('./Hotel');
-    var p = await Hotel.get("100", "facilities");
-    console.log('policies=', JSON.stringify(p));
+    var p = await Hotel.facility_names("100");
+    console.log('data=', JSON.stringify(p));
 }
 
-test();
+// test();

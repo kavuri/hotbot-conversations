@@ -1923,7 +1923,7 @@
 					]
 				},
 				{
-					"name": "Enquiry_Facility_cost",
+					"name": "Enquiry_Facility_price",
 					"samples": [
 						"what are the charges for {facility_slot}",
 						"how much do I have to pay for {facility_slot}",
@@ -2003,19 +2003,21 @@
 					"name": "Enquiry_menu",
 					"samples": [
 						"is there a menu in the room",
-						"should i call the front desk to know the menu items",
-						"what are the different food items",
-						"what does the restaurant serve",
-						"what food is available",
-						"what is on the menu",
-						"where are the menu items",
-						"where can i find menu items",
-						"where is the menu"
+						"where can i find menu",
+						"where is the menu",
+						"where is the menu in the room",
+						"I cant find the menu",
+						"I need a menu"
 					]
 				},
 				{
 					"name": "Enquiry_menu_cuisinetype",
 					"samples": [
+						"what are the different food items",
+						"what does the restaurant serve",
+						"what food is available",
+						"what is on the menu",
+						"where are the menu items",
 						"what kind of food i can get",
 						"what are the various food item available",
 						"what are the various food items available",
