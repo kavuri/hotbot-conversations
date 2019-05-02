@@ -616,7 +616,7 @@
       ]
    },
    {
-      "name":"Order_delivery_time",
+      "name":"Enquiry_food_delivery_time",
       "phrases":[  
          "can i get the time to get my food delivered",
          "does it take more than one hour to get my food delivered",
@@ -628,12 +628,6 @@
          "please get my food delivered as soon as possible",
          "what is the food delivery time",
          "how much time does room service for food take"
-      ],
-      "inputs":[  
-         {  
-            "name":"facilityslot",
-            "type":"facility_types"
-         }
       ]
    },
    {

@@ -74,6 +74,7 @@ module.exports = {
         console.info('NEW_USER handler');
     },
 
+    //FIXME: Replace 'ABC' to the hotel name
     async LAUNCH() {
         console.info('LAUNCH handler')
         this.ask(this.t('WELCOME', {hotel_name: 'ABC'}));
