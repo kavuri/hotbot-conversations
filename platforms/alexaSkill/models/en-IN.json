@@ -1152,6 +1152,62 @@
 						{
 							"id": null,
 							"name": {
+								"value": "remote",
+								"synonyms": [
+									"tv remote",
+									"television remote"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "iron",
+								"synonyms": [
+									"iron box",
+									"clothes ironing",
+									"ironing machine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hair dryer",
+								"synonyms": [
+									"dryer",
+									"hair drying machine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "mini bar"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "menu",
+								"synonyms": [
+									"food menu",
+									"restaurant menu"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "expresso machine",
+								"synonyms": [
+									"coffee machine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
 								"value": "dish washer",
 								"synonyms": [
 									"dish washing facility"
@@ -1222,6 +1278,38 @@
 						{
 							"id": null,
 							"name": {
+								"value": "tea",
+								"synonyms": [
+									"green tea",
+									"tea bags",
+									"tea powder"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "coffee",
+								"synonyms": [
+									"coffee powder"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "glass",
+								"synonyms": [
+									"drinking glass",
+									"wine glass",
+									"plastic mug",
+									"mug"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
 								"value": "towels"
 							}
 						},
@@ -1255,7 +1343,17 @@
 						{
 							"id": null,
 							"name": {
-								"value": "toung cleaner"
+								"value": "tooth paste",
+								"synonyms": [
+									"paste",
+									"brushing paste"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tongue cleaner"
 							}
 						},
 						{
@@ -2150,7 +2248,7 @@
 					]
 				},
 				{
-					"name": "Order_delivery_time",
+					"name": "Enquiry_food_delivery_time",
 					"samples": [
 						"can i get the time to get my food delivered",
 						"does it take more than one hour to get my food delivered",
@@ -2162,12 +2260,6 @@
 						"please get my food delivered as soon as possible",
 						"what is the food delivery time",
 						"how much time does room service for food take"
-					],
-					"slots": [
-						{
-							"name": "facilityslot",
-							"type": "facility_types"
-						}
 					]
 				},
 				{
@@ -2176,14 +2268,21 @@
 						"I would like new {room_item_slot}",
 						"can you please get some set of new {room_item_slot}",
 						"I need a replacement for {room_item_slot}",
-						"can you please send {room_item_slot}",
+						"can you please send {count} {room_item_slot}",
 						"I am out of {room_item_slot} can you please send some",
 						"there are no {room_item_slot} in the room can you please send the same",
 						"I need a replacement for {room_item_slot}",
-						"Can you get me a pair of {room_item_slot}",
-						"I quickly need some {room_item_slot}"
+						"Can you get me a {count} of {room_item_slot}",
+						"I quickly need some {room_item_slot}",
+						"I need {count} {room_item_slot}",
+						"{count} {room_item_slot} please",
+						"need some {room_item_slot}"
 					],
 					"slots": [
+						{
+							"name": "count",
+							"type": "AMAZON.NUMBER"
+						},
 						{
 							"name": "room_item_slot",
 							"type": "room_item_types"

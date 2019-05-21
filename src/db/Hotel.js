@@ -32,27 +32,12 @@ module.exports.get = async function(hotel_id, projection) {
     return data.Item;
 }
 
-module.exports.facility_names = async function(hotel_id) {
-    let params = {
-        TableName: TableName,
-        Key: {
-            'hotel_id': hotel_id
-        },
-        AttributesToGet: ['facilities']
-    };
-
-    let data;
-    try {
-        data = await Conn().get(params).promise();
-    } catch (error) {
-        console.error('error while getting hotel facilities:', hotel_id, error);
-        throw error;
+module.exports.room_item = async function(hotel_id, f_type, room_item) {
+    if (_.isEmpty(hotel_id) || _.isEmpty(f_type) || _.isEmpty(room_item)) {
+        // Error in input
+        throw new Error('invalid input');
     }
 
-    return data;
-}
-
-module.exports.room_items = async function(hotel_id, f_type) {
     let params = {
         TableName: TableName,
         Key: {
@@ -84,12 +69,17 @@ module.exports.room_items = async function(hotel_id, f_type) {
     var fuse = new Fuse(data.Item.facilities, fuse_options);
     var result = fuse.search(f_type);
 
-    return result;
+    // reset fuse options to search by name instead of f_type
+    fuse_options.keys = ["name"];
+    var item = new Fuse(result, fuse_options);
+    var r = item.search(room_item);
+
+    return r;
 }
 
 const test = async function() {
     let Hotel = require('./Hotel');
-    var p = await Hotel.room_items("100", "r");
+    var p = await Hotel.room_item("100", "r", "tiss");
     console.log('data=', JSON.stringify(p));
 }
 

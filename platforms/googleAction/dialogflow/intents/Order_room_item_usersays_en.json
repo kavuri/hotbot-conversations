@@ -54,6 +54,16 @@
 				"userDefined": false
 			},
 			{
+				"text": "count",
+				"userDefined": true,
+				"alias": "count",
+				"meta": "@sys.number-integer"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
 				"text": "room_item_slot",
 				"userDefined": true,
 				"alias": "room_item_slot",
@@ -122,7 +132,17 @@
 	{
 		"data": [
 			{
-				"text": "Can you get me a pair of ",
+				"text": "Can you get me a ",
+				"userDefined": false
+			},
+			{
+				"text": "count",
+				"userDefined": true,
+				"alias": "count",
+				"meta": "@sys.number-integer"
+			},
+			{
+				"text": " of ",
 				"userDefined": false
 			},
 			{
@@ -139,6 +159,74 @@
 		"data": [
 			{
 				"text": "I quickly need some ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I need ",
+				"userDefined": false
+			},
+			{
+				"text": "count",
+				"userDefined": true,
+				"alias": "count",
+				"meta": "@sys.number-integer"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "count",
+				"userDefined": true,
+				"alias": "count",
+				"meta": "@sys.number-integer"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			},
+			{
+				"text": " please",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "need some ",
 				"userDefined": false
 			},
 			{

@@ -7,6 +7,12 @@
 			"parameters": [
 				{
 					"isList": false,
+					"name": "count",
+					"value": "$count",
+					"dataType": "@sys.number-integer"
+				},
+				{
+					"isList": false,
 					"name": "room_item_slot",
 					"value": "$room_item_slot",
 					"dataType": "@room_item_types"

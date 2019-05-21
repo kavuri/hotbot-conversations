@@ -126,7 +126,7 @@ module.exports.FUSE_OPTIONS = {
     keys: [
       "name"
     ]
-  };
+};
 
   class HotelDoesNotExistError extends Error {
       constructor(message) {

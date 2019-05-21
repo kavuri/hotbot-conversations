@@ -54,6 +54,52 @@
 		]
 	},
 	{
+		"value": "remote",
+		"synonyms": [
+			"remote",
+			"tv remote",
+			"television remote"
+		]
+	},
+	{
+		"value": "iron",
+		"synonyms": [
+			"iron",
+			"iron box",
+			"clothes ironing",
+			"ironing machine"
+		]
+	},
+	{
+		"value": "hair dryer",
+		"synonyms": [
+			"hair dryer",
+			"dryer",
+			"hair drying machine"
+		]
+	},
+	{
+		"value": "mini bar",
+		"synonyms": [
+			"mini bar"
+		]
+	},
+	{
+		"value": "menu",
+		"synonyms": [
+			"menu",
+			"food menu",
+			"restaurant menu"
+		]
+	},
+	{
+		"value": "expresso machine",
+		"synonyms": [
+			"expresso machine",
+			"coffee machine"
+		]
+	},
+	{
 		"value": "dish washer",
 		"synonyms": [
 			"dish washer",

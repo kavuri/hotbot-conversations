@@ -1,5 +1,31 @@
 [
 	{
+		"value": "tea",
+		"synonyms": [
+			"tea",
+			"green tea",
+			"tea bags",
+			"tea powder"
+		]
+	},
+	{
+		"value": "coffee",
+		"synonyms": [
+			"coffee",
+			"coffee powder"
+		]
+	},
+	{
+		"value": "glass",
+		"synonyms": [
+			"glass",
+			"drinking glass",
+			"wine glass",
+			"plastic mug",
+			"mug"
+		]
+	},
+	{
 		"value": "towels",
 		"synonyms": [
 			"towels"
@@ -27,9 +53,17 @@
 		]
 	},
 	{
-		"value": "toung cleaner",
+		"value": "tooth paste",
 		"synonyms": [
-			"toung cleaner"
+			"tooth paste",
+			"paste",
+			"brushing paste"
+		]
+	},
+	{
+		"value": "tongue cleaner",
+		"synonyms": [
+			"tongue cleaner"
 		]
 	},
 	{

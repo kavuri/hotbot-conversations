@@ -636,14 +636,24 @@
          "I would like new {room_item_slot}",
          "can you please get some set of new {room_item_slot}",
          "I need a replacement for {room_item_slot}",
-         "can you please send {room_item_slot}",
+         "can you please send {count} {room_item_slot}",
          "I am out of {room_item_slot} can you please send some",
          "there are no {room_item_slot} in the room can you please send the same",
          "I need a replacement for {room_item_slot}",
-         "Can you get me a pair of {room_item_slot}",
-         "I quickly need some {room_item_slot}"
+         "Can you get me a {count} of {room_item_slot}",
+         "I quickly need some {room_item_slot}",
+         "I need {count} {room_item_slot}",
+         "{count} {room_item_slot} please",
+         "need some {room_item_slot}"
       ],
       "inputs":[
+         {  
+            "name":"count",
+            "type":{  
+               "alexa":"AMAZON.NUMBER",
+               "dialogflow":"@sys.number-integer"
+            }
+         },
          {
             "name":"room_item_slot",
             "type":"room_item_types"
@@ -1054,6 +1064,44 @@
               ]
            },
            {
+              "value":"remote",
+              "synonyms":[
+                 "tv remote",
+                 "television remote"
+              ]
+           },
+           {
+              "value":"iron",
+              "synonyms":[
+                 "iron box",
+                 "clothes ironing",
+                 "ironing machine"
+              ]
+           },
+           {
+              "value":"hair dryer",
+              "synonyms":[
+                 "dryer",
+                 "hair drying machine"
+              ]
+           },
+           {
+              "value":"mini bar"
+           },
+           {
+              "value":"menu",
+              "synonyms":[
+                 "food menu",
+                 "restaurant menu"
+              ]
+           },
+           {
+              "value":"expresso machine",
+              "synonyms":[
+                 "coffee machine"
+              ]
+           },
+           {
             "value":"dish washer",
             "synonyms":[  
                "dish washing facility"
@@ -1453,6 +1501,29 @@
         "name":"room_item_types",
         "values":[
            {
+              "value":"tea",
+              "synonyms":[
+                 "green tea",
+                 "tea bags",
+                 "tea powder"
+              ]
+           },
+           {
+              "value":"coffee",
+              "synonyms":[
+                 "coffee powder"
+              ]
+           },
+           {
+              "value":"glass",
+              "synonyms":[
+                 "drinking glass",
+                 "wine glass",
+                 "plastic mug",
+                 "mug"
+              ]
+           },
+           {
               "value":"towels"
            },
            {
@@ -1474,7 +1545,14 @@
               ]
            },
            {
-              "value":"toung cleaner"
+              "value":"tooth paste",
+              "synonyms":[
+                 "paste",
+                 "brushing paste"
+              ]
+           },
+           {
+              "value":"tongue cleaner"
            },
            {
               "value":"shampoo",
