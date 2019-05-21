@@ -9,6 +9,7 @@ let Hotel = require('../db/Hotel'),
     _ = require('lodash'),
     ERROR = require('../helpers').ERROR,
     HELPER = require('../helpers'),
+    POLICIES = require('../db/Policies'),
     Fuse = require('fuse.js');
 
 var fuse_options = {
@@ -31,7 +32,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.smoking");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.smoking");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -63,7 +64,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.alcohol");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.alcohol");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -92,7 +93,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.cancellation");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.cancellation");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -115,7 +116,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.infants");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.infants");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -144,7 +145,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.checkout_time");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.checkout_time");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -175,7 +176,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.noshow");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.noshow");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -198,7 +199,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.outside_food");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.outside_food");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -221,7 +222,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.checkin_time");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.checkin_time");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -244,7 +245,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.pets");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.pets");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -267,7 +268,7 @@ module.exports = {
 
         let hotel_policies;
         try {
-            hotel_policies = await HELPER.hotel_info(hotel_id, "policies.payment_methods");
+            hotel_policies = await POLICIES.get(hotel_id, "policies.payment_methods");
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             this.tell(this.t('SYSTEM_ERROR'));
