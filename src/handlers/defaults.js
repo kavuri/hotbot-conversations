@@ -8,17 +8,44 @@
 let _ = require('lodash'),
     DeviceToHotel = require('../db/DeviceToHotel'),
     HELPER = require('../helpers');
+const rp = require('request-promise');
 
 module.exports = {
 
     // Always triggered when a user opens your app, no matter the query (new session)
     async NEW_SESSION() {
         console.log('new session handler:');
+        //Account linking starts
+        let token = await this.$request.getAccessToken();
+        console.log('Token : ' + token);
+
+        if (_.isEmpty(token) || _.isNull(token) || _.isUndefined(token) ||
+        token == 'undefined') {
+            this.$alexaSkill.showAccountLinkingCard();
+            return this.tell('Please link you Account');
+        }else{
+            let options = {
+                method: 'GET',
+                uri: 'https://kamamishu-india.auth0.com/userinfo',
+                headers: {
+                    authorization: 'Bearer ' + token,
+                }
+            };
+
+            await rp(options).then((body) => {
+                let data = JSON.parse(body);
+                let user_name = data.name ;
+            });
+        }
+        //Account linking ends
+
+        // FixME Add user_name in Device_To_Hotel/separate login table for tracking purpose
         var device_id = this.$request.context.System.device.deviceId,
             user_id = this.$request.context.System.user.userId,
             intent = this.$request.getIntentName();
 
         // Get the hotel id from this device_id and user_id
+
         let data;
         try {
             data = await DeviceToHotel.get(device_id, user_id);
@@ -46,6 +73,7 @@ module.exports = {
                 this.$session.$data.hotel_id = data.hotel_id;
                 this.$session.$data.hotel_info = hotel_info;
             }
+
         } catch(error) {
             // Some DB error
             this.tell(this.t('SYSTEM_ERROR'));
