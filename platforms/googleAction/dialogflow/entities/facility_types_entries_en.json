@@ -156,5 +156,22 @@
 			"room fridge",
 			"refrigerator"
 		]
+	},
+	{
+		"value": "bicycle",
+		"synonyms": [
+			"bicycle",
+			"cycle"
+		]
+	},
+	{
+		"value": "bike",
+		"synonyms": [
+			"bike",
+			"scooter",
+			"two wheeler",
+			"motor bike",
+			"gear bike"
+		]
 	}
 ]

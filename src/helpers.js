@@ -62,46 +62,6 @@ module.exports.hotel_info = async (hotel_id, hotel_item) => {
     return hotel_info;
 };
 
-module.exports.all_facility_names = async (hotel_id) => {
-    let all_facilities, facility_names = [];
-    try {
-        all_facilities = await this.hotel_info(hotel_id, "facilities");
-    } catch (error) {
-        console.log('error while fetching hotel facilities:', error);
-        throw error;
-    }
-    
-    _.forEach(all_facilities.facilities, function(facility) {
-        console.log(facility.name);
-        facility_names.push(facility.name);
-    });
-
-    return facility_names;
-};
-
-module.exports.hotel_facility = async (hotel_id, facility_name, facility_names) => {
-    console.log('hotel_id='+ hotel_id, ',facility_name='+ facility_name);
-    let facilities;
-    try {
-        facilities = await this.hotel_info(hotel_id, "facilities");
-    } catch (error) {
-        console.log('error while fetching hotel facilities:', error);
-        throw error;
-    }
-    var all_facilities = facilities.facilities;
-
-    var fuse = new Fuse(all_facilities, this.FUSE_OPTIONS);
-    var result = fuse.search(facility_name);
-
-    var facility = result[0];   // fuse returns an array. We pick the top search item from the array
-    if (_.isEmpty(facility) || _.isUndefined(facility) || _.isNull(facility)) {
-        // Facility is not part of the list
-        throw new FacilityDoesNotExist("Facility " + facility_name + " does not exist");
-    } else {
-        return facility;
-    }
-};
-
 module.exports.template_to_text = (tmpl, fields) => {
     var template = _.template(tmpl);
     var text = template(fields);

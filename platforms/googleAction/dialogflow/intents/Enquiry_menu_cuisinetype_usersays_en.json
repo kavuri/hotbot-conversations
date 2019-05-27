@@ -260,16 +260,6 @@
 	{
 		"data": [
 			{
-				"text": "what kind of food is serve here",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
 				"text": "what kind of food is served here",
 				"userDefined": false
 			}

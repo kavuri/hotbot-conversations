@@ -12,6 +12,7 @@ let Hotel = require('../db/Hotel'),
     _ = require('lodash'),
     ERROR = require('../helpers').ERROR,
     HELPER = require('../helpers'),
+    FACILITIES = require('../db/Facilities'),
     Fuse = require('fuse.js');
 
 module.exports = {
@@ -21,9 +22,15 @@ module.exports = {
         console.log('Enquiry_reception_languages: hotel_id=', hotel_id);
         let facility;
         try {
-            facility = await HELPER.hotel_facility(hotel_id, "reception", null);
+            facility = await FACILITIES.facility(hotel_id, "reception");
         } catch(error) {
             this.tell(this.t('SYSTEM_ERROR'));
+        }
+        // If return is empty, then no facility exists
+        if (_.isEmpty(facility) || _.isUndefined(facility)) {
+            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                facility: facility_slot.value
+            }));
         }
 
         let langs = facility.spoken.languages;  // This is an array
@@ -44,7 +51,8 @@ module.exports = {
 
         let facility_names;
         try {
-            facility_names = await HELPER.all_facility_names(hotel_id);
+            var ret = await FACILITIES.all_facility_names(hotel_id); //returns array of form [{f_name:'abc', synonyms:['def','ghi]}]
+            facility_names = _.map(ret, 'f_name'); // get only the f_name, i.e., the facility name
         }catch(error) {
             console.log('error while fetching hotel facilities:', error);
             this.tell(this.t('SYSTEM_ERROR'));
@@ -101,15 +109,15 @@ module.exports = {
         let facility_name = facility_slot.value,
             facility;
         try {
-            facility = await HELPER.hotel_facility(hotel_id, facility_name, null);
+            facility = await FACILITIES.facility(hotel_id, facility_name);
         } catch(error) {
-            if (error instanceof HELPER.ERRORS.FacilityDoesNotExist) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: facility_slot.value
-                }));
-            } else {
-                this.tell(this.t('SYSTEM_ERROR'));
-            }
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+        // If return is empty, then no facility exists
+        if (_.isEmpty(facility) || _.isUndefined(facility)) {
+            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                facility: facility_slot.value
+            }));
         }
 
         console.log('+++facility=', facility);
@@ -119,7 +127,7 @@ module.exports = {
             this.$speech.addText(message)
                 .addBreak('200ms')
                 .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
-                        facility: facility.name
+                        facility: facility.f_name
                 }));
 
             // Store the facility info for this session
@@ -169,21 +177,21 @@ module.exports = {
 
     async Enquiry_Facility_timings() {
         var hotel_id = this.$session.$data.hotel_id,
-        facility_slot = this.$inputs.facility_slot;
+            facility_slot = this.$inputs.facility_slot;
 
         console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
         let facility_name = facility_slot.value,
             facility;
         try {
-            facility = await HELPER.hotel_facility(hotel_id, facility_name, null);
+            facility = await FACILITIES.facility(hotel_id, facility_name);
         } catch(error) {
-            if (error instanceof HELPER.ERRORS.FacilityDoesNotExist) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: facility_slot.value
-                }));
-            } else {
-                this.tell(this.t('SYSTEM_ERROR'));
-            }
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+        // If return is empty, then no facility exists
+        if (_.isEmpty(facility) || _.isUndefined(facility)) {
+            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                facility: facility_slot.value
+            }));
         }
 
         var from = facility.timing.timings.from, to = facility.timing.timings.to;
@@ -197,7 +205,7 @@ module.exports = {
         this.$speech.addText(text)
             .addBreak('200ms')
             .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
-                    facility: facility.name
+                    facility: facility.f_name
         }));
 
         // Store the facility info for this session
@@ -209,19 +217,19 @@ module.exports = {
         var hotel_id = this.$session.$data.hotel_id,
             facility_slot = this.$inputs.facility_slot;
 
-        console.log('Enquiry_Facility_price: hotel_id=', hotel_id, ',facility_slot=', facility_slot);
+        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
         let facility_name = facility_slot.value,
             facility;
         try {
-            facility = await HELPER.hotel_facility(hotel_id, facility_name, null);
+            facility = await FACILITIES.facility(hotel_id, facility_name);
         } catch(error) {
-            if (error instanceof HELPER.ERRORS.FacilityDoesNotExist) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: facility_slot.value
-                }));
-            } else {
-                this.tell(this.t('SYSTEM_ERROR'));
-            }
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+        // If return is empty, then no facility exists
+        if (_.isEmpty(facility) || _.isUndefined(facility)) {
+            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                facility: facility_slot.value
+            }));
         }
 
         var price = facility.price.price;
@@ -234,7 +242,7 @@ module.exports = {
         this.$speech.addText(text)
             .addBreak('200ms')
             .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
-                    facility: facility.name
+                    facility: facility.f_name
         }));
 
         // Store the facility info for this session
@@ -244,21 +252,21 @@ module.exports = {
 
     async Enquiry_Facility_location() {
         var hotel_id = this.$session.$data.hotel_id,
-        facility_slot = this.$inputs.facility_slot;
+            facility_slot = this.$inputs.facility_slot;
 
-        console.log('Enquiry_Facility_location: hotel_id=', hotel_id, ',facility_slot=', facility_slot);
+        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
         let facility_name = facility_slot.value,
             facility;
         try {
-            facility = await HELPER.hotel_facility(hotel_id, facility_name, null);
+            facility = await FACILITIES.facility(hotel_id, facility_name);
         } catch(error) {
-            if (error instanceof HELPER.ERRORS.FacilityDoesNotExist) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: facility_slot.value
-                }));
-            } else {
-                this.tell(this.t('SYSTEM_ERROR'));
-            }
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+        // If return is empty, then no facility exists
+        if (_.isEmpty(facility) || _.isUndefined(facility)) {
+            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                facility: facility_slot.value
+            }));
         }
 
         var message = facility.location.message[facility.location.flag];
@@ -267,7 +275,7 @@ module.exports = {
         this.$speech.addText(text)
             .addBreak('200ms')
             .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
-                    facility: facility.name
+                    facility: facility.f_name
         }));
 
         // Store the facility info for this session

@@ -995,6 +995,27 @@
 									"refrigerator"
 								]
 							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bicycle",
+								"synonyms": [
+									"cycle"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bike",
+								"synonyms": [
+									"scooter",
+									"two wheeler",
+									"motor bike",
+									"gear bike"
+								]
+							}
 						}
 					]
 				},
@@ -1816,6 +1837,7 @@
 				{
 					"name": "Policy_infants",
 					"samples": [
+						"can I bring infants",
 						"can infant stay",
 						"can infants stay",
 						"can my child stay for free",
@@ -2040,7 +2062,9 @@
 						"is {facility_slot} free",
 						"what is the cost of {facility_slot}",
 						"who pays for {facility_slot}",
-						"is {facility_slot} included in the price"
+						"is {facility_slot} included in the price",
+						"what is the price of {facility_slot}",
+						"what is the price of renting the {facility_slot}"
 					],
 					"slots": [
 						{
@@ -2130,7 +2154,6 @@
 						"is {meal_typesslot} serve",
 						"is {meal_typesslot} served",
 						"what is the food type",
-						"what kind of food is serve here",
 						"what kind of food is served here",
 						"what {meal_typesslot} type are available",
 						"what {meal_typesslot} types are available",

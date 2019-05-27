@@ -409,7 +409,9 @@
          "is {facility_slot} free",
          "what is the cost of {facility_slot}",
          "who pays for {facility_slot}",
-         "is {facility_slot} included in the price"
+         "is {facility_slot} included in the price",
+         "what is the price of {facility_slot}",
+         "what is the price of renting the {facility_slot}"
       ],
       "inputs":[  
          {  
@@ -499,7 +501,6 @@
            "is {meal_typesslot} serve",
            "is {meal_typesslot} served",
            "what is the food type",
-           "what kind of food is serve here",
            "what kind of food is served here",
            "what {meal_typesslot} type are available",
            "what {meal_typesslot} types are available",
@@ -1273,7 +1274,22 @@
                  "room fridge",
                  "refrigerator"
               ]
-           }
+           },
+           {
+            "value":"bicycle",
+            "synonyms":[
+               "cycle"
+            ]
+         },
+         {
+            "value":"bike",
+            "synonyms":[
+               "scooter",
+               "two wheeler",
+               "motor bike",
+               "gear bike"
+            ]
+         }
         ]
      },
      {  
