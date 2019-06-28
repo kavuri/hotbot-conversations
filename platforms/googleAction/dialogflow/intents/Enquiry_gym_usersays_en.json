@@ -6,9 +6,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "workout_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "workout_slot",
+				"alias": "facility_slot",
 				"meta": "@workout_types"
 			},
 			{
@@ -26,9 +26,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "workout_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "workout_slot",
+				"alias": "facility_slot",
 				"meta": "@workout_types"
 			}
 		],
@@ -42,9 +42,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "workout_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "workout_slot",
+				"alias": "facility_slot",
 				"meta": "@workout_types"
 			},
 			{
@@ -62,9 +62,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "workout_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "workout_slot",
+				"alias": "facility_slot",
 				"meta": "@workout_types"
 			}
 		],
@@ -78,9 +78,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "workout_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "workout_slot",
+				"alias": "facility_slot",
 				"meta": "@workout_types"
 			}
 		],
@@ -94,9 +94,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "workout_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "workout_slot",
+				"alias": "facility_slot",
 				"meta": "@workout_types"
 			}
 		],
@@ -110,9 +110,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "workout_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "workout_slot",
+				"alias": "facility_slot",
 				"meta": "@workout_types"
 			},
 			{
@@ -130,25 +130,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "workout_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "workout_slot",
-				"meta": "@workout_types"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "where can I do ",
-				"userDefined": false
-			},
-			{
-				"text": "workout_slot",
-				"userDefined": true,
-				"alias": "workout_slot",
+				"alias": "facility_slot",
 				"meta": "@workout_types"
 			}
 		],

@@ -8,30 +8,60 @@
  */
 'using strict';
 
-let Hotel = require('../db/Hotel'),
-    _ = require('lodash'),
-    ERROR = require('../helpers').ERROR,
+let _ = require('lodash'),
     HELPER = require('../helpers'),
-    FACILITIES = require('../db/Facilities'),
-    Fuse = require('fuse.js');
+    KamError = require('../utils/KamError'),
+    FACILITIES = require('../db/Facilities');
+
+/**
+ * 
+ * @param {*} hotel_id - the hotel id of the facility
+ * @param {*} facility_name - the name of the facility
+ * @param {*} category - the category inside the facility (like price, location, availability etc.)
+ * @param {*} session_data - the session data that could possibly hold the facility object
+ */
+async function get_facility(hotel_id, facility_name, session_data, facility_type, category) {
+
+    let facility;
+    // If session data is populated, then pick the facility object from session
+    if (!_.isUndefined(session_data)) {
+        facility = session_data.facility;
+    } else {
+        try {
+            facility = await FACILITIES.facility(hotel_id, facility_name, facility_type);
+        } catch(error) {
+            throw error;
+        }
+    }
+
+    if (!_.isUndefined(category)) {
+        // the caller requested for the category under the facility object
+        return facility[category];
+    } else {
+        return facility;
+    }
+}
 
 module.exports = {
     async Enquiry_reception_languages() {
         var hotel_id = this.$session.$data.hotel_id;
 
-        console.log('Enquiry_reception_languages: hotel_id=', hotel_id);
         let facility;
         try {
-            facility = await FACILITIES.facility(hotel_id, "reception");
+            facility = await FACILITIES.facility(hotel_id, "reception", "f");
         } catch(error) {
-            this.tell(this.t('SYSTEM_ERROR'));
+            if (error instanceof KamError.InputError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.DBError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.FacilityDoesNotExistError) {
+                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_name
+                }));
+            }
         }
-        // If return is empty, then no facility exists
-        if (_.isEmpty(facility) || _.isUndefined(facility)) {
-            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                facility: facility_slot.value
-            }));
-        }
+
+        console.log('===', facility);
 
         let langs = facility.spoken.languages;  // This is an array
         let message = facility.spoken.message.true;
@@ -103,21 +133,27 @@ module.exports = {
 
     async Enquiry_facility_exists() {
         var hotel_id = this.$session.$data.hotel_id,
-            facility_slot = this.$inputs.facility_slot;
+            facility_slot = this.$inputs.facility_slot,
+            facility_name = this.$inputs.facility_slot.value,
+            hotel_id = this.$session.$data.hotel_id,
+            session_data = this.$session.$data.facility;
 
-        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
-        let facility_name = facility_slot.value,
-            facility;
+        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot, ',value=', facility_name);
+
+        let facility;
         try {
             facility = await FACILITIES.facility(hotel_id, facility_name);
+            this.$session.$data.facility = facility; // store it in the facility object
         } catch(error) {
-            this.tell(this.t('SYSTEM_ERROR'));
-        }
-        // If return is empty, then no facility exists
-        if (_.isEmpty(facility) || _.isUndefined(facility)) {
-            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                facility: facility_slot.value
-            }));
+            if (error instanceof KamError.InputError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.DBError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.FacilityDoesNotExistError) {
+                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_name
+                }));
+            }
         }
 
         console.log('+++facility=', facility);
@@ -168,34 +204,37 @@ module.exports = {
         NoIntent() {
             console.log('Ending session at "FacilityExistsState"');
             return this.tell(this.t('END'));
-        },
-
-        Unhandled() {
-
         }
     },
 
     async Enquiry_Facility_timings() {
         var hotel_id = this.$session.$data.hotel_id,
-            facility_slot = this.$inputs.facility_slot;
+            facility_slot = this.$inputs.facility_slot,
+            facility_name = this.$inputs.facility_slot.value,
+            hotel_id = this.$session.$data.hotel_id,
+            session_data = this.$session.$data.facility;
 
-        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
-        let facility_name = facility_slot.value,
-            facility;
+        console.log('Enquiry_Facility_timings. hotel_id='+ hotel_id, ',facility_slot='+ facility_slot);
+
+        let facility;
         try {
+            //TODO: Optimize this call by checking if the session_data has facility_name and so take the 
+            // facility object from session
             facility = await FACILITIES.facility(hotel_id, facility_name);
         } catch(error) {
-            this.tell(this.t('SYSTEM_ERROR'));
-        }
-        // If return is empty, then no facility exists
-        if (_.isEmpty(facility) || _.isUndefined(facility)) {
-            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                facility: facility_slot.value
-            }));
+            if (error instanceof KamError.InputError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.DBError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.FacilityDoesNotExistError) {
+                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_name
+                }));
+            }
         }
 
-        var from = facility.timing.timings.from, to = facility.timing.timings.to;
-        var message = facility.timing.message[facility.timing.flag];
+        var from = facility.timings.time.from, to = facility.timings.time.to;
+        var message = facility.timings.message[facility.timings.flag];
         let text = message;
         if (!_.isEqual(from, "0000") && !_.isEqual(to, "0000")) { // facility is open 24x7
             // this is not 24x7 open, use templating
@@ -215,21 +254,28 @@ module.exports = {
 
     async Enquiry_Facility_price() {
         var hotel_id = this.$session.$data.hotel_id,
-            facility_slot = this.$inputs.facility_slot;
+            facility_slot = this.$inputs.facility_slot,
+            facility_name = this.$inputs.facility_slot.value,
+            hotel_id = this.$session.$data.hotel_id,
+            session_data = this.$session.$data.facility;
 
         console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
-        let facility_name = facility_slot.value,
-            facility;
+
+        let facility;
         try {
+            //TODO: Optimize this call by checking if the session_data has facility_name and so take the 
+            // facility object from session
             facility = await FACILITIES.facility(hotel_id, facility_name);
         } catch(error) {
-            this.tell(this.t('SYSTEM_ERROR'));
-        }
-        // If return is empty, then no facility exists
-        if (_.isEmpty(facility) || _.isUndefined(facility)) {
-            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                facility: facility_slot.value
-            }));
+            if (error instanceof KamError.InputError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.DBError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.FacilityDoesNotExistError) {
+                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_name
+                }));
+            }
         }
 
         var price = facility.price.price;
@@ -252,21 +298,27 @@ module.exports = {
 
     async Enquiry_Facility_location() {
         var hotel_id = this.$session.$data.hotel_id,
-            facility_slot = this.$inputs.facility_slot;
-
+            facility_slot = this.$inputs.facility_slot,
+            facility_name = this.$inputs.facility_slot.value,
+            hotel_id = this.$session.$data.hotel_id,
+            session_data = this.$session.$data.facility;
         console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
-        let facility_name = facility_slot.value,
-            facility;
+
+        let facility;
         try {
+            //TODO: Optimize this call by checking if the session_data has facility_name and so take the 
+            // facility object from session
             facility = await FACILITIES.facility(hotel_id, facility_name);
         } catch(error) {
-            this.tell(this.t('SYSTEM_ERROR'));
-        }
-        // If return is empty, then no facility exists
-        if (_.isEmpty(facility) || _.isUndefined(facility)) {
-            this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                facility: facility_slot.value
-            }));
+            if (error instanceof KamError.InputError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.DBError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.FacilityDoesNotExistError) {
+                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_name
+                }));
+            }
         }
 
         var message = facility.location.message[facility.location.flag];
@@ -284,7 +336,7 @@ module.exports = {
     },
 
     async Enquiry_gym() {
-
+        return this.toIntent('Enquiry_facility_exists');
     },
 
     async Enquiry_menu() {

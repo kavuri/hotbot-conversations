@@ -7,8 +7,8 @@
 
 let _ = require('lodash'),
     DeviceToHotel = require('../db/DeviceToHotel'),
-    HELPER = require('../helpers');
-const rp = require('request-promise');
+    HELPER = require('../helpers'),
+    rp = require('request-promise');
 
 module.exports = {
 
@@ -19,24 +19,25 @@ module.exports = {
         let token = await this.$request.getAccessToken();
         console.log('Token : ' + token);
 
-        if (_.isEmpty(token) || _.isNull(token) || _.isUndefined(token) ||
-        token == 'undefined') {
-            this.$alexaSkill.showAccountLinkingCard();
-            return this.tell('Please link you Account');
-        }else{
-            let options = {
-                method: 'GET',
-                uri: 'https://kamamishu-india.auth0.com/userinfo',
-                headers: {
-                    authorization: 'Bearer ' + token,
-                }
-            };
+        // checkSessionToken(this, token);
 
-            await rp(options).then((body) => {
-                let data = JSON.parse(body);
-                let user_name = data.name ;
-            });
-        }
+        // if (_.isEmpty(token) || _.isNull(token) || _.isUndefined(token) || _.isUndefined(token)) {
+        //     this.$alexaSkill.showAccountLinkingCard();
+        //     return this.tell('Please link you Account');
+        // }else{
+        //     let options = {
+        //         method: 'GET',
+        //         uri: 'https://kamamishu-india.auth0.com/userinfo',
+        //         headers: {
+        //             authorization: 'Bearer ' + token,
+        //         }
+        //     };
+
+        //     await rp(options).then((body) => {
+        //         let data = JSON.parse(body);
+        //         let user_name = data.name ;
+        //     });
+        // }
         //Account linking ends
 
         // FixME Add user_name in Device_To_Hotel/separate login table for tracking purpose
@@ -121,3 +122,24 @@ module.exports = {
         console.log('Global unhandled intent...');
     }
 }
+
+// function checkSessionToken(this, token) {
+//     if (_.isEmpty(token) || _.isNull(token) || _.isUndefined(token) || _.isUndefined(token)) {
+//         this.$alexaSkill.showAccountLinkingCard();
+//         return this.tell('Please link you Account');
+//     }else{
+//             let options = {
+//                 method: 'GET',
+//                 uri: 'https://kamamishu-india.auth0.com/userinfo',
+//                 headers: {
+//                     authorization: 'Bearer ' + token,
+//                 }
+//             };
+
+//             await rp(options).then((body) => {
+//                 let data = JSON.parse(body);
+//                 let user_name = data.name ;
+//             });
+//     }
+//         // Account linking ends
+// }

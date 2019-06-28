@@ -8,6 +8,10 @@
  */
 'using strict';
 
+let _ = require('lodash'),
+    HELPER = require('../helpers'),
+    FACILITIES = require('../db/Facilities');
+
 module.exports = {
     async Order_room_item() {
         var hotel_id = this.$session.$data.hotel_id,
@@ -18,7 +22,9 @@ module.exports = {
 
         let room_item = room_item_slot.value, item;
         try {
-            item = await HELPER.room_item(hotel_id, "r", room_item);
+            console.log('fetching room item');
+            item = await FACILITIES.facility(hotel_id, room_item);
+            console.log('++item=', item);
             if (_.isEmpty(item)) {
                 // No such item exists in the database
             } else {

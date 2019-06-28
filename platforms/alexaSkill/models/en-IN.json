@@ -2104,19 +2104,18 @@
 				{
 					"name": "Enquiry_gym",
 					"samples": [
-						"can i {workout_slot} here",
-						"where can I do {workout_slot}",
-						"is a {workout_slot} available",
-						"is there a place to {workout_slot}",
-						"is there a {workout_slot}",
-						"tell me about the {workout_slot}",
-						"where is the {workout_slot} place",
-						"where is the {workout_slot}",
-						"where can I do {workout_slot}"
+						"can i {facility_slot} here",
+						"where can I do {facility_slot}",
+						"is a {facility_slot} available",
+						"is there a place to {facility_slot}",
+						"is there a {facility_slot}",
+						"tell me about the {facility_slot}",
+						"where is the {facility_slot} place",
+						"where is the {facility_slot}"
 					],
 					"slots": [
 						{
-							"name": "workout_slot",
+							"name": "facility_slot",
 							"type": "workout_types"
 						}
 					]
@@ -2141,7 +2140,7 @@
 						"what is on the menu",
 						"where are the menu items",
 						"what kind of food i can get",
-						"what are the various food item available",
+						"which food items are available",
 						"what are the various food items available",
 						"what kind of food is available in the restaurant",
 						"what kind of food is served",
