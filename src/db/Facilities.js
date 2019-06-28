@@ -76,7 +76,7 @@ module.exports.facility = async (hotel_id, facility_name, facility_type) => {
           "synonyms"
         ]
     };
-    // console.log('++names=', names);
+    console.log('++names=', names);
     var fuse = new Fuse(names, fuse_options);
     var result = fuse.search(facility_name);
 

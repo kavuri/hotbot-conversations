@@ -11,6 +11,7 @@
 let _ = require('lodash'),
     HELPER = require('../helpers'),
     KamError = require('../utils/KamError'),
+    Fuse = require('fuse.js'),
     FACILITIES = require('../db/Facilities');
 
 /**
@@ -20,35 +21,116 @@ let _ = require('lodash'),
  * @param {*} category - the category inside the facility (like price, location, availability etc.)
  * @param {*} session_data - the session data that could possibly hold the facility object
  */
-async function get_facility(hotel_id, facility_name, session_data, facility_type, category) {
+async function get_facility(thisObj) {
+
+    var hotel_id = thisObj.$session.$data.hotel_id,
+        facility_slot = thisObj.$inputs.facility_slot,
+        facility_name = thisObj.$inputs.facility_slot.value,
+        session_data = thisObj.$session.$data.facility;
+
+    console.log('get_facility. hotel_id='+ hotel_id + ',facility_name='+ facility_name);
 
     let facility;
-    // If session data is populated, then pick the facility object from session
-    if (!_.isUndefined(session_data)) {
-        facility = session_data.facility;
-    } else {
+    if (_.isUndefined(session_data)) {
+        if (_.isUndefined(facility_name)) {
+            // This situation should not occur
+            return thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+        }
+
+        // Session data is empty, get the facility from database
         try {
-            facility = await FACILITIES.facility(hotel_id, facility_name, facility_type);
+            console.log('session_data is null and facility_name=' + facility_name + '. Getting facility from db.')
+            facility = await FACILITIES.facility(hotel_id, facility_name);
+            thisObj.$session.$data.facility = facility; // store the facility object so that we can 
         } catch(error) {
-            throw error;
+            if (error instanceof KamError.InputError) {
+                thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.DBError) {
+                thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.FacilityDoesNotExistError) {
+                thisObj.ask(thisObj.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_name
+                }));
+            }
+        }
+    } else if (!_.isUndefined(session_data)) {
+        if (_.isUndefined(facility_name)) {
+            // This is a follow-up conversation and the invocation will not have the facility_name.
+            // Use the facility from the session object
+            console.log('facility_name not present in request. facility_name=' + facility_name);
+
+            facility = session_data;
+        } else if (!_.isUndefined(facility_name)) {
+            facility = await search(facility_name, session_data);
+            if (_.isEmpty(facility)) {
+                // facility requested is not the same as in session object
+                // refetch the facility from db
+                try {
+                    facility = await FACILITIES.facility(hotel_id, facility_name);
+                    thisObj.$session.$data.facility = facility; // store the facility object so that we can 
+                } catch(error) {
+                    if (error instanceof KamError.InputError) {
+                        thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+                    } else if (error instanceof KamError.DBError) {
+                        thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+                    } else if (error instanceof KamError.FacilityDoesNotExistError) {
+                        thisObj.ask(thisObj.t('FACILITY_NOT_AVAILABLE', {
+                            facility: facility_name
+                        }));
+                    }
+                }
+            }
         }
     }
 
-    if (!_.isUndefined(category)) {
-        // the caller requested for the category under the facility object
-        return facility[category];
+    return facility;
+}
+
+function search(facility_name, session_data) {
+    if (_.isUndefined(facility_name) || _.isUndefined(session_data)) {
+        throw new KamError.InputError('invalid data for search. facility_name=' + facility_name + ',session_data=' + session_data);
+    }
+
+    // Use fuse to search for the name
+    let fuse_options = {
+        shouldSort: true,
+        threshold: 0.5,
+        location: 0,
+        distance: 100,
+        maxPatternLength: 32,
+        minMatchCharLength: 3,
+        keys: [
+          "f_name",
+          "synonyms"
+        ]
+    };
+    console.log('^^^facility=', session_data);
+    var data = [{
+        f_name: session_data.f_name,
+        synonyms: session_data.synonyms
+    }];
+
+    console.log('++data=', data);
+    var fuse = new Fuse(data, fuse_options);
+    var result = fuse.search(facility_name);
+
+    if (_.isEmpty(result)) {
+        return result;
     } else {
-        return facility;
+        return session_data.facility;
     }
 }
 
 module.exports = {
     async Enquiry_reception_languages() {
         var hotel_id = this.$session.$data.hotel_id;
+        console.log('Enquiry_reception_languages. hotel_id='+ hotel_id );
 
         let facility;
+        // Session data is empty, get the facility from database
         try {
             facility = await FACILITIES.facility(hotel_id, "reception", "f");
+            this.$session.$data.facility = facility; // store the facility object so that we can 
         } catch(error) {
             if (error instanceof KamError.InputError) {
                 this.tell(this.t('SYSTEM_ERROR'));
@@ -83,7 +165,7 @@ module.exports = {
         try {
             var ret = await FACILITIES.all_facility_names(hotel_id); //returns array of form [{f_name:'abc', synonyms:['def','ghi]}]
             facility_names = _.map(ret, 'f_name'); // get only the f_name, i.e., the facility name
-        }catch(error) {
+        } catch(error) {
             console.log('error while fetching hotel facilities:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
@@ -132,29 +214,7 @@ module.exports = {
     },
 
     async Enquiry_facility_exists() {
-        var hotel_id = this.$session.$data.hotel_id,
-            facility_slot = this.$inputs.facility_slot,
-            facility_name = this.$inputs.facility_slot.value,
-            hotel_id = this.$session.$data.hotel_id,
-            session_data = this.$session.$data.facility;
-
-        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot, ',value=', facility_name);
-
-        let facility;
-        try {
-            facility = await FACILITIES.facility(hotel_id, facility_name);
-            this.$session.$data.facility = facility; // store it in the facility object
-        } catch(error) {
-            if (error instanceof KamError.InputError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.DBError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.FacilityDoesNotExistError) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: facility_name
-                }));
-            }
-        }
+        var facility = await get_facility(this);
 
         console.log('+++facility=', facility);
         var flag = facility.availability.flag;
@@ -208,30 +268,7 @@ module.exports = {
     },
 
     async Enquiry_Facility_timings() {
-        var hotel_id = this.$session.$data.hotel_id,
-            facility_slot = this.$inputs.facility_slot,
-            facility_name = this.$inputs.facility_slot.value,
-            hotel_id = this.$session.$data.hotel_id,
-            session_data = this.$session.$data.facility;
-
-        console.log('Enquiry_Facility_timings. hotel_id='+ hotel_id, ',facility_slot='+ facility_slot);
-
-        let facility;
-        try {
-            //TODO: Optimize this call by checking if the session_data has facility_name and so take the 
-            // facility object from session
-            facility = await FACILITIES.facility(hotel_id, facility_name);
-        } catch(error) {
-            if (error instanceof KamError.InputError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.DBError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.FacilityDoesNotExistError) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: facility_name
-                }));
-            }
-        }
+        var facility = await get_facility(this);
 
         var from = facility.timings.time.from, to = facility.timings.time.to;
         var message = facility.timings.message[facility.timings.flag];
@@ -253,30 +290,7 @@ module.exports = {
     },
 
     async Enquiry_Facility_price() {
-        var hotel_id = this.$session.$data.hotel_id,
-            facility_slot = this.$inputs.facility_slot,
-            facility_name = this.$inputs.facility_slot.value,
-            hotel_id = this.$session.$data.hotel_id,
-            session_data = this.$session.$data.facility;
-
-        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
-
-        let facility;
-        try {
-            //TODO: Optimize this call by checking if the session_data has facility_name and so take the 
-            // facility object from session
-            facility = await FACILITIES.facility(hotel_id, facility_name);
-        } catch(error) {
-            if (error instanceof KamError.InputError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.DBError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.FacilityDoesNotExistError) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: facility_name
-                }));
-            }
-        }
+        var facility = await get_facility(this);
 
         var price = facility.price.price;
         var message = facility.price.message[facility.price.flag];
@@ -297,29 +311,7 @@ module.exports = {
     },
 
     async Enquiry_Facility_location() {
-        var hotel_id = this.$session.$data.hotel_id,
-            facility_slot = this.$inputs.facility_slot,
-            facility_name = this.$inputs.facility_slot.value,
-            hotel_id = this.$session.$data.hotel_id,
-            session_data = this.$session.$data.facility;
-        console.log('hotel_id=', hotel_id, ',facility_slot=', facility_slot);
-
-        let facility;
-        try {
-            //TODO: Optimize this call by checking if the session_data has facility_name and so take the 
-            // facility object from session
-            facility = await FACILITIES.facility(hotel_id, facility_name);
-        } catch(error) {
-            if (error instanceof KamError.InputError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.DBError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.FacilityDoesNotExistError) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: facility_name
-                }));
-            }
-        }
+        var facility = await get_facility(this);
 
         var message = facility.location.message[facility.location.flag];
         let text = message;
@@ -333,10 +325,6 @@ module.exports = {
         // Store the facility info for this session
         this.$session.$data.facility = facility;
         return this.ask(this.$speech);
-    },
-
-    async Enquiry_gym() {
-        return this.toIntent('Enquiry_facility_exists');
     },
 
     async Enquiry_menu() {

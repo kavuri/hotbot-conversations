@@ -3,6 +3,44 @@
 		"value": "gym",
 		"synonyms": [
 			"gym",
+			"workout place",
+			"fitness center",
+			"exercise"
+		]
+	},
+	{
+		"value": "yoga",
+		"synonyms": [
+			"yoga"
+		]
+	},
+	{
+		"value": "walk area",
+		"synonyms": [
+			"walk area",
+			"jogging",
+			"running",
+			"jog",
+			"run",
+			"fast walk"
+		]
+	},
+	{
+		"value": "zumbga",
+		"synonyms": [
+			"zumbga"
+		]
+	},
+	{
+		"value": "philates",
+		"synonyms": [
+			"philates"
+		]
+	},
+	{
+		"value": "gym",
+		"synonyms": [
+			"gym",
 			"work out",
 			"exercise",
 			"fitness center",
@@ -171,7 +209,9 @@
 			"scooter",
 			"two wheeler",
 			"motor bike",
-			"gear bike"
+			"gear bike",
+			"bike rental",
+			"scooter rent"
 		]
 	}
 ]

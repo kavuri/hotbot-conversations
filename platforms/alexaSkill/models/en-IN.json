@@ -815,6 +815,48 @@
 							"name": {
 								"value": "gym",
 								"synonyms": [
+									"workout place",
+									"fitness center",
+									"exercise"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "yoga"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "walk area",
+								"synonyms": [
+									"jogging",
+									"running",
+									"jog",
+									"run",
+									"fast walk"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "zumbga"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "philates"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gym",
+								"synonyms": [
 									"work out",
 									"exercise",
 									"fitness center",
@@ -1013,55 +1055,10 @@
 									"scooter",
 									"two wheeler",
 									"motor bike",
-									"gear bike"
+									"gear bike",
+									"bike rental",
+									"scooter rent"
 								]
-							}
-						}
-					]
-				},
-				{
-					"name": "workout_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "gym",
-								"synonyms": [
-									"workout place",
-									"fitness center",
-									"exercise"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "yoga"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "walk area",
-								"synonyms": [
-									"jogging",
-									"running",
-									"jog",
-									"run",
-									"fast walk"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "zumbga"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "philates"
 							}
 						}
 					]
@@ -1995,7 +1992,15 @@
 						"tell me about {facility_slot}",
 						"can you give more information about {facility_slot}",
 						"Please give me info about {facility_slot}",
-						"I would like to know about {facility_slot}"
+						"I would like to know about {facility_slot}",
+						"can i {facility_slot} here",
+						"where can I do {facility_slot}",
+						"is a {facility_slot} available",
+						"is there a place to {facility_slot}",
+						"is there a {facility_slot}",
+						"tell me about the {facility_slot}",
+						"where is the {facility_slot} place",
+						"where is the {facility_slot}"
 					],
 					"slots": [
 						{
@@ -2064,7 +2069,8 @@
 						"who pays for {facility_slot}",
 						"is {facility_slot} included in the price",
 						"what is the price of {facility_slot}",
-						"what is the price of renting the {facility_slot}"
+						"what is the price of renting the {facility_slot}",
+						"what is its price"
 					],
 					"slots": [
 						{
@@ -2098,25 +2104,6 @@
 						{
 							"name": "facility_slot",
 							"type": "facility_types"
-						}
-					]
-				},
-				{
-					"name": "Enquiry_gym",
-					"samples": [
-						"can i {facility_slot} here",
-						"where can I do {facility_slot}",
-						"is a {facility_slot} available",
-						"is there a place to {facility_slot}",
-						"is there a {facility_slot}",
-						"tell me about the {facility_slot}",
-						"where is the {facility_slot} place",
-						"where is the {facility_slot}"
-					],
-					"slots": [
-						{
-							"name": "facility_slot",
-							"type": "workout_types"
 						}
 					]
 				},
