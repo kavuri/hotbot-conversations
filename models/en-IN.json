@@ -18,7 +18,10 @@
         "inputs": [
           {
             "name": "option_number",
-            "type": "option_types"
+            "type":{  
+               "alexa":"AMAZON.NUMBER",
+               "dialogflow":"@sys.number-integer"
+            }
           }
         ]
      },
@@ -322,8 +325,7 @@
          "what are the hotel facilities",
          "what facilities does this hotel provide",
          "which amenities can i use",
-         "which hotel features can i use",
-         "your amenities"
+         "which hotel features can i use"
       ]
      },
      {
@@ -482,23 +484,23 @@
            "what are the various food items available",
            "what kind of food is available in the restaurant",
            "what kind of food is served",
-           "can i get {meal_typesslot} here",
-           "do i get {meal_typesslot} here",
-           "does the restaurant serve {meal_typesslot}",
-           "does the restaurant serve {meal_typesslot}",
-           "how about {meal_typesslot}",
-           "is {meal_typesslot} available",
-           "is {meal_typesslot} serve",
-           "is {meal_typesslot} served",
+           "can i get {meal_types_slot} here",
+           "do i get {meal_types_slot} here",
+           "does the restaurant serve {meal_types_slot}",
+           "does the restaurant serve {meal_types_slot}",
+           "how about {meal_types_slot}",
+           "is {meal_types_slot} available",
+           "is {meal_types_slot} serve",
+           "is {meal_types_slot} served",
            "what is the food type",
            "what kind of food is served here",
-           "what {meal_typesslot} type are available",
-           "what {meal_typesslot} types are available",
+           "what {meal_types_slot} type are available",
+           "what {meal_types_slot} types are available",
            "what cuisines does this hotel serve"
         ],
         "inputs":[  
            {  
-              "name":"meal_typesslot",
+              "name":"meal_types_slot",
               "type":"meal_types"
            }
         ]
@@ -636,7 +638,9 @@
          "I quickly need some {room_item_slot}",
          "I need {count} {room_item_slot}",
          "{count} {room_item_slot} please",
-         "need some {room_item_slot}"
+         "need some {room_item_slot}",
+         "I need extra {room_item_slot}",
+         "I need {room_item_slot}"
       ],
       "inputs":[
          {  
@@ -655,34 +659,34 @@
    {  
       "name":"Order_food",
       "phrases":[  
-         "can you help me to order food",
-         "can you help me with ordering food",
-         "do i have to call the front desk to order food",
-         "get me some food",
-         "get some food now",
-         "how can i order food",
-         "how to get some food",
+         "can you help me to order {meal_types_slot}",
+         "can you help me with ordering {meal_types_slot}",
+         "do i have to call the front desk to order {meal_types_slot}",
+         "get me some {meal_types_slot}",
+         "get some {meal_types_slot} now",
+         "how can i order {meal_types_slot}",
+         "how to get some {meal_types_slot}",
          "i am hungry",
-         "i am hungry how to get some food",
-         "i want to eat how can i get food",
-         "order food for me",
-         "please get some food",
-         "please help me to get some food",
-         "whom should i call to order food",
-         "can you order some food",
-         "can you place an order for {menuslot} for {meal_typesslot}",
+         "i am hungry how to get some {meal_types_slot}",
+         "i want to eat how can i get {meal_types_slot}",
+         "order {meal_types_slot} for me",
+         "please get some {meal_types_slot}",
+         "please help me to get some {meal_types_slot}",
+         "whom should i call to order {meal_types_slot}",
+         "can you order some {meal_types_slot}",
+         "can you place an order for {menuslot} for {meal_types_slot}",
          "i need a {menuslot}",
-         "i need some food",
-         "i would like a {menuslot} for {meal_typesslot}",
+         "i need some {meal_types_slot}",
+         "i would like a {menuslot} for {meal_types_slot}",
          "i would like to order a {menuslot}",
-         "i would like to order food",
-         "i would like to place an order for food",
+         "i would like to order {meal_types_slot}",
+         "i would like to place an order for {meal_types_slot}",
          "i would like to place an order for {menuslot}",
-         "please order some food"
+         "please order some {meal_types_slot}"
       ],
       "inputs":[  
          {  
-            "name":"meal_typesslot",
+            "name":"meal_types_slot",
             "type":"meal_types"
          },
          {  
@@ -710,7 +714,7 @@
            }
         ]
    },
-     {  
+     { 
       "name":"Order_taxi",
       "phrases":[  
          "can i get a {facilityslot} to the railway station",
@@ -723,6 +727,21 @@
          {  
             "name":"facilityslot",
             "type":"facility_types"
+         }
+      ]
+     },
+     {
+      "name":"Count_Input",
+      "phrases":[
+         "{count}"
+      ],
+      "inputs":[
+         {
+            "name":"count",
+            "type":{  
+               "alexa":"AMAZON.NUMBER",
+               "dialogflow":"@sys.number-integer"
+            }
          }
       ]
      },
@@ -799,29 +818,6 @@
      }
   },
   "inputTypes":[
-     {
-       "name":"option_types",
-       "values":[
-         {
-           "value":"1",
-           "synonyms":[
-             "one"
-           ]
-         },
-         {
-           "value":"2",
-           "synonyms":[
-             "two"
-           ]
-         },
-         {
-           "value":"3",
-           "synonyms":[
-             "three"
-           ]
-         }
-       ]
-     },
      {
         "name": "community_types",
         "values": [
@@ -1313,7 +1309,10 @@
      },
      {  
         "name":"meal_types",
-        "values":[  
+        "values":[
+           {
+              "value":"food"
+           },
            {  
               "value":"breakfast"
            },
@@ -1479,29 +1478,6 @@
        ]
      },
     {
-      "name": "option_types",
-      "values": [
-        {
-          "value": "1",
-          "synonyms": [
-            "one"
-          ]
-        },
-        {
-          "value": "2",
-          "synonyms": [
-            "two"
-          ]
-        },
-        {
-          "value": "3",
-          "synonyms": [
-            "three"
-          ]
-        }
-      ]
-    },
-    {
         "name":"room_item_types",
         "values":[
            {
@@ -1574,6 +1550,7 @@
            {
               "value":"soap",
               "synonyms":[
+                 "soap liquid",
                  "bathing soap",
                  "body soap",
                  "body shampoo",
@@ -1589,13 +1566,15 @@
            {
               "value":"pillows",
               "synonyms":[
+                 "pillow",
                  "bed pillows"
               ]
            },
            {
               "value":"bed sheets",
               "synonyms":[
-                 "sheets"
+                 "sheets",
+                 "pull over"
               ]
            },
            {
@@ -1610,6 +1589,7 @@
            {
               "value":"hanger",
               "synonyms":[
+                 "hangers",
                  "clothes hanger"
               ]
            },

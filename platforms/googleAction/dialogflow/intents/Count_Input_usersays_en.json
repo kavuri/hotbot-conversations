@@ -1,0 +1,14 @@
+[
+	{
+		"data": [
+			{
+				"text": "count",
+				"userDefined": true,
+				"alias": "count",
+				"meta": "@sys.number-integer"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	}
+]

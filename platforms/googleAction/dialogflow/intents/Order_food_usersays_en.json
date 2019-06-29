@@ -2,7 +2,81 @@
 	{
 		"data": [
 			{
-				"text": "can you help me to order food",
+				"text": "can you help me to order ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you help me with ordering ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "do i have to call the front desk to order ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "get me some ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "get some ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
+			},
+			{
+				"text": " now",
 				"userDefined": false
 			}
 		],
@@ -12,8 +86,14 @@
 	{
 		"data": [
 			{
-				"text": "can you help me with ordering food",
+				"text": "how can i order ",
 				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -22,48 +102,14 @@
 	{
 		"data": [
 			{
-				"text": "do i have to call the front desk to order food",
+				"text": "how to get some ",
 				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
+			},
 			{
-				"text": "get me some food",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "get some food now",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "how can i order food",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "how to get some food",
-				"userDefined": false
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -82,7 +128,49 @@
 	{
 		"data": [
 			{
-				"text": "i am hungry how to get some food",
+				"text": "i am hungry how to get some ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "i want to eat how can i get ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "order ",
+				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
+			},
+			{
+				"text": " for me",
 				"userDefined": false
 			}
 		],
@@ -92,8 +180,14 @@
 	{
 		"data": [
 			{
-				"text": "i want to eat how can i get food",
+				"text": "please get some ",
 				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -102,8 +196,14 @@
 	{
 		"data": [
 			{
-				"text": "order food for me",
+				"text": "please help me to get some ",
 				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -112,8 +212,14 @@
 	{
 		"data": [
 			{
-				"text": "please get some food",
+				"text": "whom should i call to order ",
 				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -122,28 +228,14 @@
 	{
 		"data": [
 			{
-				"text": "please help me to get some food",
+				"text": "can you order some ",
 				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
+			},
 			{
-				"text": "whom should i call to order food",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "can you order some food",
-				"userDefined": false
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -166,9 +258,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			}
 		],
@@ -194,8 +286,14 @@
 	{
 		"data": [
 			{
-				"text": "i need some food",
+				"text": "i need some ",
 				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -218,9 +316,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			}
 		],
@@ -246,8 +344,14 @@
 	{
 		"data": [
 			{
-				"text": "i would like to order food",
+				"text": "i would like to order ",
 				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -256,8 +360,14 @@
 	{
 		"data": [
 			{
-				"text": "i would like to place an order for food",
+				"text": "i would like to place an order for ",
 				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,
@@ -282,8 +392,14 @@
 	{
 		"data": [
 			{
-				"text": "please order some food",
+				"text": "please order some ",
 				"userDefined": false
+			},
+			{
+				"text": "meal_types_slot",
+				"userDefined": true,
+				"alias": "meal_types_slot",
+				"meta": "@meal_types"
 			}
 		],
 		"isTemplate": false,

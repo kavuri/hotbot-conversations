@@ -9,66 +9,143 @@
 'using strict';
 
 let _ = require('lodash'),
-    HELPER = require('../helpers'),
+    KamError = require('../utils/KamError'),
     FACILITIES = require('../db/Facilities');
+
+/**
+ * 
+ * @param {*} thisObj 
+ */
+async function get_room_item(thisObj) {
+
+    var hotel_id = thisObj.$session.$data.hotel_id,
+        item_name = thisObj.$inputs.room_item_slot.value;
+    
+    console.log('get_room_item. hotel_id='+ hotel_id + ', item_name='+ item_name);
+        
+    let room_item;
+    try {
+        room_item = await FACILITIES.facility(hotel_id, item_name, "r");
+        thisObj.$session.$data.facility = facility; // store the facility object so that we can 
+    } catch(error) {
+        if (error instanceof KamError.InputError) {
+            thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+        } else if (error instanceof KamError.DBError) {
+            thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+        } else if (error instanceof KamError.FacilityDoesNotExistError) {
+            throw error;
+        }
+    }
+
+    return room_item;
+}
 
 module.exports = {
     async Order_room_item() {
-        var hotel_id = this.$session.$data.hotel_id,
-            room_item_slot = this.$inputs.room_item_slot,
-            count = this.$inputs.count;
+        var item_name = this.$inputs.room_item_slot.value,
+            count = this.$inputs.count.value;
 
-        console.log('Order_room_item: hotel_id='+ hotel_id, ',room_item_slot='+ JSON.stringify(room_item_slot), ",count="+JSON.stringify(count));
-
-        let room_item = room_item_slot.value, item;
+        console.log('Order_room_item: item_name='+ item_name + ', count=' + count);
+        var room_item;
         try {
-            console.log('fetching room item');
-            item = await FACILITIES.facility(hotel_id, room_item);
-            console.log('++item=', item);
-            if (_.isEmpty(item)) {
-                // No such item exists in the database
-            } else {
-                // There is an item
-            }
+            room_item = await get_room_item(this);
         } catch(error) {
-            this.tell(this.t("SYSTEM_ERROR"));
-        }
-        if (_.isEmpty(count) || _.isUndefined(count)) {
-            // Count has not been specificed. Check the default count in the database
-            // If count=1 (like clock, waste basket etc.), there is no need to ask for a count
-
-        }
-        /*
-        try {
-            facility = await HELPER.hotel_facility(hotel_id, facility_name, null);
-        } catch(error) {
-            if (error instanceof HELPER.ERRORS.FacilityDoesNotExist) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: facility_slot.value
-                }));
-            } else {
-                this.tell(this.t('SYSTEM_ERROR'));
-            }
+            // This error is only incase room item is not available
+            this.ask(this.t('ROOM_ITEM_NOT_AVAILABLE', {
+                item_name: this.$inputs.room_item_slot.value
+            }));
         }
 
-        var message = facility.location.message[facility.location.flag];
-        let text = message;
-
-        this.$speech.addText(text)
-            .addBreak('200ms')
-            .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
-                    facility: facility.name
-        }));
-
-        // Store the facility info for this session
-        this.$session.$data.facility = facility;
-        return this.ask(this.$speech);
-        */
-
-        this.$speech.addText('Hello there');
-        return this.tell(this.$speech);
+        this.$session.$data.item_name = item_name;
+        this.$session.$data.count = count;
+        if (_.isEmpty(this.$session.$data.items)) this.$session.$data.items = [];
+ 
+        // Check if the room item object (in database) has "count". If yes, ask for the count of items
+        if (_.isUndefined(room_item.count)) { // There is no count for this item
+            // Confirm the order
+            this.$speech.addText(this.t('REPEAT_ORDER_WITHOUT_COUNT', {
+                item_name: item_name
+            }));
+            this.$session.$data.items.push({item_name: item_name, count: 0});
+            console.log('item does not require count');
+            return this.followUpState('ConfirmRoomItemOrder')
+                       .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        } else if (!_.isUndefined(room_item.count) && !_.isUndefined(count)) { //User has provided count of items
+            // Confirm that you are ordering
+            this.$speech.addText(this.t('REPEAT_ORDER_WITH_COUNT', {
+                count: count, item_name: item_name
+            }));
+            this.$session.$data.items.push({item_name: item_name, count: count});
+            console.log('item has count and user has provided count');
+            return this.followUpState('ConfirmRoomItemOrder')
+                       .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        } else if (!_.isUndefined(room_item.count) && _.isUndefined(count)) { // User has not provided count of items. Ask for it
+            this.$speech.addText(this.t('ORDER_REQUEST_COUNT', {
+                item_name: item_name
+            }));
+            console.log('item has count and user has provided count');
+            return this.followUpState('RequestRoomItemCount')
+                       .ask(this.$speech, this.t('ORDER_REQUEST_COUNT', {
+                           item_name: item_name
+                       }));
+        }
     },
 
+    'ConfirmRoomItemOrder': {
+
+        YesIntent() {
+            return this.ask(this.t('ASK_ITEM_NAME'));
+        },
+
+        NoIntent() {
+            // Guest has finalized the order. Repeat the order, check and close
+            var str = '';
+            for (var i=0; i<this.$session.$data.items.length; i++) {
+                str += this.$session.$data.items[i].count + ' ' + this.$session.$data.items[i].item_name + ' '
+                console.log('%%%', str);
+            }
+
+            this.$speech.addText(this.t('CONFIRM_ORDER', {
+                items: str
+            }));
+            return this.followUpState('OrderConfirmed')
+                       .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        }
+    },
+
+    'OrderConfirmed': {
+        YesIntent() {
+            // TODO: Save records to DB
+            return this.tell(this.t('ORDER_CONFIRMED'));
+        },
+
+        NoIntent() {
+            //TODO: Ask to cancel order
+        }
+    },
+
+    'CancelCurrentOrder': {
+
+    },
+
+    'RequestRoomItemCount': {
+        Count_Input() {
+            this.$session.$data.count = this.$inputs.count.value;
+
+            console.log('RequestRoomItemCount:' + this.$session.$data.count);
+            this.$speech.addText(this.t('REPEAT_ORDER_WITH_COUNT', {
+                count: this.$session.$data.count, item_name: this.$session.$data.item_name
+            }));
+            this.$session.$data.items.push({item_name: this.$session.$data.item_name, count: this.$session.$data.count});
+            return this.followUpState('ConfirmRoomItemOrder')
+                       .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        }
+    },
+    
+    CancelOrderedItem() {
+
+    },
+    
     async Order_food() {
 
     },

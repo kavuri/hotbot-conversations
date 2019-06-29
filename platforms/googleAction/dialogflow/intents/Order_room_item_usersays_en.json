@@ -238,5 +238,37 @@
 		],
 		"isTemplate": false,
 		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I need extra ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "I need ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
 	}
 ]

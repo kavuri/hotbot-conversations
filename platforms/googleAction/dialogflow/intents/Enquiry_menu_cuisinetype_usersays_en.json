@@ -106,9 +106,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			},
 			{
@@ -126,9 +126,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			},
 			{
@@ -146,9 +146,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			}
 		],
@@ -162,9 +162,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			}
 		],
@@ -178,9 +178,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			}
 		],
@@ -194,9 +194,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			},
 			{
@@ -214,9 +214,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			},
 			{
@@ -234,9 +234,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			},
 			{
@@ -274,9 +274,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			},
 			{
@@ -294,9 +294,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "meal_typesslot",
+				"text": "meal_types_slot",
 				"userDefined": true,
-				"alias": "meal_typesslot",
+				"alias": "meal_types_slot",
 				"meta": "@meal_types"
 			},
 			{

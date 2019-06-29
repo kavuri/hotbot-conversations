@@ -1,5 +1,5 @@
 {
-	"name": "Community_options",
+	"name": "Count_Input",
 	"auto": true,
 	"webhookUsed": true,
 	"responses": [
@@ -7,8 +7,8 @@
 			"parameters": [
 				{
 					"isList": false,
-					"name": "option_number",
-					"value": "$option_number",
+					"name": "count",
+					"value": "$count",
 					"dataType": "@sys.number-integer"
 				}
 			]

@@ -31,6 +31,15 @@
     "HOTEL_FACILITIES": "This hotel has facilities like {{facilities}}.",
     "QUESTION_WANT_ALL_FACILITIES": "Would you like to know the full list of facilities?",
     "FACILITY_NOT_AVAILABLE": "This hotel does not have the facility {{facility}}",
-    "FACILITY_FOLLOWUP_QUESTION": "Would you like to know more about the {{facility}}?"
+    "FACILITY_FOLLOWUP_QUESTION": "Would you like to know more about the {{facility}}?",
+
+    "ASK_ITEM_NAME": "Which item would you like to have?",
+    "ROOM_ITEM_NOT_AVAILABLE": "We do not see to have {{item_name}}. Would you like anything else?",
+    "ORDER_REQUEST_COUNT": "Please provide the number of {{item_name}}",
+    "REPEAT_ORDER_WITH_COUNT": "You have requested for {{count}} of {{item_name}}. Would you like anything else?",
+    "REPEAT_ORDER_WITHOUT_COUNT": "You have requested for {{item_name}}. Would you like anything else?",
+    "CONFIRM_ORDER": "You have requested for {{items}}. Shall I confirm this order?",
+    "ORDER_CONFIRMED": "Your order is confirmed. We will serve your order as soon as possible. Have a nice day",
+    "ASK_FOR_ORDER_CANCEL": "Shall I cancel your order?"
   }
 }

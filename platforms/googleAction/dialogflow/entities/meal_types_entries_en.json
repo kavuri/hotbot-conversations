@@ -1,5 +1,11 @@
 [
 	{
+		"value": "food",
+		"synonyms": [
+			"food"
+		]
+	},
+	{
 		"value": "breakfast",
 		"synonyms": [
 			"breakfast"
