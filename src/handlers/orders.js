@@ -104,8 +104,9 @@ module.exports = {
                 str += this.$session.$data.items[i].count + ' ' + this.$session.$data.items[i].item_name + ' '
                 console.log('%%%', str);
             }
+            this.$session.$data.order = str;
 
-            this.$speech.addText(this.t('CONFIRM_ORDER', {
+            this.$speech.addText(this.t('ASK_CONFIRM_ORDER', {
                 items: str
             }));
             return this.followUpState('OrderConfirmed')
@@ -116,16 +117,32 @@ module.exports = {
     'OrderConfirmed': {
         YesIntent() {
             // TODO: Save records to DB
-            return this.tell(this.t('ORDER_CONFIRMED'));
+            return this.tell(this.t('TELL_ORDER_CONFIRMED'));
         },
 
         NoIntent() {
-            //TODO: Ask to cancel order
+            // Ask to cancel order
+            this.$speech.addText(this.t('ASK_FOR_ORDER_CANCEL', {
+                order: this.$session.$data.order
+            }));
+            return this.followUpState('CancelCurrentOrder')
+                       .ask(this.$speech, this.t('YES_NO_REPROMPT'));
         }
     },
 
     'CancelCurrentOrder': {
+        YesIntent() {
+            // Reset the values of items, order, item_name and count in the session object
+            this.$session.$data.order = this.$session.$data.item_name = this.$session.$data.count = null;
+            this.$session.$data.items = [];
 
+            return this.ask(this.t('CONFIRM_ORDER_CANCEL'));
+        },
+
+        NoIntent() {
+            // The guest is in two minds. 
+            // TODO: What to do now?
+        }
     },
 
     'RequestRoomItemCount': {
@@ -142,7 +159,7 @@ module.exports = {
         }
     },
     
-    CancelOrderedItem() {
+    async Order_cancel() {
 
     },
     

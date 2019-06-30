@@ -38,8 +38,9 @@
     "ORDER_REQUEST_COUNT": "Please provide the number of {{item_name}}",
     "REPEAT_ORDER_WITH_COUNT": "You have requested for {{count}} of {{item_name}}. Would you like anything else?",
     "REPEAT_ORDER_WITHOUT_COUNT": "You have requested for {{item_name}}. Would you like anything else?",
-    "CONFIRM_ORDER": "You have requested for {{items}}. Shall I confirm this order?",
-    "ORDER_CONFIRMED": "Your order is confirmed. We will serve your order as soon as possible. Have a nice day",
-    "ASK_FOR_ORDER_CANCEL": "Shall I cancel your order?"
+    "ASK_CONFIRM_ORDER": "You have requested for {{items}}. Shall I confirm this order?",
+    "TELL_ORDER_CONFIRMED": "Your order is confirmed. We will serve your order as soon as possible. Have a nice day",
+    "ASK_FOR_ORDER_CANCEL": "Shall I cancel your order of {{order}}?",
+    "CONFIRM_ORDER_CANCEL": "I have canceled your order. Would you like anything else?"
   }
 }

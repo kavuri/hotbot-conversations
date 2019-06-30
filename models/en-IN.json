@@ -656,6 +656,18 @@
          }
       ]
    },
+   {
+      "name":"Order_cancel",
+      "phrases":[
+         "please cancel my order",
+         "I have changed my mind cancel my order",
+         "cancel my last order",
+         "cancel my request",
+         "i have given a wrong request cancel it",
+         "cancel my previous request",
+         "I am sorry please cancel my request"
+      ]
+   },
    {  
       "name":"Order_food",
       "phrases":[  
