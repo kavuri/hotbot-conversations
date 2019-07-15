@@ -668,6 +668,20 @@
          "I am sorry please cancel my request"
       ]
    },
+   {
+      "name": "Order_change",
+      "phrases":[
+         "I would like to change my order",
+         "change my order",
+         "can I change my oder",
+         "please change my order",
+         "how do I change my order",
+         "is there a way to modify my order",
+         "how do I modify my order",
+         "please modify my order",
+         "I would like to modify my previous order"
+      ]
+   },
    {  
       "name":"Order_food",
       "phrases":[  

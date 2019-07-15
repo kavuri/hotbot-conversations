@@ -10,7 +10,8 @@
 
 let _ = require('lodash'),
     KamError = require('../utils/KamError'),
-    FACILITIES = require('../db/Facilities');
+    FACILITIES = require('../db/Facilities'),
+    ORDERS = require('../db/Order');
 
 /**
  * 
@@ -43,9 +44,9 @@ async function get_room_item(thisObj) {
 module.exports = {
     async Order_room_item() {
         var item_name = this.$inputs.room_item_slot.value,
-            count = this.$inputs.count.value;
+            req_count = this.$inputs.req_count.value;
 
-        console.log('Order_room_item: item_name='+ item_name + ', count=' + count);
+        console.log('Order_room_item: item_name='+ item_name + ', req_count=' + req_count);
         var room_item;
         try {
             room_item = await get_room_item(this);
@@ -57,7 +58,7 @@ module.exports = {
         }
 
         this.$session.$data.item_name = item_name;
-        this.$session.$data.count = count;
+        this.$session.$data.req_count = req_count;
         if (_.isEmpty(this.$session.$data.items)) this.$session.$data.items = [];
  
         // Check if the room item object (in database) has "count". If yes, ask for the count of items
@@ -66,16 +67,16 @@ module.exports = {
             this.$speech.addText(this.t('REPEAT_ORDER_WITHOUT_COUNT', {
                 item_name: item_name
             }));
-            this.$session.$data.items.push({item_name: item_name, count: 0});
+            this.$session.$data.items.push({item_name: item_name, req_count: 0});
             console.log('item does not require count');
             return this.followUpState('ConfirmRoomItemOrder')
                        .ask(this.$speech, this.t('YES_NO_REPROMPT'));
-        } else if (!_.isUndefined(room_item.count) && !_.isUndefined(count)) { //User has provided count of items
+        } else if (!_.isUndefined(room_item.count) && !_.isUndefined(req_count)) { //User has provided count of items
             // Confirm that you are ordering
             this.$speech.addText(this.t('REPEAT_ORDER_WITH_COUNT', {
-                count: count, item_name: item_name
+                req_count: req_count, item_name: item_name
             }));
-            this.$session.$data.items.push({item_name: item_name, count: count});
+            this.$session.$data.items.push({item_name: item_name, req_count: req_count});
             console.log('item has count and user has provided count');
             return this.followUpState('ConfirmRoomItemOrder')
                        .ask(this.$speech, this.t('YES_NO_REPROMPT'));
@@ -101,7 +102,7 @@ module.exports = {
             // Guest has finalized the order. Repeat the order, check and close
             var str = '';
             for (var i=0; i<this.$session.$data.items.length; i++) {
-                str += this.$session.$data.items[i].count + ' ' + this.$session.$data.items[i].item_name + ' '
+                str += this.$session.$data.items[i].req_count + ' ' + this.$session.$data.items[i].item_name + ' '
                 console.log('%%%', str);
             }
             this.$session.$data.order = str;
@@ -117,6 +118,16 @@ module.exports = {
     'OrderConfirmed': {
         YesIntent() {
             // TODO: Save records to DB
+            var hotel_id = this.$session.$data.hotel_id,
+                room_no = this.$session.$data.room_no, // FIXME: Set the room_no from the hotel object
+                items = this.$session.$data.items;
+            try {
+                ORDERS.create_order(hotel_id, room_no, items);
+            } catch(error) {
+                console.log('coding or db error.', error);
+                thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+            }
+
             return this.tell(this.t('TELL_ORDER_CONFIRMED'));
         },
 
@@ -133,7 +144,7 @@ module.exports = {
     'CancelCurrentOrder': {
         YesIntent() {
             // Reset the values of items, order, item_name and count in the session object
-            this.$session.$data.order = this.$session.$data.item_name = this.$session.$data.count = null;
+            this.$session.$data.order = this.$session.$data.item_name = this.$session.$data.req_count = null;
             this.$session.$data.items = [];
 
             return this.ask(this.t('CONFIRM_ORDER_CANCEL'));
@@ -147,13 +158,13 @@ module.exports = {
 
     'RequestRoomItemCount': {
         Count_Input() {
-            this.$session.$data.count = this.$inputs.count.value;
+            this.$session.$data.req_count = this.$inputs.req_count.value;
 
-            console.log('RequestRoomItemCount:' + this.$session.$data.count);
+            console.log('RequestRoomItemCount:' + this.$session.$data.req_count);
             this.$speech.addText(this.t('REPEAT_ORDER_WITH_COUNT', {
-                count: this.$session.$data.count, item_name: this.$session.$data.item_name
+                req_count: this.$session.$data.req_count, item_name: this.$session.$data.item_name
             }));
-            this.$session.$data.items.push({item_name: this.$session.$data.item_name, count: this.$session.$data.count});
+            this.$session.$data.items.push({item_name: this.$session.$data.item_name, req_count: this.$session.$data.req_count});
             return this.followUpState('ConfirmRoomItemOrder')
                        .ask(this.$speech, this.t('YES_NO_REPROMPT'));
         }
@@ -163,6 +174,10 @@ module.exports = {
 
     },
     
+    async Order_change() {
+
+    },
+
     async Order_food() {
 
     },

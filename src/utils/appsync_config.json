@@ -1,16 +1,18 @@
 {
     "graphqlApi": {
-        "name": "HotBot Appsync API", 
-        "authenticationType": "AMAZON_COGNITO_USER_POOLS", 
-        "apiId": "nd3shnl6izb4revgvvehhte4iu", 
+        "apiId": "byy55wz7rfc53ockhjrd6vjmcm",
+        "arn": "arn:aws:appsync:ap-south-1:849072167765:apis/byy55wz7rfc53ockhjrd6vjmcm",
+        "name": "Hotbot-AppSync",
+        "authenticationType": "API_KEY",
         "uris": {
-            "GRAPHQL": "https://4d2rzm72rfcc7co3xxbjx5smui.appsync-api.ap-south-1.amazonaws.com/graphql"
-        }, 
-        "arn": "arn:aws:appsync:ap-south-1:849072167765:apis/nd3shnl6izb4revgvvehhte4iu", 
-        "userPoolConfig": {
-            "defaultAction": "ALLOW", 
-            "awsRegion": "ap-south-1", 
-            "userPoolId": "ap-south-1_PRODEow6K"
-        }
+            "GRAPHQL": "https://oqs6uml2rna5xmbiss5fresbxq.appsync-api.ap-south-1.amazonaws.com/graphql"
+        },
+        "apiKeys": [
+            {
+                "expires": 1563796800,
+                "id": "da2-lwaoxor3b5hn7gjs3uqkq6i4aq"
+            }
+        ],
+        "awsRegion": "ap-south-1"
     }
 }

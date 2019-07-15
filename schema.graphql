@@ -1,0 +1,220 @@
+# Structure to change the priority of an order
+input ChangeOrderPriorityInput {
+	hotel_id: ID!
+	order_id: ID!
+	new_priority: Priority
+}
+
+# Structure to change the status of an order
+input ChangeOrderStatusInput {
+	hotel_id: ID!
+	order_id: ID!
+	new_status: Status
+}
+
+# Comment object type
+type Comment {
+	order_id: ID!
+	comment_id: ID!
+	content: String!
+	created_at: AWSDateTime!
+	commented_by: String!
+}
+
+# For list of comments
+type CommentConnection {
+	items: [Comment]
+	nextToken: String
+}
+
+# Comment input
+input CommentInput {
+	order_id: ID!
+	comment_id: ID!
+	content: String!
+	created_at: AWSDateTime!
+	commented_by: String!
+}
+
+input CreateGuestOrderInput {
+	hotel_id: ID!
+	order_id: ID!
+	room_no: String!
+	items: [OrderItemInput!]
+	order_time: AWSDateTime!
+	status: String!
+}
+
+type GuestOrder {
+	hotel_id: ID!
+	order_id: ID!
+	room_no: String!
+	items: [OrderItem!]
+	order_time: AWSDateTime!
+	status: Status!
+	priority: Priority
+	completion_time: AWSDateTime
+	cancelled_by: String
+	last_update_at: AWSDateTime
+	comments(limit: Int, nextToken: String): CommentConnection
+}
+
+type GuestOrderConnection {
+	orders: [GuestOrder]
+	nextToken: String
+}
+
+type Mutation {
+	createGuestOrder(input: CreateGuestOrderInput!): GuestOrder
+	changeOrderStatus(input: ChangeOrderStatusInput!): StatusObj
+	changeOrderPriority(input: ChangeOrderPriorityInput): PriorityObj
+	addCommentToOrder(input: CommentInput): Comment
+}
+
+type OrderItem {
+	item_name: String!
+	category: String!
+	req_count: Int
+	res_count: Int
+}
+
+input OrderItemInput {
+	item_name: String!
+	category: String!
+	req_count: Int
+	res_count: Int
+}
+
+enum Priority {
+	urgent
+	asap
+	leisure
+}
+
+# Similar to comments, need to keep track of the various priority changes
+type PriorityObj {
+	order_id: ID!
+	priority_id: ID!
+	priority: Priority
+	created_at: AWSDateTime!
+}
+
+type PriorityObjConnection {
+	items: [PriorityObj]
+	nextToken: String
+}
+
+type Query {
+	getComments(hotel_id: ID!, order_id: ID!): CommentConnection
+	getGuestOrder(hotel_id: ID!, room_no: String!): GuestOrder
+	listGuestOrders(filter: TableGuestOrderFilterInput, limit: Int, nextToken: String): GuestOrderConnection
+}
+
+enum Status {
+	new
+	progress
+	done
+	cant_serve
+	cancelled
+}
+
+# Similar to comments, need to keep track of the various status changes
+type StatusObj {
+	order_id: ID!
+	status_id: ID!
+	status: Status
+	created_at: AWSDateTime!
+	changed_by: String!
+}
+
+type StatusObjConnection {
+	items: [StatusObj]
+	nextToken: String
+}
+
+type Subscription {
+	onCreateGuestOrder(hotel_id: ID, order_id: ID, room_no: String): GuestOrder
+		@aws_subscribe(mutations: ["createGuestOrder"])
+	onChangeOrderStatus(hotel_id: ID, order_id: ID, room_no: String): StatusObj
+		@aws_subscribe(mutations: ["changeOrderStatus"])
+	onChangeOrderPriority(hotel_id: ID, order_id: ID, room_no: String): PriorityObj
+		@aws_subscribe(mutations: ["changeOrderPriority"])
+	onCommentAdded(hotel_id: ID, order_id: ID, room_no: String): Comment
+		@aws_subscribe(mutations: ["addCommentToOrder"])
+}
+
+input TableBooleanFilterInput {
+	ne: Boolean
+	eq: Boolean
+}
+
+input TableFloatFilterInput {
+	ne: Float
+	eq: Float
+	le: Float
+	lt: Float
+	ge: Float
+	gt: Float
+	contains: Float
+	notContains: Float
+	between: [Float]
+}
+
+input TableGuestOrderFilterInput {
+	hotel_id: TableIDFilterInput
+	order_id: TableIDFilterInput
+	room_no: TableStringFilterInput
+	category: TableStringFilterInput
+	items: TableStringFilterInput
+	order_time: TableStringFilterInput
+	status: TableStringFilterInput
+	priority: TableStringFilterInput
+	service_time: TableStringFilterInput
+	cancelled_by: TableStringFilterInput
+	last_update_at: TableStringFilterInput
+	comments: TableStringFilterInput
+}
+
+input TableIDFilterInput {
+	ne: ID
+	eq: ID
+	le: ID
+	lt: ID
+	ge: ID
+	gt: ID
+	contains: ID
+	notContains: ID
+	between: [ID]
+	beginsWith: ID
+}
+
+input TableIntFilterInput {
+	ne: Int
+	eq: Int
+	le: Int
+	lt: Int
+	ge: Int
+	gt: Int
+	contains: Int
+	notContains: Int
+	between: [Int]
+}
+
+input TableStringFilterInput {
+	ne: String
+	eq: String
+	le: String
+	lt: String
+	ge: String
+	gt: String
+	contains: String
+	notContains: String
+	between: [String]
+	beginsWith: String
+}
+
+schema {
+	query: Query
+	mutation: Mutation
+	subscription: Subscription
+}
