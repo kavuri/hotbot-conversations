@@ -14,19 +14,19 @@
 
  class InputError extends KamError {
      constructor(message) {
-         this.super(message, 100);
+         super(message, 100);
      }
  }
  
  class DBError extends KamError {
      constructor(message) {
-         this.super(this.message, 101);
+         super(this.message, 101);
      }
  }
 
  class FacilityDoesNotExistError extends KamError {
      constructor(message) {
-         this.super(message, 102)
+         super(message, 102)
      }
  }
 

@@ -57,8 +57,13 @@ module.exports = {
             }));
         }
 
+        // TODO: Check if the guest has ordered the same item + on the same day + unserved
+        // If the same item has been ordered, check with guest and continue the flow, else continue the following
+
+
         this.$session.$data.item_name = item_name;
         this.$session.$data.req_count = req_count;
+        this.$session.$data.category = "r";
         if (_.isEmpty(this.$session.$data.items)) this.$session.$data.items = [];
  
         // Check if the room item object (in database) has "count". If yes, ask for the count of items
@@ -67,7 +72,7 @@ module.exports = {
             this.$speech.addText(this.t('REPEAT_ORDER_WITHOUT_COUNT', {
                 item_name: item_name
             }));
-            this.$session.$data.items.push({item_name: item_name, req_count: 0});
+            this.$session.$data.items.push({item_name: item_name, req_count: 0, category: "r"});
             console.log('item does not require count');
             return this.followUpState('ConfirmRoomItemOrder')
                        .ask(this.$speech, this.t('YES_NO_REPROMPT'));
@@ -76,7 +81,7 @@ module.exports = {
             this.$speech.addText(this.t('REPEAT_ORDER_WITH_COUNT', {
                 req_count: req_count, item_name: item_name
             }));
-            this.$session.$data.items.push({item_name: item_name, req_count: req_count});
+            this.$session.$data.items.push({item_name: item_name, req_count: req_count, category: "r"});
             console.log('item has count and user has provided count');
             return this.followUpState('ConfirmRoomItemOrder')
                        .ask(this.$speech, this.t('YES_NO_REPROMPT'));
@@ -117,15 +122,16 @@ module.exports = {
 
     'OrderConfirmed': {
         YesIntent() {
-            // TODO: Save records to DB
+            // Save records to DB (using appsync)
             var hotel_id = this.$session.$data.hotel_id,
                 room_no = this.$session.$data.room_no, // FIXME: Set the room_no from the hotel object
                 items = this.$session.$data.items;
+                console.log('###items=', items);
             try {
-                ORDERS.create_order(hotel_id, room_no, items);
+                ORDERS.create_order(hotel_id, "102", items);    //FIXME: Remove this hardcoding or room_no
             } catch(error) {
                 console.log('coding or db error.', error);
-                thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+                this.tell(this.t('SYSTEM_ERROR'));
             }
 
             return this.tell(this.t('TELL_ORDER_CONFIRMED'));
@@ -164,7 +170,11 @@ module.exports = {
             this.$speech.addText(this.t('REPEAT_ORDER_WITH_COUNT', {
                 req_count: this.$session.$data.req_count, item_name: this.$session.$data.item_name
             }));
-            this.$session.$data.items.push({item_name: this.$session.$data.item_name, req_count: this.$session.$data.req_count});
+            this.$session.$data.items.push({
+                item_name: this.$session.$data.item_name,
+                req_count: this.$session.$data.req_count,
+                category: this.$session.$data.category
+            });
             return this.followUpState('ConfirmRoomItemOrder')
                        .ask(this.$speech, this.t('YES_NO_REPROMPT'));
         }

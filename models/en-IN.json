@@ -630,21 +630,21 @@
          "I would like new {room_item_slot}",
          "can you please get some set of new {room_item_slot}",
          "I need a replacement for {room_item_slot}",
-         "can you please send {count} {room_item_slot}",
+         "can you please send {req_count} {room_item_slot}",
          "I am out of {room_item_slot} can you please send some",
          "there are no {room_item_slot} in the room can you please send the same",
          "I need a replacement for {room_item_slot}",
-         "Can you get me a {count} of {room_item_slot}",
+         "Can you get me a {req_count} of {room_item_slot}",
          "I quickly need some {room_item_slot}",
-         "I need {count} {room_item_slot}",
-         "{count} {room_item_slot} please",
+         "I need {req_count} {room_item_slot}",
+         "{req_count} {room_item_slot} please",
          "need some {room_item_slot}",
          "I need extra {room_item_slot}",
          "I need {room_item_slot}"
       ],
       "inputs":[
          {  
-            "name":"count",
+            "name":"req_count",
             "type":{  
                "alexa":"AMAZON.NUMBER",
                "dialogflow":"@sys.number-integer"

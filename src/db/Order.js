@@ -12,10 +12,10 @@
        KamError = require('../utils/KamError'),
        appsync = require('../utils/appsync');
  
- module.exports.create_order = function(hotel_id, room_no, items) {
+ module.exports.create_order = async function(hotel_id, room_no, items) {
 
     if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || (_.isUndefined(items) || _.isEmpty(items))) {
-        throw KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',items=', items);
+        throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',items=', items);
     }
 
     // Generate the order_id
@@ -23,25 +23,19 @@
     let order_time = new Date().toISOString();
     let status = "new";
     
-    appsync.hydrated().then((client) => {
-        const obj = {
-            hotel_id: hotel_id,
-            order_id: order_id,
-            room_no: room_no,
-            order_time: order_time,
-            items: items,
-            status: status
-        };
+    await appsync.hydrated();
+    const obj = {
+        hotel_id: hotel_id,
+        order_id: order_id,
+        room_no: room_no,
+        order_time: order_time,
+        items: items,
+        status: status
+    };
 
-        client.mutate({mutation: gql(mutations.createGuestOrder), variables: {input: obj}})
-        .then((data) => {
-            console.log('order raised', data);
-        })
-        .catch((e) => {
-            console.log('error in creating order');
-            throw e;
-        });
-    });
+    // console.log('%%obj=', obj);
+    const result = await appsync.mutate({mutation: gql(mutations.createGuestOrder), variables: {input: obj}});
+    return result;
  }
 
  module.exports.cancel_order = function() {

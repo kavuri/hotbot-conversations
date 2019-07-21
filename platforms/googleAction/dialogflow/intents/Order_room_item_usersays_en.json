@@ -54,9 +54,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "count",
+				"text": "req_count",
 				"userDefined": true,
-				"alias": "count",
+				"alias": "req_count",
 				"meta": "@sys.number-integer"
 			},
 			{
@@ -136,9 +136,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "count",
+				"text": "req_count",
 				"userDefined": true,
-				"alias": "count",
+				"alias": "req_count",
 				"meta": "@sys.number-integer"
 			},
 			{
@@ -178,9 +178,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "count",
+				"text": "req_count",
 				"userDefined": true,
-				"alias": "count",
+				"alias": "req_count",
 				"meta": "@sys.number-integer"
 			},
 			{
@@ -200,9 +200,9 @@
 	{
 		"data": [
 			{
-				"text": "count",
+				"text": "req_count",
 				"userDefined": true,
-				"alias": "count",
+				"alias": "req_count",
 				"meta": "@sys.number-integer"
 			},
 			{

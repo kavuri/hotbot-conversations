@@ -1372,6 +1372,7 @@
 							"name": {
 								"value": "soap",
 								"synonyms": [
+									"soap liquid",
 									"bathing soap",
 									"body soap",
 									"body shampoo",
@@ -1393,6 +1394,7 @@
 							"name": {
 								"value": "pillows",
 								"synonyms": [
+									"pillow",
 									"bed pillows"
 								]
 							}
@@ -1402,7 +1404,8 @@
 							"name": {
 								"value": "bed sheets",
 								"synonyms": [
-									"sheets"
+									"sheets",
+									"pull over"
 								]
 							}
 						},
@@ -1426,6 +1429,7 @@
 							"name": {
 								"value": "hanger",
 								"synonyms": [
+									"hangers",
 									"clothes hanger"
 								]
 							}
@@ -2251,27 +2255,53 @@
 						"I would like new {room_item_slot}",
 						"can you please get some set of new {room_item_slot}",
 						"I need a replacement for {room_item_slot}",
-						"can you please send {count} {room_item_slot}",
+						"can you please send {req_count} {room_item_slot}",
 						"I am out of {room_item_slot} can you please send some",
 						"there are no {room_item_slot} in the room can you please send the same",
 						"I need a replacement for {room_item_slot}",
-						"Can you get me a {count} of {room_item_slot}",
+						"Can you get me a {req_count} of {room_item_slot}",
 						"I quickly need some {room_item_slot}",
-						"I need {count} {room_item_slot}",
-						"{count} {room_item_slot} please",
+						"I need {req_count} {room_item_slot}",
+						"{req_count} {room_item_slot} please",
 						"need some {room_item_slot}",
 						"I need extra {room_item_slot}",
 						"I need {room_item_slot}"
 					],
 					"slots": [
 						{
-							"name": "count",
+							"name": "req_count",
 							"type": "AMAZON.NUMBER"
 						},
 						{
 							"name": "room_item_slot",
 							"type": "room_item_types"
 						}
+					]
+				},
+				{
+					"name": "Order_cancel",
+					"samples": [
+						"please cancel my order",
+						"I have changed my mind cancel my order",
+						"cancel my last order",
+						"cancel my request",
+						"i have given a wrong request cancel it",
+						"cancel my previous request",
+						"I am sorry please cancel my request"
+					]
+				},
+				{
+					"name": "Order_change",
+					"samples": [
+						"I would like to change my order",
+						"change my order",
+						"can I change my oder",
+						"please change my order",
+						"how do I change my order",
+						"is there a way to modify my order",
+						"how do I modify my order",
+						"please modify my order",
+						"I would like to modify my previous order"
 					]
 				},
 				{

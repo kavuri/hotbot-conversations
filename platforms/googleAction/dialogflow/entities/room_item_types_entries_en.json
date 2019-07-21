@@ -85,6 +85,7 @@
 		"value": "soap",
 		"synonyms": [
 			"soap",
+			"soap liquid",
 			"bathing soap",
 			"body soap",
 			"body shampoo",
@@ -102,6 +103,7 @@
 		"value": "pillows",
 		"synonyms": [
 			"pillows",
+			"pillow",
 			"bed pillows"
 		]
 	},
@@ -109,7 +111,8 @@
 		"value": "bed sheets",
 		"synonyms": [
 			"bed sheets",
-			"sheets"
+			"sheets",
+			"pull over"
 		]
 	},
 	{
@@ -129,6 +132,7 @@
 		"value": "hanger",
 		"synonyms": [
 			"hanger",
+			"hangers",
 			"clothes hanger"
 		]
 	},
