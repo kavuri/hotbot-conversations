@@ -7,7 +7,7 @@
 var _ = require('lodash'),
     Fuse = require('fuse.js'),
     Conn = require('./Conn'),
-    KamError = require('../utils/KamError');
+    KamError = require('../../utils/KamError');
 
 const TableName = 'HotelFacilities';
 
@@ -80,6 +80,7 @@ module.exports.facility = async (hotel_id, facility_name, facility_type) => {
     var fuse = new Fuse(names, fuse_options);
     var result = fuse.search(facility_name);
 
+    console.log('###fuse search result=', result);
     // 3. Make another DB call to get the facility
     let params = {
         TableName: TableName,
@@ -108,10 +109,32 @@ module.exports.facility = async (hotel_id, facility_name, facility_type) => {
 };
 
 const test = async function() {
+    // let Facilities = require('./Facilities');
     let Facilities = require('./Facilities');
     // var p = await Facilities.all_facility_names("100");
     var p = await Facilities.facility("100", "reception", "f");
     console.log('data=', JSON.stringify(p));
 }
 
-// test();
+function test_mongo() {
+    console.log('...test_conn...');
+    // var conn = require('./Conn');
+    // conn.init();
+    
+    var mongoose = require('mongoose');
+    var Schema = mongoose.Schema;
+    
+    var commentSchema = new Schema({
+        CommentBody: String,
+        UserName: String,
+        DatePosted: Date,
+    });
+    
+    var Comment = mongoose.model('Comment', commentSchema);
+    
+    Comment.find({UserName: 'Nick'}, function(error, comments) {
+        console.log(comments); //Display the comments returned by MongoDB, if any were found. Executes after the query is complete.
+    });
+  }
+
+test_mongo();

@@ -7,7 +7,7 @@ const moment = require('moment-timezone'),
       _ = require('lodash'),
       ERROR = require('./helpers').ERROR,
       Fuse = require('fuse.js'),
-      Hotel = require('./db/Hotel');
+      HOTEL = require('./db/').HOTEL;
 
 module.exports.user_local_time = async (jovo_obj) => {
     try {
@@ -48,7 +48,7 @@ module.exports.hotel_info = async (hotel_id, hotel_item) => {
 
     let hotel_info;
     try {
-        hotel_info = await Hotel.get(hotel_id, hotel_item);
+        hotel_info = await HOTEL.get(hotel_id, hotel_item);
 
         if (_.isEmpty(hotel_info) || _.isNull(hotel_info) || _.isUndefined(hotel_info)) {
             // This should not happen, basically means that smoking policies are not present in the database

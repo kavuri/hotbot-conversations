@@ -10,8 +10,8 @@
 
 let _ = require('lodash'),
     KamError = require('../utils/KamError'),
-    FACILITIES = require('../db/Facilities'),
-    ORDERS = require('../db/Order');
+    FACILITIES = require('../db').FACILITIES,
+    ORDERS = require('../db').ORDER;
 
 /**
  * 
@@ -41,15 +41,48 @@ async function get_room_item(thisObj) {
     return room_item;
 }
 
+function respond_room_item(thisObj, room_item, item_name, category, req_count) {
+    // Check if the room item object (in database) has "count". If yes, ask for the count of items
+    if (_.isUndefined(room_item.count)) { // There is no count for this item
+        // Confirm the order
+        thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITHOUT_COUNT', {
+            item_name: item_name
+        }));
+        thisObj.$session.$data.items.push({item_name: item_name, req_count: 0, category: category});
+        console.log('item does not require count');
+        return thisObj.followUpState('ConfirmRoomItemOrder')
+                .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
+    } else if (!_.isUndefined(room_item.count) && !_.isUndefined(req_count)) { //User has provided count of items
+        // Confirm that you are ordering
+        thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITH_COUNT', {
+            req_count: req_count, item_name: item_name
+        }));
+        thisObj.$session.$data.items.push({item_name: item_name, req_count: req_count, category: category});
+        console.log('item has count and user has provided count');
+        return thisObj.followUpState('ConfirmRoomItemOrder')
+                .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
+    } else if (!_.isUndefined(room_item.count) && _.isUndefined(count)) { // User has not provided count of items. Ask for it
+        thisObj.$speech.addText(thisObj.t('ORDER_REQUEST_COUNT', {
+            item_name: item_name
+        }));
+        console.log('item has count and user has provided count');
+        return thisObj.followUpState('RequestRoomItemCount')
+                .ask(thisObj.$speech, thisObj.t('ORDER_REQUEST_COUNT', {
+                    item_name: item_name
+                }));
+    }
+}
+
 module.exports = {
     async Order_room_item() {
         var item_name = this.$inputs.room_item_slot.value,
-            req_count = this.$inputs.req_count.value;
+            req_count = this.$inputs.req_count.value,
+            hotel_id = this.$session.$data.hotel_id;
 
         console.log('Order_room_item: item_name='+ item_name + ', req_count=' + req_count);
-        var room_item;
+        var room_item_obj;
         try {
-            room_item = await get_room_item(this);
+            room_item_obj = await get_room_item(this);
         } catch(error) {
             // This error is only incase room item is not available
             this.ask(this.t('ROOM_ITEM_NOT_AVAILABLE', {
@@ -57,22 +90,44 @@ module.exports = {
             }));
         }
 
-        // TODO: Check if the guest has ordered the same item + on the same day + unserved
-        // If the same item has been ordered, check with guest and continue the flow, else continue the following
-
-
         this.$session.$data.item_name = item_name;
         this.$session.$data.req_count = req_count;
+        this.$session.$data.room_item_obj_count = room_item_obj.count;
         this.$session.$data.category = "r";
+
+        // TODO: Check if the guest has ordered the same item + on the same day + unserved
+        // If the same item has been ordered, check with guest and continue the flow, else continue the following
+        try {
+            var is_already_ordered  = await ORDERS.is_item_already_ordered(hotel_id,
+                                                                           room_no,
+                                                                           item_name,
+                                                                           this.$session.$data.category);
+            if (_.isEqual(is_already_ordered, true)) {
+                // Tell guest that the item has already been ordered. Ask if they want to order more
+                this.$speech.addText(this.t('ITEM_ALREADY_ORDERED', {
+                    item_name: item_name
+                }));
+            } else {
+                // Go with the normal flow. Do nothing
+            }
+        } catch(error) {
+            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+            }
+        }
+
         if (_.isEmpty(this.$session.$data.items)) this.$session.$data.items = [];
  
+        respond_room_item(this, room_item_obj.count, item_name, this.$session.$data.category, req_count);
+    
+        /*
         // Check if the room item object (in database) has "count". If yes, ask for the count of items
         if (_.isUndefined(room_item.count)) { // There is no count for this item
             // Confirm the order
             this.$speech.addText(this.t('REPEAT_ORDER_WITHOUT_COUNT', {
                 item_name: item_name
             }));
-            this.$session.$data.items.push({item_name: item_name, req_count: 0, category: "r"});
+            this.$session.$data.items.push({item_name: item_name, req_count: 0, category: this.$session.$data.category});
             console.log('item does not require count');
             return this.followUpState('ConfirmRoomItemOrder')
                        .ask(this.$speech, this.t('YES_NO_REPROMPT'));
@@ -81,7 +136,7 @@ module.exports = {
             this.$speech.addText(this.t('REPEAT_ORDER_WITH_COUNT', {
                 req_count: req_count, item_name: item_name
             }));
-            this.$session.$data.items.push({item_name: item_name, req_count: req_count, category: "r"});
+            this.$session.$data.items.push({item_name: item_name, req_count: req_count, category: this.$session.$data.category});
             console.log('item has count and user has provided count');
             return this.followUpState('ConfirmRoomItemOrder')
                        .ask(this.$speech, this.t('YES_NO_REPROMPT'));
@@ -94,6 +149,21 @@ module.exports = {
                        .ask(this.$speech, this.t('ORDER_REQUEST_COUNT', {
                            item_name: item_name
                        }));
+        }
+        */
+    },
+
+    'ItemAlreadyOrdered': {
+        YesIntent() {
+            respond_room_item(this,
+                              this.$session.$data.room_item_obj_count,
+                              this.$session.$data.item_name,
+                              this.$session.$data.category,
+                              this.$session.$data.req_count);
+        },
+
+        NoIntent() {
+
         }
     },
 

@@ -2265,7 +2265,10 @@
 						"{req_count} {room_item_slot} please",
 						"need some {room_item_slot}",
 						"I need extra {room_item_slot}",
-						"I need {room_item_slot}"
+						"I need {room_item_slot}",
+						"{req_count} {room_item_slot} as well",
+						"add {room_item_slot} to it",
+						"add {req_count} of {room_item_slot} to it"
 					],
 					"slots": [
 						{

@@ -4,23 +4,23 @@
 module.exports.createGuestOrder = `mutation CreateGuestOrder($input: CreateGuestOrderInput!) {
   createGuestOrder(input: $input) {
     hotel_id
-    order_id
+    o_id
     room_no
-    items {
+    o_items {
       item_name
       category
       req_count
       res_count
     }
-    order_time
-    status
-    priority
-    completion_time
-    cancelled_by
-    last_update_at
-    comments {
+    o_time
+    o_status
+    o_priority
+    o_completion_time
+    o_cancelled_by
+    o_last_update_at
+    o_comments {
       items {
-        order_id
+        o_id
         comment_id
         content
         created_at
@@ -33,7 +33,7 @@ module.exports.createGuestOrder = `mutation CreateGuestOrder($input: CreateGuest
 `;
 module.exports.changeOrderStatus = `mutation ChangeOrderStatus($input: ChangeOrderStatusInput!) {
   changeOrderStatus(input: $input) {
-    order_id
+    o_id
     status_id
     status
     created_at
@@ -43,7 +43,7 @@ module.exports.changeOrderStatus = `mutation ChangeOrderStatus($input: ChangeOrd
 `;
 module.exports.changeOrderPriority = `mutation ChangeOrderPriority($input: ChangeOrderPriorityInput) {
   changeOrderPriority(input: $input) {
-    order_id
+    o_id
     priority_id
     priority
     created_at
@@ -52,7 +52,7 @@ module.exports.changeOrderPriority = `mutation ChangeOrderPriority($input: Chang
 `;
 module.exports.addCommentToOrder = `mutation AddCommentToOrder($input: CommentInput) {
   addCommentToOrder(input: $input) {
-    order_id
+    o_id
     comment_id
     content
     created_at

@@ -5,11 +5,11 @@
 
 'using strict';
 
-let Hotel = require('../db/Hotel'),
+let Hotel = require('../db/').Hotel,
     _ = require('lodash'),
     ERROR = require('../helpers').ERROR,
     HELPER = require('../helpers'),
-    POLICIES = require('../db/Policies'),
+    POLICIES = require('../db/').POLICIES,
     Fuse = require('fuse.js');
 
 var fuse_options = {

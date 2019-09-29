@@ -12,7 +12,7 @@ let _ = require('lodash'),
     HELPER = require('../helpers'),
     KamError = require('../utils/KamError'),
     Fuse = require('fuse.js'),
-    FACILITIES = require('../db/Facilities');
+    FACILITIES = require('../db').FACILITIES;
 
 /**
  * 

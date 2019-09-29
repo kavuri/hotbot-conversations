@@ -13,7 +13,7 @@ module.exports = function(config) {
     config = {
         local: true,
         api_version: '2012-08-10',
-        region: 'eu-west-1',
+        region: 'ap-south-1',
         // local_url: 'http://docker.for.mac.localhost:8000'
         local_url: 'http://localhost:8000'
     };

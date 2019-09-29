@@ -270,5 +270,81 @@
 		],
 		"isTemplate": false,
 		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "req_count",
+				"userDefined": true,
+				"alias": "req_count",
+				"meta": "@sys.number-integer"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			},
+			{
+				"text": " as well",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "add ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			},
+			{
+				"text": " to it",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "add ",
+				"userDefined": false
+			},
+			{
+				"text": "req_count",
+				"userDefined": true,
+				"alias": "req_count",
+				"meta": "@sys.number-integer"
+			},
+			{
+				"text": " of ",
+				"userDefined": false
+			},
+			{
+				"text": "room_item_slot",
+				"userDefined": true,
+				"alias": "room_item_slot",
+				"meta": "@room_item_types"
+			},
+			{
+				"text": " to it",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
 	}
 ]

@@ -22,10 +22,18 @@ module.exports = {
     //      }
     //  },
 
+    //  db: {
+    //     FileDb: {
+    //         pathToFile: '../db/db.json',
+    //     }
+    //  },
+
      db: {
-        FileDb: {
-            pathToFile: '../db/db.json',
-        }
+        MongoDb: {
+            databaseName: 'test',
+            collectionName: 'conversations',
+            uri: 'mongodb://localhost:27017/',
+        },
      },
 
      i18n: {
@@ -35,6 +43,10 @@ module.exports = {
     intentsToSkipUnhandled: [
         'CancelIntent',
         'HelpIntent'
-    ]
+    ],
+
+    system: {
+        DATABASE: 'mongo'
+    }
  };
  

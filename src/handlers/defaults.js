@@ -6,7 +6,7 @@
 'using strict';
 
 let _ = require('lodash'),
-    DeviceToHotel = require('../db/DeviceToHotel'),
+    DeviceModel = require('../db').DeviceModel,
     HELPER = require('../helpers'),
     rp = require('request-promise');
 
@@ -49,7 +49,8 @@ module.exports = {
 
         let data;
         try {
-            data = await DeviceToHotel.get(device_id, user_id);
+            data = await DeviceModel.findOne({device_id: device_id, user_id: user_id});
+
             console.log('hotel data..', data);
             if (_.isUndefined(data) || _.isEmpty(data)) {
                 // Device is not registered

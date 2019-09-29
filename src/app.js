@@ -10,6 +10,7 @@ const { GoogleAssistant } = require('jovo-platform-googleassistant');
 const { JovoDebugger } = require('jovo-plugin-debugger');
 const { FileDb } = require('jovo-db-filedb');
 const { DynamoDb } = require('jovo-db-dynamodb');
+const { MongoDb } = require('jovo-db-mongodb');
 
 const app = new App();
 
@@ -18,7 +19,8 @@ app.use(
     new GoogleAssistant(),
     new JovoDebugger(),
     // new DynamoDb()
-    new FileDb()
+    // new FileDb(),
+    new MongoDb()  
 );
 
 
@@ -34,5 +36,9 @@ app.setHandler(
     require('./handlers/facilities'),
     require('./handlers/orders')
 );
+
+// Initialize mongo database for application
+var mongo = require('./mongo.js');
+mongo();
 
 module.exports.app = app;

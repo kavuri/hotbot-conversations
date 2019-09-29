@@ -109,33 +109,28 @@ module.exports = {
   */
 
  Device_setup() {
-
    console.log('In Device_setup...');
-   const device = {
-     device_id: this.$request.context.System.device.deviceId,
-     hotel_id: "100", // this is the "address1" field
-     room: "106", // this is "address2" field
-     user_id: this.$request.context.System.user.userId,
-     address3: "nothing",
-     coordinates: {
-       lat: "12.979409",
-       lng: "77.710037"
-     },
-     status: 0, // active
-     last_reset: "na",
-     created_at: new Date(),
-     updated_at: new Date()
-   };
 
    console.log(device);
-   let Device = require('../db/Device'),
-       DeviceToHotel = require('../db/DeviceToHotel');
+   let Device = require('../db/').DEVICE;
+      //  DeviceToHotel = require('../db/DeviceToHotel');
   
-   //  console.log('device obj=',Device)
+   var device = new Device({
+    device_id: this.$request.context.System.device.deviceId,
+    hotel_id: "100", // this is the "address1" field
+    room: "106", // this is "address2" field
+    user_id: this.$request.context.System.user.userId,
+    address3: "nothing",
+    coordinates: {
+      lat: "12.979409",
+      lng: "77.710037"
+    },
+    status: 'active' // active
+   });
    
     try {
-      Device.save(device);
-      DeviceToHotel.save(device.device_id, device.hotel_id, device.user_id);
+      let device = await device.save();
+      // DeviceToHotel.save(device.device_id, device.hotel_id, device.user_id);
 
       this.$speech.addText(this.t('DEVICE_REGISTRATION_SUCCESS', {addressLine1: device.room}))
                   .addBreak('200ms')
