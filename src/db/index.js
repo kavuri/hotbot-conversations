@@ -16,5 +16,6 @@ module.exports = {
     DeviceModel: require('./' + DATABASE + '/Device'),
     OrderModel: require('./' + DATABASE + '/Order'),
     HotelModel: require('./' + DATABASE + '/Hotel'),
-    HotelGroupModel: require('./' + DATABASE + '/HotelGroup')
+    HotelGroupModel: require('./' + DATABASE + '/HotelGroup'),
+    DBFuncs: require('./' + DATABASE + '/db_funcs')
 }
