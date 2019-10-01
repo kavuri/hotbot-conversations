@@ -5,38 +5,50 @@
 
 'use strict';
 
-var _ = require('lodash'),
+const _ = require('lodash'),
     mongoose = require('mongoose'),
-    KamError = require('../../utils/KamError');
+    Fuse = require('fuse.js'),
+    KamError = require('../../utils/KamError'),
+    FacilityModel = require('./Facilities.js');
 
-/**
- * Facility funcs
- */
-module.exports.all_facility_names = async function(hotel_id, facility_type) {
+/**********************************************************************************************************
+ * Facility functions
+ **********************************************************************************************************/
+// Function to return all facilities and facilities of a type
+ module.exports.all_facility_names = async function(hotel_id, facility_type) {
+    console.log('all_facility_names', hotel_id, facility_type);
     if (_.isNull(hotel_id) || _.isUndefined(hotel_id)) {
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'facility_type=' + facility_type);
     }
 
-    var FacilityModel = require('./index.js').FacilityModel;
-    var fields = 'f_name synonyms ';
-    if (!_.isUndefined(facility_type)) {
-        fields += ' f_type';
+    var query = {hotel_id: hotel_id};
+    if (!_.isNull(facility_type) && !_.isUndefined(facility_type)) {
+        query['f_type'] = facility_type;
     }
-    
 
     let data;
     try {
-        data = await FacilityModel.find({hotel_id: hotel_id}, fields, {lean:true});
+        data = await FacilityModel.find(query, {'_id': 0, 'f_name': 1, 'synonyms': 1});
     } catch (error) {
         console.error('error getting hotel info:', hotel_id, error);
         throw KamError.DBError('error getting hotel info:'+ hotel_id);
     }
 
+    if (_.isEmpty(data) || _.isUndefined(data)) {
+        // Make a check atleast when all facilities are asked for
+        if (_.isNull(facility_type) && _.isUndefined(facility_type)) {
+            // Means, all facilities are requested
+            // No facilities in database for this hotel - something wrong with the setup
+            throw new KamError.DBSetupError('db for this hotel has not been setup');
+        }
+    }
+
     return data;
 }
 
+// Function to get a specific facility
 module.exports.facility = async (hotel_id, facility_name, facility_type) => {
-    console.log('Facilities.facility. hotel_id=' + hotel_id + ',facility_name=' + facility_name + ',facility_type=' + facility_type);
+    console.log('@@facility hotel_id=' + hotel_id + ',facility_name=' + facility_name + ',facility_type=' + facility_type);
     if (_.isNull(hotel_id) || _.isUndefined(hotel_id) ||
         _.isNull(facility_name) || _.isUndefined(facility_name)) {
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'facility_type=' + facility_type);
@@ -45,8 +57,9 @@ module.exports.facility = async (hotel_id, facility_name, facility_type) => {
     // This is a 2-step process
     // 1. Get the facility names (including synonyms). Use fuse.js to search for the facility
     // 2. Use ths name in (1) to get the actual facility
+    let names;
     try {
-        var names = await this.all_facility_names(hotel_id, facility_type);
+        names = await this.all_facility_names(hotel_id, facility_type);
     } catch(error) {
         throw error;
     }
@@ -64,18 +77,23 @@ module.exports.facility = async (hotel_id, facility_name, facility_type) => {
           "synonyms"
         ]
     };
-    console.log('++names=', names);
+    // console.log('++names=', names);
     var fuse = new Fuse(names, fuse_options);
     var result = fuse.search(facility_name);
 
-    console.log('###fuse search result=', result);
+    if (_.isEmpty(result)) {
+        // No such facility
+        throw new KamError.FacilityDoesNotExistError('facility with name ' + facility_name + ' and type ' + facility_type + ' for hotel with id ' + hotel_id + ' does not exist');
+    }
+
+    // console.log('###fuse search result=', result);
     // 3. Make another DB call to get the facility
     let data;
     try {
         data = await FacilityModel.findOne({hotel_id: hotel_id, f_name: result[0].f_name});
     } catch (error) {
         console.error('error getting hotel info:', hotel_id, error);
-        throw KamError.DBError('error getting hotel info:'+ hotel_id);
+        throw new KamError.DBError('error getting hotel info:'+ hotel_id);
     }
 
     if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -83,7 +101,7 @@ module.exports.facility = async (hotel_id, facility_name, facility_type) => {
         throw new KamError.FacilityDoesNotExistError('facility with name ' + facility_name + ' and type ' + facility_type + ' for hotel with id ' + hotel_id + ' does not exist');
     }
 
-    console.log('+++', JSON.stringify(data));
+    // console.log('+++', JSON.stringify(data));
     return data;
 };
 

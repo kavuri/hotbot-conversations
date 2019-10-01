@@ -30,9 +30,16 @@
      }
  }
 
+ class DBSetupError extends KamError {
+    constructor(message) {
+        super(message, 103)
+    }
+}
+
  module.exports = {
      InputError: InputError,
      DBError: DBError,
-     FacilityDoesNotExistError: FacilityDoesNotExistError
+     FacilityDoesNotExistError: FacilityDoesNotExistError,
+     DBSetupError: DBSetupError
  };
  

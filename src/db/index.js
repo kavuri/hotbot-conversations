@@ -5,10 +5,16 @@
 
 'use strict';
 
+const _ = require('lodash');
+
 let DATABASE = require('../config').system.DATABASE;
 
-var mongo = require('../mongo.js');
-mongo();
+if (_.isEqual(DATABASE, 'mongo')) {
+    var mongo = require('../mongo.js');
+    mongo();
+} else if (_.isEqual(DATABASE, 'dynamo')) {
+    // initialize dynamodb
+}
     
 module.exports = {
     FacilityModel: require('./' + DATABASE + '/Facilities'),

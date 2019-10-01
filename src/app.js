@@ -37,8 +37,4 @@ app.setHandler(
     require('./handlers/orders')
 );
 
-// Initialize mongo database for application
-var mongo = require('./mongo.js');
-mongo();
-
 module.exports.app = app;

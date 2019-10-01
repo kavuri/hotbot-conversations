@@ -6,9 +6,6 @@
 
 var _ = require('lodash'),
     Fuse = require('fuse.js'),
-    mongoose = require('mongoose'),
-    KamError = require('../../utils/KamError');
-
     mongoose = require('mongoose');
 
 var FacilitySchema = new mongoose.Schema({
@@ -21,8 +18,9 @@ var FacilitySchema = new mongoose.Schema({
         }
    }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
-module.exports = mongoose.model('Facility', FacilitySchema);
 FacilitySchema.index({hotel_id: 1, f_name: 1}, {unique: true});
+
+module.exports = mongoose.model('Facility', FacilitySchema);
 
 // function test_mongo() {
 //     console.log('...test_conn...');
