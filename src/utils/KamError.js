@@ -20,7 +20,7 @@
  
  class DBError extends KamError {
      constructor(message) {
-         super(this.message, 101);
+         super(message, 101);
      }
  }
 

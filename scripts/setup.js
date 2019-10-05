@@ -8,7 +8,7 @@
  var config = {
     // AWS AppSync AppId for the skill. Used for publishing orders
     // Change this to an AppId for the target environment (dev, production) by looking at console.aws.amazon.com in appsync
-    aws_appsync_appid: 'nd3shnl6izb4revgvvehhte4iu',
+    aws_appsync_appid: 'byy55wz7rfc53ockhjrd6vjmcm',
     awsRegion: 'ap-south-1'
  };
 
@@ -48,9 +48,9 @@
 
     // Store config file to utils/ directory
     try {
-        require('fs').writeFileSync('./src/utils/appsync_config.json', JSON.stringify(graphql, null, 4));
+        require('fs').writeFileSync('./src/appsync/config.json', JSON.stringify(graphql, null, 4));
     } catch(error) {
-        console.log('error in writing to appsync_config.json.', error);
+        console.log('error in writing to config.json.', error);
     }
  }
 

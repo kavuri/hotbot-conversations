@@ -9,7 +9,9 @@ const _ = require('lodash'),
     mongoose = require('mongoose'),
     Fuse = require('fuse.js'),
     KamError = require('../../utils/KamError'),
-    FacilityModel = require('./Facilities.js');
+    FacilityModel = require('./Facilities.js'),
+    OrderModel = require('./Order'),
+    AppSync = require('../../appsync');
 
 /**********************************************************************************************************
  * Facility functions
@@ -105,14 +107,7 @@ module.exports.facility = async (hotel_id, facility_name, facility_type) => {
     return data;
 };
 
-const test_facility = async function() {
-    // let Facilities = require('./Facilities');
-    let Facilities = require('./Facilities');
-    // var p = await Facilities.all_facility_names("100");
-    var p = await Facilities.facility("100", "reception", "f");
-    console.log('data=', JSON.stringify(p));
-}
-
+/*
 module.exports.room_item = async function(hotel_id, f_type, room_item) {
     if (_.isEmpty(hotel_id) || _.isEmpty(f_type) || _.isEmpty(room_item)) {
         // Error in input
@@ -157,38 +152,53 @@ module.exports.room_item = async function(hotel_id, f_type, room_item) {
 
     return r;
 }
+*/
 
-/*
+/**********************************************************************************************************
  *  Order functions
- */
-module.exports.create_order = async function(hotel_id, room_no, items) {
+ **********************************************************************************************************/
+module.exports.create_order = async function(hotel_id, room_no, user_id, items) {
 
     if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || (_.isUndefined(items) || _.isEmpty(items))) {
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',items=', items);
     }
 
     // Generate the order_id
-    let order_id = uuidv1();
-    let order_time = new Date().toISOString();
-    let status = "new";
-    
-    await appsync.hydrated();
-    const obj = {
+    let order = new OrderModel({
+        user_id: user_id,
         hotel_id: hotel_id,
-        o_id: order_id,
         room_no: room_no,
-        o_time: order_time,
-        o_items: items,
-        o_status: status
+        o_items: items
+    });
+    
+    let r;
+    try {
+        r = await order.save();
+    } catch (error) {
+        console.log('error while saving order to db');
+        throw new KamError.DBError('error while saving order to db'+ error);
+    }
+
+    // Create an app sync schema compliant order object
+    const appsync_order = {
+        user_id: r.user_id,
+        hotel_id: r.hotel_id,
+        room_no: r.room_no,
+        o_id: r._id,
+        o_time: r.created_at,
+        o_items: r.items,
+        o_status: r.o_status,
+        o_priority: r.o_priority
     };
 
-    // console.log('%%obj=', obj);
-    const result = await appsync.mutate({mutation: gql(mutations.createGuestOrder), variables: {input: obj}});
+    var result = await AppSync.notify(appsync_order);
+
+    console.log('%%obj=', result);
     return result;
  }
 
  /**
-   This method check if:
+   This method checks if:
     the guest has ordered the same item + on the same day + in last 2hrs + unserved
   */
  module.exports.is_item_already_ordered = async function(hotel_id, room_no, item_name, category) {

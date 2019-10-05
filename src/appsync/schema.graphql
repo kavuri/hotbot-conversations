@@ -1,29 +1,6 @@
-# Structure to change the priority of an order
-input ChangeOrderPriorityInput {
-	hotel_id: ID!
-	o_id: ID!
-	new_priority: Priority
-}
-
-# Structure to change the status of an order
-input ChangeOrderStatusInput {
-	hotel_id: ID!
-	o_id: ID!
-	new_status: Status
-}
-
-# Comment object type
-type Comment {
-	o_id: ID!
-	comment_id: ID!
-	content: String!
-	created_at: AWSDateTime!
-	commented_by: String!
-}
-
 # For list of comments
 type CommentConnection {
-	items: [Comment]
+	items: [CommentOutputType]
 	nextToken: String
 }
 
@@ -36,49 +13,63 @@ input CommentInput {
 	commented_by: String!
 }
 
-input CreateGuestOrderInput {
-	hotel_id: ID!
+# Comment object type
+type CommentOutputType {
 	o_id: ID!
-	room_no: String!
-	o_items: [OrderItemInput!]
-	o_time: AWSDateTime!
-	o_status: String!
+	comment_id: ID!
+	content: String!
+	created_at: AWSDateTime!
+	commented_by: String!
 }
 
-type GuestOrder {
+input CreateGuestOrderInput {
 	hotel_id: ID!
+	user_id: ID!
 	o_id: ID!
 	room_no: String!
-	o_items: [OrderItem!]
+	o_items: [OrderItemInput!]!
 	o_time: AWSDateTime!
-	o_status: Status!
-	o_priority: Priority
-	o_completion_time: AWSDateTime
-	o_cancelled_by: String
-	o_last_update_at: AWSDateTime
-	o_comments(limit: Int, nextToken: String): CommentConnection
+	o_status: StatusInput!
+	o_priority: PriorityInput!
 }
 
 type GuestOrderConnection {
-	orders: [GuestOrder]
+	orders: [GuestOrderOutputType]
 	nextToken: String
 }
 
-type Mutation {
-	createGuestOrder(input: CreateGuestOrderInput!): GuestOrder
-	changeOrderStatus(input: ChangeOrderStatusInput!): StatusObj
-	changeOrderPriority(input: ChangeOrderPriorityInput): PriorityObj
-	addCommentToOrder(input: CommentInput): Comment
+type GuestOrderOutputType {
+	hotel_id: ID!
+	user_id: ID!
+	o_id: ID!
+	room_no: String!
+	o_items: [OrderItemType!]!
+	o_time: AWSDateTime!
+	o_status: StatusType!
+	o_priority: PriorityType!
 }
 
-type OrderItem {
+type Mutation {
+	createOrder(
+		hotel_id: ID!,
+		user_id: ID!,
+		o_id: ID!,
+		room_no: String!,
+		o_items: [OrderItemInput!]!,
+		o_time: AWSDateTime!,
+		o_status: StatusInput!,
+		o_priority: PriorityInput!
+	): GuestOrderOutputType!
+}
+
+input OrderItemInput {
 	item_name: String!
 	category: String!
 	req_count: Int
 	res_count: Int
 }
 
-input OrderItemInput {
+type OrderItemType {
 	item_name: String!
 	category: String!
 	req_count: Int
@@ -91,22 +82,28 @@ enum Priority {
 	leisure
 }
 
-# Similar to comments, need to keep track of the various priority changes
-type PriorityObj {
-	o_id: ID!
-	priority_id: ID!
-	priority: Priority
-	created_at: AWSDateTime!
-}
-
-type PriorityObjConnection {
-	items: [PriorityObj]
+type PriorityConnection {
+	items: [PriorityType]
 	nextToken: String
 }
 
+# Similar to comments, need to keep track of the various priority changes
+input PriorityInput {
+	_id: ID!
+	priority: Priority!
+	created_at: AWSDateTime!
+	updated_by: String!
+}
+
+type PriorityType {
+	_id: ID!
+	priority: Priority!
+	created_at: AWSDateTime!
+	updated_by: String!
+}
+
 type Query {
-	getComments(hotel_id: ID!, o_id: ID!): CommentConnection
-	getGuestOrder(hotel_id: ID!, room_no: String!): GuestOrder
+	getGuestOrder(hotel_id: ID!, room_no: String!): GuestOrderOutputType
 	listGuestOrders(filter: TableGuestOrderFilterInput, limit: Int, nextToken: String): GuestOrderConnection
 }
 
@@ -118,29 +115,29 @@ enum Status {
 	cancelled
 }
 
-# Similar to comments, need to keep track of the various status changes
-type StatusObj {
-	o_id: ID!
-	status_id: ID!
-	status: Status
-	created_at: AWSDateTime!
-	changed_by: String!
-}
-
-type StatusObjConnection {
-	items: [StatusObj]
+type StatusConnection {
+	items: [StatusType]
 	nextToken: String
 }
 
+# Similar to comments, need to keep track of the various status changes
+input StatusInput {
+	_id: ID!
+	status: Status!
+	created_at: AWSDateTime!
+	updated_by: String!
+}
+
+type StatusType {
+	_id: ID!
+	status: Status!
+	created_at: AWSDateTime!
+	updated_by: String!
+}
+
 type Subscription {
-	onCreateGuestOrder(hotel_id: ID, o_id: ID, room_no: String): GuestOrder
-		@aws_subscribe(mutations: ["createGuestOrder"])
-	onChangeOrderStatus(hotel_id: ID, o_id: ID, room_no: String): StatusObj
-		@aws_subscribe(mutations: ["changeOrderStatus"])
-	onChangeOrderPriority(hotel_id: ID, o_id: ID, room_no: String): PriorityObj
-		@aws_subscribe(mutations: ["changeOrderPriority"])
-	onCommentAdded(hotel_id: ID, o_id: ID, room_no: String): Comment
-		@aws_subscribe(mutations: ["addCommentToOrder"])
+	onCreateGuestOrder(hotel_id: ID!): GuestOrderOutputType
+		@aws_subscribe(mutations: ["createOrder"])
 }
 
 input TableBooleanFilterInput {

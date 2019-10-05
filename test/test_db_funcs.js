@@ -110,3 +110,29 @@ describe('facility', function() {
         }
     });
 });
+
+// Tests for create_order
+describe('create_order', function() {
+    it('should fail if order input is invalid', async function() {
+        var hotel_id = '100', user_id = '100', room_no = '101', items = [];
+        let r;
+        try {
+            r = await DBFuncs.create_order(hotel_id, room_no, user_id, items);
+            assert.ok(_.isUndefined(r), 'invalid input');
+        } catch (error) {
+            assert.ok(error instanceof KamError.InputError, 'invalid inputs');
+        }
+    });
+
+    it('should create order in the db', async function() {
+        var hotel_id = '100', user_id = '100', room_no = '101', items = [{name: 'towels', req_count: 2, category: "r"}, {name: 'soap', req_count: 1, category: "r"}];
+        let r;
+        try {
+            r = await DBFuncs.create_order(hotel_id, room_no, user_id, items);
+            assert.ok(!_.isUndefined(r), 'order created' + r);
+        } catch (error) {
+            console.log(error);
+            assert.ok(false, 'should not throw error');
+        }
+    });
+})
