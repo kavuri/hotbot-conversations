@@ -8,7 +8,7 @@
 // Create tables
 const argv = require('yargs')
     .usage('Usage: $0 <command> [options]')
-    .example('$0 -c -l -f ./master_hotel_data.json')
+    .example('$0 -t -l -f ./master_hotel_data.json')
     .help('h')
     .alias('h', 'help')
     .alias('d', 'delete')
@@ -37,7 +37,7 @@ async function delete_tables() {
     console.log('deleting collection data...');
     var d = await ALL_MODELS.DeviceModel.deleteMany({})//, function(err) { console.log(err); })
     d = await ALL_MODELS.FacilityModel.deleteMany({})//, function(err) {console.log(err); });
-    // d = await ALL_MODELS.OrderModel.deleteMany({})//, function(err) {console.log(err); });
+    d = await ALL_MODELS.OrderModel.deleteMany({})//, function(err) {console.log(err); });
     d = await ALL_MODELS.PolicyModel.deleteMany({})//, function(err) {console.log(err); });
     d = await ALL_MODELS.HotelModel.deleteMany({})//, function(err) {console.log(err); });
     d = await ALL_MODELS.HotelGroupModel.deleteMany({})//, function(err) {console.log(err); });
@@ -61,7 +61,7 @@ async function populate_hotel_data(hotel_data_file) {
     store_facilities_data(hotel_data);
 
     //Store policies data
-    store_policies_data(hotel_data);
+    // store_policies_data(hotel_data);
 
     console.log('created test data...');
 }

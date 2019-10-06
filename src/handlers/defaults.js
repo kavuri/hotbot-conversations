@@ -7,7 +7,8 @@
 
 let _ = require('lodash'),
     DeviceModel = require('../db').DeviceModel,
-    HELPER = require('../helpers'),
+    HotelModel = require('../db').HotelModel,
+    KamError = require('../utils/KamError'),
     rp = require('request-promise');
 
 module.exports = {
@@ -65,20 +66,21 @@ module.exports = {
                 // Get the hotel information as well. Check "hotel.json" in hotbot-setup project for the hotel data structure
                 let hotel_info;
                 try {
-                    hotel_info = await HELPER.hotel_info(data.hotel_id, "info");
+                    hotel_info = await HotelModel.findOne({hotel_id: data.hotel_id}).lean();
                 } catch(error) {
                     console.log('error while fetching hotel info:', error);
                     this.tell(this.t('SYSTEM_ERROR'));
                 }
                 
                 // Set the hotel_id and info in the session data
-                this.$session.$data.hotel_id = data.hotel_id;
-                this.$session.$data.hotel_info = hotel_info;
+                this.$session.$data.hotel = hotel_info;
             }
 
         } catch(error) {
             // Some DB error
-            this.tell(this.t('SYSTEM_ERROR'));
+            if (error instanceof KamError.DBError) {
+                this.tell(this.t('SYSTEM_ERROR'));   
+            }
         }
     },
 
@@ -107,7 +109,7 @@ module.exports = {
     //FIXME: Replace 'ABC' to the hotel name
     async LAUNCH() {
         console.info('LAUNCH handler')
-        this.ask(this.t('WELCOME', {hotel_name: 'ABC'}));
+        this.ask(this.t('WELCOME', {hotel_name: this.$session.$data.hotel.name}));
     },
 
     END() {

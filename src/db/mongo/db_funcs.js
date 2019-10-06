@@ -13,6 +13,14 @@ const _ = require('lodash'),
     OrderModel = require('./Order'),
     AppSync = require('../../appsync');
 
+module.exports.TYPE = {
+    POLICIES: "p",
+    FACILITIES: "f",
+    ROOM_ITEM: "r",
+    KITCHEN_ITEM: "k",
+    MENU: "m"
+};
+
 /**********************************************************************************************************
  * Facility functions
  **********************************************************************************************************/
@@ -30,7 +38,7 @@ const _ = require('lodash'),
 
     let data;
     try {
-        data = await FacilityModel.find(query, {'_id': 0, 'f_name': 1, 'synonyms': 1});
+        data = await FacilityModel.find(query, {'_id': 0, 'f_name': 1, 'synonyms': 1}).lean();
     } catch (error) {
         console.error('error getting hotel info:', hotel_id, error);
         throw KamError.DBError('error getting hotel info:'+ hotel_id);
@@ -92,7 +100,7 @@ module.exports.facility = async (hotel_id, facility_name, facility_type) => {
     // 3. Make another DB call to get the facility
     let data;
     try {
-        data = await FacilityModel.findOne({hotel_id: hotel_id, f_name: result[0].f_name});
+        data = await FacilityModel.findOne({hotel_id: hotel_id, f_name: result[0].f_name}).lean();
     } catch (error) {
         console.error('error getting hotel info:', hotel_id, error);
         throw new KamError.DBError('error getting hotel info:'+ hotel_id);
@@ -103,7 +111,6 @@ module.exports.facility = async (hotel_id, facility_name, facility_type) => {
         throw new KamError.FacilityDoesNotExistError('facility with name ' + facility_name + ' and type ' + facility_type + ' for hotel with id ' + hotel_id + ' does not exist');
     }
 
-    // console.log('+++', JSON.stringify(data));
     return data;
 };
 
@@ -193,7 +200,7 @@ module.exports.create_order = async function(hotel_id, room_no, user_id, items) 
 
     var result = await AppSync.notify(appsync_order);
 
-    console.log('%%obj=', result);
+    // console.log('%%obj=', result);
     return result;
  }
 
@@ -201,45 +208,27 @@ module.exports.create_order = async function(hotel_id, room_no, user_id, items) 
    This method checks if:
     the guest has ordered the same item + on the same day + in last 2hrs + unserved
   */
- module.exports.is_item_already_ordered = async function(hotel_id, room_no, item_name, category) {
+ module.exports.is_room_item_already_ordered = async function(hotel_id, room_no, item_name, category) {
      if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(item_name) || _.isUndefined(category)) {
          throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + item_name + ',category=' + category);
      }
 
-     // Check from Order table for this data
-     let params = {
-        TableName: TableName,
-        ProjectionExpression: 'o_items, o_status, o_cancelled_by, o_comments, o_time',
-        KeyConditionExpression: 'hotel_id = :hotel_id and room_no = :room_no',
-        ExpressionAttributeValues: {
-            ':hotel_id': hotel_id,
-            ':room_no': room_no
-        }
-    };
+     try {
+         var order = await OrderModel.find({hotel_id: hotel_id, room_no: room_no, 'o_items.name': item_name, category: category}).exec();
+         console.log('item=', order);
 
-    let data;
-    try {
-        data = await Conn().query(params).promise();
-    } catch(error) {
-        console.log('error in fetching existing order', error);
-        throw new KamError.DBError(error);
-    }
-    console.log(JSON.stringify(data));
+             if (_.isEmpty(order) || _.isUndefined(order)) {
+                 return false;
+             } else {
+                 return true;
+             }
 
-    if (_.isEmpty(data.Items)) {
-        // No orders found
-        return [];
-    } else {
-        return data.Items[0].o_items;
-    }
-    var item = _.find(data.Items[0].o_items, {category: category, item_name: item_name});
-
-    if (_.isUndefined(item)) {
-        // No such item order
-        return false;
-    } else {
-        return true;
-    }
+             //TODO: Should status of the order be checked? Whether the previously ordered item is served?
+             // Also check for 'cancelled' status
+     } catch (error) {
+         console.log('error thrown', error);
+         throw new KamError.DBError(error);
+     }
  }
 
  module.exports.cancel_order = function() {

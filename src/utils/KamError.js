@@ -3,43 +3,49 @@
  * Proprietary and confidential
  */
 
- 'using strict';
+'using strict';
 
- class KamError extends Error {
-     constructor(message, code) {
+class KamError extends Error {
+    constructor(message, code) {
         super(message);
         this.code = code;
-     }
- }
+    }
+}
 
- class InputError extends KamError {
-     constructor(message) {
-         super(message, 100);
-     }
- }
- 
- class DBError extends KamError {
-     constructor(message) {
-         super(message, 101);
-     }
- }
+class InputError extends KamError {
+    constructor(message) {
+        super(message, 100);
+    }
+}
 
- class FacilityDoesNotExistError extends KamError {
-     constructor(message) {
-         super(message, 102)
-     }
- }
+class DBError extends KamError {
+    constructor(message) {
+        super(message, 101);
+    }
+}
 
- class DBSetupError extends KamError {
+class FacilityDoesNotExistError extends KamError {
+    constructor(message) {
+        super(message, 102)
+    }
+}
+
+class DBSetupError extends KamError {
     constructor(message) {
         super(message, 103)
     }
 }
 
- module.exports = {
-     InputError: InputError,
-     DBError: DBError,
-     FacilityDoesNotExistError: FacilityDoesNotExistError,
-     DBSetupError: DBSetupError
- };
- 
+class NoSuchPolicyError extends KamError {
+    constructor(message) {
+        super(message, 104)
+    }
+}
+
+module.exports = {
+    InputError: InputError,
+    DBError: DBError,
+    FacilityDoesNotExistError: FacilityDoesNotExistError,
+    DBSetupError: DBSetupError,
+    NoSuchPolicyError: NoSuchPolicyError
+};

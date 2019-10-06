@@ -13,10 +13,11 @@ var FacilitySchema = new mongoose.Schema({
         f_name: {type: String, required: true, index: true},
         f_type: {type: String, index: true},
         synonyms: [String],
-        availability: {
-            flag: {type: Boolean, required: true}
+        present: {
+            flag: {type: String, required: true},
+            message: {type: mongoose.Schema.Types.Mixed}
         }
-   }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
+   }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false});
 
 FacilitySchema.index({hotel_id: 1, f_name: 1}, {unique: true});
 

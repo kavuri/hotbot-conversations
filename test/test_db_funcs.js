@@ -125,7 +125,7 @@ describe('create_order', function() {
     });
 
     it('should create order in the db', async function() {
-        var hotel_id = '100', user_id = '100', room_no = '101', items = [{name: 'towels', req_count: 2, category: "r"}, {name: 'soap', req_count: 1, category: "r"}];
+        var hotel_id = '100', user_id = '100', room_no = '101', items = [{name: 'fan', req_count: 2, category: "m"}, {name: 'napkins', req_count: 1, category: "m"}];
         let r;
         try {
             r = await DBFuncs.create_order(hotel_id, room_no, user_id, items);
@@ -134,5 +134,9 @@ describe('create_order', function() {
             console.log(error);
             assert.ok(false, 'should not throw error');
         }
+    });
+
+    it('should test if the item is already ordered', async function() {
+        // var hotel_id = '100', user_id = '100', room_no = '101', item_name = 
     });
 })

@@ -29,9 +29,7 @@ async function get_room_item(thisObj) {
         room_item = await FACILITIES.facility(hotel_id, item_name, "r");
         thisObj.$session.$data.facility = facility; // store the facility object so that we can 
     } catch(error) {
-        if (error instanceof KamError.InputError) {
-            thisObj.tell(thisObj.t('SYSTEM_ERROR'));
-        } else if (error instanceof KamError.DBError) {
+        if (error instanceof KamError.InputError || error instanceof KamError.DBError) {
             thisObj.tell(thisObj.t('SYSTEM_ERROR'));
         } else if (error instanceof KamError.FacilityDoesNotExistError) {
             throw error;
@@ -41,14 +39,14 @@ async function get_room_item(thisObj) {
     return room_item;
 }
 
-function respond_room_item(thisObj, room_item, item_name, category, req_count) {
+function respond_room_item(thisObj, room_item, item_name, req_count) {
     // Check if the room item object (in database) has "count". If yes, ask for the count of items
     if (_.isUndefined(room_item.count)) { // There is no count for this item
         // Confirm the order
         thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITHOUT_COUNT', {
             item_name: item_name
         }));
-        thisObj.$session.$data.items.push({item_name: item_name, req_count: 0, category: category});
+        thisObj.$session.$data.items.push({item: room_item, req_count: 0});
         console.log('item does not require count');
         return thisObj.followUpState('ConfirmRoomItemOrder')
                 .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
@@ -57,7 +55,7 @@ function respond_room_item(thisObj, room_item, item_name, category, req_count) {
         thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITH_COUNT', {
             req_count: req_count, item_name: item_name
         }));
-        thisObj.$session.$data.items.push({item_name: item_name, req_count: req_count, category: category});
+        thisObj.$session.$data.items.push({item: item, req_count: req_count});
         console.log('item has count and user has provided count');
         return thisObj.followUpState('ConfirmRoomItemOrder')
                 .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
@@ -90,9 +88,8 @@ module.exports = {
             }));
         }
 
-        this.$session.$data.item_name = item_name;
+        this.$session.$data.item = room_item_obj;
         this.$session.$data.req_count = req_count;
-        this.$session.$data.room_item_obj_count = room_item_obj.count;
         this.$session.$data.category = "r";
 
         // TODO: Check if the guest has ordered the same item + on the same day + unserved
@@ -100,8 +97,7 @@ module.exports = {
         try {
             var is_already_ordered  = await ORDERS.is_item_already_ordered(hotel_id,
                                                                            room_no,
-                                                                           item_name,
-                                                                           this.$session.$data.category);
+                                                                           item);
             if (_.isEqual(is_already_ordered, true)) {
                 // Tell guest that the item has already been ordered. Ask if they want to order more
                 this.$speech.addText(this.t('ITEM_ALREADY_ORDERED', {
@@ -118,7 +114,7 @@ module.exports = {
 
         if (_.isEmpty(this.$session.$data.items)) this.$session.$data.items = [];
  
-        respond_room_item(this, room_item_obj.count, item_name, this.$session.$data.category, req_count);
+        respond_room_item(this, room_item_obj, req_count);
     
         /*
         // Check if the room item object (in database) has "count". If yes, ask for the count of items
@@ -156,9 +152,7 @@ module.exports = {
     'ItemAlreadyOrdered': {
         YesIntent() {
             respond_room_item(this,
-                              this.$session.$data.room_item_obj_count,
-                              this.$session.$data.item_name,
-                              this.$session.$data.category,
+                              this.$session.$data.item,
                               this.$session.$data.req_count);
         },
 
@@ -177,7 +171,7 @@ module.exports = {
             // Guest has finalized the order. Repeat the order, check and close
             var str = '';
             for (var i=0; i<this.$session.$data.items.length; i++) {
-                str += this.$session.$data.items[i].req_count + ' ' + this.$session.$data.items[i].item_name + ' '
+                str += this.$session.$data.items[i].req_count + ' ' + this.$session.$data.items[i].f_name + ' '
                 console.log('%%%', str);
             }
             this.$session.$data.order = str;
@@ -242,8 +236,7 @@ module.exports = {
             }));
             this.$session.$data.items.push({
                 item_name: this.$session.$data.item_name,
-                req_count: this.$session.$data.req_count,
-                category: this.$session.$data.category
+                req_count: this.$session.$data.req_count
             });
             return this.followUpState('ConfirmRoomItemOrder')
                        .ask(this.$speech, this.t('YES_NO_REPROMPT'));

@@ -36,7 +36,11 @@ var HotelSchema = new mongoose.Schema({
         room_count: Number,
         reception_number: String
     }
-   }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
+   }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false});
+
+HotelSchema.index({hotel_id: 1});
+HotelSchema.index({name: 1});
+HotelSchema.index({group_id: 1});
 
 module.exports = mongoose.model('Hotel', HotelSchema);
 

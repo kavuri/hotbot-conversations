@@ -5,11 +5,9 @@
 
 'using strict';
 
-let Hotel = require('../db/').Hotel,
-    _ = require('lodash'),
-    ERROR = require('../helpers').ERROR,
-    HELPER = require('../helpers'),
-    POLICIES = require('../db/').POLICIES,
+let _ = require('lodash'),
+    KamError = require('../utils/KamError'),
+    DBFuncs = require('../db').DBFuncs,
     Fuse = require('fuse.js');
 
 var fuse_options = {
@@ -27,29 +25,30 @@ var fuse_options = {
 
 module.exports = {
     async Policy_smoking() {
-        var place_slot = this.$inputs.place_slot,
-            hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let smoking_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.smoking");
+            smoking_policy = await DBFuncs.facility(hotel_id, "smoking", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        console.log('policies=', hotel_policies);
-
-        let smoking_place = place_slot.value;
-        if (_.isEmpty(smoking_place) || _.isNull(smoking_place) || _.isUndefined(smoking_place)) {
-            // The user did not ask for a specific place to smoke, default to the hotel value
-            smoking_place = 'hotel';
+        var allowed_smoking_places = smoking_policy.allowed, flag = smoking_policy.present.flag;
+        let message = smoking_policy.present.message[flag];
+        
+        if (_.isEqual(flag, "yes")) {
+            // smoking is allowed at certain places
+            var areas = _.join(allowed_smoking_places);
+            var template = _.template(message);
+            message = template({'areas': areas});
         }
-        var fuse = new Fuse(hotel_policies.policies.smoking, fuse_options);
 
-        var result = fuse.search(smoking_place);
-
-        let message = result[0].item.message[result[0].item.flag];
         this.$speech.addText(message)
             .addBreak('200ms')
             .addText(this.t('FOLLOWUP_QUESTION'));
@@ -59,27 +58,30 @@ module.exports = {
     },
 
     async Policy_alcohol() {
-        var place_slot = this.$inputs.place_slot,
-            hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let alcohol_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.alcohol");
+            alcohol_policy = await DBFuncs.facility(hotel_id, "alcohol", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let drinking_place = place_slot.value;
-        if (_.isEmpty(drinking_place) || _.isNull(drinking_place) || _.isUndefined(drinking_place)) {
-            // The user did not ask for a specific place to drink, default to the hotel value
-            drinking_place = 'hotel';
+        var allowed_alcohol_places = alcohol_policy.allowed, flag = alcohol_policy.present.flag;
+        let message = alcohol_policy.present.message[flag];
+
+        if (_.isEqual(flag, "yes")) {
+            // smoking is allowed at certain places
+            var areas = _.join(allowed_alcohol_places);
+            var template = _.template(message);
+            message = template({'areas': areas});
         }
-        var fuse = new Fuse(hotel_policies.policies.alcohol, fuse_options);
 
-        var result = fuse.search(drinking_place);
-
-        let message = result[0].item.message[result[0].item.flag];
         this.$speech.addText(message)
             .addBreak('200ms')
             .addText(this.t('FOLLOWUP_QUESTION'));
@@ -89,20 +91,23 @@ module.exports = {
     },
 
     async Policy_cancellation() {
-        var hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let cancellation_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.cancellation");
+            cancellation_policy = await DBFuncs.facility(hotel_id, "cancellation", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let cancellation_policy = hotel_policies.policies.cancellation[0];
-        let flag = cancellation_policy.flag;
+        let flag = cancellation_policy.present.flag;
 
-        let message = cancellation_policy.message[flag];
+        let message = cancellation_policy.present.message[flag];
         this.$speech.addText(message)
             .addBreak('200ms')
             .addText(this.t('FOLLOWUP_QUESTION'));
@@ -112,19 +117,22 @@ module.exports = {
     },
 
     async Policy_infants() {
-        var hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let infants_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.infants");
+            infants_policy = await DBFuncs.facility(hotel_id, "infants", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let infants_policy = hotel_policies.policies.infants[0];
-        let flag = infants_policy.flag;
-        let message = infants_policy.message[flag];
+        let flag = infants_policy.present.flag;
+        let message = infants_policy.present.message[flag];
 
         // Replace the age in the message with the number that is part of the object
         var template = _.template(message);
@@ -141,26 +149,28 @@ module.exports = {
     },
 
     async Policy_checkout_time() {
-        var hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let checkout_time_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.checkout_time");
+            checkout_time_policy = await DBFuncs.facility(hotel_id, "checkout time", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let checkout_time_policy = hotel_policies.policies.checkout_time[0];
-        let flag = checkout_time_policy.flag;
-        let message = checkout_time_policy.message[flag];
+        let flag = checkout_time_policy.present.flag;
+        let message = checkout_time_policy.present.message[flag];
 
         // Replace the age in the message with the number that is part of the object
         var template = _.template(message);
-        // FIXME: If "phone1" is empty, go to "phone2"
         var text = template({
             'time': checkout_time_policy.time,
-            'reception_no': this.$session.$data.hotel_info.info.contact.phone1
+            'reception_no': this.$session.$data.hotel.info.contact.reception
         });
 
         this.$speech.addText(text)
@@ -172,19 +182,22 @@ module.exports = {
     },
 
     async Policy_noshow() {
-        var hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let noshow_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.noshow");
+            noshow_policy = await DBFuncs.facility(hotel_id, "no show", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let noshow_policy = hotel_policies.policies.noshow[0];
-        let flag = noshow_policy.flag;
-        let message = noshow_policy.message[flag];
+        let flag = noshow_policy.present.flag;
+        let message = noshow_policy.present.message[flag];
 
         this.$speech.addText(message)
             .addBreak('200ms')
@@ -195,19 +208,22 @@ module.exports = {
     },
 
     async Policy_outside_food() {
-        var hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let outside_food_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.outside_food");
+            outside_food_policy = await DBFuncs.facility(hotel_id, "outside food", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let outside_food_policy = hotel_policies.policies.outside_food[0];
-        let flag = outside_food_policy.flag;
-        let message = outside_food_policy.message[flag];
+        let flag = outside_food_policy.present.flag;
+        let message = outside_food_policy.present.message[flag];
 
         this.$speech.addText(message)
             .addBreak('200ms')
@@ -218,21 +234,28 @@ module.exports = {
     },
 
     async Policy_checkin_time() {
-        var hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let checkin_time_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.checkin_time");
+            checkin_time_policy = await DBFuncs.facility(hotel_id, "checkin time", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let checkin_time = hotel_policies.policies.checkin_time[0];
-        let flag = checkin_time.flag;
-        let message = checkin_time.message[flag];
+        let flag = checkin_time_policy.present.flag;
+        let message = checkin_time_policy.present.message[flag];
 
-        this.$speech.addText(message)
+        var template = _.template(message);
+        var text = template({
+            'checkin_time': checkin_time_policy.time
+        });
+        this.$speech.addText(text)
             .addBreak('200ms')
             .addText(this.t('FOLLOWUP_QUESTION'));
 
@@ -241,19 +264,22 @@ module.exports = {
     },
 
     async Policy_pets() {
-        var hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let pets_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.pets");
+            pets_policy = await DBFuncs.facility(hotel_id, "pets", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let pets = hotel_policies.policies.pets[0];
-        let flag = pets.flag;
-        let message = pets.message[flag];
+        let flag = pets_policy.present.flag;
+        let message = pets_policy.present.message[flag];
 
         this.$speech.addText(message)
             .addBreak('200ms')
@@ -264,21 +290,24 @@ module.exports = {
     },
 
     async Policy_payment_method() {
-        var hotel_id = this.$session.$data.hotel_id;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let hotel_policies;
+        let payment_methods_policy;
         try {
-            hotel_policies = await POLICIES.get(hotel_id, "policies.payment_methods");
+            payment_methods_policy = await DBFuncs.facility(hotel_id, "payment methods", DBFuncs.TYPE.POLICIES);
         } catch (error) {
+            if (error instanceof KamError.FacilityDoesNotExistError) {
+                // FIXME: This hotel does not have such a policy
+                // Check with hotel reception?
+            }
             console.log('error while fetching hotel policies:', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+            return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let payment_methods = hotel_policies.policies.payment_methods[0];
-        let methods = _.join(payment_methods.methods, ', ');
+        let methods = _.join(payment_methods_policy.methods, ', ');
 
-        let flag = payment_methods.flag;
-        let message = payment_methods.message[flag];
+        let flag = payment_methods_policy.present.flag;
+        let message = payment_methods_policy.present.message[flag];
 
         // Replace the payment_methods in the message with the 'methods' string above
         var template = _.template(message);

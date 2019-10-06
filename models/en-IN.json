@@ -282,7 +282,8 @@
          "can I pay the bill with my {payment_method_slot}",
          "is {payment_method_slot} accepted",
          "can I pay the hotel expenses by {payment_method_slot}",
-         "I only have {payment_method_slot} can I pay using that"
+         "I only have {payment_method_slot} can I pay using that",
+         "how can I pay my hotel bill"
       ],
       "inputs":[
         {
@@ -544,7 +545,7 @@
         ]
      },
      {
-      "name":"Enquiry_res_billing",
+      "name":"Enquiry_res_food_billing",
       "phrases":[  
          "add restaurant bill to final bill",
          "are food charges included in the final bill",
