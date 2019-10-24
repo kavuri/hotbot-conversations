@@ -50,7 +50,7 @@ module.exports = {
 
         let data;
         try {
-            data = await DeviceModel.findOne({device_id: device_id, user_id: user_id});
+            data = await DeviceModel.findOne({device_id: device_id}).populate('belongs_to');
 
             console.log('hotel data..', data);
             if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -61,20 +61,11 @@ module.exports = {
                 console.log('device is not registered...');
                 return this.followUpState('RegisterDeviceState')
                     .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+            } else if (_.isUndefined(data.belongs_to) || !_.isEqual(data.status, 'active')) {
+                return this.tell(this.t('DEVICE_NOT_ASSIGNED_TO_HOTEL'));
             } else {
-                console.log('setting hotel_id in session attribute');
-                // Get the hotel information as well. Check "hotel.json" in hotbot-setup project for the hotel data structure
-                let hotel_info;
-                try {
-                    hotel_info = await HotelModel.findOne({hotel_id: data.hotel_id}).lean();
-                    console.log ('###hotel_info=', hotel_info);
-                } catch(error) {
-                    console.log('error while fetching hotel info:', error);
-                    this.tell(this.t('SYSTEM_ERROR'));
-                }
-                
                 // Set the hotel_id and info in the session data
-                this.$session.$data.hotel = hotel_info;
+                this.$session.$data.hotel = data.belongs_to;
             }
 
         } catch(error) {

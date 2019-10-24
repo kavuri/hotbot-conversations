@@ -8,6 +8,7 @@
     "DEVICE_REGISTER_ERROR": "Uh Oh. Looks like something went wrong. Please try again. ",
     "SYSTEM_ERROR": "There is some problem with the service. Please try again",
     "DEVICE_NOT_REGISTERED": "This device is not registered. ",
+    "DEVICE_NOT_ASSIGNED_TO_HOTEL": "This device is not assigned to hotel. Please contact the front desk.",
     "ASK_TO_REGISTER_DEVICE": "Would you like to register this device? ",
     "TRY_AGAIN": " try again.",
     "AND": " and ",
