@@ -5,23 +5,10 @@
 
 'using strict';
 
-let _ = require('lodash'),
+const _ = require('lodash'),
     KamError = require('../utils/KamError'),
-    DBFuncs = require('../db').DBFuncs,
-    Fuse = require('fuse.js');
-
-var fuse_options = {
-    shouldSort: true,
-    includeScore: true,
-    threshold: 0.5,
-    location: 0,
-    distance: 10,
-    maxPatternLength: 32,
-    minMatchCharLength: 4,
-    keys: [
-        "name"
-    ]
-};
+    HELPER = require('../utils/helpers'),
+    DBFuncs = require('../db').DBFuncs;
 
 module.exports = {
     async Policy_smoking() {
@@ -44,9 +31,7 @@ module.exports = {
         
         if (_.isEqual(flag, "yes")) {
             // smoking is allowed at certain places
-            var areas = _.join(allowed_smoking_places);
-            var template = _.template(message);
-            message = template({'areas': areas});
+            message = HELPER.template_to_text(message, {'areas': _.join(allowed_smoking_places, ', ')});
         }
 
         this.$speech.addText(message)
@@ -77,9 +62,7 @@ module.exports = {
 
         if (_.isEqual(flag, "yes")) {
             // smoking is allowed at certain places
-            var areas = _.join(allowed_alcohol_places);
-            var template = _.template(message);
-            message = template({'areas': areas});
+            message = HELPER.template_to_text(message, {'areas': _.join(allowed_alcohol_places, ', ')});
         }
 
         this.$speech.addText(message)
@@ -135,10 +118,7 @@ module.exports = {
         let message = infants_policy.present.message[flag];
 
         // Replace the age in the message with the number that is part of the object
-        var template = _.template(message);
-        var text = template({
-            'age': infants_policy.age
-        });
+        var text = HELPER.template_to_text(message, {'age': infants_policy.age});
 
         this.$speech.addText(text)
             .addBreak('200ms')
@@ -167,11 +147,7 @@ module.exports = {
         let message = checkout_time_policy.present.message[flag];
 
         // Replace the age in the message with the number that is part of the object
-        var template = _.template(message);
-        var text = template({
-            'time': checkout_time_policy.time,
-            'reception_no': this.$session.$data.hotel.info.contact.reception
-        });
+        var text = HELPER.template_to_text(message, {'time': checkout_time_policy.time, 'reception_no': this.$session.$data.hotel.info.contact.reception});
 
         this.$speech.addText(text)
             .addBreak('200ms')
@@ -251,10 +227,8 @@ module.exports = {
         let flag = checkin_time_policy.present.flag;
         let message = checkin_time_policy.present.message[flag];
 
-        var template = _.template(message);
-        var text = template({
-            'checkin_time': checkin_time_policy.time
-        });
+        var text = HELPER.template_to_text(message, {'checkin_time': checkin_time_policy.time});
+        
         this.$speech.addText(text)
             .addBreak('200ms')
             .addText(this.t('FOLLOWUP_QUESTION'));
@@ -304,17 +278,12 @@ module.exports = {
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let methods = _.join(payment_methods_policy.methods, ', ');
-
         let flag = payment_methods_policy.present.flag;
         let message = payment_methods_policy.present.message[flag];
 
         // Replace the payment_methods in the message with the 'methods' string above
-        var template = _.template(message);
-        var text = template({
-            'payment_methods': methods
-        });
-
+        var text = HELPER.template_to_text(message, {'payment_methods': _.join(payment_methods_policy.methods, ', ')});
+        
         this.$speech.addText(text)
             .addBreak('200ms')
             .addText(this.t('FOLLOWUP_QUESTION'));

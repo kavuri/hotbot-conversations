@@ -5,8 +5,9 @@
 'use strict';
 
 var _ = require('lodash'),
-    Fuse = require('fuse.js'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    DBConn = require('./index').DBConn,
+    AutoIncrement = require('./index').AutoIncrement;
 
 var HotelSchema = new mongoose.Schema({
     hotel_id: {type: String, required: true, unique: true},
@@ -42,27 +43,11 @@ HotelSchema.index({hotel_id: 1});
 HotelSchema.index({name: 1});
 HotelSchema.index({group_id: 1});
 
-module.exports = mongoose.model('Hotel', HotelSchema);
+HotelSchema.plugin(AutoIncrement.plugin, {
+    model: 'Hotel',
+    field: 'hotel_id',
+    startAt: 100,
+    incrementBy: 1
+});
 
-// module.exports.get = async function(hotel_id, projection) {
-//     if (_.isNull(projection) || _.isUndefined(projection)) {
-//         throw new Error('project for getting data not provided')
-//     }
-//     let params = {
-//         TableName: TableName,
-//         ProjectionExpression: projection,
-//         Key: {
-//             'hotel_id': hotel_id
-//         }
-//     };
-
-//     let data;
-//     try {
-//         data = await Conn().get(params).promise();
-//     } catch (error) {
-//         console.error('error getting hotel info:', hotel_id, error);
-//         throw error;
-//     }
-
-//     return data.Item;
-// }
+module.exports = DBConn.model('Hotel', HotelSchema);

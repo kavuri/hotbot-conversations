@@ -6,7 +6,6 @@
 'use strict';
 
 const _ = require('lodash'),
-    mongoose = require('mongoose'),
     Fuse = require('fuse.js'),
     KamError = require('../../utils/KamError'),
     FacilityModel = require('./Facilities.js'),
@@ -208,13 +207,13 @@ module.exports.create_order = async function(hotel_id, room_no, user_id, items) 
    This method checks if:
     the guest has ordered the same item + on the same day + in last 2hrs + unserved
   */
- module.exports.is_room_item_already_ordered = async function(hotel_id, room_no, item_name, category) {
-     if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(item_name) || _.isUndefined(category)) {
-         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + item_name + ',category=' + category);
+ module.exports.is_room_item_already_ordered = async function(hotel_id, room_no, item_id) {
+     if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(item_id)) {
+         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + item_id);
      }
 
      try {
-         var order = await OrderModel.find({hotel_id: hotel_id, room_no: room_no, 'o_items.name': item_name, category: category}).exec();
+         var order = await OrderModel.find({hotel_id: hotel_id, room_no: room_no, 'o_items.name': item_obj.f_name, category: category}).exec();
          console.log('item=', order);
 
              if (_.isEmpty(order) || _.isUndefined(order)) {
@@ -277,7 +276,7 @@ const test_hotel = async function() {
 }
 
 const test_all_facilities = async function() {
-    var mongo = require('../../mongo.js');
+    var mongo = require('./index.js/index.js.js');
     mongo();
 }
 

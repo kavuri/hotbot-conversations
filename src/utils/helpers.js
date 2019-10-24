@@ -4,10 +4,7 @@
  */
 
 const moment = require('moment-timezone'),
-      _ = require('lodash'),
-      ERROR = require('./helpers').ERROR,
-      Fuse = require('fuse.js'),
-      HOTEL = require('./db/').HOTEL;
+      _ = require('lodash');
 
 module.exports.user_local_time = async (jovo_obj) => {
     try {
@@ -68,14 +65,6 @@ module.exports.template_to_text = (tmpl, fields) => {
     return text;
 };
 
-module.exports.ERROR = [
-    "HOTEL_DOES_NOT_EXIST",
-    "POLICY_DOES_NOT_EXIST",
-    "DB_ERROR",
-    "FACILITY_NOT_AVAILABLE",
-    "SYSTEM_ERROR"
-];
-
 module.exports.FUSE_OPTIONS = {
     shouldSort: true,
     threshold: 0.5,
@@ -87,51 +76,3 @@ module.exports.FUSE_OPTIONS = {
       "name"
     ]
 };
-
-  class HotelDoesNotExistError extends Error {
-      constructor(message) {
-          super(message);
-
-          this.name = this.constructor.name;
-      }
-  };
-
-  class FacilityDoesNotExist extends Error {
-      constructor(message) {
-          super(message);
-
-          this.name = this.constructor.name;
-      }
-  };
-
-  class PolicyDoesNotExistError extends Error {
-      constructor(message) {
-          super(message);
-
-          this.name = this.constructor.name;
-      }
-  };
-
-  class DbError extends Error {
-      constructor(message) {
-          super(message);
-
-          this.name = this.constructor.name;
-      }
-  };
-
-  class SystemError extends Error {
-      constructor(message) {
-          super(message);
-
-          this.name = this.constructor.name;
-      }
-  };
-
-  module.exports.ERRORS = {
-      HotelDoesNotExistError,
-      FacilityDoesNotExist,
-      PolicyDoesNotExistError,
-      DbError,
-      SystemError
-  };

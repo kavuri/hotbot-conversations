@@ -5,8 +5,8 @@
 
  'using strict';
 
- const _ = require('lodash'),
-       mongoose = require('mongoose');
+ const mongoose = require('mongoose'),
+       DBConn = require('./index').DBConn;
 
 var StatusSchema = new mongoose.Schema({
     status: {type: String, required: true, enum: ['new', 'progress', 'done', 'cant_serve','cancelled'], default: 'new'},
@@ -42,6 +42,8 @@ var OrderSchema = new mongoose.Schema({
 	    o_comments: {type: [CommentSchema]}
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
+var OrderModel = DBConn.model('Order', OrderSchema);
+
 // Create post save hooks
 OrderSchema.post('inventory', function(doc) {
     console.log('need to update inventory of the ordered item', doc);
@@ -50,4 +52,4 @@ OrderSchema.post('inventory', function(doc) {
 OrderSchema.index({hotel_id: 1, o_id: 1}, {unique: true});
 OrderSchema.index({hotel_id: 1, user_id: 1});
 
-module.exports = mongoose.model('Order', OrderSchema);
+module.exports = OrderModel;

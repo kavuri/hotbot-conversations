@@ -8,8 +8,7 @@
 let _ = require('lodash'),
     google_helper = require('../google_helper'),
     community_types = require('../community_types'),
-    Fuse = require('fuse.js'),
-    ERROR = require('../helpers').ERROR;
+    Fuse = require('fuse.js');
 
 var fuse_options = {
         shouldSort: true,

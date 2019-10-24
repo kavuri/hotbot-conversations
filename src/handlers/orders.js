@@ -10,56 +10,47 @@
 
 let _ = require('lodash'),
     KamError = require('../utils/KamError'),
-    FACILITIES = require('../db').FACILITIES,
-    ORDERS = require('../db').ORDER;
+    DBFuncs = require('../db').DBFuncs;
 
 /**
  * 
  * @param {*} thisObj 
  */
-async function get_room_item(thisObj) {
-
-    var hotel_id = thisObj.$session.$data.hotel_id,
-        item_name = thisObj.$inputs.room_item_slot.value;
+async function get_item(hotel_id, item_name) {
     
     console.log('get_room_item. hotel_id='+ hotel_id + ', item_name='+ item_name);
         
-    let room_item;
+    let item;
     try {
-        room_item = await FACILITIES.facility(hotel_id, item_name, "r");
-        thisObj.$session.$data.facility = facility; // store the facility object so that we can 
+        item = await DBFuncs.facility(hotel_id, item_name);
     } catch(error) {
-        if (error instanceof KamError.InputError || error instanceof KamError.DBError) {
-            thisObj.tell(thisObj.t('SYSTEM_ERROR'));
-        } else if (error instanceof KamError.FacilityDoesNotExistError) {
-            throw error;
-        }
+        throw error;
     }
 
-    return room_item;
+    return item;
 }
 
-function respond_room_item(thisObj, room_item, item_name, req_count) {
+function respond_for_multiple_items(thisObj, db_item, item_name, req_count) {
     // Check if the room item object (in database) has "count". If yes, ask for the count of items
-    if (_.isUndefined(room_item.count)) { // There is no count for this item
+    if (_.isUndefined(db_item.count)) { // There is no count for this item
         // Confirm the order
         thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITHOUT_COUNT', {
             item_name: item_name
         }));
-        thisObj.$session.$data.items.push({item: room_item, req_count: 0});
+        thisObj.$session.$data.items.push({item: db_item, req_count: 0});
         console.log('item does not require count');
         return thisObj.followUpState('ConfirmRoomItemOrder')
                 .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
-    } else if (!_.isUndefined(room_item.count) && !_.isUndefined(req_count)) { //User has provided count of items
+    } else if (!_.isUndefined(db_item.count) && !_.isUndefined(req_count)) { //User has provided count of items
         // Confirm that you are ordering
         thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITH_COUNT', {
             req_count: req_count, item_name: item_name
         }));
-        thisObj.$session.$data.items.push({item: item, req_count: req_count});
+        thisObj.$session.$data.items.push({item: db_item, req_count: req_count});
         console.log('item has count and user has provided count');
         return thisObj.followUpState('ConfirmRoomItemOrder')
                 .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
-    } else if (!_.isUndefined(room_item.count) && _.isUndefined(count)) { // User has not provided count of items. Ask for it
+    } else if (!_.isUndefined(db_item.count) && _.isUndefined(count)) { // User has not provided count of items. Ask for it
         thisObj.$speech.addText(thisObj.t('ORDER_REQUEST_COUNT', {
             item_name: item_name
         }));
@@ -72,32 +63,36 @@ function respond_room_item(thisObj, room_item, item_name, req_count) {
 }
 
 module.exports = {
-    async Order_room_item() {
+    async Order_item() {
         var item_name = this.$inputs.room_item_slot.value,
             req_count = this.$inputs.req_count.value,
-            hotel_id = this.$session.$data.hotel_id;
+            hotel_id = this.$session.$data.hotel.hotel_id;
 
         console.log('Order_room_item: item_name='+ item_name + ', req_count=' + req_count);
-        var room_item_obj;
+        var item_obj;
         try {
-            room_item_obj = await get_room_item(this);
+            item_obj = await get_item(hotel_id, item_name);
+            console.log('###item_obj=', item_obj);
         } catch(error) {
-            // This error is only incase room item is not available
-            this.ask(this.t('ROOM_ITEM_NOT_AVAILABLE', {
-                item_name: this.$inputs.room_item_slot.value
-            }));
+            if (error instanceof KamError.InputError || error instanceof KamError.DBError) {
+                thisObj.tell(thisObj.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.FacilityDoesNotExistError) {
+                // This error is only incase room item is not available
+                this.ask(this.t('ROOM_ITEM_NOT_AVAILABLE', {
+                    item_name: this.$inputs.room_item_slot.value
+                }));
+            }
         }
 
-        this.$session.$data.item = room_item_obj;
+        this.$session.$data.item = item_obj;
         this.$session.$data.req_count = req_count;
-        this.$session.$data.category = "r";
 
         // TODO: Check if the guest has ordered the same item + on the same day + unserved
         // If the same item has been ordered, check with guest and continue the flow, else continue the following
         try {
-            var is_already_ordered  = await ORDERS.is_item_already_ordered(hotel_id,
+            var is_already_ordered  = await DBFuncs.is_room_item_already_ordered(hotel_id,
                                                                            room_no,
-                                                                           item);
+                                                                           item_obj);
             if (_.isEqual(is_already_ordered, true)) {
                 // Tell guest that the item has already been ordered. Ask if they want to order more
                 this.$speech.addText(this.t('ITEM_ALREADY_ORDERED', {
@@ -114,7 +109,7 @@ module.exports = {
 
         if (_.isEmpty(this.$session.$data.items)) this.$session.$data.items = [];
  
-        respond_room_item(this, room_item_obj, req_count);
+        respond_for_multiple_items(this, item_obj, req_count);
     
         /*
         // Check if the room item object (in database) has "count". If yes, ask for the count of items

@@ -8,11 +8,11 @@
  */
 'using strict';
 
-let _ = require('lodash'),
-    HELPER = require('../helpers'),
+const _ = require('lodash'),
+    DBFuncs = require('../db').DBFuncs,
     KamError = require('../utils/KamError'),
-    Fuse = require('fuse.js'),
-    FACILITIES = require('../db').FACILITIES;
+    HELPER = require('../utils/helpers'),
+    Fuse = require('fuse.js');
 
 /**
  * 
@@ -23,14 +23,14 @@ let _ = require('lodash'),
  */
 async function get_facility(thisObj) {
 
-    var hotel_id = thisObj.$session.$data.hotel_id,
-        facility_slot = thisObj.$inputs.facility_slot,
+    var hotel_id = thisObj.$session.$data.hotel.hotel_id,
         facility_name = thisObj.$inputs.facility_slot.value,
         session_data = thisObj.$session.$data.facility;
 
     console.log('get_facility. hotel_id='+ hotel_id + ',facility_name='+ facility_name);
 
     let facility;
+    // Check if facility is in session object
     if (_.isUndefined(session_data)) {
         if (_.isUndefined(facility_name)) {
             // This situation should not occur
@@ -40,7 +40,7 @@ async function get_facility(thisObj) {
         // Session data is empty, get the facility from database
         try {
             console.log('session_data is null and facility_name=' + facility_name + '. Getting facility from db.')
-            facility = await FACILITIES.facility(hotel_id, facility_name);
+            facility = await DBFuncs.facility(hotel_id, facility_name, DBFuncs.TYPE.FACILITIES);
             thisObj.$session.$data.facility = facility; // store the facility object so that we can 
         } catch(error) {
             if (error instanceof KamError.InputError) {
@@ -53,7 +53,7 @@ async function get_facility(thisObj) {
                 }));
             }
         }
-    } else if (!_.isUndefined(session_data)) {
+    } else if (!_.isUndefined(session_data)) {  // facility is not in session object
         if (_.isUndefined(facility_name)) {
             // This is a follow-up conversation and the invocation will not have the facility_name.
             // Use the facility from the session object
@@ -66,7 +66,7 @@ async function get_facility(thisObj) {
                 // facility requested is not the same as in session object
                 // refetch the facility from db
                 try {
-                    facility = await FACILITIES.facility(hotel_id, facility_name);
+                    facility = await DBFuncs.facility(hotel_id, facility_name, DBFuncs.TYPE.FACILITIES);
                     thisObj.$session.$data.facility = facility; // store the facility object so that we can 
                 } catch(error) {
                     if (error instanceof KamError.InputError) {
@@ -129,8 +129,8 @@ module.exports = {
         let facility;
         // Session data is empty, get the facility from database
         try {
-            facility = await FACILITIES.facility(hotel_id, "reception", "f");
-            this.$session.$data.facility = facility; // store the facility object so that we can 
+            facility = await DBFuncs.facility(hotel_id, "reception", DBFuncs.TYPE.FACILITIES);
+            this.$session.$data.facility = facility; // store the facility object
         } catch(error) {
             if (error instanceof KamError.InputError) {
                 this.tell(this.t('SYSTEM_ERROR'));
@@ -158,20 +158,21 @@ module.exports = {
     },
 
     async Enquiry_all_facilities() {
-        var hotel_id = this.$session.$data.hotel_id;
-        let some_facilities = ['restaurant', 'gym', 'swimming pool', 'breakfast', 'laundry'];
+        var hotel_id = this.$session.$data.hotel.hotel_id,
+            main_facilities = this.$session.$data.hotel.info.main_facilities;
 
         let facility_names;
         try {
-            var ret = await FACILITIES.all_facility_names(hotel_id); //returns array of form [{f_name:'abc', synonyms:['def','ghi]}]
+            var ret = await DBFuncs.all_facility_names(hotel_id, DBFuncs.TYPE.FACILITIES); //returns array of form [{f_name:'abc', synonyms:['def','ghi]}]
             facility_names = _.map(ret, 'f_name'); // get only the f_name, i.e., the facility name
+            console.log('###returned facilities=', facility_names, ',main_facilities=',main_facilities);
         } catch(error) {
             console.log('error while fetching hotel facilities:', error);
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        // Find the intersection of some_facilities and all the facilities that the hotel supports
-        var common = _.intersection(facility_names, some_facilities);
+        // Find the intersection of main_facilities and all the facilities that the hotel supports
+        var common = _.intersection(facility_names, main_facilities);
         var stitched_facilities = _.join(common, ',');
 
         // Set the facilities as part of data, so that it can be used in 'AllFacilitiesState'
@@ -217,8 +218,8 @@ module.exports = {
         var facility = await get_facility(this);
 
         console.log('+++facility=', facility);
-        var flag = facility.availability.flag;
-        var message = facility.availability.message[flag];
+        var flag = facility.present.flag;
+        var message = facility.present.message[flag];
         if (!_.isEmpty(message) || !_.isUndefined(message)) {
             this.$speech.addText(message)
                 .addBreak('200ms')
@@ -242,17 +243,12 @@ module.exports = {
             console.log('#####facility=', this.$session.$data.facility);
             var facility = this.$session.$data.facility;
 
-            var p_template = _.template(facility.price.message[facility.price.flag]);
-            var p_text = p_template({
-                'price': facility.price.price
-            });
+            var price_message = facility.price.message[facility.price.flag],
+                p_text = HELPER.template_to_text(price_message, {'price': facility.price.price});
 
-            var t_template = _.template(facility.timing.message[facility.timing.flag]);
-            var t_text = t_template({
-                'from': facility.timing.timings.from,
-                'to': facility.timing.timings.to
-            });
-
+            var timing_message = facility.timing.message[facility.timing.flag],
+                t_text = HELPER.template_to_text(timing_message, {'from': facility.timing.timings.from, 'to': facility.timing.timings.to});
+            
             this.$speech.addText(p_text)
                 .addBreak('200ms')
                 .addText(t_text)

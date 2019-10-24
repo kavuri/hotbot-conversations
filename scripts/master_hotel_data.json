@@ -2,7 +2,6 @@
     "hotel_group": {
       "name": "Dummy Hotel Group",
       "description": "This is a dummy group of hotels",
-      "group_id": "100",
       "address": {
         "address1": "dummy_house 7, 7",
         "address2": "dummy_road 7",
@@ -20,9 +19,7 @@
     },
     "hotel": {
       "name": "Dummy Hotel",
-      "hotel_id": "100",
       "description": "This is a dummy hotel",
-      "group_id": "100",
       "info": {
         "address": {
           "address1": "dummy_house 7, 7",
@@ -44,13 +41,15 @@
           "lng": "77.707843"
         },
         "front_desk_count": 5,
-        "room_count": 100
+        "room_count": 100,
+        "main_facilities": ["restaurant", "gym", "swimming pool", "breakfast", "laundry"]
       }
     },
     "facilities": [
       {
         "f_name": "smoking",
         "f_type": "p",
+        "s_type": ["none"],
         "synonyms": ["smoke","cigar","cigerette","beedi","vaping","electronic cigar","hopkah"],
         "allowed": [
           "outside",
@@ -68,6 +67,7 @@
       {
         "f_name": "alcohol",
         "f_type": "p",
+        "s_type": ["none"],
         "synonyms": ["beer","rum","gin"],
         "allowed": [
           "bar",
@@ -84,6 +84,7 @@
       {
         "f_name": "cancellation",
         "f_type": "p",
+        "s_type": ["none"],
         "synonyms": [
           "room cancellation"
         ],
@@ -97,6 +98,7 @@
       {
         "f_name": "infants stay",
         "f_type": "p",
+        "s_type": ["none"],
         "age":5,
         "present": {
           "flag": "yes",
@@ -111,6 +113,7 @@
       {
         "f_name": "checkout time",
         "f_type": "p",
+        "s_type": ["none"],
         "time": "1200",
         "present": {
           "flag": "yes",
@@ -122,6 +125,7 @@
       {
         "f_name": "no show",
         "f_type": "p",
+        "s_type": ["none"],
         "present": {
           "flag": "yes",
           "message": {
@@ -132,6 +136,7 @@
       {
         "f_name": "outside food",
         "f_type": "p",
+        "s_type": ["none"],
         "present": {
           "flag": "no",
           "message": {
@@ -143,6 +148,7 @@
       {
         "f_name": "checkin time",
         "f_type": "p",
+        "s_type": ["none"],
         "time":"1200 P.M.",
         "present": {
           "flag": "yes",
@@ -154,6 +160,7 @@
       {
         "f_name": "pets",
         "f_type": "p",
+        "s_type": ["none"],
         "present": {
           "flag": "yes",
           "message": {
@@ -163,8 +170,9 @@
         }
       },
       {
-        "f_type": "p",
         "f_name": "payment methods",
+        "f_type": "p",
+        "s_type": ["none"],
         "present": {
           "flag": "yes",
           "message": {
@@ -187,6 +195,7 @@
       {
         "f_name": "gym",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "fitness center",
           "yoga center",
@@ -264,6 +273,7 @@
       {
         "f_name": "childrens swimming pool",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "child pool",
           "kids pool"
@@ -349,6 +359,7 @@
       {
         "f_name": "adults swimming pool",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "adults pool",
           "big pool",
@@ -443,6 +454,7 @@
       {
         "f_name": "room service",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "room delivery"
         ],
@@ -494,6 +506,7 @@
       {
         "f_name": "restaurant",
         "f_type": "f",
+        "s_type": ["order", "service"],
         "synonyms": [
           "eat out",
           "hotel food"
@@ -543,6 +556,8 @@
         },
         "cuisines": {
           "f_name": "cuisines",
+          "f_type":"f",
+          "s_type": ["none"],
           "synonyms": [
             "menu type",
             "food type"
@@ -581,6 +596,7 @@
       {
         "f_name": "breakfast",
         "f_type": "f",
+        "s_type": ["order", "service"],
         "synonyms": [
           "tiffin"
         ],
@@ -679,6 +695,7 @@
       {
         "f_name": "cooking",
         "f_type": "k",
+        "s_type": ["none"],
         "synonyms": [
           "cooking facilities",
           "utilsils"
@@ -694,6 +711,7 @@
       {
         "f_name": "bottle steralizer",
         "f_type": "k",
+        "s_type": ["none"],
         "present": {
           "flag": "yes",
           "message": {
@@ -705,6 +723,7 @@
       {
         "f_name": "microwave",
         "f_type": "k",
+        "s_type": ["service"],
         "present": {
           "flag": "yes",
           "message": {
@@ -716,6 +735,7 @@
       {
         "f_name": "oven",
         "f_type": "k",
+        "s_type": ["service"],
         "present": {
           "flag": "no",
           "message": {
@@ -727,6 +747,7 @@
       {
         "f_name": "cutlery",
         "f_type": "k",
+        "s_type": ["service", "order"],
         "present": {
           "flag": "yes",
           "message": {
@@ -738,6 +759,7 @@
       {
         "f_name": "salt",
         "f_type": "k",
+        "s_type": ["order"],
         "present": {
           "flag": "yes",
           "message": {
@@ -749,6 +771,7 @@
       {
         "f_name": "sugar",
         "f_type": "k",
+        "s_type": ["order"],
         "present": {
           "flag": "yes",
           "message": {
@@ -760,6 +783,7 @@
       {
         "f_name": "oil",
         "f_type": "k",
+        "s_type": ["order"],
         "present": {
           "flag": "yes",
           "message": {
@@ -771,6 +795,7 @@
       {
         "f_name": "storage room",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "storage space",
           "luggage storage"
@@ -818,6 +843,7 @@
       {
         "f_name": "sauna",
         "f_type": "f",
+        "s_type": ["service"],
         "present": {
           "flag": "yes",
           "message": {
@@ -870,6 +896,7 @@
       {
         "f_name": "spa",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "massage",
           "facials",
@@ -985,6 +1012,7 @@
       {
         "f_name": "laundry",
         "f_type": "f",
+        "s_type": ["service"],
         "present": {
           "flag": "yes",
           "message": {
@@ -1028,6 +1056,7 @@
       {
         "f_name": "cab service",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "taxi",
           "taxi service"
@@ -1060,6 +1089,7 @@
       {
         "f_name": "shuttle",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "hotel shuttle"
         ],
@@ -1107,6 +1137,7 @@
       {
         "f_name": "wifi",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "internet",
           "data connection",
@@ -1148,6 +1179,7 @@
       {
         "f_name": "lounge",
         "f_type": "f",
+        "s_type": ["service"],
         "present": {
           "flag": "yes",
           "message": {
@@ -1159,6 +1191,7 @@
       {
         "f_name": "parking",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "car parking",
           "vehicle parking",
@@ -1211,6 +1244,7 @@
       {
         "f_name": "valet parking",
         "f_type": "f",
+        "s_type": ["service"],
         "present": {
           "flag": "yes",
           "message": {
@@ -1222,6 +1256,7 @@
       {
         "f_name": "car cleaning",
         "f_type": "f",
+        "s_type": ["service"],
         "present": {
           "flag": "yes",
           "message": {
@@ -1245,6 +1280,7 @@
       {
         "f_name": "car rent",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "car rental",
           "renting a car",
@@ -1282,6 +1318,7 @@
       {
         "f_name": "bicycle",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "cycle"
         ],
@@ -1308,6 +1345,7 @@
       {
         "f_name": "bike",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "scooter",
           "motorbike",
@@ -1350,6 +1388,7 @@
       {
         "f_name": "bar",
         "f_type": "f",
+        "s_type": ["service", "order"],
         "synonyms": [
           "pub"
         ],
@@ -1423,6 +1462,7 @@
       {
         "f_name": "dance floor",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "disco"
         ],
@@ -1462,6 +1502,7 @@
       {
         "f_name": "sight seeing",
         "f_type": "f",
+        "s_type": ["service"],
         "present": {
           "flag": "yes",
           "message": {
@@ -1491,6 +1532,7 @@
       {
         "f_name": "conference rooms",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "meeting rooms",
           "marriage halls"
@@ -1553,6 +1595,7 @@
       {
         "f_name": "business lounge",
         "f_type": "f",
+        "s_type": ["service"],
         "present": {
           "flag": "yes",
           "message": {
@@ -1564,6 +1607,7 @@
       {
         "f_name": "extra bed",
         "f_type": "f",
+        "s_type": ["order"],
         "present": {
           "flag": "yes",
           "message": {
@@ -1584,6 +1628,7 @@
       {
         "f_name": "reception",
         "f_type": "f",
+        "s_type": ["service"],
         "synonyms": [
           "front desk spoken languages",
           "receptionist spoken languages"
@@ -1626,6 +1671,7 @@
       {
         "f_name": "tissues",
         "f_type": "r",
+        "s_type": ["order"],
         "count": 1,
         "synonyms": [
           "paper napkin",
@@ -1642,6 +1688,7 @@
       {
         "f_name": "waste basket",
         "f_type": "r",
+        "s_type": ["order"],
         "count": 1,
         "synonyms": [
           "dustbin"
@@ -1656,6 +1703,7 @@
       {
         "f_name": "hangers",
         "f_type": "r",
+        "s_type": ["order"],
         "count": 3,
         "synonyms": [
           "clothes hangers"
@@ -1670,6 +1718,7 @@
       {
         "f_name": "clock",
         "f_type": "r",
+        "s_type": ["order"],
         "count": 1,
         "synonyms": [
           "table clock",
@@ -1685,6 +1734,7 @@
       {
         "f_name": "towel",
         "f_type": "r",
+        "s_type": ["order"],
         "count": 2,
         "synonyms": [
           "bath towel"
@@ -1699,6 +1749,7 @@
       {
         "f_name": "soap",
         "f_type": "r",
+        "s_type": ["order"],
         "count": 1,
         "synonyms": [
           "bath soap",
@@ -1713,8 +1764,131 @@
         }
       },
       {
+        "f_name": "fridge",
+        "f_type": "r",
+        "s_type": ["service"],
+        "count": 1,
+        "synonyms": [
+          "refrigerator",
+          "cooler"
+        ],
+        "present": {
+          "flag": "yes",
+          "message": {
+            "yes": "There is a fridge in the room",
+            "no": "There is no fridge in the room"
+          }
+        }
+      },
+      {
+        "f_name": "ac",
+        "f_type": "r",
+        "s_type": ["service"],
+        "count": 1,
+        "synonyms": [
+        ],
+        "present": {
+          "flag": "yes",
+          "message": {
+            "yes": "There is an ac in the room",
+            "no": "There is no ac in the room"
+          }
+        }
+      },
+      {
+        "f_name": "iron box",
+        "f_type": "r",
+        "s_type": ["service"],
+        "count": 1,
+        "synonyms": ["ironing","iron","clothes ironing"
+        ],
+        "present": {
+          "flag": "yes",
+          "message": {
+            "yes": "There is an iron box in the room",
+            "no": "There is no iron box in the room"
+          }
+        }
+      },
+      {
+        "f_name": "bar",
+        "f_type": "r",
+        "s_type": ["service", "order"],
+        "count": 1,
+        "synonyms": ["mini bar"
+        ],
+        "present": {
+          "flag": "yes",
+          "message": {
+            "yes": "There is a mini in the room. Note that the items in the mini bar will cost extra",
+            "no": "There is no mini bar in the room"
+          }
+        }
+      },
+      {
+        "f_name": "coffee machine",
+        "f_type": "r",
+        "s_type": ["service"],
+        "count": 1,
+        "synonyms": ["coffee","coffee brew","expresso machine"
+        ],
+        "present": {
+          "flag": "yes",
+          "message": {
+            "yes": "There is a coffee machine in the room",
+            "no": "There is no coffee making machine in the room"
+          }
+        }
+      },
+      {
+        "f_name": "dish washer",
+        "f_type": "r",
+        "s_type": ["service"],
+        "count": 1,
+        "synonyms": [
+        ],
+        "present": {
+          "flag": "yes",
+          "message": {
+            "yes": "There is a dish washer in the room",
+            "no": "There is no dish washer in the room"
+          }
+        }
+      },
+      {
+        "f_name": "fan",
+        "f_type": "r",
+        "s_type": ["service"],
+        "count": 1,
+        "synonyms": [
+        ],
+        "present": {
+          "flag": "yes",
+          "message": {
+            "yes": "There is a fan in the room",
+            "no": "There is no fan in the room"
+          }
+        }
+      },
+      {
+        "f_name": "water",
+        "f_type": "r",
+        "s_type": ["order"],
+        "count": 1,
+        "synonyms": ["water bottle"
+        ],
+        "present": {
+          "flag": "yes",
+          "message": {
+            "yes": "There is a fan in the room",
+            "no": "There is no fan in the room"
+          }
+        }
+      },
+      {
         "f_name":"menu",
         "f_type":"m",
+        "s_type": ["order"],
         "present":{
           "flag":"yes",
           "message":{

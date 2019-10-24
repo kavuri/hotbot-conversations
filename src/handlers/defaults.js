@@ -67,6 +67,7 @@ module.exports = {
                 let hotel_info;
                 try {
                     hotel_info = await HotelModel.findOne({hotel_id: data.hotel_id}).lean();
+                    console.log ('###hotel_info=', hotel_info);
                 } catch(error) {
                     console.log('error while fetching hotel info:', error);
                     this.tell(this.t('SYSTEM_ERROR'));
@@ -108,7 +109,7 @@ module.exports = {
 
     //FIXME: Replace 'ABC' to the hotel name
     async LAUNCH() {
-        console.info('LAUNCH handler')
+        console.info('LAUNCH handler', this.$session.$data.hotel);
         this.ask(this.t('WELCOME', {hotel_name: this.$session.$data.hotel.name}));
     },
 

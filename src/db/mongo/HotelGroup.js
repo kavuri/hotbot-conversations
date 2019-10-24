@@ -5,8 +5,9 @@
 'use strict';
 
 var _ = require('lodash'),
-    Fuse = require('fuse.js'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    DBConn = require('./index').DBConn,
+    AutoIncrement = require('./index').AutoIncrement;
 
 var HotelGroupSchema = new mongoose.Schema({
     name: {type: String, required: true, index: true},
@@ -27,6 +28,16 @@ var HotelGroupSchema = new mongoose.Schema({
         phone2: String,
         email1: String
     }
-   }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
+   }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false});
 
-module.exports = mongoose.model('HotelGroup', HotelGroupSchema);
+HotelGroupSchema.index({group_id: 1}, {unique: true});
+HotelGroupSchema.index({name: 1}, {unique: true});
+
+HotelGroupSchema.plugin(AutoIncrement.plugin, {
+    model: 'HotelGroup',
+    field: 'group_id',
+    startAt: 100,
+    incrementBy: 1
+});
+
+module.exports = DBConn.model('HotelGroup', HotelGroupSchema);

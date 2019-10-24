@@ -6,7 +6,8 @@
 'use strict';
 
 var _ = require('lodash'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    DBConn = require('./index').DBConn;
 
 var PolicySchema = new mongoose.Schema({
         hotel_id: {type: String, required: true, index: true}, // this is the "address1" field
@@ -15,7 +16,7 @@ var PolicySchema = new mongoose.Schema({
         synonyms: [String],
    }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
-module.exports = mongoose.model('Policy', PolicySchema);
+module.exports = DBConn.model('Policy', PolicySchema);
 PolicySchema.index({hotel_id: 1, p_name: 1}, {unique: true});
 
 const test = async function(hotel_id, policy_name) {

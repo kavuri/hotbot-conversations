@@ -115,27 +115,15 @@ module.exports = {
 
         var device = new DeviceModel({
             device_id: this.$request.context.System.device.deviceId,
-            hotel_id: "100", // this is the "address1" field
-            room: "106", // this is "address2" field
-            user_id: this.$request.context.System.user.userId,
-            address3: "nothing",
-            coordinates: {
-                lat: "12.979409",
-                lng: "77.710037"
-            },
-            status: 'active' // active
+            user_id: this.$request.context.System.user.userId
         });
 
         try {
             let res = await device.save();
 
-            this.$speech.addText(this.t('DEVICE_REGISTRATION_SUCCESS', {
-                    addressLine1: res.room
-                }))
-                .addBreak('200ms')
-                .addText(this.t('FOLLOWUP_QUESTION'));
+            this.$speech.addText(this.t('DEVICE_REGISTRATION_SUCCESS'));
             // this.tell(this.t('DEVICE_REGISTRATION_SUCCESS', {addressLine1: device.room}));
-            this.ask(this.$speech);
+            this.tell(this.$speech);
         } catch (error) {
             console.log('device setup error...', error);
             this.tell(this.t('DEVICE_REGISTER_ERROR'));

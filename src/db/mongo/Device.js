@@ -6,7 +6,9 @@
 'use strict';
 
 var _ = require('lodash'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    AuditLogModel = require('./AuditLog'),
+    DBConn = require('./index').DBConn;
 
 /**
  * Table schema
@@ -15,55 +17,55 @@ var _ = require('lodash'),
 
 var DeviceSchema = new mongoose.Schema({
      device_id: {type: String, required: true, index: true},
+     hotel_id: {type: String, index: true}, // this is the "address1" field
      user_id: {type: String, required: true, index: true},
-     hotel_id: {type: String, required: true, index: true}, // this is the "address1" field
-     room: {type: String, required: true}, // this is "address2" field
-     address3: String,
-     coordinates: {
-       lat: {type: String, required: true},
-       lng: {type: String, required: true}
-     },
-     status: { type: String, required: true, enum: ['inactive', 'active', 'disabled'], default: 'inactive' },
-     last_reset: { type: Date, default: Date.now }
-}, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
+     room: String, // this is "address2" field
+     status: { type: String, required: true, enum: ['inactive', 'active', 'disabled', 'new'], default: 'inactive' },
+     belongs_to: {type: mongoose.Schema.Types.ObjectId, ref: 'Hotel'}
+}, {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}, strict: false});
 
-DeviceSchema.index({device_id: 1, hotel_id: 1, user_id: 1}, {unique: true});
+DeviceSchema.index({device_id: 1, hotel_id: 1}, {unique: true});
 
-module.exports = mongoose.model('Device', DeviceSchema);
+//Setup the middleware
+DeviceSchema.post('save', async function(doc) {
+    console.log('%%% Device save post hook.', doc);
+    let audit = new AuditLogModel({
+        coll: DeviceModel.collection.name,
+        change: 'created',
+        by: doc.user_id, // TODO: Get this user from 
+        obj: doc
+    });
 
-const test = async function() {
+    var log = await audit.save(audit);
+});
 
-    var mongo = require('../../mongo.js');
-    mongo();
-    
-    const device = {
-        device_id: "104",
-        hotel_id: "101", // this is the "address1" field
-        room: "101", // this is "address2" field
-        user_id: "123",
-        address3: "nothing",
-        status: 'active', // active
-        coordinates: {
-            lat: "10.12232",
-            lng: "12.32322"
-        }
-      };
-    
-    var DeviceModel = require('./Device');
-    
-    let d = new DeviceModel(device);
+DeviceSchema.post('updateOne', async function(doc) {
+    const docToUpdate = await this.model.findOne(this.getQuery());
 
-    try {
-        var r = await d.save();
-        // DeviceModel.deleteMany({}, function(err) { console.log(err); })
-        // console.log('---',r);
+    let audit = new AuditLogModel({
+        coll: DeviceModel.collection.name,
+        change: 'updated',
+        by: doc.user_id, // TODO: Get this user from 
+        obj: docToUpdate
+    });
 
-        // var r1 = await DeviceModel.find({device_id:'100',user_id:'123'}).exec();
-        // console.log(r1);
-    } catch(error) {
-        console.log(error);
-    }
-    
-}
+    var log = await audit.save(audit);
+    console.log(log);
+});
 
-// test();
+DeviceSchema.post('remove', async function(doc) {
+    console.log('Device removed. Should not happen', doc);
+
+    let audit = new AuditLogModel({
+        coll: DeviceModel.collection.name,
+        change: 'deleted',
+        by: doc.user_id, // TODO: Get this user from 
+        obj: docToUpdate
+    });
+
+    var log = await audit.save(audit);
+});
+
+var DeviceModel = DBConn.model('Device', DeviceSchema);
+
+module.exports = DeviceModel;

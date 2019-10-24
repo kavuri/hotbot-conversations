@@ -5,8 +5,8 @@
 
 'using strict';
 
-const _ = require('lodash'),
-      mongoose = require('mongoose');
+const mongoose = require('mongoose'),
+      DBConn = require('./index').DBConn;
 
 var UserSchema = new mongoose.Schema({
    email: {type: String, required: true, unique: true},
@@ -15,4 +15,4 @@ var UserSchema = new mongoose.Schema({
    status: {type: String, required: true, enum: ['active', 'inactive']}
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = DBConn.model('User', UserSchema);

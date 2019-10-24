@@ -451,7 +451,8 @@
          "what are the directions to the {facility_slot}",
          "what is the easiest way to reach the {facility_slot}",
          "what is the location of the {facility_slot}",
-         "where is the {facility_slot} located"
+         "where is the {facility_slot} located",
+         "where is it located"
       ],
       "inputs":[  
          {  
@@ -580,7 +581,8 @@
          "can you please fix {equipment_slot} in my room",
          "I cant make {equipment_slot} working in my room",
          "I need help with using {equipment_slot} in my room",
-         "why is {equipment_slot} not working"
+         "why is {equipment_slot} not working",
+         "fix {equipment_slot} in my room"
       ],
       "inputs":[
          {
@@ -626,7 +628,7 @@
       ]
    },
    {
-      "name":"Order_room_item",
+      "name":"Order_item",
       "phrases":[
          "I would like new {room_item_slot}",
          "can you please get some set of new {room_item_slot}",

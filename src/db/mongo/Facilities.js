@@ -5,13 +5,14 @@
 'use strict';
 
 var _ = require('lodash'),
-    Fuse = require('fuse.js'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    DBConn = require('./index').DBConn;
 
 var FacilitySchema = new mongoose.Schema({
         hotel_id: {type: String, required: true, index: true}, // this is the "address1" field
-        f_name: {type: String, required: true, index: true},
-        f_type: {type: String, index: true},
+        f_name: {type: String, required: true, index: true},    // facility name
+        f_type: {type: String, index: true},    // facility type. Can be room item, facility, kitchen item, policy
+        s_type: [{type: String, required: true, enum: ['order', 'service', 'none']}],
         synonyms: [String],
         present: {
             flag: {type: String, required: true},
@@ -21,27 +22,4 @@ var FacilitySchema = new mongoose.Schema({
 
 FacilitySchema.index({hotel_id: 1, f_name: 1}, {unique: true});
 
-module.exports = mongoose.model('Facility', FacilitySchema);
-
-// function test_mongo() {
-//     console.log('...test_conn...');
-//     // var conn = require('./Conn');
-//     // conn.init();
-    
-//     var mongoose = require('mongoose');
-//     var Schema = mongoose.Schema;
-    
-//     var commentSchema = new Schema({
-//         CommentBody: String,
-//         UserName: String,
-//         DatePosted: Date,
-//     });
-    
-//     var Comment = mongoose.model('Comment', commentSchema);
-    
-//     Comment.find({UserName: 'Nick'}, function(error, comments) {
-//         console.log(comments); //Display the comments returned by MongoDB, if any were found. Executes after the query is complete.
-//     });
-//   }
-
-// test_mongo();
+module.exports = DBConn.model('Facility', FacilitySchema);
