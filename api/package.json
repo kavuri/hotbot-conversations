@@ -7,17 +7,24 @@
   },
   "dependencies": {
     "cognito-express": "^2.0.16",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.1.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "express-graphql": "^0.9.0",
     "express-jwt": "^5.3.1",
+    "express-session": "^1.17.0",
     "express-validator": "^6.2.0",
     "graphql": "^14.5.8",
     "helmet": "^3.21.2",
     "hjs": "~0.0.6",
     "http-errors": "~1.6.3",
     "jwks-rsa": "^1.6.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "passport": "^0.4.0",
+    "passport-auth0": "^1.2.1",
+    "pug": "^2.0.4"
   }
 }

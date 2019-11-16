@@ -165,7 +165,8 @@ module.exports.room_item = async function(hotel_id, f_type, room_item) {
  **********************************************************************************************************/
 module.exports.create_order = async function(hotel_id, room_no, user_id, items) {
 
-    if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || (_.isUndefined(items) || _.isEmpty(items))) {
+    if (_.isUndefined(hotel_id) || _.isUndefined(room_no) ||
+       (_.isUndefined(items) || _.isEmpty(items))) {
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',items=', items);
     }
 
