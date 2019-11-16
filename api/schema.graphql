@@ -1,0 +1,71 @@
+
+scalar Date
+
+input OrderItem {
+	item_name: String!
+	category: String!
+	req_count: Int
+	res_count: Int
+}
+
+type OrderItemOutput {
+	item_name: String!
+	category: String!
+	req_count: Int
+	res_count: Int
+}
+
+input GuestOrderInput {
+	hotel_id: String!
+	user_id: String!
+	room_no: String!
+	o_items: [OrderItem!]!
+	o_time: Date!
+	o_status: Status!
+	o_priority: Priority!
+}
+
+type GuestOrderOutput {
+	_id:ID!
+	o_id: ID!
+	hotel_id: String!
+	user_id: String!
+	room_no: String!
+	o_items: [OrderItemOutput!]
+	o_time: Date!
+	o_status: Status!
+	o_priority: Priority!
+}
+
+enum Priority {
+	urgent
+	asap
+	leisure
+}
+
+enum Status {
+	new
+	progress
+	done
+	cant_serve
+	cancelled
+}
+
+type Query {
+	getGuestOrder(hotel_id: ID!, room_no: String!): GuestOrderOutput
+	orders(hotel_id: ID!): [GuestOrderOutput]
+}
+
+type Mutation {
+	createOrder(input: GuestOrderInput!): ID!
+}
+
+type Subscription {
+	onCreateGuestOrder(hotel_id: ID!): GuestOrderOutput
+}
+
+schema {
+	query: Query
+	mutation: Mutation
+	subscription: Subscription
+}

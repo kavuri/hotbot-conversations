@@ -125,7 +125,7 @@ describe('create_order', function() {
     });
 
     it('should create order in the db', async function() {
-        var hotel_id = '100', user_id = '100', room_no = '101', items = [{name: 'fan', req_count: 2, category: "m"}, {name: 'napkins', req_count: 1, category: "m"}];
+        var hotel_id = '100', user_id = '100', room_no = '101', items = ["5dab45794c991009c37302f0", "5dab45794c991009c37302ee"];
         let r;
         try {
             r = await DBFuncs.create_order(hotel_id, room_no, user_id, items);

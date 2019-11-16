@@ -1,0 +1,69 @@
+{
+    "UserPoolClient": {
+        "ClientSecret": "14vnb3f0i5km80db540df7brlnnsope8if12nlnk6v4mm66sfmb4", 
+        "CallbackURLs": [
+            "http://localhost:3000/"
+        ], 
+        "AllowedOAuthScopes": [
+            "email", 
+            "openid", 
+            "phone"
+        ], 
+        "UserPoolId": "ap-south-1_M1pQu9BIA", 
+        "AllowedOAuthFlowsUserPoolClient": true, 
+        "LastModifiedDate": 1573118066.947, 
+        "ClientId": "1v9nbc9ck9uo242tt9429ptcn4", 
+        "AllowedOAuthFlows": [
+            "code"
+        ], 
+        "LogoutURLs": [
+            "http://localhost:3000/logout"
+        ], 
+        "WriteAttributes": [
+            "address", 
+            "birthdate", 
+            "email", 
+            "family_name", 
+            "gender", 
+            "given_name", 
+            "locale", 
+            "middle_name", 
+            "name", 
+            "nickname", 
+            "phone_number", 
+            "picture", 
+            "preferred_username", 
+            "profile", 
+            "updated_at", 
+            "website", 
+            "zoneinfo"
+        ], 
+        "SupportedIdentityProviders": [
+            "COGNITO"
+        ], 
+        "ReadAttributes": [
+            "address", 
+            "birthdate", 
+            "email", 
+            "email_verified", 
+            "family_name", 
+            "gender", 
+            "given_name", 
+            "locale", 
+            "middle_name", 
+            "name", 
+            "nickname", 
+            "phone_number", 
+            "phone_number_verified", 
+            "picture", 
+            "preferred_username", 
+            "profile", 
+            "updated_at", 
+            "website", 
+            "zoneinfo"
+        ], 
+        "RefreshTokenValidity": 30, 
+        "CreationDate": 1573117941.541, 
+        "ClientName": "API Client"
+    }
+}

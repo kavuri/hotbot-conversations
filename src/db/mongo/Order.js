@@ -6,7 +6,8 @@
  'using strict';
 
  const mongoose = require('mongoose'),
-       DBConn = require('./index').DBConn;
+       DBConn = require('./index').DBConn,
+       AutoIncrement = require('./index').AutoIncrement;
 
 var StatusSchema = new mongoose.Schema({
     status: {type: String, required: true, enum: ['new', 'progress', 'done', 'cant_serve','cancelled'], default: 'new'},
@@ -25,7 +26,7 @@ var CommentSchema = new mongoose.Schema({
 });
 
 var OrderItems = new mongoose.Schema({
-    item_id: [{type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Facilities'}],
+    facility: [{type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Facilities'}],
     req_count: {type: Number},
     served_count: {type: Number}
 });
@@ -41,6 +42,8 @@ var OrderSchema = new mongoose.Schema({
 	    o_cancelled_by: String,
 	    o_comments: {type: [CommentSchema]}
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
+
+OrderItems.plugin(AutoIncrement.plugin, 'OrderItems');
 
 var OrderModel = DBConn.model('Order', OrderSchema);
 

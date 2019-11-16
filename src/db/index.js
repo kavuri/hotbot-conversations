@@ -5,8 +5,6 @@
 
 'use strict';
 
-const _ = require('lodash');
-
 let DATABASE = require('../config').system.DATABASE;
     
 module.exports = {

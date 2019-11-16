@@ -10,25 +10,17 @@
  * will be registered in the database
  */
 
-const app = express(),
+const 
       CognitoExpress = require("cognito-express"),
-      authenticatedRoute = express.Router();
+      config = require('../config');
 
-app.use("/api", authenticatedRoute);
-
-//Initializing CognitoExpress constructor
-const cognitoExpress = new CognitoExpress({
-    region: "ap-south-1",
-    cognitoUserPoolId: "ap-south-1_7eJg5XVUh",
-    tokenUse: "access", //Possible Values: access | id
-    tokenExpiration: 3600000 //Up to default expiration of 1 hour (3600000 ms)
-});
+// app.use(config.api.prefix, authenticatedRoute);
+const cognitoExpress = new CognitoExpress(config.cognito);
 
 //Our middleware that authenticates all APIs under our 'authenticatedRoute' Router
-authenticatedRoute.use(function(req, res, next) {
-    
+module.exports = function(req, res, next) {
     //I'm passing in the access token in header under key accessToken
-    let accessTokenFromClient = req.headers.accesstoken;
+    let accessTokenFromClient = req.headers['x-access-token'] || req.headers['authorization'];
  
     //Fail if token not present in header. 
     if (!accessTokenFromClient) return res.status(401).send("Access Token missing from header");
@@ -42,5 +34,8 @@ authenticatedRoute.use(function(req, res, next) {
         res.locals.user = response;
         next();
     });
-});
+};
+
+
+
  

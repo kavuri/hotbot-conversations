@@ -1,0 +1,12 @@
+{
+    "DomainDescription": {
+        "Status": "ACTIVE", 
+        "Domain": "kamamishu1", 
+        "UserPoolId": "ap-south-1_M1pQu9BIA", 
+        "CloudFrontDistribution": "d19bnlz1qkpkne.cloudfront.net", 
+        "CustomDomainConfig": {}, 
+        "S3Bucket": "aws-cognito-prod-bom-assets", 
+        "Version": "20191107091351", 
+        "AWSAccountId": "518739637633"
+    }
+}
