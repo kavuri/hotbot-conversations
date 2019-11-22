@@ -6,6 +6,7 @@
 
 var express = require('express');
 var router = express.Router();
+var secured = require('../lib/middleware/secured');
 
 /* GET users listing. */
 router.get('/', function(req, res) {

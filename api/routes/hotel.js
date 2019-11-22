@@ -18,6 +18,9 @@ const HotelModel = require('../../src/db').HotelModel,
       _ = require('lodash'),
       { check, validationResult } = require('express-validator');
 
+/**
+ * @returns all hotels
+ */
 router.get('/', async function(req, res) {
     console.log('get all hotel');
 

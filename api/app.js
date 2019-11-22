@@ -20,6 +20,8 @@ var dotenv = require('dotenv');
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 var flash = require('connect-flash');
+// const authenticator = require('./auth');
+var secured = require('./lib/middleware/secured');
 
 const session = require('./session');
 
@@ -74,19 +76,18 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-// const passport = require('./auth0_passport');
 app.use(flash());
-// Include auth for all the route
-// app.use(config.api.prefix, authenticator);
 
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/auth'));
-app.use(config.api.prefix + '/device', require('./routes/device'));
-app.use(config.api.prefix + '/hotel', require('./routes/hotel'));
-app.use(config.api.prefix + '/order', require('./routes/order'));
+app.use(config.api.prefix + '/user', secured(), require('./routes/users'));
+app.use(config.api.prefix + '/device', secured(), require('./routes/device'));
+app.use(config.api.prefix + '/hotel',  secured(), require('./routes/hotel'));
+app.use(config.api.prefix + '/order', secured(), require('./routes/order'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  // res.redirect('/');
   next(createError(404));
 });
 

@@ -30,7 +30,7 @@ router.get('/callback', function (req, res, next) {
         if (err) { return next(err); }
         const returnTo = req.session.returnTo;
         delete req.session.returnTo;
-        res.redirect(returnTo || '/api/v1/device');
+        res.redirect(returnTo || '/user');
       });
     })(req, res, next);
   });

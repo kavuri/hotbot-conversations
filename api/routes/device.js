@@ -6,14 +6,20 @@
  
  var express = require('express');
  var router = express.Router();
- let authenticate = require('../auth');
 
  const DeviceModel = require('../../src/db').DeviceModel,
        HotelModel = require('../../src/db').HotelModel,
        _ = require('lodash'),
        { check, validationResult } = require('express-validator');
 
-router.get('/', async function(req, res) {
+/**
+ * @param hotel_id
+ * @returns all devices in that hotel
+ */
+router.get('/', [
+            check('hotel_id').exists({checkNull: true, checkFalsy: true}),
+            ],
+            async function(req, res) {
     console.log('get all devices');
     try {
         let devices = await DeviceModel.find({status:'inactive'}).sort({last_reset: -1}).exec();
@@ -25,11 +31,16 @@ router.get('/', async function(req, res) {
     }
 });
 
+/**
+ * @param hotel_id
+ * @param device_id
+ * @returns device object
+ */
 router.put('/:device_id/activate', [
-        check('device_id').exists()
+        check('hotel_id').exists({checkNull: true, checkFalsy: true}),
+        check('device_id').exists({checkNull: true, checkFalsy: true})
         ],
-        authenticate,
-        async function(req, res, next) {
+        async function(req, res) {
     console.log('activating device ' + req.params.device_id, req.query.room);
 
     try {
@@ -49,11 +60,16 @@ router.put('/:device_id/activate', [
     }
 });
 
+/**
+ * @param hotel_id
+ * @param device_id
+ * @returns deactivated device object
+ */
 router.put('/:device_id/deactivate', [
-        check('device_id').exists()
+        check('hotel_id').exists({checkNull: true, checkFalsy: true}),
+        check('device_id').exists({checkNull: true, checkFalsy: true})
         ],
-        authenticate,
-        async function(req, res, next) {
+        async function(req, res) {
     console.log('de-activating device ' + req.params.device_id);
 
     let device_id = req.params.device_id;
@@ -67,12 +83,17 @@ router.put('/:device_id/deactivate', [
     }
 });
 
+/**
+ * @param hotel_id
+ * @param device_id
+ * @param room_no
+ * @returns updated device object
+ */
 router.put('/:device_id', [
-        check('device_id').exists(),
-        check('hotel_id').exists(),
-        check('room').exists(),
+        check('hotel_id').exists({checkNull: true, checkFalsy: true}),
+        check('device_id').exists({checkNull: true, checkFalsy: true}),
+        check('room_no').exists({checkNull: true, checkFalsy: true})
         ],
-        authenticate,
         async function(req, res) {
     console.log('adding device ' + req.params.device_id + ' to hotel ' + req.body.hotel_id, req.body.room, req.body.status);
 

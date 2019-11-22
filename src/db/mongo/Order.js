@@ -35,12 +35,12 @@ var OrderSchema = new mongoose.Schema({
         hotel_id: {type: String, required: true, index: true}, // this is the "address1" field
         user_id: {type: String, required: true},
         room_no: String,
-	    o_items: {type: [OrderItems], required: true},
-	    o_priority: {type: [PrioritySchema], default: {priority: 'asap'}},
-	    o_status: {type: [StatusSchema], default: {status: 'new'}},
-	    o_completion_time: Date,
-	    o_cancelled_by: String,
-	    o_comments: {type: [CommentSchema]}
+	    items: {type: [OrderItems], required: true},
+	    priority: {type: [PrioritySchema], default: {priority: 'asap'}},
+	    status: {type: [StatusSchema], default: {status: 'new'}},
+	    completion_time: Date,
+	    cancelled_by: String,
+	    comments: {type: [CommentSchema]}
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
 OrderItems.plugin(AutoIncrement.plugin, 'OrderItems');

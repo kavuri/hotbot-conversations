@@ -6,25 +6,32 @@
  */
 'using strict';
 
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
-const authConfig = require("../config").auth0;
+// const jwt = require("express-jwt");
+// const jwksRsa = require("jwks-rsa");
+// const authConfig = require("../config").auth0;
 
-if (!authConfig.domain || !authConfig.audience) {
-  throw new Error(
-    "Please make sure that auth0 config is in place"
-  );
-}
+// if (!authConfig.domain || !authConfig.audience) {
+//   throw new Error(
+//     "Please make sure that auth0 config is in place"
+//   );
+// }
 
-module.exports = jwt({
-        secret: jwksRsa.expressJwtSecret({
-            cache: true,
-            rateLimit: true,
-            jwksRequestsPerMinute: 5,
-            jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`
-        }),
-        audience: authConfig.audience,
-        issuer: `https://${authConfig.domain}/`,
-        algorithm: ["RS256"]
-    });
+// module.exports = jwt({
+//         secret: jwksRsa.expressJwtSecret({
+//             cache: true,
+//             rateLimit: true,
+//             jwksRequestsPerMinute: 5,
+//             jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`
+//         }),
+//         audience: authConfig.audience,
+//         issuer: `https://${authConfig.domain}/`,
+//         algorithm: ["RS256"]
+//     });
 
+module.exports = function () {
+  return function secured (req, res, next) {
+    if (req.user) { return next(); }
+    req.session.returnTo = req.originalUrl;
+    res.redirect('/login');
+  };
+};

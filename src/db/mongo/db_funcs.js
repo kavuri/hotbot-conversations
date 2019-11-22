@@ -9,8 +9,7 @@ const _ = require('lodash'),
     Fuse = require('fuse.js'),
     KamError = require('../../utils/KamError'),
     FacilityModel = require('./Facilities.js'),
-    OrderModel = require('./Order'),
-    AppSync = require('../../appsync');
+    OrderModel = require('./Order');
 
 module.exports.TYPE = {
     POLICIES: "p",
@@ -175,7 +174,7 @@ module.exports.create_order = async function(hotel_id, room_no, user_id, items) 
         user_id: user_id,
         hotel_id: hotel_id,
         room_no: room_no,
-        o_items: items
+        items: items
     });
     
     let r;
@@ -186,22 +185,8 @@ module.exports.create_order = async function(hotel_id, room_no, user_id, items) 
         throw new KamError.DBError('error while saving order to db'+ error);
     }
 
-    // Create an app sync schema compliant order object
-    const appsync_order = {
-        user_id: r.user_id,
-        hotel_id: r.hotel_id,
-        room_no: r.room_no,
-        o_id: r._id,
-        o_time: r.created_at,
-        o_items: r.items,
-        o_status: r.o_status,
-        o_priority: r.o_priority
-    };
-
-    var result = await AppSync.notify(appsync_order);
-
-    // console.log('%%obj=', result);
-    return result;
+    // console.log('%%obj=', r);
+    return r;
  }
 
  /**
