@@ -32,7 +32,15 @@ module.exports = {
         MongoDb: {
             databaseName: 'test',
             collectionName: 'conversations',
-            uri: 'mongodb://localhost:27017/',
+            uri: 'mongodb://localhost:27017,localhost:27018/',
+            replicaSet: 'rs0',
+            poolSize: 5,
+            useNewUrlParser: true,
+            autoIndex: false,
+            autoCreate: true,
+            retryWrites: true,
+            w: 'majority',
+            useUnifiedTopology: true
         },
      },
 

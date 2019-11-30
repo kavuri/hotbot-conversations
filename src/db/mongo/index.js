@@ -5,8 +5,10 @@
 
 'use strict';
 
-var mongoose = require('mongoose'),
-    autoIncrement = require('mongoose-auto-increment');
+const mongoose = require('mongoose'),
+      autoIncrement = require('mongoose-auto-increment');
+
+const NODE_ENV = process.env.NODE_ENV;
 
 // module.exports = async function() {
 console.log('init mongo');
@@ -17,10 +19,14 @@ var mongo_url = mongo_config.MongoDb.uri + mongo_config.MongoDb.databaseName;
 console.log('mongo url=' + mongo_url);
 
 var connection = mongoose.createConnection(mongo_url, {
-    poolSize: 4,
-    useNewUrlParser: true,
-    autoIndex: false,
-    autoCreate: true
+    dbName: mongo_config.databaseName,
+    poolSize: mongo_config.poolSize,
+    useNewUrlParser: mongo_config.useNewUrlParser,
+    autoIndex: mongo_config.autoIndex,
+    autoCreate: mongo_config.autoCreate,
+    retryWrites: mongo_config.retryWrites,
+    w: mongo_config.w,
+    useUnifiedTopology: mongo_config.useUnifiedTopology
 });
 
 // Initialize auto increment plugin
@@ -38,4 +44,3 @@ console.log('mongodb createConnection');
 
 module.exports.AutoIncrement = autoIncrement;
 module.exports.DBConn = connection;
-// }

@@ -15,4 +15,4 @@ module.exports = {
     HotelModel: require('./' + DATABASE + '/Hotel'),
     HotelGroupModel: require('./' + DATABASE + '/HotelGroup'),
     DBFuncs: require('./' + DATABASE + '/db_funcs')
-}
+};
