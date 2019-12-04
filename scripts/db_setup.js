@@ -6,34 +6,40 @@
 'using strict';
 
 // Create tables
-const argv = require('yargs')
-    .usage('Usage: $0 <command> [options]')
-    .example('$0 -t -l -f ./master_hotel_data.json')
-    .help('h')
-    .alias('h', 'help')
-    .alias('d', 'delete')
-    .describe('d', 'delete collections data')
-    .alias('t', 'test')
-    .describe('t', 'populate test data')
-    .alias('f', 'file')
-    .describe('f', 'hotel data file')
-    .argv,
-    _ = require('lodash'),
-    {
-        execSync
-    } = require('child_process');
+const yargs = require('yargs');
+    var argv = yargs.usage('hotbot db setup program')
+        .options({
+            'load': {
+                description: 'load data from file',
+                required: false,
+                alias: 'l'
+            },
+            'delete': {
+                description: 'delete all data',
+                'required': false,
+                alias: 'd'
+            }
+    }).argv;
 
-var ALL_MODELS = require('../src/db/');
+const _ = require('lodash');
+const { execSync } = require('child_process');
 
 // console.log(argv.local, _.split(argv.create, ','), argv.delete);
-
-if (!_.isUndefined(argv.delete)) {
+console.log(argv.load, argv.delete);
+if (!_.isUndefined(argv.delete) || !_.isUndefined(argv.d)) {
     // Delete tables
     delete_tables();
-} else if (!_.isUndefined(argv.test)) {
+} else if (!_.isUndefined(argv.load) || !_.isUndefined(argv.l)) {
     // Populate test data
-    populate_hotel_data(argv.file);
+    populate_hotel_data('./' + argv.load);
+} else if (_.isUndefined(argv.load) || _.isUndefined(argv.delete) || _.isUndefined(argv.l) || _.isUndefined(argv.d)) {
+    // No options were provided
+    // console.error('Invalid input');
+    yargs.showHelp();
+    process.exit(-1);
 }
+
+const ALL_MODELS = require('../src/db/');
 
 async function delete_tables() {
     console.log('deleting collection data...');
@@ -69,6 +75,8 @@ console.log('^^h=',hotel);
 }
 
 async function store_hotel_group_data(hotel_data) {
+    const ALL_MODELS = require('../src/db/');
+    console.log('%%%',ALL_MODELS);
     var hg_data = hotel_data.hotel_group;
     let hg = new ALL_MODELS.HotelGroupModel(hg_data);
     hg = await hg.save();

@@ -13,20 +13,20 @@ const NODE_ENV = process.env.NODE_ENV;
 // module.exports = async function() {
 console.log('init mongo');
 mongoose.Promise = global.Promise;
-var mongo_config = require('../../config').db;
-var mongo_url = mongo_config.MongoDb.uri + mongo_config.MongoDb.databaseName;
+var config = require('../../config').db.MongoDb;
+var mongo_url = config.uri + config.databaseName;
 
 console.log('mongo url=' + mongo_url);
 
 var connection = mongoose.createConnection(mongo_url, {
-    dbName: mongo_config.databaseName,
-    poolSize: mongo_config.poolSize,
-    useNewUrlParser: mongo_config.useNewUrlParser,
-    autoIndex: mongo_config.autoIndex,
-    autoCreate: mongo_config.autoCreate,
-    retryWrites: mongo_config.retryWrites,
-    w: mongo_config.w,
-    useUnifiedTopology: mongo_config.useUnifiedTopology
+    dbName: config.databaseName,
+    poolSize: config.poolSize,
+    useNewUrlParser: config.useNewUrlParser,
+    autoIndex: config.autoIndex,
+    autoCreate: config.autoCreate,
+    retryWrites: config.retryWrites,
+    w: config.w,
+    useUnifiedTopology: config.useUnifiedTopology
 });
 
 // Initialize auto increment plugin
