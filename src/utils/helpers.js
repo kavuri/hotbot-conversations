@@ -6,6 +6,31 @@
 const moment = require('moment-timezone'),
       _ = require('lodash');
 
+module.exports.ITEM_STATUS = {
+    NOT_ORDERED: 'not_ordered',
+    ALREADY_ORDERED_SERVED: 'already_ordered_and_served',
+    ALREADY_ORDERED_NOT_SERVED: 'already_ordered_not_served'
+};
+
+module.exports.FACILITY_TYPE = {
+    POLICIES: "p",
+    FACILITIES: "f",
+    ROOM_ITEM: "r",
+    KITCHEN_ITEM: "k",
+    MENU: "m"
+};
+
+module.exports.is_same_day = async (dt1_str, dt2_str) => {
+    const dt1 = new Date(dt1_str), dt2 = new Date(dt2_str);
+    if (_isEqual(dt1.getFullYear(), dt2.getFullYear()) &&
+       (_.isEqual(dt1.getMonth(), dt2.getMonth)) &&
+       (_.isEqual(dt1.getDate(), dt2.getDate))) {
+           return true;
+       } else {
+           return false;
+       }
+};
+
 module.exports.user_local_time = async (jovo_obj) => {
     try {
         const timezone = await jovo_obj.$alexaSkill.$user.getTimezone();

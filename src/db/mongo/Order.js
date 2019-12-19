@@ -38,7 +38,7 @@ var OrderSchema = new mongoose.Schema({
 	    items: {type: [OrderItems], required: true},
 	    priority: {type: [PrioritySchema], default: {priority: 'asap'}},
 	    status: {type: [StatusSchema], default: {status: 'new'}},
-	    completion_time: Date,
+        completion_time: Date,
 	    cancelled_by: String,
 	    comments: {type: [CommentSchema]}
 }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});

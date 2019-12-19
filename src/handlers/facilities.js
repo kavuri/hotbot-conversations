@@ -12,7 +12,8 @@ const _ = require('lodash'),
     DBFuncs = require('../db').DBFuncs,
     KamError = require('../utils/KamError'),
     HELPER = require('../utils/helpers'),
-    Fuse = require('fuse.js');
+    Fuse = require('fuse.js'),
+    FACILITY_TYPE = require('../utils/helpers').FACILITY_TYPE;
 
 /**
  * 
@@ -39,8 +40,9 @@ async function get_facility(thisObj) {
 
         // Session data is empty, get the facility from database
         try {
-            console.log('session_data is null and facility_name=' + facility_name + '. Getting facility from db.')
-            facility = await DBFuncs.facility(hotel_id, facility_name, DBFuncs.TYPE.FACILITIES);
+            console.log('session_data is null and facility_name=' + facility_name + '. Getting facility from db.', FACILITY_TYPE.FACILITIES);
+            facility = await DBFuncs.facility(hotel_id, facility_name, FACILITY_TYPE.FACILITIES);
+            console.log('%%%facility=',facility);
             thisObj.$session.$data.facility = facility; // store the facility object so that we can 
         } catch(error) {
             if (error instanceof KamError.InputError) {
@@ -66,7 +68,7 @@ async function get_facility(thisObj) {
                 // facility requested is not the same as in session object
                 // refetch the facility from db
                 try {
-                    facility = await DBFuncs.facility(hotel_id, facility_name, DBFuncs.TYPE.FACILITIES);
+                    facility = await DBFuncs.facility(hotel_id, facility_name, FACILITY_TYPE.FACILITIES);
                     thisObj.$session.$data.facility = facility; // store the facility object so that we can 
                 } catch(error) {
                     if (error instanceof KamError.InputError) {
@@ -129,7 +131,7 @@ module.exports = {
         let facility;
         // Session data is empty, get the facility from database
         try {
-            facility = await DBFuncs.facility(hotel_id, "reception", DBFuncs.TYPE.FACILITIES);
+            facility = await DBFuncs.facility(hotel_id, "reception", FACILITY_TYPE.FACILITIES);
             this.$session.$data.facility = facility; // store the facility object
         } catch(error) {
             if (error instanceof KamError.InputError) {
@@ -163,7 +165,7 @@ module.exports = {
 
         let facility_names;
         try {
-            var ret = await DBFuncs.all_facility_names(hotel_id, DBFuncs.TYPE.FACILITIES); //returns array of form [{f_name:'abc', synonyms:['def','ghi]}]
+            var ret = await DBFuncs.all_facility_names(hotel_id, FACILITY_TYPE.FACILITIES); //returns array of form [{f_name:'abc', synonyms:['def','ghi]}]
             facility_names = _.map(ret, 'f_name'); // get only the f_name, i.e., the facility name
             console.log('###returned facilities=', facility_names, ',main_facilities=',main_facilities);
         } catch(error) {
@@ -246,8 +248,8 @@ module.exports = {
             var price_message = facility.price.message[facility.price.flag],
                 p_text = HELPER.template_to_text(price_message, {'price': facility.price.price});
 
-            var timing_message = facility.timing.message[facility.timing.flag],
-                t_text = HELPER.template_to_text(timing_message, {'from': facility.timing.timings.from, 'to': facility.timing.timings.to});
+            // var timing_message = facility.timing.message[facility.timing.flag],
+            //     t_text = HELPER.template_to_text(timing_message, {'from': facility.timing.timings.from, 'to': facility.timing.timings.to});
             
             this.$speech.addText(p_text)
                 .addBreak('200ms')

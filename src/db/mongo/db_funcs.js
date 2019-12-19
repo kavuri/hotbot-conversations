@@ -9,15 +9,8 @@ const _ = require('lodash'),
     Fuse = require('fuse.js'),
     KamError = require('../../utils/KamError'),
     FacilityModel = require('./Facilities.js'),
-    OrderModel = require('./Order');
-
-module.exports.TYPE = {
-    POLICIES: "p",
-    FACILITIES: "f",
-    ROOM_ITEM: "r",
-    KITCHEN_ITEM: "k",
-    MENU: "m"
-};
+    OrderModel = require('./Order'),
+    ITEM_STATUS = require('../../utils/helpers').ITEM_STATUS;
 
 /**********************************************************************************************************
  * Facility functions
@@ -55,7 +48,8 @@ module.exports.TYPE = {
 }
 
 // Function to get a specific facility
-module.exports.facility = async (hotel_id, facility_name, facility_type) => {
+module.exports.facility = async function(hotel_id, facility_name, facility_type) {
+    console.log('####');
     console.log('@@facility hotel_id=' + hotel_id + ',facility_name=' + facility_name + ',facility_type=' + facility_type);
     if (_.isNull(hotel_id) || _.isUndefined(hotel_id) ||
         _.isNull(facility_name) || _.isUndefined(facility_name)) {
@@ -193,20 +187,43 @@ module.exports.create_order = async function(hotel_id, room_no, user_id, items) 
    This method checks if:
     the guest has ordered the same item + on the same day + in last 2hrs + unserved
   */
+ /**
+  * @param hotel_id - the id of the hotel
+  * @param room_no - the room number
+  * @param item_id - the item id
+  * @returns {}
+  */
  module.exports.is_room_item_already_ordered = async function(hotel_id, room_no, item_id) {
      if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(item_id)) {
          throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + item_id);
      }
 
      try {
-         var order = await OrderModel.find({hotel_id: hotel_id, room_no: room_no, 'o_items.name': item_obj.f_name, category: category}).exec();
-         console.log('item=', order);
+         // Check for items ordered only today
+         var start = new Date();
+         start.setHours(0,0,0,0);
 
-             if (_.isEmpty(order) || _.isUndefined(order)) {
-                 return false;
-             } else {
-                 return true;
-             }
+         var end = new Date();
+         end.setHours(23,59,59,999);
+
+         var order = await OrderModel.find(
+             {
+                 hotel_id: hotel_id,
+                 room_no: room_no,
+                 "items.facility": item_id,
+                 created_at: {$gte: start, $lte: end}
+            }).sort({created_at:-1}).exec();
+
+         if (_.isEmpty(order)) { // Item has not been ordered ever
+             // No such order has been made
+             return {item:item_id, status: ITEM_STATUS.NOT_ORDERED};
+         } 
+        //  else if () { // There are have been same orders and already served. This is going to be a hotel specific condition
+
+        //  } else if () { // There was a same order, but not served yet.
+
+        //  }
+         console.log('item=', order);
 
              //TODO: Should status of the order be checked? Whether the previously ordered item is served?
              // Also check for 'cancelled' status

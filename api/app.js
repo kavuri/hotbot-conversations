@@ -79,10 +79,10 @@ app.use(flash());
 
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/auth'));
-app.use(config.api.prefix + '/user', secured(), require('./routes/users'));
-app.use(config.api.prefix + '/device', secured(), require('./routes/device'));
-app.use(config.api.prefix + '/hotel', secured(), require('./routes/hotel'));
-app.use(config.api.prefix + '/order', secured(), require('./routes/order'));
+app.use(config.api.prefix + '/user', require('./routes/users'));
+app.use(config.api.prefix + '/device',  require('./routes/device'));
+app.use(config.api.prefix + '/hotel',  require('./routes/hotel'));
+app.use(config.api.prefix + '/order',  require('./routes/order'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

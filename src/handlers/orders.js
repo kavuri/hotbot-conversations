@@ -31,30 +31,36 @@ async function get_item(hotel_id, item_name) {
 }
 
 function respond_for_multiple_items(thisObj, db_item, item_name, req_count) {
+    console.log('respond_for_multiple_items:', db_item, item_name, req_count, _.has(db_item, 'count'));
+    let db_item_has_count = _.has(db_item, 'count');
+    if (db_item_has_count && _.isUndefined(req_count)) {
+        req_count = 1;  // User must have requested like "can I get a soap"
+    }
+
     // Check if the room item object (in database) has "count". If yes, ask for the count of items
-    if (_.isUndefined(db_item.count)) { // There is no count for this item
+    if (!_.has(db_item, 'count')) { // There is no count for this item
         // Confirm the order
+        console.log('item does not require count');
         thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITHOUT_COUNT', {
             item_name: item_name
         }));
         thisObj.$session.$data.items.push({item: db_item, req_count: 0});
-        console.log('item does not require count');
         return thisObj.followUpState('ConfirmRoomItemOrder')
                 .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
-    } else if (!_.isUndefined(db_item.count) && !_.isUndefined(req_count)) { //User has provided count of items
+    } else if (_.has(db_item, 'count') && !_.isUndefined(req_count)) { //User has provided count of items
         // Confirm that you are ordering
+        console.log('item has count and user has provided count');
         thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITH_COUNT', {
             req_count: req_count, item_name: item_name
         }));
         thisObj.$session.$data.items.push({item: db_item, req_count: req_count});
-        console.log('item has count and user has provided count');
         return thisObj.followUpState('ConfirmRoomItemOrder')
                 .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
-    } else if (!_.isUndefined(db_item.count) && _.isUndefined(count)) { // User has not provided count of items. Ask for it
+    } else if (_.has(db_item, 'count') && _.isUndefined(count)) { // User has not provided count of items. Ask for it
+        console.log('item has count and user has not provided count');
         thisObj.$speech.addText(thisObj.t('ORDER_REQUEST_COUNT', {
             item_name: item_name
         }));
-        console.log('item has count and user has provided count');
         return thisObj.followUpState('RequestRoomItemCount')
                 .ask(thisObj.$speech, thisObj.t('ORDER_REQUEST_COUNT', {
                     item_name: item_name
@@ -108,40 +114,9 @@ module.exports = {
         }
 
         if (_.isEmpty(this.$session.$data.items)) this.$session.$data.items = [];
+        console.log('####req_count=',req_count);
  
-        respond_for_multiple_items(this, item_obj, req_count);
-    
-        /*
-        // Check if the room item object (in database) has "count". If yes, ask for the count of items
-        if (_.isUndefined(room_item.count)) { // There is no count for this item
-            // Confirm the order
-            this.$speech.addText(this.t('REPEAT_ORDER_WITHOUT_COUNT', {
-                item_name: item_name
-            }));
-            this.$session.$data.items.push({item_name: item_name, req_count: 0, category: this.$session.$data.category});
-            console.log('item does not require count');
-            return this.followUpState('ConfirmRoomItemOrder')
-                       .ask(this.$speech, this.t('YES_NO_REPROMPT'));
-        } else if (!_.isUndefined(room_item.count) && !_.isUndefined(req_count)) { //User has provided count of items
-            // Confirm that you are ordering
-            this.$speech.addText(this.t('REPEAT_ORDER_WITH_COUNT', {
-                req_count: req_count, item_name: item_name
-            }));
-            this.$session.$data.items.push({item_name: item_name, req_count: req_count, category: this.$session.$data.category});
-            console.log('item has count and user has provided count');
-            return this.followUpState('ConfirmRoomItemOrder')
-                       .ask(this.$speech, this.t('YES_NO_REPROMPT'));
-        } else if (!_.isUndefined(room_item.count) && _.isUndefined(count)) { // User has not provided count of items. Ask for it
-            this.$speech.addText(this.t('ORDER_REQUEST_COUNT', {
-                item_name: item_name
-            }));
-            console.log('item has count and user has provided count');
-            return this.followUpState('RequestRoomItemCount')
-                       .ask(this.$speech, this.t('ORDER_REQUEST_COUNT', {
-                           item_name: item_name
-                       }));
-        }
-        */
+        respond_for_multiple_items(this, item_obj, item_name, req_count);
     },
 
     'ItemAlreadyOrdered': {
@@ -166,7 +141,7 @@ module.exports = {
             // Guest has finalized the order. Repeat the order, check and close
             var str = '';
             for (var i=0; i<this.$session.$data.items.length; i++) {
-                str += this.$session.$data.items[i].req_count + ' ' + this.$session.$data.items[i].f_name + ' '
+                str += this.$session.$data.items[i].req_count + ' ' + this.$session.$data.items[i].item.f_name + ', '
                 console.log('%%%', str);
             }
             this.$session.$data.order = str;
@@ -187,7 +162,7 @@ module.exports = {
                 items = this.$session.$data.items;
                 console.log('###items=', items);
             try {
-                ORDERS.create_order(hotel_id, "102", items);    //FIXME: Remove this hardcoding or room_no
+                ORDERS.create_order(hotel_id, room_no, items);    //FIXME: Remove this hardcoding or room_no
             } catch(error) {
                 console.log('coding or db error.', error);
                 this.tell(this.t('SYSTEM_ERROR'));

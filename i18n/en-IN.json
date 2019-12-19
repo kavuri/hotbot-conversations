@@ -17,7 +17,7 @@
     "WELCOME": " Hello, {{hotel_name}} front desk. How can I help? ",
     "HELP_MESSAGE": " I am the assistant for your stay. I can help with facilities available at the hotel, ordering services like food, laundry and also can provide info about this place. How can I help you today? ",
     "REPEAT_REQUEST": " I did not understand your request. Can you please repeat? ",
-    "END": " Thank you. Please call back incase of need; we are here to make your stay pleasant. ",
+    "END": " Thank you. Please wake me up incase of need; I am here to make your stay pleasant. ",
     "FOLLOWUP_QUESTION": "Would you like to know anything else?",
     "YES_NO_REPROMPT": "Please answer with yes or no.",
 
@@ -37,7 +37,7 @@
     "ASK_ITEM_NAME": "Which item would you like to have?",
     "ROOM_ITEM_NOT_AVAILABLE": "We do not see to have {{item_name}}. Would you like anything else?",
     "ORDER_REQUEST_COUNT": "Please provide the number of {{item_name}}",
-    "REPEAT_ORDER_WITH_COUNT": "You have requested for {{count}} of {{item_name}}. Would you like anything else?",
+    "REPEAT_ORDER_WITH_COUNT": "You have requested for {{req_count}} {{item_name}}. Would you like anything else?",
     "REPEAT_ORDER_WITHOUT_COUNT": "You have requested for {{item_name}}. Would you like anything else?",
     "ITEM_ALREADY_ORDERED": "You have already requested {{item_name}}. Are you sure you want to request again?",
     "ASK_CONFIRM_ORDER": "You have requested for {{items}}. Shall I confirm this order?",
