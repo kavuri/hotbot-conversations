@@ -1,5 +1,5 @@
 {
-	"name": "Order_room_item",
+	"name": "Order_item",
 	"auto": true,
 	"webhookUsed": true,
 	"responses": [
@@ -13,9 +13,15 @@
 				},
 				{
 					"isList": false,
-					"name": "room_item_slot",
-					"value": "$room_item_slot",
-					"dataType": "@room_item_types"
+					"name": "order_item_slot",
+					"value": "$order_item_slot",
+					"dataType": "@order_item_types"
+				},
+				{
+					"isList": false,
+					"name": "menuslot",
+					"value": "$menuslot",
+					"dataType": "@menu"
 				}
 			]
 		}

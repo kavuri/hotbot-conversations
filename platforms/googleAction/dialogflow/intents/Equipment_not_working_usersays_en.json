@@ -114,5 +114,25 @@
 		],
 		"isTemplate": false,
 		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "fix ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@equipment_types"
+			},
+			{
+				"text": " in my room",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
 	}
 ]
