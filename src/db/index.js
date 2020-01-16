@@ -5,14 +5,43 @@
 
 'use strict';
 
-let DATABASE = require('../config').system.DATABASE;
-    
-module.exports = {
-    FacilityModel: require('./' + DATABASE + '/Facilities'),
-    PolicyModel: require('./' + DATABASE + '/Policies'),
-    DeviceModel: require('./' + DATABASE + '/Device'),
-    OrderModel: require('./' + DATABASE + '/Order'),
-    HotelModel: require('./' + DATABASE + '/Hotel'),
-    HotelGroupModel: require('./' + DATABASE + '/HotelGroup'),
-    DBFuncs: require('./' + DATABASE + '/db_funcs')
-};
+const mongoose = require('mongoose'),
+      autoIncrement = require('mongoose-auto-increment');
+
+const NODE_ENV = process.env.NODE_ENV;
+
+// module.exports = async function() {
+console.log('init mongo');
+mongoose.Promise = global.Promise;
+var config = require('../config').db.MongoDb;
+var mongo_url = config.uri;
+
+console.log('mongo url=' + mongo_url);
+
+var connection = mongoose.createConnection(mongo_url, {
+    dbName: config.databaseName,
+    poolSize: config.poolSize,
+    useNewUrlParser: config.useNewUrlParser,
+    autoIndex: config.autoIndex,
+    autoCreate: config.autoCreate,
+    retryWrites: config.retryWrites,
+    w: config.w,
+    useUnifiedTopology: config.useUnifiedTopology,
+    useFindAndModify: config.useFindAndModify
+});
+
+// Initialize auto increment plugin
+autoIncrement.initialize(connection);
+
+// mongoose.connect(mongo_url, {useNewUrlParser: true, autoIndex: false, autoCreate: true});
+console.log('mongodb createConnection');
+
+// var connection = mongoose.connection;
+// connection.on('error', console.error.bind(console, 'Connection error: '));
+// connection.once('open', function(callback) {
+//     console.log('Successfully connected to MongoDB.');
+//     return connection;
+// });
+
+module.exports.AutoIncrement = autoIncrement;
+module.exports.DBConn = connection;

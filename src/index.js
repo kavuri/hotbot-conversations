@@ -5,12 +5,22 @@
 
 'use strict';
 
-const { Webhook, ExpressJS, Lambda } = require('jovo-framework');
+const { WebhookVerified: Webhook, ExpressJS } = require('jovo-framework');
+
 const { app } = require ('./app.js');
 
 // ------------------------------------------------------------------
 // HOST CONFIGURATION
 // ------------------------------------------------------------------
+
+//TODO: Enable SSL with the real certificate
+/*
+const fs = require('fs');
+Webhook.ssl = {
+    key: fs.readFileSync('/path/to/cert.key'),
+    cert: fs.readFileSync('/path/to/cert.pem'),
+ };
+ */
 
 // ExpressJS (Jovo Webhook)
 if (process.argv.indexOf('--webhook') > -1) {
@@ -21,7 +31,7 @@ if (process.argv.indexOf('--webhook') > -1) {
         console.info(`Local server listening on port ${port}.`);
     });
 
-    Webhook.post('/webhook', async (req, res) => {
+    Webhook.post(['/webhook','/webhook_alexa'], async (req, res) => {
         await app.handle(new ExpressJS(req, res));
     });
 }

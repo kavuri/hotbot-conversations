@@ -6,8 +6,8 @@
 'using strict';
 
 let _ = require('lodash'),
-    DeviceModel = require('../db').DeviceModel,
-    HotelModel = require('../db').HotelModel,
+    DeviceModel = require('../db/Device'),
+    HotelModel = require('../db/Hotel'),
     KamError = require('../utils/KamError'),
     rp = require('request-promise');
 
@@ -52,7 +52,7 @@ module.exports = {
         try {
             data = await DeviceModel.findOne({device_id: device_id}).populate('belongs_to');
 
-            console.log('hotel data..', data);
+            console.log('hotel data..', JSON.stringify(data));
             if (_.isUndefined(data) || _.isEmpty(data)) {
                 // Device is not registered
                 this.$speech.addText(this.t('DEVICE_NOT_REGISTERED'))
@@ -65,7 +65,12 @@ module.exports = {
                 return this.tell(this.t('DEVICE_NOT_ASSIGNED_TO_HOTEL'));
             } else {
                 // Set the hotel_id and info in the session data
-                this.$session.$data.hotel = data.belongs_to;
+                this.$session.$data.hotel = {
+                    hotel_id: data.hotel_id,
+                    room_no: data.room_no,
+                    user_id: data.user_id,
+                    name: data.belongs_to.name
+                }
             }
 
         } catch(error) {

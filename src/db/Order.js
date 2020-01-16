@@ -20,13 +20,13 @@ var PrioritySchema = new mongoose.Schema({
 });
 
 var CommentSchema = new mongoose.Schema({
-    comment_by: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User'},
+    // comment_by: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User'},
     comment: {type: String, required: true},
     created: { type: Date, default: Date.now }
 });
 
 var OrderItems = new mongoose.Schema({
-    facility: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Facilities'},
+    f_id: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Facilities'},
     req_count: {type: Number},
     served_count: {type: Number}
 });

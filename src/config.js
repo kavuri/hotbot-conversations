@@ -32,7 +32,7 @@ module.exports = {
         MongoDb: {
             databaseName: 'test',
             collectionName: 'conversations',
-            uri: 'mongodb://localhost:27017,localhost:27018/',
+            uri: 'mongodb://localhost:27017,localhost:27018/test?replicaSet=rs0',
             replicaSet: 'rs0',
             poolSize: 5,
             useNewUrlParser: true,
@@ -40,7 +40,8 @@ module.exports = {
             autoCreate: true,
             retryWrites: true,
             w: 'majority',
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useFindAndModify: false
         },
      },
 

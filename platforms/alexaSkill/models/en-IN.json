@@ -1265,6 +1265,1045 @@
 					]
 				},
 				{
+					"name": "order_item_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "whiskey"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "brandy"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gin"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "rum"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "beer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "alcohol",
+								"synonyms": [
+									"booze",
+									"drink",
+									"drinking"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "vodka"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "karhu"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bud weiser"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hard drink"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Indian"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Chinese"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "North India"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "South Indian"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Bengali"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Gujarathi"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Veg",
+								"synonyms": [
+									"vegetarian",
+									"vegan"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Non Veg",
+								"synonyms": [
+									"non vegetarian"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "continental"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "oriental"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Andhra"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Kannada"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Maharastrian"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Punjabi"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "kerala"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "microwave",
+								"synonyms": [
+									"food reheat",
+									"reheat",
+									"microwave oven"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bottle sterilizer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "oven"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "refrigerator"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cooking facilities",
+								"synonyms": [
+									"cooking equipment",
+									"stove",
+									"cutlery",
+									"knife"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "fan"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "ac",
+								"synonyms": [
+									"air conditioner",
+									"air cooler",
+									"room cooler",
+									"air heater",
+									"room warmer"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "remote",
+								"synonyms": [
+									"tv remote",
+									"television remote"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "iron",
+								"synonyms": [
+									"iron box",
+									"clothes ironing",
+									"ironing machine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hair dryer",
+								"synonyms": [
+									"dryer",
+									"hair drying machine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "mini bar"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "menu",
+								"synonyms": [
+									"food menu",
+									"restaurant menu"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "expresso machine",
+								"synonyms": [
+									"coffee machine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dish washer",
+								"synonyms": [
+									"dish washing facility"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "water"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "shower"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "flush"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "commode",
+								"synonyms": [
+									"loo",
+									"poo place"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lock",
+								"synonyms": [
+									"key",
+									"room lock",
+									"room key",
+									"automatic lock"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "door",
+								"synonyms": [
+									"room door",
+									"door knob"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "fan"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tea",
+								"synonyms": [
+									"green tea",
+									"tea bags",
+									"tea powder"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "coffee",
+								"synonyms": [
+									"coffee powder"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "glass",
+								"synonyms": [
+									"drinking glass",
+									"wine glass",
+									"plastic mug",
+									"mug"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "towels",
+								"synonyms": [
+									"towel"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "napkins",
+								"synonyms": [
+									"wipes"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "toilet paper",
+								"synonyms": [
+									"toilet wipes"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tooth brush",
+								"synonyms": [
+									"brush"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tooth paste",
+								"synonyms": [
+									"paste",
+									"brushing paste"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tongue cleaner"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "shampoo",
+								"synonyms": [
+									"hair wash",
+									"hair cleaner"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "conditioner",
+								"synonyms": [
+									"hair conditioner"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "soap",
+								"synonyms": [
+									"soaps",
+									"soap liquid",
+									"bathing soap",
+									"body soap",
+									"body shampoo",
+									"body cleaner"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "comb",
+								"synonyms": [
+									"hair comb"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "pillows",
+								"synonyms": [
+									"pillow",
+									"bed pillows"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bed sheets",
+								"synonyms": [
+									"sheets",
+									"pull over"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "chair",
+								"synonyms": [
+									"extra chair"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "clothes dryer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hanger",
+								"synonyms": [
+									"hangers",
+									"clothes hanger"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "body lotion",
+								"synonyms": [
+									"lotion",
+									"body cream",
+									"face cream",
+									"cream"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hair gel",
+								"synonyms": [
+									"hair cream"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cot",
+								"synonyms": [
+									"child bed",
+									"extra bed"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "idly"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "samosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "chicken curry"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "food"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "breakfast"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lunch"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dinner"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "supper"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "evening snacks"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "light meals"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gym",
+								"synonyms": [
+									"workout place",
+									"fitness center",
+									"exercise"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "yoga"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "walk area",
+								"synonyms": [
+									"jogging",
+									"running",
+									"jog",
+									"run",
+									"fast walk"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "zumbga"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "philates"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gym",
+								"synonyms": [
+									"work out",
+									"exercise",
+									"fitness center",
+									"yoga",
+									"walk area",
+									"philates",
+									"jogging"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "reception",
+								"synonyms": [
+									"front desk",
+									"receptionist"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "swimming pool",
+								"synonyms": [
+									"swim",
+									"pool"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "breakfast",
+								"synonyms": [
+									"tiffin",
+									"morning snacks"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "parking",
+								"synonyms": [
+									"car parking",
+									"vehicle parking",
+									"two wheeler parking",
+									"valet"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lift",
+								"synonyms": [
+									"elevator",
+									"escalator"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "restaurant"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "childrens play area",
+								"synonyms": [
+									"play area",
+									"play ground",
+									"child play area"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "children day care facility",
+								"synonyms": [
+									"day care",
+									"child care",
+									"day care facility",
+									"child care facility"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "laundry",
+								"synonyms": [
+									"self laundry",
+									"washing clothes",
+									"drying clothes",
+									"laundry services",
+									"coin laundry"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "spa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "massage"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "children swimming pool",
+								"synonyms": [
+									"child pool",
+									"baby pool",
+									"kids pool",
+									"swimming for kids"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bar",
+								"synonyms": [
+									"drinking place"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "pub"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "room service"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cab",
+								"synonyms": [
+									"taxi",
+									"cab booking",
+									"taxi booking"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "airport shuttle",
+								"synonyms": [
+									"airport transport",
+									"airport cab",
+									"airport taxi"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "fridge",
+								"synonyms": [
+									"room fridge",
+									"refrigerator"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bicycle",
+								"synonyms": [
+									"cycle"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bike",
+								"synonyms": [
+									"scooter",
+									"two wheeler",
+									"motor bike",
+									"gear bike",
+									"bike rental",
+									"scooter rent"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "menu",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "dosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "idly"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "samosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "chicken curry"
+							}
+						}
+					]
+				},
+				{
+					"name": "cuisine_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "Indian"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Chinese"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "North India"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "South Indian"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Bengali"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Gujarathi"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Veg",
+								"synonyms": [
+									"vegetarian",
+									"vegan"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Non Veg",
+								"synonyms": [
+									"non vegetarian"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "continental"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "oriental"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Andhra"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Kannada"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Maharastrian"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Punjabi"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "kerala"
+							}
+						}
+					]
+				},
+				{
+					"name": "takeaway",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "takeaway",
+								"synonyms": [
+									"parcel",
+									"packed"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "animal_type",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "dog",
+								"synonyms": [
+									"canine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cat"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "horse"
+							}
+						}
+					]
+				},
+				{
 					"name": "room_item_types",
 					"values": [
 						{
@@ -1463,178 +2502,6 @@
 									"child bed",
 									"extra bed"
 								]
-							}
-						}
-					]
-				},
-				{
-					"name": "menu",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "dosa"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "idly"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "samosa"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "chicken curry"
-							}
-						}
-					]
-				},
-				{
-					"name": "cuisine_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "Indian"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Chinese"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "North India"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "South Indian"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Bengali"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Gujarathi"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Veg",
-								"synonyms": [
-									"vegetarian",
-									"vegan"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Non Veg",
-								"synonyms": [
-									"non vegetarian"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "continental"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "oriental"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Andhra"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Kannada"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Maharastrian"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Punjabi"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "kerala"
-							}
-						}
-					]
-				},
-				{
-					"name": "takeaway",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "takeaway",
-								"synonyms": [
-									"parcel",
-									"packed"
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "animal_type",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "dog",
-								"synonyms": [
-									"canine"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cat"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "horse"
 							}
 						}
 					]
@@ -2076,7 +2943,8 @@
 						"what are the directions to the {facility_slot}",
 						"what is the easiest way to reach the {facility_slot}",
 						"what is the location of the {facility_slot}",
-						"where is the {facility_slot} located"
+						"where is the {facility_slot} located",
+						"where is it located"
 					],
 					"slots": [
 						{
@@ -2205,7 +3073,8 @@
 						"can you please fix {equipment_slot} in my room",
 						"I cant make {equipment_slot} working in my room",
 						"I need help with using {equipment_slot} in my room",
-						"why is {equipment_slot} not working"
+						"why is {equipment_slot} not working",
+						"fix {equipment_slot} in my room"
 					],
 					"slots": [
 						{
@@ -2251,25 +3120,59 @@
 					]
 				},
 				{
-					"name": "Order_room_item",
+					"name": "Order_item",
 					"samples": [
-						"I would like new {room_item_slot}",
-						"can you please get some set of new {room_item_slot}",
-						"I need a replacement for {room_item_slot}",
-						"can you please send {req_count} {room_item_slot}",
-						"I am out of {room_item_slot} can you please send some",
-						"there are no {room_item_slot} in the room can you please send the same",
-						"I need a replacement for {room_item_slot}",
-						"Can you get me a {req_count} of {room_item_slot}",
-						"I quickly need some {room_item_slot}",
-						"I need {req_count} {room_item_slot}",
-						"{req_count} {room_item_slot} please",
-						"need some {room_item_slot}",
-						"I need extra {room_item_slot}",
-						"I need {room_item_slot}",
-						"{req_count} {room_item_slot} as well",
-						"add {room_item_slot} to it",
-						"add {req_count} of {room_item_slot} to it"
+						"I would like new {order_item_slot}",
+						"can you please get some set of new {order_item_slot}",
+						"I need a replacement for {order_item_slot}",
+						"can you please send {req_count} {order_item_slot}",
+						"I am out of {order_item_slot} can you please send some",
+						"there are no {order_item_slot} in the room can you please send the same",
+						"I need a replacement for {order_item_slot}",
+						"Can you get me a {req_count} of {order_item_slot}",
+						"I quickly need some {order_item_slot}",
+						"I need {req_count} {order_item_slot}",
+						"{req_count} {order_item_slot} please",
+						"need some {order_item_slot}",
+						"I need extra {order_item_slot}",
+						"I need {order_item_slot}",
+						"{req_count} {order_item_slot} as well",
+						"add {order_item_slot} to it",
+						"add {req_count} of {order_item_slot} to it",
+						"I want to order a {order_item_slot}",
+						"can you help me to order {order_item_slot}",
+						"can you help me with ordering {order_item_slot}",
+						"do i have to call the front desk to order {order_item_slot}",
+						"get me some {order_item_slot}",
+						"get some {order_item_slot} now",
+						"how can i order {order_item_slot}",
+						"how to get some {order_item_slot}",
+						"i am hungry how to get some {order_item_slot}",
+						"i want to eat how can i get {order_item_slot}",
+						"order {order_item_slot} for me",
+						"please get some {order_item_slot}",
+						"please help me to get some {order_item_slot}",
+						"whom should i call to order {order_item_slot}",
+						"can you order some {order_item_slot}",
+						"can you place an order for {order_item_slot}",
+						"i need a {order_item_slot}",
+						"i need some {order_item_slot}",
+						"i would like a {menuslot} for {order_item_slot}",
+						"i would like to order a {menuslot}",
+						"i would like to order {order_item_slot}",
+						"i would like to place an order for {order_item_slot}",
+						"i would like to place an order for {menuslot}",
+						"please order some {order_item_slot}",
+						"can i get a {order_item_slot} to the railway station",
+						"i need a {order_item_slot}",
+						"i need a {order_item_slot} to the airport",
+						"please book a {order_item_slot}",
+						"please book a {order_item_slot} to airport",
+						"can i get {order_item_slot}",
+						"can i get {order_item_slot} here",
+						"how about {order_item_slot}",
+						"i would like to order {order_item_slot} to my room",
+						"i want a {order_item_slot}"
 					],
 					"slots": [
 						{
@@ -2277,8 +3180,12 @@
 							"type": "AMAZON.NUMBER"
 						},
 						{
-							"name": "room_item_slot",
-							"type": "room_item_types"
+							"name": "order_item_slot",
+							"type": "order_item_types"
+						},
+						{
+							"name": "menuslot",
+							"type": "menu"
 						}
 					]
 				},
@@ -2306,80 +3213,6 @@
 						"how do I modify my order",
 						"please modify my order",
 						"I would like to modify my previous order"
-					]
-				},
-				{
-					"name": "Order_food",
-					"samples": [
-						"can you help me to order {meal_types_slot}",
-						"can you help me with ordering {meal_types_slot}",
-						"do i have to call the front desk to order {meal_types_slot}",
-						"get me some {meal_types_slot}",
-						"get some {meal_types_slot} now",
-						"how can i order {meal_types_slot}",
-						"how to get some {meal_types_slot}",
-						"i am hungry",
-						"i am hungry how to get some {meal_types_slot}",
-						"i want to eat how can i get {meal_types_slot}",
-						"order {meal_types_slot} for me",
-						"please get some {meal_types_slot}",
-						"please help me to get some {meal_types_slot}",
-						"whom should i call to order {meal_types_slot}",
-						"can you order some {meal_types_slot}",
-						"can you place an order for {menuslot} for {meal_types_slot}",
-						"i need a {menuslot}",
-						"i need some {meal_types_slot}",
-						"i would like a {menuslot} for {meal_types_slot}",
-						"i would like to order a {menuslot}",
-						"i would like to order {meal_types_slot}",
-						"i would like to place an order for {meal_types_slot}",
-						"i would like to place an order for {menuslot}",
-						"please order some {meal_types_slot}"
-					],
-					"slots": [
-						{
-							"name": "meal_types_slot",
-							"type": "meal_types"
-						},
-						{
-							"name": "menuslot",
-							"type": "menu"
-						}
-					]
-				},
-				{
-					"name": "Order_res_alcohol",
-					"samples": [
-						"are {alcohol_slot} available",
-						"can i get {alcohol_slot}",
-						"can i get {alcohol_slot} here",
-						"how about {alcohol_slot}",
-						"i would like to order {alcohol_slot} to my room",
-						"is {alcohol_slot} available",
-						"is {alcohol_slot} serve here",
-						"is {alcohol_slot} served here"
-					],
-					"slots": [
-						{
-							"name": "alcohol_slot",
-							"type": "alcohol_types"
-						}
-					]
-				},
-				{
-					"name": "Order_taxi",
-					"samples": [
-						"can i get a {facilityslot} to the railway station",
-						"i need a {facilityslot}",
-						"i need a {facilityslot} to the airport",
-						"please book a {facilityslot}",
-						"please book a {facilityslot} to airport"
-					],
-					"slots": [
-						{
-							"name": "facilityslot",
-							"type": "facility_types"
-						}
 					]
 				},
 				{

@@ -8,8 +8,7 @@ const { App } = require('jovo-framework');
 const { Alexa } = require('jovo-platform-alexa');
 const { GoogleAssistant } = require('jovo-platform-googleassistant');
 const { JovoDebugger } = require('jovo-plugin-debugger');
-const { FileDb } = require('jovo-db-filedb');
-const { DynamoDb } = require('jovo-db-dynamodb');
+// const { FileDb } = require('jovo-db-filedb');
 const { MongoDb } = require('jovo-db-mongodb');
 
 const app = new App();

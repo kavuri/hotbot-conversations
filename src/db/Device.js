@@ -19,7 +19,7 @@ var DeviceSchema = new mongoose.Schema({
      device_id: {type: String, required: true, index: true},
      hotel_id: {type: String, index: true}, // this is the "address1" field
      user_id: {type: String, required: true, index: true},
-     room: String, // this is "address2" field
+     room_no: String, // this is "address2" field
      status: { type: String, required: true, enum: ['inactive', 'active', 'disabled', 'new'], default: 'inactive' },
      belongs_to: {type: mongoose.Schema.Types.ObjectId, ref: 'Hotel'}
 }, {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}, strict: false});

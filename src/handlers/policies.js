@@ -8,7 +8,7 @@
 const _ = require('lodash'),
     KamError = require('../utils/KamError'),
     HELPER = require('../utils/helpers'),
-    DBFuncs = require('../db').DBFuncs;
+    DBFuncs = require('../db/db_funcs');
 
 module.exports = {
     async Policy_smoking() {

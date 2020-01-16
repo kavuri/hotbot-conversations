@@ -9,7 +9,7 @@
 'using strict';
 
 const _ = require('lodash'),
-    DBFuncs = require('../db').DBFuncs,
+    DBFuncs = require('../db/db_funcs'),
     KamError = require('../utils/KamError'),
     HELPER = require('../utils/helpers'),
     Fuse = require('fuse.js'),
