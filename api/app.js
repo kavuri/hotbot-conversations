@@ -10,60 +10,29 @@
  * will be registered in the database
  */
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const helmet = require("helmet");
-var dotenv = require('dotenv');
-var passport = require('passport');
-var Auth0Strategy = require('passport-auth0');
-var flash = require('connect-flash');
-var secured = require('./lib/middleware/secured');
+const flash = require('connect-flash');
+const session = require('./lib/middleware/session');
+const config = require('./config');
 
-const session = require('./session');
+const app = express();
 
-var config = require('./config');
+var corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
-dotenv.config();
-
-// Configure Passport to use Auth0
-var strategy = new Auth0Strategy(
-  {
-    domain: process.env.AUTH0_DOMAIN,
-    clientID: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    callbackURL:
-      process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
-  },
-  function (accessToken, refreshToken, extraParams, profile, done) {
-    // accessToken is the token to call Auth0 API (not needed in the most cases)
-    // extraParams.id_token has the JSON Web Token
-    // profile has all the information from the user
-    return done(null, profile);
-  }
-);
-
-passport.use(strategy);
-
-// You can use this section to keep a smaller payload
-passport.serializeUser(function (user, done) {
-  done(null, user);
-  console.log('user=',user);
-});
-
-passport.deserializeUser(function (user, done) {
-  done(null, user);
-});
-
-var app = express();
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(helmet());
 app.use(logger('dev'));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -72,14 +41,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Session data
 app.use(session);
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(flash());
 
 app.use('/', require('./routes/index'));
-app.use('/', require('./routes/auth'));
-app.use(config.api.prefix + '/user', require('./routes/users'));
+app.use(config.api.prefix + '/user', require('./routes/user'));
 app.use(config.api.prefix + '/device',  require('./routes/device'));
 app.use(config.api.prefix + '/hotel',  require('./routes/hotel'));
 app.use(config.api.prefix + '/order',  require('./routes/order'));

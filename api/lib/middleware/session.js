@@ -6,10 +6,9 @@
 
 var express = require('express');
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const DBConn = require('../src/db/mongo').DBConn;
+const DBConn = require('../../../src/db').DBConn;
 
 dotenv.config();
 var app = express();
@@ -22,10 +21,10 @@ var sess = {
     saveUninitialized: true,
     store: new MongoStore({ mongooseConnection: DBConn })
 };
-  
+
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1); // trust first proxy
     sess.cookie.secure = true; // serve secure cookies, requires https
 }
-  
+
 module.exports = session(sess);

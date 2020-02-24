@@ -6,16 +6,16 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
-
-const HotelModel = require('../../src/db').HotelModel,
+const auth0 = require('../lib/auth0');
+const HotelModel = require('../../src/db/Hotel'),
       _ = require('lodash'),
       { check, validationResult } = require('express-validator');
 
 /**
  * @returns all hotels
  */
-router.get('/', async function(req, res) {
-    console.log('get all hotel');
+router.get('/', auth0.authenticate, auth0.authorize('read:hotel'),  async function(req, res) {
+    console.log('get all hotels');
 
     try {
         let hotels = await HotelModel.find({}).sort({last_reset: -1}).exec();

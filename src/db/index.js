@@ -6,7 +6,7 @@
 'use strict';
 
 const mongoose = require('mongoose'),
-      autoIncrement = require('mongoose-auto-increment');
+    autoIncrement = require('mongoose-auto-increment');
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -33,15 +33,7 @@ var connection = mongoose.createConnection(mongo_url, {
 // Initialize auto increment plugin
 autoIncrement.initialize(connection);
 
-// mongoose.connect(mongo_url, {useNewUrlParser: true, autoIndex: false, autoCreate: true});
 console.log('mongodb createConnection');
-
-// var connection = mongoose.connection;
-// connection.on('error', console.error.bind(console, 'Connection error: '));
-// connection.once('open', function(callback) {
-//     console.log('Successfully connected to MongoDB.');
-//     return connection;
-// });
 
 module.exports.AutoIncrement = autoIncrement;
 module.exports.DBConn = connection;

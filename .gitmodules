@@ -1,5 +1,5 @@
-[submodule "api"]
-	path = api
+[submodule "webapp"]
+	path = webapp
 	url = https://hotbot@bitbucket.org/hotbot/hotbot-api.git
 [submodule "webapp"]
 	path = webapp
