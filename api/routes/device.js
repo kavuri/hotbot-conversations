@@ -8,8 +8,8 @@ const express = require('express');
 const router = express.Router();
 const auth0 = require('../lib/auth0');
 
-const DeviceModel = require('../../src/db/Device'),
-    HotelModel = require('../../src/db/Hotel'),
+const DeviceModel = require('../db/Device'),
+    HotelModel = require('../db/Hotel'),
     _ = require('lodash'),
     { check, validationResult } = require('express-validator');
 

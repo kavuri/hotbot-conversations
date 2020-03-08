@@ -2798,13 +2798,26 @@
 				{
 					"name": "Enquiry_room_last_refurbished_date",
 					"samples": [
-						"When was the room last refurbished"
+						"When was the room last refurbished",
+						"When was the room cleaned?",
+						"Has the room been cleaned?",
+						"Is this hotel refurbished?",
+						"is this room cleaned?",
+						"is the room cleaning complete?"
 					]
 				},
 				{
 					"name": "Enquiry_hotel_floors",
 					"samples": [
-						"How many floors does the hotel have"
+						"How many floors does the hotel have",
+						"How many rooms does this hotel have",
+						"Are there {room_count} rooms in this hotel?"
+					],
+					"slots": [
+						{
+							"name": "room_count",
+							"type": "AMAZON.NUMBER"
+						}
 					]
 				},
 				{
@@ -3074,7 +3087,10 @@
 						"I cant make {equipment_slot} working in my room",
 						"I need help with using {equipment_slot} in my room",
 						"why is {equipment_slot} not working",
-						"fix {equipment_slot} in my room"
+						"fix {equipment_slot} in my room",
+						"I am unable to make {equipment_slot} work please help",
+						"how can I use {equipment_slot}",
+						"help me with using {equipment_slot}"
 					],
 					"slots": [
 						{
@@ -3088,9 +3104,6 @@
 					"samples": [
 						"is there a {equipment_slot} in the room",
 						"tell me about {equipment_slot}",
-						"how can I use {equipment_slot}",
-						"I am unable to make {equipment_slot} work please help",
-						"help me with using {equipment_slot}",
 						"does this room have a {equipment_slot}",
 						"can I use {equipment_slot} in this room",
 						"how about having {equipment_slot} in this room",
@@ -3110,6 +3123,7 @@
 						"can i get the time to get my food delivered",
 						"does it take more than one hour to get my food delivered",
 						"how much is the delivery time for food",
+						"is it going to take more time to deliver the food?",
 						"how much time does it take to get my food order delivered",
 						"how much time for the food ",
 						"how much time for the order",

@@ -4,12 +4,12 @@
  */
 'use strict';
 
-var _ = require('lodash'),
+const _ = require('lodash'),
     mongoose = require('mongoose'),
     DBConn = require('./index').DBConn,
-    AutoIncrement = require('./index').AutoIncrement;
+    AutoIncrement = require('./index').AutoIncrement
 
-var HotelGroupSchema = new mongoose.Schema({
+const HotelGroupSchema = new mongoose.Schema({
     name: {type: String, required: true, index: true},
     description: String,
     group_id: {type: String, required: true, unique: true},
@@ -24,10 +24,10 @@ var HotelGroupSchema = new mongoose.Schema({
         country: String
     },
     contact: {
-        phone1: String,
-        phone2: String,
-        email1: String
-    }
+        phone: [String],
+        email: [String]
+    },
+    status: {type: String, required: true, enum: ['active', 'inactive'], default: 'inactive'}
    }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false});
 
 HotelGroupSchema.index({group_id: 1}, {unique: true});

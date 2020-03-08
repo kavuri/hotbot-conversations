@@ -5,9 +5,11 @@
   "main": "src/index.js",
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.5.0",
+    "@dagrejs/graphlib": "^2.1.4",
     "alexa-verifier-middleware": "^1.0.2",
     "es6-promise": "^4.2.8",
     "fuse.js": "^3.4.5",
+    "graphlib": "^2.1.8",
     "isomorphic-fetch": "^2.2.1",
     "jovo-db-filedb": "^2.2.18",
     "jovo-db-mongodb": "^2.2.19",
@@ -21,6 +23,7 @@
     "mongoose": "^5.7.3",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-fuzzy-searching": "^1.1.8",
+    "node-cache": "^5.1.0",
     "node-fetch": "^2.6.0",
     "request-promise": "^4.2.4",
     "saslprep": "^1.0.3",
@@ -28,6 +31,7 @@
     "ws": "^3.3.1"
   },
   "devDependencies": {
+    "auth0-deploy-cli": "^4.0.1",
     "gulp": "^4.0.2",
     "gulp-install": "^1.1.0",
     "gulp-run-command": "0.0.9",

@@ -8,5 +8,55 @@
 		],
 		"isTemplate": false,
 		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "When was the room cleaned?",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "Has the room been cleaned?",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "Is this hotel refurbished?",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is this room cleaned?",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is the room cleaning complete?",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
 	}
 ]

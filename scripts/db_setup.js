@@ -7,22 +7,28 @@
 
 // Create tables
 const yargs = require('yargs');
-    var argv = yargs.usage('hotbot db setup program')
-        .options({
-            'load': {
-                description: 'load data from file',
-                required: false,
-                alias: 'l'
-            },
-            'delete': {
-                description: 'delete all data',
-                'required': false,
-                alias: 'd'
-            }
+var argv = yargs.usage('hotbot db setup program')
+    .options({
+        'load': {
+            description: 'load data from file',
+            required: false,
+            alias: 'l'
+        },
+        'delete': {
+            description: 'delete all data',
+            'required': false,
+            alias: 'd'
+        }
     }).argv;
 
 const _ = require('lodash');
 const { execSync } = require('child_process');
+const DeviceModel = require('../src/db/Device');
+const FacilityModel = require('../src/db/Facilities');
+const OrderModel = require('../src/db/Order');
+const PolicyModel = require('../src/db/Policies');
+const HotelModel = require('../src/db/Hotel');
+const HotelGroupModel = require('../src/db/HotelGroup');
 
 // console.log(argv.local, _.split(argv.create, ','), argv.delete);
 console.log(argv.load, argv.delete);
@@ -39,16 +45,14 @@ if (!_.isUndefined(argv.delete) || !_.isUndefined(argv.d)) {
     process.exit(-1);
 }
 
-const ALL_MODELS = require('../src/db/');
-
 async function delete_tables() {
     console.log('deleting collection data...');
-    var d = await ALL_MODELS.DeviceModel.deleteMany({}) //, function(err) { console.log(err); })
-    d = await ALL_MODELS.FacilityModel.deleteMany({}) //, function(err) {console.log(err); });
-    d = await ALL_MODELS.OrderModel.deleteMany({}) //, function(err) {console.log(err); });
-    d = await ALL_MODELS.PolicyModel.deleteMany({}) //, function(err) {console.log(err); });
-    d = await ALL_MODELS.HotelModel.deleteMany({}) //, function(err) {console.log(err); });
-    d = await ALL_MODELS.HotelGroupModel.deleteMany({}) //, function(err) {console.log(err); });
+    var d = await DeviceModel.deleteMany({}) //, function(err) { console.log(err); })
+    d = await FacilityModel.deleteMany({}) //, function(err) {console.log(err); });
+    d = await OrderModel.deleteMany({}) //, function(err) {console.log(err); });
+    d = await PolicyModel.deleteMany({}) //, function(err) {console.log(err); });
+    d = await HotelModel.deleteMany({}) //, function(err) {console.log(err); });
+    d = await HotelGroupModel.deleteMany({}) //, function(err) {console.log(err); });
 
     console.log('deleted table contents');
 }
@@ -64,7 +68,7 @@ async function populate_hotel_data(hotel_data_file) {
 
     // Hotel data
     let hotel = await store_hotel_data(hotel_data, hg.group_id);
-console.log('^^h=',hotel);
+    console.log('^^h=', hotel);
     // Store facilities data
     await store_facilities_data(hotel_data, hotel.hotel_id);
 
@@ -75,17 +79,17 @@ console.log('^^h=',hotel);
 }
 
 async function store_hotel_group_data(hotel_data) {
-    const ALL_MODELS = require('../src/db/');
-    console.log('%%%',ALL_MODELS);
+    console.log('%%%: store_hotel_group_data');
     var hg_data = hotel_data.hotel_group;
-    let hg = new ALL_MODELS.HotelGroupModel(hg_data);
+    let hg = new HotelGroupModel(hg_data);
     hg = await hg.save();
+console.log('stored hotel group:', hg);
     return hg;
 }
 
 async function store_hotel_data(hotel_data, group_id) {
     hotel_data.hotel.group_id = group_id;
-    let h = new ALL_MODELS.HotelModel(hotel_data.hotel);
+    let h = new HotelModel(hotel_data.hotel);
     try {
         h = await h.save();
     } catch (error) {
@@ -130,7 +134,7 @@ async function store_facilities_data(hotel_data, hotel_id) {
             obj[keys[j]] = facility[keys[j]];
         }
 
-        let f = new ALL_MODELS.FacilityModel(obj);
+        let f = new FacilityModel(obj);
         try {
             f = await f.save();
         } catch (error) {
@@ -153,7 +157,7 @@ async function store_policies_data(hotel_data) {
             obj[keys[j]] = policy[keys[j]];
         }
 
-        let p = new ALL_MODELS.PolicyModel(obj);
+        let p = new PolicyModel(obj);
         p = await p.save();
     }
 }

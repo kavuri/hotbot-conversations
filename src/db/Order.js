@@ -26,7 +26,7 @@ var CommentSchema = new mongoose.Schema({
 });
 
 var OrderItems = new mongoose.Schema({
-    f_id: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Facilities'},
+    f_id: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Facility'},
     req_count: {type: Number},
     served_count: {type: Number}
 });

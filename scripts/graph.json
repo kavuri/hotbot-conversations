@@ -1,0 +1,75 @@
+{
+    "options":{"directed":true,"multigraph":false,"compound":true},
+    "value":"100",
+    "nodes":[
+        {"v":"100","value":"dummy hotel"},
+        {"v":"hotel_info","value":{"name": "Dummy Hotel","description": "This is a dummy hotel","address": {"address1": "dummy_house 7, 7","address2": "dummy_road 7","address3": "dummy_area","city": "dummy_city","pin": "dummy_pin","state": "dummy_state","country": "dummy_country"},"contact": {"phone":[ "99999999","11111111"],"reception": "9","email1": "email1@dummyhotel.com"},"coordinates": {"lat": "12.9794142","lng": "77.707843"},"front_desk_count": 5,"room_count": 100}},
+        {"v":"main_facilities","value":["restaurant","gym","swimming pool","breakfast","laundry"]},
+        {"v":"facilities","value":[
+                            {"f_name":"gym", "synonyms":["yoga center","fitness center","workout place"]}, 
+                            {"f_name":"swimming pool", "synonyms":["kids pool","adults pool"]}, 
+                            {"f_name":"room service", "synonyms":["room delivery"]},
+                            {"f_name":"restaurant", "synonyms":[]}, 
+                        ]},
+        {"v":"policies","value":["TBD"]},
+        
+        {"v":"smoking","value":{"synonyms":["smoke","cigar","cigerette","beedi","vaping","electronic cigar","hopkah"],"message":"smoking is allowed in <%= areas %>","areas":["lobby","smoking room"]}},
+        {"v":"alcohol","value":{"synonyms":["beer","rum","gin","whisky","brandy","vodka","cognac"],"message":"alcohol consumption is allowed in <%= areas %>","areas":["bar","room"]}},
+        {"v":"cancellation","value":{"synonyms":["room cancellation"],"message":"The room cancellation policy is mentioned in your booking details. Please contact hotel reception for any information about this"}},
+        {"v":"infants","value":{"synonyms":["children policy","infants stay"],"age":5,"message":"There are no charges for infants below the age of <%= age %> years and are welcome to stay. "}},
+        {"v":"checkout time","value":{"synonyms":["vacate time","vacating"],"time":"1200","message":"The checkout time for the room is <%= time %>. Please contact reception at <%= reception_no %> if you want to extend your stay beyond checkout time."}},
+        {"v":"no show","value":{"synonyms":[],"message":"In case of no show the first nights room rent would be charged. The rest of the booking amount would be refunded to your account."}},
+        {"v":"outside food","value":{"synonyms":["food from outside"],"message":"We do not allow outside food to be brought into the hotel"}},
+        {"v":"checkin time","value":{"synonyms":[],"time":"1200","message":"The check in time for this hotel is <%= checkin_time %>"}},
+        {"v":"pets","value":{"message":"what apet"}},
+        
+        {"v":"gym","value":{"synonyms":["fitness center","yoga center","workout place"],"s_type":["f"],"present":"yes","message":{"yes":"There is one fitness center available on the 4th floor next to the cafe","no":"There is no gym in this hotel"}}},
+        {"v":"gym_location","value":{"message":"Next to cafe on the 4th floor"}},
+        {"v":"gym_timings","value":{"message":"The gym is open from <%=from> to <%=to>","time":{"from":"0500","to":"1200"}}},
+        {"v":"gym_booking","value":{"present":"yes","message":{"yes":"Call up the frontdesk to make a reservation", "no":"No reservation is required. You can walk-in to the gym"}}},
+        {"v":"gym_price","value":{"cost":"200", "present":"yes","message":{"yes":"There is a charge of <%= price %> for using the gym", "no":"The gym is free to use for all the guests"}}},
+        
+        {"v":"kids_pool","value":{"synonyms":["child pool","kids pool"],"s_type":["f"],"present":"yes","message":{"yes":"There is a childrens pool available","no":"There is no childrens pool in this hotel"}}},
+        {"v":"kids_pool_location","value":{"message":"Sky pool on the top floor. You can take the lift to reach the floor"}},
+        {"v":"kids_pool_timings","value":{"message":"The childrens pool is open from morning <%= from %> to <%= to %> and again in the evening 0600 to 2200","time":{"from":"0500","to":"1200"}}},
+        {"v":"kids_pool_booking","value":{"present":"yes","message":{"yes":"You will need to register with the front desk to book a slot", "no":"There is no registration required"}}},
+        {"v":"kids_pool_price","value":{"cost":"200", "present":"yes","message":{"yes":"There is a charge of <%= price %> for using the childrens pool", "no":"The childrens pool is free to use for all the guests"}}},
+        
+        {"v":"adults_pool","value":{"synonyms":["adults pool","big people pool"],"s_type":["f"],"present":"yes","message":{"yes":"There is an adults pool available","no":"There is no swimming pool in this hotel"}}},
+        {"v":"adults_pool_location","value":{"message":"Sky pool on the top floor. You can take the lift to reach the floor"}},
+        {"v":"adults_pool_timings","value":{"message":"The adults pool is open from morning <%= from %> to <%= to %> and again in the evening 0600 to 2200","time":{"from":"0500","to":"1200"}}},
+        {"v":"adults_pool_booking","value":{"present":"yes","message":{"yes":"You will need to register with the front desk to book a slot", "no":"There is no registration required"}}},
+        {"v":"adults_pool_price","value":{"cost":"200", "present":"yes","message":{"yes":"There is a charge of <%= price %> for using the pool", "no":"The pool is free to use for all the guests"}}}
+    ],
+    "edges":[
+        {"v":"100","w":"hotel_info","value":{"label":"hotel_info"}},
+        {"v":"100","w":"main_facilities","value":{"label":"main_facilities"}},
+        {"v":"100","w":"facilities","value":{"label":"facilities"}},
+        {"v":"100","w":"policies","value":{"label":"policies"}},
+        
+        {"v":"policies","w":"smoking","value":{"label":"policy"}},
+        {"v":"policies","w":"alcohol","value":{"label":"policy"}},
+        {"v":"policies","w":"cancellation","value":{"label":"policy"}},
+        {"v":"policies","w":"infants","value":{"label":"policy"}},
+        {"v":"policies","w":"checkout time","value":{"label":"policy"}},
+        {"v":"policies","w":"no show","value":{"label":"policy"}},
+        {"v":"policies","w":"outside food","value":{"label":"policy"}},
+        {"v":"policies","w":"checkin time","value":{"label":"policy"}},
+        {"v":"policies","w":"pets","value":{"label":"policy"}},
+        
+        {"v":"gym","w":"gym_location","value":{"label":"facility"}},
+        {"v":"gym","w":"gym_timings","value":{"label":"facility"}},
+        {"v":"gym","w":"gym_booking","value":{"label":"facility"}},
+        {"v":"gym","w":"gym_price","value":{"label":"facility"}},
+        
+        {"v":"kids_pool","w":"kids_pool_location","value":{"label":"facility"}},
+        {"v":"kids_pool","w":"kids_pool_timings","value":{"label":"facility"}},
+        {"v":"kids_pool","w":"kids_pool_booking","value":{"label":"facility"}},
+        {"v":"kids_pool","w":"kids_pool_price","value":{"label":"facility"}},
+        
+        {"v":"adults_pool","w":"adults_pool_location","value":{"label":"facility"}},
+        {"v":"adults_pool","w":"adults_pool_timing","value":{"label":"facility"}},
+        {"v":"adults_pool","w":"adults_pool_booking","value":{"label":"facility"}},
+        {"v":"adults_pool","w":"adults_pool_price","value":{"label":"facility"}}
+    ]
+}

@@ -1,7 +1,26 @@
 {
-    "hotel_group": {
-      "name": "Dummy Hotel Group",
-      "description": "This is a dummy group of hotels",
+  "hotel_group": {
+    "name": "Dummy Hotel Group",
+    "description": "This is a dummy group of hotels",
+    "address": {
+      "address1": "dummy_house 7, 7",
+      "address2": "dummy_road 7",
+      "address3": "dummy_area",
+      "city": "dummy_city",
+      "pin": "dummy_pin",
+      "state": "dummy_state",
+      "country": "dummy_country"
+    },
+    "contact": {
+      "phone1": "99999999",
+      "phone2": "11111111",
+      "email1": "email1@dummyhotel.com"
+    }
+  },
+  "hotel": {
+    "name": "Dummy Hotel",
+    "description": "This is a dummy hotel",
+    "info": {
       "address": {
         "address1": "dummy_house 7, 7",
         "address2": "dummy_road 7",
@@ -14,1913 +33,2094 @@
       "contact": {
         "phone1": "99999999",
         "phone2": "11111111",
+        "reception": "9",
         "email1": "email1@dummyhotel.com"
+      },
+      "coordinates": {
+        "lat": "12.9794142",
+        "lng": "77.707843"
+      },
+      "front_desk_count": 5,
+      "room_count": 100,
+      "main_facilities": [
+        "restaurant",
+        "gym",
+        "swimming pool",
+        "breakfast",
+        "laundry"
+      ]
+    }
+  },
+  "facilities": [
+    {
+      "f_name": "smoking",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "synonyms": [
+        "smoke",
+        "cigar",
+        "cigerette",
+        "beedi",
+        "vaping",
+        "electronic cigar",
+        "hopkah"
+      ],
+      "allowed": [
+        "outside",
+        "lobby",
+        "smoking room"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Smoking is only allowed at <%= areas %>. ",
+          "no": "Smoking is not allowed in this hotel. "
+        }
       }
     },
-    "hotel": {
-      "name": "Dummy Hotel",
-      "description": "This is a dummy hotel",
-      "info": {
-        "address": {
-          "address1": "dummy_house 7, 7",
-          "address2": "dummy_road 7",
-          "address3": "dummy_area",
-          "city": "dummy_city",
-          "pin": "dummy_pin",
-          "state": "dummy_state",
-          "country": "dummy_country"
-        },
-        "contact": {
-          "phone1": "99999999",
-          "phone2": "11111111",
-          "reception": "9",
-          "email1": "email1@dummyhotel.com"
-        },
-        "coordinates": {
-          "lat": "12.9794142",
-          "lng": "77.707843"
-        },
-        "front_desk_count": 5,
-        "room_count": 100,
-        "main_facilities": ["restaurant", "gym", "swimming pool", "breakfast", "laundry"]
+    {
+      "f_name": "alcohol",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "synonyms": [
+        "beer",
+        "rum",
+        "gin"
+      ],
+      "allowed": [
+        "bar",
+        "room"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "You are allowed to have alcohol at <%= areas %>. ",
+          "no": "Alcohol consumption is not allowed in this hotel. "
+        }
       }
     },
-    "facilities": [
-      {
-        "f_name": "smoking",
-        "f_type": "p",
-        "s_type": ["none"],
-        "synonyms": ["smoke","cigar","cigerette","beedi","vaping","electronic cigar","hopkah"],
-        "allowed": [
-          "outside",
-          "lobby",
-          "smoking room"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Smoking is only allowed at <%= areas %>. ",
-            "no": "Smoking is not allowed in this hotel. "
-          }
+    {
+      "f_name": "cancellation",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "synonyms": [
+        "room cancellation"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "The room cancellation policy is mentioned in your booking details. Please contact hotel reception for any information about this"
+        }
+      }
+    },
+    {
+      "f_name": "infants stay",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "age": 5,
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There are no charges for infants below the age of <%= age %> years and are welcome to stay. "
         }
       },
-      {
-        "f_name": "alcohol",
-        "f_type": "p",
-        "s_type": ["none"],
-        "synonyms": ["beer","rum","gin"],
-        "allowed": [
-          "bar",
-          "room"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "You are allowed to have alcohol at <%= areas %>. ",
-            "no": "Alcohol consumption is not allowed in this hotel. "
-          }
+      "synonyms": [
+        ""
+      ]
+    },
+    {
+      "f_name": "checkout time",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "time": "1200",
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "The checkout time for the room is <%= time %>. Please contact reception at <%= reception_no %> if you want to extend your stay beyond checkout time."
+        }
+      }
+    },
+    {
+      "f_name": "no show",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "In case of no show the first nights room rent would be charged. The rest of the booking amount would be refunded to your account."
+        }
+      }
+    },
+    {
+      "f_name": "outside food",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "present": {
+        "flag": "no",
+        "message": {
+          "yes": "Outside food is allowed into the hotel",
+          "no": "We do not allow outside food to be brought into the hotel"
+        }
+      }
+    },
+    {
+      "f_name": "checkin time",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "time": "1200 P.M.",
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "The check in time for this hotel is <%= checkin_time %>. "
+        }
+      }
+    },
+    {
+      "f_name": "pets",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Pets are not allowed in this hotel. Please check with the front desk on the kind of pets you can bring to this hotel",
+          "no": "Pets are not allowed into the hotel"
+        }
+      }
+    },
+    {
+      "f_name": "payment methods",
+      "f_type": "p",
+      "s_type": [
+        "none"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "We accept payment by <%= payment_methods %>"
         }
       },
-      {
-        "f_name": "cancellation",
-        "f_type": "p",
-        "s_type": ["none"],
+      "synonyms": [
+        "credit card",
+        "debit card",
+        "cash",
+        "bank transfer",
+        "wire transfer"
+      ],
+      "methods": [
+        "credit card",
+        "debit card",
+        "cash"
+      ]
+    },
+    {
+      "f_name": "gym",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "fitness center",
+        "yoga center",
+        "workout place"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is one fitness center available on the 4th floor next to the cafe",
+          "no": "There is no gym in this hotel"
+        }
+      },
+      "location": {
+        "f_name": "location",
         "synonyms": [
-          "room cancellation"
+          "gym location",
+          "which place"
         ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "The room cancellation policy is mentioned in your booking details. Please contact hotel reception for any information about this"
-          }
+        "flag": "yes",
+        "message": {
+          "yes": "Next to cafe on the 4th floor",
+          "no": "none"
         }
       },
-      {
-        "f_name": "infants stay",
-        "f_type": "p",
-        "s_type": ["none"],
-        "age":5,
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There are no charges for infants below the age of <%= age %> years and are welcome to stay. "
-          }
-        },
+      "timings": {
+        "f_name": "time",
         "synonyms": [
-          ""
-        ]
-      },
-      {
-        "f_name": "checkout time",
-        "f_type": "p",
-        "s_type": ["none"],
-        "time": "1200",
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "The checkout time for the room is <%= time %>. Please contact reception at <%= reception_no %> if you want to extend your stay beyond checkout time."
-          }
-        }
-      },
-      {
-        "f_name": "no show",
-        "f_type": "p",
-        "s_type": ["none"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "In case of no show the first nights room rent would be charged. The rest of the booking amount would be refunded to your account."
-          }
-        }
-      },
-      {
-        "f_name": "outside food",
-        "f_type": "p",
-        "s_type": ["none"],
-        "present": {
-          "flag": "no",
-          "message": {
-            "yes": "Outside food is allowed into the hotel",
-            "no": "We do not allow outside food to be brought into the hotel"
-          }
-        }
-      },
-      {
-        "f_name": "checkin time",
-        "f_type": "p",
-        "s_type": ["none"],
-        "time":"1200 P.M.",
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "The check in time for this hotel is <%= checkin_time %>. "
-          }
-        }
-      },
-      {
-        "f_name": "pets",
-        "f_type": "p",
-        "s_type": ["none"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Pets are not allowed in this hotel. Please check with the front desk on the kind of pets you can bring to this hotel",
-            "no": "Pets are not allowed into the hotel"
-          }
-        }
-      },
-      {
-        "f_name": "payment methods",
-        "f_type": "p",
-        "s_type": ["none"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "We accept payment by <%= payment_methods %>"
-          }
-        },
-        "synonyms": [
-          "credit card",
-          "debit card",
-          "cash",
-          "bank transfer",
-          "wire transfer"
+          "timings",
+          "open time"
         ],
-        "methods": [
-          "credit card",
-          "debit card",
-          "cash"
-        ]
-      },
-      {
-        "f_name": "gym",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "fitness center",
-          "yoga center",
-          "workout place"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is one fitness center available on the 4th floor next to the cafe",
-            "no": "There is no gym in this hotel"
-          }
-        },
-        "location": {
-          "f_name": "location",
-          "synonyms": [
-            "gym location",
-            "which place"
-          ],
-          "flag": "yes",
-          "message": {
-            "yes": "Next to cafe on the 4th floor",
-            "no": "none"
-          }
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0600",
-            "to": "2300"
-          },
-          "message": {
-            "yes": "The gym is open 24 by 7 ",
-            "no": "none"
-          }
-        },
-        "shower": {
-          "f_name": "shower",
-          "flag": "yes",
-          "message": {
-            "yes": "There is a shower available in the fitness center",
-            "no": "There is no shower available in the fitness center"
-          }
-        },
-        "bathroom": {
-          "f_name": "connected bathroom",
-          "flag": "yes",
-          "message": {
-            "yes": "There is a bathroom adjacent to the gym",
-            "no": "You will have to take a shower in your room"
-          }
-        },
-        "booking": {
-          "f_name": "booking required",
-          "flag": "yes",
-          "message": {
-            "yes": "You will need to reserve a slot from the front desk",
-            "no": "You can walk-in to the gym without any reservation"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": 200,
-          "message": {
-            "yes": "There is a charge of <%= price %> for using the gym",
-            "no": "The gym is free to use for all the guests"
-          }
-        }
-      },
-      {
-        "f_name": "childrens swimming pool",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "child pool",
-          "kids pool"
-        ],
-        "present": {
-          "flag": "yes",
-          "location": "Sky pool on the top floor. You can take the lift to reach the floor",
-          "message": {
-            "yes": "There is a childrens pool available",
-            "no": "There is no childrens pool in this hotel"
-          }
-        },
-        "age": {
-          "f_name": "age",
-          "flag": "yes",
-          "age": {
-            "from": 2,
-            "to": 10
-          },
-          "message": {
-            "yes": "The pool is suitable for children between the age of <%= from %> to <%= to %>"
-          }
-        },
-        "count": {
-          "f_name": "how many",
-          "flag": "yes",
-          "count": 2,
-          "message": {
-            "yes": "There are two children pools in the hotel",
-            "no": "There are no children pools in the hotel"
-          }
-        },
-        "reservation": {
-          "f_name": "reservation",
-          "flag": "no",
-          "message": {
-            "yes": "You will need to register with the front desk to book a slot",
-            "no": "There is no registration required"
-          }
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0600",
-            "to": "2300"
-          },
-          "message": {
-            "yes": "The childrens pool is open from morning <%= from %> to <%= to %> and again in the evening 0600 to 2200",
-            "no": "none"
-          }
-        },
-        "shower": {
-          "f_name": "shower",
-          "flag": "yes",
-          "message": {
-            "yes": "There is a shower next to the pool",
-            "no": "You will need to take a shower in the bathroom near the pool"
-          }
-        },
-        "bathroom": {
-          "f_name": "connected bathroom",
-          "flag": "yes",
-          "message": {
-            "yes": "There is a bathroom near the pool",
-            "no": "There is no bathroom near the pool"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": 200,
-          "message": {
-            "yes": "There is a charge of <%= price %> for using the childrens pool",
-            "no": "The childrens pool is free to use for all the guests"
-          }
-        }
-      },
-      {
-        "f_name": "adults swimming pool",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "adults pool",
-          "big pool",
-          "deep pool"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "One on the ground floor, another on top floor",
-            "no": "There is no adults pool in this hotel"
-          }
-        },
-        "count": {
-          "f_name": "count",
-          "flag": "yes",
-          "count": 3,
-          "synonyms": [
-            "how many pools"
-          ],
-          "message": {
-            "yes": "There are <%= count %> pools in this hotel",
-            "no": "There are no pools in this hotel"
-          }
-        },
-        "location": {
-          "f_name": "location",
-          "flag": "yes",
-          "message": {
-            "yes": "The main pool is on groud floor next to reception. The second pool is in the open area and the sky pool is on the top floor",
-            "no": "none"
-          }
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0600",
-            "to": "2300"
-          },
-          "message": {
-            "yes": "The adults pool is open from morning <%= from %> to <%= to %> and again in the evening 0600 to 2200",
-            "no": "none"
-          }
-        },
-        "shower": {
-          "f_name": "shower",
-          "flag": "yes",
-          "message": {
-            "yes": "There is a shower next to the pool",
-            "no": "You will need to take a shower in the bathroom near the pool"
-          }
-        },
-        "bathroom": {
-          "f_name": "connected bathroom",
-          "flag": "yes",
-          "message": {
-            "yes": "There is a bathroom near the pool",
-            "no": "There is no bathroom near the pool"
-          }
-        },
-        "age": {
-          "f_name": "age group",
-          "from": 15,
-          "to": 60,
-          "message": {
-            "yes": "The pool is suitable for kids between 5 and 15 years of age",
-            "no": "none"
-          }
-        },
-        "reservation": {
-          "f_name": "reservation",
-          "flag": "no",
-          "message": {
-            "yes": "You will need to register with the front desk to book a slot",
-            "no": "There is no registration required"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": 200,
-          "message": {
-            "yes": "There is a charge of <%= price %> for using the adults pool",
-            "no": "The adults pool is free to use for all the guests"
-          }
-        }
-      },
-      {
-        "f_name": "room service",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "room delivery"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Room service is available",
-            "no": "There is no room service"
-          }
-        },
-        "price": {
-          "f_name": "service charge",
-          "price": 50,
-          "flag": "yes",
-          "message": {
-            "yes": "You are charged an amount of <%= price %> for room service",
-            "no": "There are no room service charges"
-          }
-        },
+        "flag": "yes",
         "time": {
-          "f_name": "service time",
-          "time": 30,
-          "flag": "yes",
-          "message": {
-            "yes": "It takes approximately 30 minutes for ordering food to room service",
-            "no": "none"
-          }
+          "from": "0600",
+          "to": "2300"
         },
-        "order_process": {
-          "f_name": "how to order",
-          "message": {
-            "yes": "Order thru me or call #123",
-            "no": "none"
-          }
-        },
-        "billing": {
-          "f_name": "billed to room",
-          "synonyms": [
-            "payment mode",
-            "how to pay for room service"
-          ],
-          "flag": "yes",
-          "message": {
-            "yes": "Restaurant bill can be added to your room bill. Ask at the restaurant to do so",
-            "no": "Restaurant bill cannot be added to room bill. You will need to pay at the reservation"
-          }
+        "message": {
+          "yes": "The gym is open 24 by 7 ",
+          "no": "none"
         }
       },
-      {
-        "f_name": "restaurant",
-        "f_type": "f",
-        "s_type": ["order", "service"],
+      "shower": {
+        "f_name": "shower",
+        "flag": "yes",
+        "message": {
+          "yes": "There is a shower available in the fitness center",
+          "no": "There is no shower available in the fitness center"
+        }
+      },
+      "bathroom": {
+        "f_name": "connected bathroom",
+        "flag": "yes",
+        "message": {
+          "yes": "There is a bathroom adjacent to the gym",
+          "no": "You will have to take a shower in your room"
+        }
+      },
+      "booking": {
+        "f_name": "booking required",
+        "flag": "yes",
+        "message": {
+          "yes": "You will need to reserve a slot from the front desk",
+          "no": "You can walk-in to the gym without any reservation"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": 200,
+        "message": {
+          "yes": "There is a charge of <%= price %> for using the gym",
+          "no": "The gym is free to use for all the guests"
+        }
+      }
+    },
+    {
+      "f_name": "childrens swimming pool",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "child pool",
+        "kids pool"
+      ],
+      "present": {
+        "flag": "yes",
+        "location": "Sky pool on the top floor. You can take the lift to reach the floor",
+        "message": {
+          "yes": "There is a childrens pool available",
+          "no": "There is no childrens pool in this hotel"
+        }
+      },
+      "age": {
+        "f_name": "age",
+        "flag": "yes",
+        "age": {
+          "from": 2,
+          "to": 10
+        },
+        "message": {
+          "yes": "The pool is suitable for children between the age of <%= from %> to <%= to %>"
+        }
+      },
+      "count": {
+        "f_name": "how many",
+        "flag": "yes",
+        "count": 2,
+        "message": {
+          "yes": "There are two children pools in the hotel",
+          "no": "There are no children pools in the hotel"
+        }
+      },
+      "reservation": {
+        "f_name": "booking",
+        "flag": "no",
+        "message": {
+          "yes": "You will need to register with the front desk to book a slot",
+          "no": "There is no registration required"
+        }
+      },
+      "timings": {
+        "f_name": "time",
         "synonyms": [
-          "eat out",
-          "hotel food"
+          "timings",
+          "open time"
         ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is an inhouse restaurant in this hotel",
-            "no": "There is no reservation in this hotel"
-          }
+        "flag": "yes",
+        "time": {
+          "from": "0600",
+          "to": "2300"
         },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0600",
-            "to": "2300"
-          },
-          "message": {
-            "yes": "The restaurant is open from morning 0600 to 1100 and again in the evening 0600 to 2200",
-            "no": "none"
-          }
-        },
-        "reservation": {
-          "f_name": "reservation",
-          "flag": "no",
-          "message": {
-            "yes": "You will need to book a table for the restaurant",
-            "no": "You can walk-in. There is no registration required"
-          }
-        },
-        "take_away": {
-          "f_name": "take away",
-          "synonyms": [
-            "takeaway possible",
-            "parcel"
-          ],
-          "flag": "yes",
-          "message": {
-            "yes": "Takeway of food is possible. Ask at the reservation",
-            "no": "Takeway of food is not possible. Ask for options at restaurant"
-          }
-        },
-        "cuisines": {
-          "f_name": "cuisines",
-          "f_type":"f",
-          "s_type": ["none"],
-          "synonyms": [
-            "menu type",
-            "food type"
-          ],
-          "flag": "yes",
-          "cuisines": [
-            "South Indian",
-            "North Indian",
-            "Thai",
-            "Kerala",
-            "Andhra",
-            "Continental",
-            "Odiya",
-            "Jain",
-            "Marathi"
-          ]
-        },
-        "count": {
-          "f_name": "number of restaurants",
-          "synonyms": [
-            "restaurants count"
-          ],
-          "flag": "yes",
-          "count": "2",
-          "message": {
-            "yes": "There are total of <%= count %> restaurants in this hotel"
-          }
-        },
-        "location": {
-          "flag": "yes",
-          "message": {
-            "yes": "The restaurant <%= name %> is located at ground floor, the other restaurant is located on the top floor"
-          }
+        "message": {
+          "yes": "The childrens pool is open from morning <%= from %> to <%= to %> and again in the evening 0600 to 2200",
+          "no": "none"
         }
       },
-      {
-        "f_name": "breakfast",
-        "f_type": "f",
-        "s_type": ["order", "service"],
-        "synonyms": [
-          "tiffin"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Breakfast is available at this hotel between 06:00AM to 10:00 AM",
-            "no": "Breakfast is not available at this hotel"
-          }
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0600",
-            "to": "1000"
-          },
-          "message": {
-            "yes": "Breakfast is avialable from 0600 to 1100 in the morning in the restaurant",
-            "no": "none"
-          }
-        },
-        "location": {
-          "f_name": "breakfast location",
-          "flag": "yes",
-          "message": {
-            "yes": "Breakfast is available at restaurant or room service",
-            "no": "none"
-          }
-        },
-        "room_service": {
-          "f_name": "breakfast room service",
-          "flag": "yes",
-          "message": {
-            "yes": "Breakfast can be served to your room",
-            "no": "There is no room service for breakfast"
-          }
-        },
-        "price": {
-          "f_name": "breakfast charge",
-          "synonyms": [
-            "is breakfast free",
-            "breakfast cost"
-          ],
-          "flag": "yes",
-          "price": 250,
-          "message": {
-            "yes": "Breakfast costs <%= price %> per person or it could be included in your room fees.",
-            "no": "none"
-          }
-        },
-        "billing": {
-          "f_name": "billed to room",
-          "synonyms": [
-            "payment mode",
-            "how to pay for room service"
-          ],
-          "flag": "yes",
-          "message": {
-            "yes": "Restaurant bill can be added to your room bill. Ask at the restaurant to do so",
-            "no": "Restaurant bill cannot be added to room bill. You will need to pay at the reservation"
-          }
-        },
-        "take_away": {
-          "f_name": "take away",
-          "synonyms": [
-            "takeaway possible",
-            "parcel"
-          ],
-          "flag": "yes",
-          "message": {
-            "yes": "Takeway of food is possible. Ask at the reservation",
-            "no": "Takeway of food is not possible. Ask for options at restaurant"
-          }
-        },
-        "cuisines": {
-          "f_name": "cuisines",
-          "synonyms": [
-            "menu type",
-            "food type"
-          ],
-          "flag": "yes",
-          "cuisines": [
-            "South Indian",
-            "North Indian",
-            "Continental",
-            "Bengali",
-            "Gujrathi"
-          ]
+      "shower": {
+        "f_name": "shower",
+        "flag": "yes",
+        "message": {
+          "yes": "There is a shower next to the pool",
+          "no": "You will need to take a shower in the bathroom near the pool"
         }
       },
-      {
-        "f_name": "cooking",
-        "f_type": "k",
-        "s_type": ["none"],
-        "synonyms": [
-          "cooking facilities",
-          "utilsils"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "The hotel does provide cooking facilities. Please let me know what you would like to know more about",
-            "no": "There are no cooking facilities available in this hotel"
-          }
+      "bathroom": {
+        "f_name": "connected bathroom",
+        "flag": "yes",
+        "message": {
+          "yes": "There is a bathroom near the pool",
+          "no": "There is no bathroom near the pool"
         }
       },
-      {
-        "f_name": "bottle steralizer",
-        "f_type": "k",
-        "s_type": ["none"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Milk bottle steralization is available at the restaurant kitchen",
-            "no": "Milk bottle steralization is not available"
-          }
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": 200,
+        "message": {
+          "yes": "There is a charge of <%= price %> for using the childrens pool",
+          "no": "The childrens pool is free to use for all the guests"
+        }
+      }
+    },
+    {
+      "f_name": "adults swimming pool",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "adults pool",
+        "big pool",
+        "deep pool"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "One on the ground floor, another on top floor",
+          "no": "There is no adults pool in this hotel"
         }
       },
-      {
-        "f_name": "microwave",
-        "f_type": "k",
-        "s_type": ["service"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Microwave is available in the restaurant kitchen",
-            "no": "Microwave is not available"
-          }
-        }
-      },
-      {
-        "f_name": "oven",
-        "f_type": "k",
-        "s_type": ["service"],
-        "present": {
-          "flag": "no",
-          "message": {
-            "yes": "Oven is available in the restaurant kitchen",
-            "no": "Oven is not available"
-          }
-        }
-      },
-      {
-        "f_name": "cutlery",
-        "f_type": "k",
-        "s_type": ["service", "order"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Kitchen cutlery is available in the restaurant kitchen",
-            "no": "Kitchen cutlery is not available"
-          }
-        }
-      },
-      {
-        "f_name": "salt",
-        "f_type": "k",
-        "s_type": ["order"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Salt is available in the restaurant kitchen",
-            "no": "Salt is not available"
-          }
-        }
-      },
-      {
-        "f_name": "sugar",
-        "f_type": "k",
-        "s_type": ["order"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Sugar is available in the restaurant kitchen",
-            "no": "Sugar is not available"
-          }
-        }
-      },
-      {
-        "f_name": "oil",
-        "f_type": "k",
-        "s_type": ["order"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Cooking oil  is available in the restaurant kitchen",
-            "no": "Cooking oil is not available"
-          }
-        }
-      },
-      {
-        "f_name": "storage room",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "storage space",
-          "luggage storage"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a storage room available in the hotel. Please contact front desk",
-            "no": "There is no storage room in the hotel"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": 40,
-          "message": {
-            "yes": "The price per night is 40",
-            "no": "none"
-          }
-        },
-        "size": {
-          "f_name": "luggage dimension",
-          "synonyms": [
-            "maximum dimension",
-            "suitcase size"
-          ],
-          "flag": "yes",
-          "message": {
-            "yes": "The maximum dimension is 40x50 bag",
-            "no": "none"
-          }
-        },
-        "oversize": {
-          "f_name": "oversize luggage",
-          "synonyms": [
-            "big luggage"
-          ],
-          "flag": "no",
-          "message": {
-            "yes": "You can storage over sized luggage as well",
-            "no": "Please contact the hotel reception for storing your oversized luggage"
-          }
-        }
-      },
-      {
-        "f_name": "sauna",
-        "f_type": "f",
-        "s_type": ["service"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a sauna in the hotel. For reservations, contact front desk",
-            "no": "There is no sauna in the hotel"
-          }
-        },
-        "location": {
-          "f_name": "location",
-          "flag": "yes",
-          "message": {
-            "yes": "Next to cafe on the 4th floor",
-            "no": "none"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "message": {
-            "yes": "The cost of 1hr in sauna is <%= price %>",
-            "no": "none"
-          },
-          "price": 50
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0600",
-            "to": "1000"
-          },
-          "message": {
-            "yes": "Sauna is avialable from <%= from> to <%= to %>",
-            "no": "none"
-          }
-        },
-        "reservation": {
-          "f_name": "reservation",
-          "flag": "yes",
-          "message": {
-            "yes": "You need to reserve your slot for the sauna. Contact front desk",
-            "no": "There is no reservation required"
-          }
-        }
-      },
-      {
-        "f_name": "spa",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "massage",
-          "facials",
-          "body treatments"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a spa in the hotel. We have body massage, facials, body treatments available",
-            "no": "There is no spa in the hotel"
-          }
-        },
-        "location": {
-          "f_name": "location",
-          "flag": "yes",
-          "message": {
-            "yes": "On the ground floor, next to front desk",
-            "no": "none"
-          }
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0600",
-            "to": "1000"
-          },
-          "message": {
-            "yes": "Spa is avialable from 0600 to 2100 ",
-            "no": "none"
-          }
-        },
-        "reservation": {
-          "f_name": "reservation",
-          "flag": "yes",
-          "message": {
-            "yes": "You need to reserve your slot for the spa. Contact front desk",
-            "no": "There is no reservation required"
-          }
-        },
-        "room_service": {
-          "f_name": "room service",
-          "flag": "no",
-          "message": {
-            "yes": "You can ask for room service spa from front desk",
-            "no": "There is no room service"
-          }
-        },
-        "billing": {
-          "f_name": "billing",
-          "flag": "no",
-          "message": {
-            "yes": "Spa bill can be added to your room bill. Ask for it at the time of booking",
-            "no": "Restaurant bill cannot be added to room bill. You will need to pay at the reservation"
-          }
-        },
-        "types": {
-          "f_name": "massage",
-          "flag": "yes",
-          "message": {
-            "yes": "Massage service is available",
-            "no": "There is no massage service"
-          },
-          "types": [
-            "Swedish massage",
-            "Deep tissue massage",
-            "Aromatherapy massage",
-            "Thai massage",
-            "Prenatal massage",
-            "Hot stone massage"
-          ]
-        },
-        "facials": {
-          "f_name": "facials",
-          "f_type": "f",
-          "flag": "yes",
-          "message": {
-            "yes": "Facials are available in spa",
-            "no": "Facials are not available in spa"
-          },
-          "types": [
-            "Deep cleansing facial",
-            "Anti-aging facial",
-            "LED light therapy",
-            "European facial"
-          ]
-        },
-        "body_treatments": {
-          "f_name": "body treatments",
-          "flag": "yes",
-          "message": {
-            "yes": "Body treatments are available at the spa",
-            "no": "Body treatments are not available at the spa"
-          },
-          "types": [
-            "Body scrub",
-            "Hydrating treatment"
-          ]
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": -1,
-          "message": {
-            "yes": "The charges for each treatment varies. We will let you know once you have chosen the treatment you are looking for"
-          }
-        }
-      },
-      {
-        "f_name": "laundry",
-        "f_type": "f",
-        "s_type": ["service"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Laundry facility available in hotel",
-            "no": "Laundry facility not available in hotel"
-          }
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0600",
-            "to": "1000"
-          },
-          "message": {
-            "yes": "Laundry is avialable from 0600 to 2100 ",
-            "no": "none"
-          }
-        },
-        "ironing": {
-          "f_name": "ironing",
-          "flag": "yes",
-          "message": {
-            "yes": "Iron box is available in your room",
-            "no": "Clothes ironing facilities not available in hotel"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": -1,
-          "message": {
-            "yes": "There are varying prices for the laundry. Please check the laundry charges in your room"
-          }
-        }
-      },
-      {
-        "f_name": "cab service",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "taxi",
-          "taxi service"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Cab service is available",
-            "no": "Cab service not available. You will have to use app based taxi services, like Uber"
-          }
-        },
-        "billing": {
-          "f_name": "billing",
-          "flag": "no",
-          "message": {
-            "yes": "Taxi is provided by the hotel and is part of your hotel package",
-            "no": "Taxi bill needs to be paid by the individual directly to the taxi driver"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "price": "20",
-          "flag": "yes",
-          "message": {
-            "yes": "The cab cost is <%= price %> per kilometer",
-            "no": "The price of the cab is included in your bill, if you have chosen it at the time of booking"
-          }
-        }
-      },
-      {
-        "f_name": "shuttle",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "hotel shuttle"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Shuttle service is available at the hotel",
-            "no": "No shuttle service available"
-          }
-        },
-        "radius": "4",
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "frequency": 60,
-          "period": [
-            "m",
-            "a",
-            "e",
-            "n"
-          ],
-          "time": {
-            "from": "0600",
-            "to": "1000"
-          },
-          "message": {
-            "yes": "The hotel provides a shuttle service that starts at 0600 in the morning until 1700 in the evening from the hotel entrance",
-            "no": "The hotel does not provide shuttle service"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": 200,
-          "message": {
-            "yes": "There is a charge of <%= price %> for the shuttle service",
-            "no": "The shuttle service is free to use for all the guests"
-          }
-        }
-      },
-      {
-        "f_name": "wifi",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "internet",
-          "data connection",
-          "wireless network",
-          "wireless"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Wifi is available in all the rooms",
-            "no": "Wifi is not available in the hotel"
-          }
-        },
-        "location": {
-          "location": "lobby",
-          "flag": "yes",
-          "message": {
-            "yes": "Wifi is available in all the premises of the hotel",
-            "no": "Wifi is not available in the lounge"
-          }
-        },
-        "password": {
-          "f_name": "password",
-          "flag": "yes",
-          "message": {
-            "yes": "Contact front desk for the wifi password",
-            "no": "none"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "message": {
-            "yes": "The wifi is free of cost",
-            "no": "none"
-          }
-        }
-      },
-      {
-        "f_name": "lounge",
-        "f_type": "f",
-        "s_type": ["service"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "This hotel has a lounge",
-            "no": "There is no lounge in the hotel"
-          }
-        }
-      },
-      {
-        "f_name": "parking",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "car parking",
-          "vehicle parking",
-          "two wheeler parking"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Parking space is available for hotel guests",
-            "no": "Parking is not available in the hotel"
-          }
-        },
-        "slots": {
-          "f_name": "available parking slots",
-          "flag": "yes",
-          "message": {
-            "yes": "The hotel provides two free car parking slots",
-            "no": "none"
-          }
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "parking time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0000",
-            "to": "0000"
-          },
-          "message": {
-            "yes": "The parking is available 24 by 7 ",
-            "no": "This parking has only night time parking facility"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "synonyms": [
-            "cost"
-          ],
-          "flag": "yes",
-          "price": 150,
-          "message": {
-            "yes": "The parking is free of cost",
-            "no": "none"
-          }
-        }
-      },
-      {
-        "f_name": "valet parking",
-        "f_type": "f",
-        "s_type": ["service"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "Valet parking is available",
-            "no": "Valet parking is not available"
-          }
-        }
-      },
-      {
-        "f_name": "car cleaning",
-        "f_type": "f",
-        "s_type": ["service"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "We provide car washing and cleaning facility. Contact front desk",
-            "no": "No car cleaning and washing facility available"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "synonyms": [
-            "cost"
-          ],
-          "flag": "yes",
-          "price": 150,
-          "message": {
-            "yes": "The clening of the car costs <%= price %>",
-            "no": "none"
-          }
-        }
-      },
-      {
-        "f_name": "car rent",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "car rental",
-          "renting a car",
-          "self drive cars"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "We provide self drive cars",
-            "no": "We do not provide self drive cars"
-          }
-        },
-        "price": {
-          "flag": "yes",
-          "price": "2000",
-          "message": {
-            "yes": "The cost of a single day rental is <%= price %>",
-            "no": "none"
-          }
-        },
-        "documents": {
-          "f_name": "documents",
-          "flag": "yes",
-          "synonyms": [
-            "papers",
-            "license",
-            "drivers license"
-          ],
-          "message": {
-            "yes": "We will need your drivers license and a photo identification",
-            "no": "No documents are required"
-          }
-        }
-      },
-      {
-        "f_name": "bicycle",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "cycle"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "We provide bicycle hiring facility",
-            "no": "No bicycle hiring facility available"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "synonyms": [
-            "cost"
-          ],
-          "flag": "yes",
-          "price": 100,
-          "message": {
-            "yes": "The price of renting a bicycle is 100",
-            "no": "none"
-          }
-        }
-      },
-      {
-        "f_name": "bike",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "scooter",
-          "motorbike",
-          "two wheeler",
-          "bike rental"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "We provide bike hiring facility",
-            "no": "No bike hiring facility available"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "synonyms": [
-            "cost"
-          ],
-          "flag": "yes",
-          "price": 1000,
-          "message": {
-            "yes": "The price of renting a bike is <%= price %> per day",
-            "no": "none"
-          }
-        },
-        "documents": {
-          "f_name": "documents",
-          "flag": "yes",
-          "synonyms": [
-            "papers",
-            "license",
-            "drivers license"
-          ],
-          "message": {
-            "yes": "We will need your drivers license and a photo identification",
-            "no": "No documents are required"
-          }
-        }
-      },
-      {
-        "f_name": "bar",
-        "f_type": "f",
-        "s_type": ["service", "order"],
-        "synonyms": [
-          "pub"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "We have an open bar in the hotel",
-            "no": "We do not have a bar in the hotel"
-          }
-        },
-        "room_service": {
-          "f_name": "room service",
-          "flag": "yes",
-          "message": {
-            "message_yes": "We can provide alcoholic beverages as room service",
-            "message_no": "We do not have room service for alcoholic beverages"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "synonyms": [
-            "cost"
-          ],
-          "flag": "yes",
-          "price": 1000,
-          "message": {
-            "yes": "The price of the alcohol is as per the charges mentioned in the bar",
-            "no": "none"
-          }
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "parking time"
-          ],
-          "flag": "24x7",
-          "time": {
-            "from": "0000",
-            "to": "0000"
-          },
-          "message": {
-            "yes": "The bar is open from 1800 to 2300 ",
-            "24x7": "The bar is open 24 by 7 all time",
-            "no": "none"
-          }
-        },
-        "billing": {
-          "f_name": "billing",
-          "flag": "no",
-          "message": {
-            "yes": "Alcohol bill can be added to your room bill. Ask at the bar to do so",
-            "no": "Alcohol bill cannot be added to room bill. You will need to pay at the bar"
-          }
-        },
-        "payment_method": {
-          "f_name": "card accepted",
-          "f_type": "f",
-          "synonyms": [
-            "credit card",
-            "debit card",
-            "bank card"
-          ],
-          "flag": "yes",
-          "message": {
-            "yes": "Credit card accepted for alcohol",
-            "no": "Credit card not accepted for alcohol"
-          }
-        }
-      },
-      {
-        "f_name": "dance floor",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "disco"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a disco available near the bar",
-            "no": "There is no dance floor in the hotel"
-          }
-        },
-        "timings": {
-          "f_name": "time",
-          "synonyms": [
-            "timings",
-            "disco time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "2100",
-            "to": "0300"
-          },
-          "message": {
-            "yes": "The disco is open from 2100 to 0300 ",
-            "no": "none"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": 200,
-          "message": {
-            "yes": "There is a charge of <%= price %> for the disco",
-            "no": "The disco is free to use for all the guests"
-          }
-        }
-      },
-      {
-        "f_name": "sight seeing",
-        "f_type": "f",
-        "s_type": ["service"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "We can arrange for a tourist guide",
-            "no": "We do not have an inhouse tourist guide. Please contact front desk for further help"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": 4000,
-          "price_per_house": 200,
-          "message": {
-            "yes": "The price per guide is 4000",
-            "no": "none"
-          }
-        },
-        "packages": {
-          "f_name": "packages",
-          "flag": "yes",
-          "message": {
-            "yes": "Please contact front desk for packages",
-            "no": "none"
-          }
-        }
-      },
-      {
-        "f_name": "conference rooms",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "meeting rooms",
-          "marriage halls"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "message_yes": "We have three conference rooms",
-            "message_no": "We do not have conference room facility in the hotel"
-          }
-        },
-        "count": {
-          "f_name": "count",
-          "flag": "yes",
-          "count": 3,
-          "message": {
-            "yes": "There are a total of 3 halls",
-            "no": "none"
-          }
-        },
-        "types": {
-          "f_name": "hall types",
-          "flag": "yes",
-          "capacity": [
-            {
-              "1": 2000,
-              "2": 1000,
-              "3": 500
-            }
-          ],
-          "message": {
-            "yes": "We have three hall types. The biggest one can hold a maximum of 2000 people.",
-            "no": "none"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": 50000,
-          "message": {
-            "yes": "The cost of the hall per day is 50000",
-            "no": "none"
-          }
-        },
-        "equipment": {
-          "f_name": "equipment",
-          "flag": "yes",
-          "equipment": [
-            "dias",
-            "speakers",
-            "microphone",
-            "chairs"
-          ],
-          "message": {
-            "yes": "The rooms are equipped with a dias, speakers, microphones and chairs",
-            "no": "none"
-          }
-        }
-      },
-      {
-        "f_name": "business lounge",
-        "f_type": "f",
-        "s_type": ["service"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "We have a business lounge in the hotel",
-            "no": "We do not have a business lounge in the hotel"
-          }
-        }
-      },
-      {
-        "f_name": "extra bed",
-        "f_type": "f",
-        "s_type": ["order"],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "We can provide an extra bed on request. Please contact front desk",
-            "no": "There is no extra bed facility in the hotel"
-          }
-        },
-        "price": {
-          "f_name": "price",
-          "flag": "yes",
-          "price": 500,
-          "message": {
-            "yes": "An extra bed is charged at <%= price %> per night",
-            "no": "There are no charges for an extra bed"
-          }
-        }
-      },
-      {
-        "f_name": "reception",
-        "f_type": "f",
-        "s_type": ["service"],
-        "synonyms": [
-          "front desk spoken languages",
-          "receptionist spoken languages"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "The hotel has a reception that is located at the entrance",
-            "no": "The hotel does not have a reception"
-          }
-        },
-        "spoken": {
-          "languages": [
-            "English",
-            "Hindi",
-            "Telugu",
-            "Tamil"
-          ],
-          "message": {
-            "yes": "The receptionist is conversant in <%= languages %>"
-          }
-        },
-        "timings": {
-          "f_name": "reception timing",
-          "synonyms": [
-            "timings",
-            "open time"
-          ],
-          "flag": "yes",
-          "time": {
-            "from": "0600",
-            "to": "2300"
-          },
-          "message": {
-            "yes": "The reception is open 24 by 7",
-            "no": "none"
-          }
-        }
-      },
-      {
-        "f_name": "tissues",
-        "f_type": "r",
-        "s_type": ["order"],
-        "count": 1,
-        "synonyms": [
-          "paper napkin",
-          "napkins"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There are paper napkins available in the room",
-            "no": "There are no napkins in the room. You can request for some from front desk"
-          }
-        }
-      },
-      {
-        "f_name": "waste basket",
-        "f_type": "r",
-        "s_type": ["order"],
-        "count": 1,
-        "synonyms": [
-          "dustbin"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a dustbin the room"
-          }
-        }
-      },
-      {
-        "f_name": "hangers",
-        "f_type": "r",
-        "s_type": ["order"],
+      "count": {
+        "f_name": "count",
+        "flag": "yes",
         "count": 3,
         "synonyms": [
-          "clothes hangers"
+          "how many pools"
         ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There are clothes hangers in the closet in your rooom"
-          }
+        "message": {
+          "yes": "There are <%= count %> pools in this hotel",
+          "no": "There are no pools in this hotel"
         }
       },
-      {
-        "f_name": "clock",
-        "f_type": "r",
-        "s_type": ["order"],
-        "count": 1,
+      "location": {
+        "f_name": "location",
+        "flag": "yes",
+        "message": {
+          "yes": "The main pool is on groud floor next to reception. The second pool is in the open area and the sky pool is on the top floor",
+          "no": "none"
+        }
+      },
+      "timings": {
+        "f_name": "time",
         "synonyms": [
-          "table clock",
-          "watch"
+          "timings",
+          "open time"
         ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a clock in the room"
-          }
-        }
-      },
-      {
-        "f_name": "towel",
-        "f_type": "r",
-        "s_type": ["order"],
-        "count": 2,
-        "synonyms": [
-          "bath towel"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There are towels in the in the bathroom"
-          }
-        }
-      },
-      {
-        "f_name": "soap",
-        "f_type": "r",
-        "s_type": ["order"],
-        "count": 1,
-        "synonyms": [
-          "bath soap",
-          "shower cream",
-          "shower liquid"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There are bathing soaps in the bathroom"
-          }
-        }
-      },
-      {
-        "f_name": "fridge",
-        "f_type": "r",
-        "s_type": ["service"],
-        "count": 1,
-        "synonyms": [
-          "refrigerator",
-          "cooler"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a fridge in the room",
-            "no": "There is no fridge in the room"
-          }
-        }
-      },
-      {
-        "f_name": "ac",
-        "f_type": "r",
-        "s_type": ["service"],
-        "count": 1,
-        "synonyms": [
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is an ac in the room",
-            "no": "There is no ac in the room"
-          }
-        }
-      },
-      {
-        "f_name": "iron box",
-        "f_type": "r",
-        "s_type": ["service"],
-        "count": 1,
-        "synonyms": ["ironing","iron","clothes ironing"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is an iron box in the room",
-            "no": "There is no iron box in the room"
-          }
-        }
-      },
-      {
-        "f_name": "bar",
-        "f_type": "r",
-        "s_type": ["service", "order"],
-        "count": 1,
-        "synonyms": ["mini bar"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a mini in the room. Note that the items in the mini bar will cost extra",
-            "no": "There is no mini bar in the room"
-          }
-        }
-      },
-      {
-        "f_name": "coffee machine",
-        "f_type": "r",
-        "s_type": ["service"],
-        "count": 1,
-        "synonyms": ["coffee","coffee brew","expresso machine"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a coffee machine in the room",
-            "no": "There is no coffee making machine in the room"
-          }
-        }
-      },
-      {
-        "f_name": "dish washer",
-        "f_type": "r",
-        "s_type": ["service"],
-        "count": 1,
-        "synonyms": [
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a dish washer in the room",
-            "no": "There is no dish washer in the room"
-          }
-        }
-      },
-      {
-        "f_name": "fan",
-        "f_type": "r",
-        "s_type": ["service"],
-        "count": 1,
-        "synonyms": [
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a fan in the room",
-            "no": "There is no fan in the room"
-          }
-        }
-      },
-      {
-        "f_name": "water",
-        "f_type": "r",
-        "s_type": ["order"],
-        "count": 1,
-        "synonyms": ["water bottle"
-        ],
-        "present": {
-          "flag": "yes",
-          "message": {
-            "yes": "There is a fan in the room",
-            "no": "There is no fan in the room"
-          }
-        }
-      },
-      {
-        "f_name":"menu",
-        "f_type":"m",
-        "s_type": ["order"],
-        "present":{
-          "flag":"yes",
-          "message":{
-            "yes":"The menu is available in your room. Please refer to it to order food",
-            "no":"The hotel does not have a kitchen"
-          }
+        "flag": "yes",
+        "time": {
+          "from": "0600",
+          "to": "2300"
         },
-        "menu":[
-          {
-            "f_type":"m",
-            "category":"Starters", "items":[
-              {"name":"Gobi manchuria", "synonyms":[], "cuisine": "North Indian", "description":"", "price":"150"},
-              {"name":"Paneer tikka", "synonyms":[], "cuisine": "North Indian", "description":"", "price":"170"},
-              {"name":"Pakora", "synonyms":[], "cuisine": "Pan Indian", "description":"", "price":"170"}
-            ]
-          },
-          {
-            "f_type":"m",
-            "category":"Drinks", "items":[
-              {"name":"Lime Soda", "synonyms":[], "description":"", "price":"150"},
-              {"name":"Paneer tikka", "synonyms":[], "description":"", "price":"170"}
-            ]
-          },
-          {
-            "f_type":"m",
-            "category":"Main Course", "items":[
-              {"name":"Butter paneer masala", "synonyms":[], "cuisine": "North Indian", "description":"", "price":"150"},
-              {"name":"Paneer tikka", "synonyms":[], "cuisine":"North Indian", "description":"", "price":"170"},
-              {"name":"Bisi belle baath", "synonyms":[], "cuisine":"South Indian", "description":"", "price":200}
-            ]
-          }
+        "message": {
+          "yes": "The adults pool is open from morning <%= from %> to <%= to %> and again in the evening 0600 to 2200",
+          "no": "none"
+        }
+      },
+      "shower": {
+        "f_name": "shower",
+        "flag": "yes",
+        "message": {
+          "yes": "There is a shower next to the pool",
+          "no": "You will need to take a shower in the bathroom near the pool"
+        }
+      },
+      "bathroom": {
+        "f_name": "connected bathroom",
+        "flag": "yes",
+        "message": {
+          "yes": "There is a bathroom near the pool",
+          "no": "There is no bathroom near the pool"
+        }
+      },
+      "age": {
+        "f_name": "age group",
+        "from": 15,
+        "to": 60,
+        "message": {
+          "yes": "The pool is suitable for kids between 5 and 15 years of age",
+          "no": "none"
+        }
+      },
+      "booking": {
+        "f_name": "reservation",
+        "flag": "no",
+        "message": {
+          "yes": "You will need to register with the front desk to book a slot",
+          "no": "There is no registration required"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": 200,
+        "message": {
+          "yes": "There is a charge of <%= price %> for using the adults pool",
+          "no": "The adults pool is free to use for all the guests"
+        }
+      }
+    },
+    {
+      "f_name": "room service",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "room delivery"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Room service is available",
+          "no": "There is no room service"
+        }
+      },
+      "price": {
+        "f_name": "service charge",
+        "price": 50,
+        "flag": "yes",
+        "message": {
+          "yes": "You are charged an amount of <%= price %> for room service",
+          "no": "There are no room service charges"
+        }
+      },
+      "time": {
+        "f_name": "service time",
+        "time": 30,
+        "flag": "yes",
+        "message": {
+          "yes": "It takes approximately 30 minutes for ordering food to room service",
+          "no": "none"
+        }
+      },
+      "order_process": {
+        "f_name": "how to order",
+        "message": {
+          "yes": "Order thru me or call #123",
+          "no": "none"
+        }
+      },
+      "billing": {
+        "f_name": "billed to room",
+        "synonyms": [
+          "payment mode",
+          "how to pay for room service"
+        ],
+        "flag": "yes",
+        "message": {
+          "yes": "Restaurant bill can be added to your room bill. Ask at the restaurant to do so",
+          "no": "Restaurant bill cannot be added to room bill. You will need to pay at the reservation"
+        }
+      }
+    },
+    {
+      "f_name": "restaurant",
+      "f_type": "f",
+      "s_type": [
+        "order",
+        "facility"
+      ],
+      "synonyms": [
+        "eat out",
+        "hotel food"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is an inhouse restaurant in this hotel",
+          "no": "There is no reservation in this hotel"
+        }
+      },
+      "timings": {
+        "f_name": "time",
+        "synonyms": [
+          "timings",
+          "open time"
+        ],
+        "flag": "yes",
+        "time": {
+          "from": "0600",
+          "to": "2300"
+        },
+        "message": {
+          "yes": "The restaurant is open from morning 0600 to 1100 and again in the evening 0600 to 2200",
+          "no": "none"
+        }
+      },
+      "reservation": {
+        "f_name": "reservation",
+        "flag": "no",
+        "message": {
+          "yes": "You will need to book a table for the restaurant",
+          "no": "You can walk-in. There is no registration required"
+        }
+      },
+      "take_away": {
+        "f_name": "take away",
+        "synonyms": [
+          "takeaway possible",
+          "parcel"
+        ],
+        "flag": "yes",
+        "message": {
+          "yes": "Takeway of food is possible. Ask at the reservation",
+          "no": "Takeway of food is not possible. Ask for options at restaurant"
+        }
+      },
+      "cuisines": {
+        "f_name": "cuisines",
+        "f_type": "f",
+        "s_type": [
+          "none"
+        ],
+        "synonyms": [
+          "menu type",
+          "food type"
+        ],
+        "flag": "yes",
+        "cuisines": [
+          "South Indian",
+          "North Indian",
+          "Thai",
+          "Kerala",
+          "Andhra",
+          "Continental",
+          "Odiya",
+          "Jain",
+          "Marathi"
+        ]
+      },
+      "count": {
+        "f_name": "number of restaurants",
+        "synonyms": [
+          "restaurants count"
+        ],
+        "flag": "yes",
+        "count": "2",
+        "message": {
+          "yes": "There are total of <%= count %> restaurants in this hotel"
+        }
+      },
+      "location": {
+        "flag": "yes",
+        "message": {
+          "yes": "The restaurant <%= name %> is located at ground floor, the other restaurant is located on the top floor"
+        }
+      }
+    },
+    {
+      "f_name": "breakfast",
+      "f_type": "f",
+      "s_type": [
+        "order",
+        "facility"
+      ],
+      "synonyms": [
+        "tiffin"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Breakfast is available at this hotel between 06:00AM to 10:00 AM",
+          "no": "Breakfast is not available at this hotel"
+        }
+      },
+      "timings": {
+        "f_name": "time",
+        "synonyms": [
+          "timings",
+          "open time"
+        ],
+        "flag": "yes",
+        "time": {
+          "from": "0600",
+          "to": "1000"
+        },
+        "message": {
+          "yes": "Breakfast is avialable from 0600 to 1100 in the morning in the restaurant",
+          "no": "none"
+        }
+      },
+      "location": {
+        "f_name": "breakfast location",
+        "flag": "yes",
+        "message": {
+          "yes": "Breakfast is available at restaurant or room service",
+          "no": "none"
+        }
+      },
+      "room_service": {
+        "f_name": "breakfast room service",
+        "flag": "yes",
+        "message": {
+          "yes": "Breakfast can be served to your room",
+          "no": "There is no room service for breakfast"
+        }
+      },
+      "price": {
+        "f_name": "breakfast charge",
+        "synonyms": [
+          "is breakfast free",
+          "breakfast cost"
+        ],
+        "flag": "yes",
+        "price": 250,
+        "message": {
+          "yes": "Breakfast costs <%= price %> per person or it could be included in your room fees.",
+          "no": "none"
+        }
+      },
+      "billing": {
+        "f_name": "billed to room",
+        "synonyms": [
+          "payment mode",
+          "how to pay for room service"
+        ],
+        "flag": "yes",
+        "message": {
+          "yes": "Restaurant bill can be added to your room bill. Ask at the restaurant to do so",
+          "no": "Restaurant bill cannot be added to room bill. You will need to pay at the reservation"
+        }
+      },
+      "take_away": {
+        "f_name": "take away",
+        "synonyms": [
+          "takeaway possible",
+          "parcel"
+        ],
+        "flag": "yes",
+        "message": {
+          "yes": "Takeway of food is possible. Ask at the reservation",
+          "no": "Takeway of food is not possible. Ask for options at restaurant"
+        }
+      },
+      "cuisines": {
+        "f_name": "cuisines",
+        "synonyms": [
+          "menu type",
+          "food type"
+        ],
+        "flag": "yes",
+        "cuisines": [
+          "South Indian",
+          "North Indian",
+          "Continental",
+          "Bengali",
+          "Gujrathi"
         ]
       }
-    ]
-  }
+    },
+    {
+      "f_name": "cooking",
+      "f_type": "k",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "cooking facilities",
+        "utilsils"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "The hotel does provide cooking facilities. Please let me know what you would like to know more about",
+          "no": "There are no cooking facilities available in this hotel"
+        }
+      }
+    },
+    {
+      "f_name": "bottle steralizer",
+      "f_type": "k",
+      "s_type": [
+        "none"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Milk bottle steralization is available at the restaurant kitchen",
+          "no": "Milk bottle steralization is not available"
+        }
+      }
+    },
+    {
+      "f_name": "microwave",
+      "f_type": "k",
+      "s_type": [
+        "facility"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Microwave is available in the restaurant kitchen",
+          "no": "Microwave is not available"
+        }
+      }
+    },
+    {
+      "f_name": "oven",
+      "f_type": "k",
+      "s_type": [
+        "facility"
+      ],
+      "present": {
+        "flag": "no",
+        "message": {
+          "yes": "Oven is available in the restaurant kitchen",
+          "no": "Oven is not available"
+        }
+      }
+    },
+    {
+      "f_name": "cutlery",
+      "f_type": "k",
+      "s_type": [
+        "facility",
+        "order"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Kitchen cutlery is available in the restaurant kitchen",
+          "no": "Kitchen cutlery is not available"
+        }
+      }
+    },
+    {
+      "f_name": "salt",
+      "f_type": "k",
+      "s_type": [
+        "order"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Salt is available in the restaurant kitchen",
+          "no": "Salt is not available"
+        }
+      }
+    },
+    {
+      "f_name": "sugar",
+      "f_type": "k",
+      "s_type": [
+        "order"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Sugar is available in the restaurant kitchen",
+          "no": "Sugar is not available"
+        }
+      }
+    },
+    {
+      "f_name": "oil",
+      "f_type": "k",
+      "s_type": [
+        "order"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Cooking oil  is available in the restaurant kitchen",
+          "no": "Cooking oil is not available"
+        }
+      }
+    },
+    {
+      "f_name": "storage room",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "storage space",
+        "luggage storage"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a storage room available in the hotel. Please contact front desk",
+          "no": "There is no storage room in the hotel"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": 40,
+        "message": {
+          "yes": "The price per night is 40",
+          "no": "none"
+        }
+      },
+      "size": {
+        "f_name": "luggage dimension",
+        "synonyms": [
+          "maximum dimension",
+          "suitcase size"
+        ],
+        "flag": "yes",
+        "message": {
+          "yes": "The maximum dimension is 40x50 bag",
+          "no": "none"
+        }
+      },
+      "oversize": {
+        "f_name": "oversize luggage",
+        "synonyms": [
+          "big luggage"
+        ],
+        "flag": "no",
+        "message": {
+          "yes": "You can storage over sized luggage as well",
+          "no": "Please contact the hotel reception for storing your oversized luggage"
+        }
+      }
+    },
+    {
+      "f_name": "sauna",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a sauna in the hotel. For reservations, contact front desk",
+          "no": "There is no sauna in the hotel"
+        }
+      },
+      "location": {
+        "f_name": "location",
+        "flag": "yes",
+        "message": {
+          "yes": "Next to cafe on the 4th floor",
+          "no": "none"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "message": {
+          "yes": "The cost of 1hr in sauna is <%= price %>",
+          "no": "none"
+        },
+        "price": 50
+      },
+      "timings": {
+        "f_name": "time",
+        "synonyms": [
+          "timings",
+          "open time"
+        ],
+        "flag": "yes",
+        "time": {
+          "from": "0600",
+          "to": "1000"
+        },
+        "message": {
+          "yes": "Sauna is avialable from <%= from> to <%= to %>",
+          "no": "none"
+        }
+      },
+      "reservation": {
+        "f_name": "reservation",
+        "flag": "yes",
+        "message": {
+          "yes": "You need to reserve your slot for the sauna. Contact front desk",
+          "no": "There is no reservation required"
+        }
+      }
+    },
+    {
+      "f_name": "spa",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "massage",
+        "facials",
+        "body treatments"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a spa in the hotel. We have body massage, facials, body treatments available",
+          "no": "There is no spa in the hotel"
+        }
+      },
+      "location": {
+        "f_name": "location",
+        "flag": "yes",
+        "message": {
+          "yes": "On the ground floor, next to front desk",
+          "no": "none"
+        }
+      },
+      "timings": {
+        "f_name": "time",
+        "synonyms": [
+          "timings",
+          "open time"
+        ],
+        "flag": "yes",
+        "time": {
+          "from": "0600",
+          "to": "1000"
+        },
+        "message": {
+          "yes": "Spa is avialable from 0600 to 2100 ",
+          "no": "none"
+        }
+      },
+      "reservation": {
+        "f_name": "reservation",
+        "flag": "yes",
+        "message": {
+          "yes": "You need to reserve your slot for the spa. Contact front desk",
+          "no": "There is no reservation required"
+        }
+      },
+      "room_service": {
+        "f_name": "room service",
+        "flag": "no",
+        "message": {
+          "yes": "You can ask for room service spa from front desk",
+          "no": "There is no room service"
+        }
+      },
+      "billing": {
+        "f_name": "billing",
+        "flag": "no",
+        "message": {
+          "yes": "Spa bill can be added to your room bill. Ask for it at the time of booking",
+          "no": "Restaurant bill cannot be added to room bill. You will need to pay at the reservation"
+        }
+      },
+      "types": {
+        "f_name": "massage",
+        "flag": "yes",
+        "message": {
+          "yes": "Massage service is available",
+          "no": "There is no massage service"
+        },
+        "types": [
+          "Swedish massage",
+          "Deep tissue massage",
+          "Aromatherapy massage",
+          "Thai massage",
+          "Prenatal massage",
+          "Hot stone massage"
+        ]
+      },
+      "facials": {
+        "f_name": "facials",
+        "f_type": "f",
+        "flag": "yes",
+        "message": {
+          "yes": "Facials are available in spa",
+          "no": "Facials are not available in spa"
+        },
+        "types": [
+          "Deep cleansing facial",
+          "Anti-aging facial",
+          "LED light therapy",
+          "European facial"
+        ]
+      },
+      "body_treatments": {
+        "f_name": "body treatments",
+        "flag": "yes",
+        "message": {
+          "yes": "Body treatments are available at the spa",
+          "no": "Body treatments are not available at the spa"
+        },
+        "types": [
+          "Body scrub",
+          "Hydrating treatment"
+        ]
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": -1,
+        "message": {
+          "yes": "The charges for each treatment varies. We will let you know once you have chosen the treatment you are looking for"
+        }
+      }
+    },
+    {
+      "f_name": "laundry",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Laundry facility available in hotel",
+          "no": "Laundry facility not available in hotel"
+        }
+      },
+      "timings": {
+        "f_name": "time",
+        "synonyms": [
+          "timings",
+          "open time"
+        ],
+        "flag": "yes",
+        "time": {
+          "from": "0600",
+          "to": "1000"
+        },
+        "message": {
+          "yes": "Laundry is avialable from 0600 to 2100 ",
+          "no": "none"
+        }
+      },
+      "ironing": {
+        "f_name": "ironing",
+        "flag": "yes",
+        "message": {
+          "yes": "Iron box is available in your room",
+          "no": "Clothes ironing facilities not available in hotel"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": -1,
+        "message": {
+          "yes": "There are varying prices for the laundry. Please check the laundry charges in your room"
+        }
+      }
+    },
+    {
+      "f_name": "cab service",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "taxi",
+        "taxi service"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Cab service is available",
+          "no": "Cab service not available. You will have to use app based taxi services, like Uber"
+        }
+      },
+      "billing": {
+        "f_name": "billing",
+        "flag": "no",
+        "message": {
+          "yes": "Taxi is provided by the hotel and is part of your hotel package",
+          "no": "Taxi bill needs to be paid by the individual directly to the taxi driver"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "price": "20",
+        "flag": "yes",
+        "message": {
+          "yes": "The cab cost is <%= price %> per kilometer",
+          "no": "The price of the cab is included in your bill, if you have chosen it at the time of booking"
+        }
+      }
+    },
+    {
+      "f_name": "shuttle",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "hotel shuttle"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Shuttle service is available at the hotel",
+          "no": "No shuttle service available"
+        }
+      },
+      "radius": "4",
+      "timings": {
+        "f_name": "time",
+        "synonyms": [
+          "timings",
+          "open time"
+        ],
+        "flag": "yes",
+        "frequency": 60,
+        "period": [
+          "m",
+          "a",
+          "e",
+          "n"
+        ],
+        "time": {
+          "from": "0600",
+          "to": "1000"
+        },
+        "message": {
+          "yes": "The hotel provides a shuttle service that starts at 0600 in the morning until 1700 in the evening from the hotel entrance",
+          "no": "The hotel does not provide shuttle service"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": 200,
+        "message": {
+          "yes": "There is a charge of <%= price %> for the shuttle service",
+          "no": "The shuttle service is free to use for all the guests"
+        }
+      }
+    },
+    {
+      "f_name": "wifi",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "internet",
+        "data connection",
+        "wireless network",
+        "wireless"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Wifi is available in all the rooms",
+          "no": "Wifi is not available in the hotel"
+        }
+      },
+      "location": {
+        "location": "lobby",
+        "flag": "yes",
+        "message": {
+          "yes": "Wifi is available in all the premises of the hotel",
+          "no": "Wifi is not available in the lounge"
+        }
+      },
+      "password": {
+        "f_name": "password",
+        "flag": "yes",
+        "message": {
+          "yes": "Contact front desk for the wifi password",
+          "no": "none"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "message": {
+          "yes": "The wifi is free of cost",
+          "no": "none"
+        }
+      }
+    },
+    {
+      "f_name": "lounge",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "This hotel has a lounge",
+          "no": "There is no lounge in the hotel"
+        }
+      }
+    },
+    {
+      "f_name": "parking",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "car parking",
+        "vehicle parking",
+        "two wheeler parking"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Parking space is available for hotel guests",
+          "no": "Parking is not available in the hotel"
+        }
+      },
+      "slots": {
+        "f_name": "available parking slots",
+        "flag": "yes",
+        "message": {
+          "yes": "The hotel provides two free car parking slots",
+          "no": "none"
+        }
+      },
+      "timings": {
+        "f_name": "time",
+        "synonyms": [
+          "timings",
+          "parking time"
+        ],
+        "flag": "yes",
+        "time": {
+          "from": "0000",
+          "to": "0000"
+        },
+        "message": {
+          "yes": "The parking is available 24 by 7 ",
+          "no": "This parking has only night time parking facility"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "synonyms": [
+          "cost"
+        ],
+        "flag": "yes",
+        "price": 150,
+        "message": {
+          "yes": "The parking is free of cost",
+          "no": "none"
+        }
+      }
+    },
+    {
+      "f_name": "valet parking",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "Valet parking is available",
+          "no": "Valet parking is not available"
+        }
+      }
+    },
+    {
+      "f_name": "car cleaning",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "We provide car washing and cleaning facility. Contact front desk",
+          "no": "No car cleaning and washing facility available"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "synonyms": [
+          "cost"
+        ],
+        "flag": "yes",
+        "price": 150,
+        "message": {
+          "yes": "The clening of the car costs <%= price %>",
+          "no": "none"
+        }
+      }
+    },
+    {
+      "f_name": "car rent",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "car rental",
+        "renting a car",
+        "self drive cars"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "We provide self drive cars",
+          "no": "We do not provide self drive cars"
+        }
+      },
+      "price": {
+        "flag": "yes",
+        "price": "2000",
+        "message": {
+          "yes": "The cost of a single day rental is <%= price %>",
+          "no": "none"
+        }
+      },
+      "documents": {
+        "f_name": "documents",
+        "flag": "yes",
+        "synonyms": [
+          "papers",
+          "license",
+          "drivers license"
+        ],
+        "message": {
+          "yes": "We will need your drivers license and a photo identification",
+          "no": "No documents are required"
+        }
+      }
+    },
+    {
+      "f_name": "bicycle",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "cycle"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "We provide bicycle hiring facility",
+          "no": "No bicycle hiring facility available"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "synonyms": [
+          "cost"
+        ],
+        "flag": "yes",
+        "price": 100,
+        "message": {
+          "yes": "The price of renting a bicycle is 100",
+          "no": "none"
+        }
+      }
+    },
+    {
+      "f_name": "bike",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "scooter",
+        "motorbike",
+        "two wheeler",
+        "bike rental"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "We provide bike hiring facility",
+          "no": "No bike hiring facility available"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "synonyms": [
+          "cost"
+        ],
+        "flag": "yes",
+        "price": 1000,
+        "message": {
+          "yes": "The price of renting a bike is <%= price %> per day",
+          "no": "none"
+        }
+      },
+      "documents": {
+        "f_name": "documents",
+        "flag": "yes",
+        "synonyms": [
+          "papers",
+          "license",
+          "drivers license"
+        ],
+        "message": {
+          "yes": "We will need your drivers license and a photo identification",
+          "no": "No documents are required"
+        }
+      }
+    },
+    {
+      "f_name": "bar",
+      "f_type": "f",
+      "s_type": [
+        "facility",
+        "order"
+      ],
+      "synonyms": [
+        "pub"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "We have an open bar in the hotel",
+          "no": "We do not have a bar in the hotel"
+        }
+      },
+      "room_service": {
+        "f_name": "room service",
+        "flag": "yes",
+        "message": {
+          "message_yes": "We can provide alcoholic beverages as room service",
+          "message_no": "We do not have room service for alcoholic beverages"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "synonyms": [
+          "cost"
+        ],
+        "flag": "yes",
+        "price": 1000,
+        "message": {
+          "yes": "The price of the alcohol is as per the charges mentioned in the bar",
+          "no": "none"
+        }
+      },
+      "timings": {
+        "f_name": "time",
+        "synonyms": [
+          "timings",
+          "parking time"
+        ],
+        "flag": "24x7",
+        "time": {
+          "from": "0000",
+          "to": "0000"
+        },
+        "message": {
+          "yes": "The bar is open from 1800 to 2300 ",
+          "24x7": "The bar is open 24 by 7 all time",
+          "no": "none"
+        }
+      },
+      "billing": {
+        "f_name": "billing",
+        "flag": "no",
+        "message": {
+          "yes": "Alcohol bill can be added to your room bill. Ask at the bar to do so",
+          "no": "Alcohol bill cannot be added to room bill. You will need to pay at the bar"
+        }
+      },
+      "payment_method": {
+        "f_name": "card accepted",
+        "f_type": "f",
+        "synonyms": [
+          "credit card",
+          "debit card",
+          "bank card"
+        ],
+        "flag": "yes",
+        "message": {
+          "yes": "Credit card accepted for alcohol",
+          "no": "Credit card not accepted for alcohol"
+        }
+      }
+    },
+    {
+      "f_name": "dance floor",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "disco"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a disco available near the bar",
+          "no": "There is no dance floor in the hotel"
+        }
+      },
+      "timings": {
+        "f_name": "time",
+        "synonyms": [
+          "timings",
+          "disco time"
+        ],
+        "flag": "yes",
+        "time": {
+          "from": "2100",
+          "to": "0300"
+        },
+        "message": {
+          "yes": "The disco is open from 2100 to 0300 ",
+          "no": "none"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": 200,
+        "message": {
+          "yes": "There is a charge of <%= price %> for the disco",
+          "no": "The disco is free to use for all the guests"
+        }
+      }
+    },
+    {
+      "f_name": "sight seeing",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "We can arrange for a tourist guide",
+          "no": "We do not have an inhouse tourist guide. Please contact front desk for further help"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": 4000,
+        "price_per_house": 200,
+        "message": {
+          "yes": "The price per guide is 4000",
+          "no": "none"
+        }
+      },
+      "packages": {
+        "f_name": "packages",
+        "flag": "yes",
+        "message": {
+          "yes": "Please contact front desk for packages",
+          "no": "none"
+        }
+      }
+    },
+    {
+      "f_name": "conference rooms",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "meeting rooms",
+        "marriage halls"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "message_yes": "We have three conference rooms",
+          "message_no": "We do not have conference room facility in the hotel"
+        }
+      },
+      "count": {
+        "f_name": "count",
+        "flag": "yes",
+        "count": 3,
+        "message": {
+          "yes": "There are a total of 3 halls",
+          "no": "none"
+        }
+      },
+      "types": {
+        "f_name": "hall types",
+        "flag": "yes",
+        "capacity": [
+          {
+            "1": 2000,
+            "2": 1000,
+            "3": 500
+          }
+        ],
+        "message": {
+          "yes": "We have three hall types. The biggest one can hold a maximum of 2000 people.",
+          "no": "none"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": 50000,
+        "message": {
+          "yes": "The cost of the hall per day is 50000",
+          "no": "none"
+        }
+      },
+      "equipment": {
+        "f_name": "equipment",
+        "flag": "yes",
+        "equipment": [
+          "dias",
+          "speakers",
+          "microphone",
+          "chairs"
+        ],
+        "message": {
+          "yes": "The rooms are equipped with a dias, speakers, microphones and chairs",
+          "no": "none"
+        }
+      }
+    },
+    {
+      "f_name": "business lounge",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "We have a business lounge in the hotel",
+          "no": "We do not have a business lounge in the hotel"
+        }
+      }
+    },
+    {
+      "f_name": "extra bed",
+      "f_type": "f",
+      "s_type": [
+        "order"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "We can provide an extra bed on request. Please contact front desk",
+          "no": "There is no extra bed facility in the hotel"
+        }
+      },
+      "price": {
+        "f_name": "price",
+        "flag": "yes",
+        "price": 500,
+        "message": {
+          "yes": "An extra bed is charged at <%= price %> per night",
+          "no": "There are no charges for an extra bed"
+        }
+      }
+    },
+    {
+      "f_name": "reception",
+      "f_type": "f",
+      "s_type": [
+        "facility"
+      ],
+      "synonyms": [
+        "front desk spoken languages",
+        "receptionist spoken languages"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "The hotel has a reception that is located at the entrance",
+          "no": "The hotel does not have a reception"
+        }
+      },
+      "spoken": {
+        "languages": [
+          "English",
+          "Hindi",
+          "Telugu",
+          "Tamil"
+        ],
+        "message": {
+          "yes": "The receptionist is conversant in <%= languages %>"
+        }
+      },
+      "timings": {
+        "f_name": "reception timing",
+        "synonyms": [
+          "timings",
+          "open time"
+        ],
+        "flag": "yes",
+        "time": {
+          "from": "0600",
+          "to": "2300"
+        },
+        "message": {
+          "yes": "The reception is open 24 by 7",
+          "no": "none"
+        }
+      }
+    },
+    {
+      "f_name": "tissues",
+      "f_type": "r",
+      "s_type": [
+        "order"
+      ],
+      "count": 1,
+      "synonyms": [
+        "paper napkin",
+        "napkins"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There are paper napkins available in the room",
+          "no": "There are no napkins in the room. You can request for some from front desk"
+        }
+      }
+    },
+    {
+      "f_name": "waste basket",
+      "f_type": "r",
+      "s_type": [
+        "order"
+      ],
+      "count": 1,
+      "synonyms": [
+        "dustbin"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a dustbin the room"
+        }
+      }
+    },
+    {
+      "f_name": "hangers",
+      "f_type": "r",
+      "s_type": [
+        "order"
+      ],
+      "count": 3,
+      "synonyms": [
+        "clothes hangers"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There are clothes hangers in the closet in your rooom"
+        }
+      }
+    },
+    {
+      "f_name": "clock",
+      "f_type": "r",
+      "s_type": [
+        "order"
+      ],
+      "count": 1,
+      "synonyms": [
+        "table clock",
+        "watch"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a clock in the room"
+        }
+      }
+    },
+    {
+      "f_name": "towel",
+      "f_type": "r",
+      "s_type": [
+        "order"
+      ],
+      "count": 2,
+      "synonyms": [
+        "bath towel"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There are towels in the in the bathroom"
+        }
+      }
+    },
+    {
+      "f_name": "soap",
+      "f_type": "r",
+      "s_type": [
+        "order"
+      ],
+      "count": 1,
+      "synonyms": [
+        "bath soap",
+        "shower cream",
+        "shower liquid"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There are bathing soaps in the bathroom"
+        }
+      }
+    },
+    {
+      "f_name": "fridge",
+      "f_type": "r",
+      "s_type": [
+        "facility"
+      ],
+      "count": 1,
+      "synonyms": [
+        "refrigerator",
+        "cooler"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a fridge in the room",
+          "no": "There is no fridge in the room"
+        }
+      }
+    },
+    {
+      "f_name": "ac",
+      "f_type": "r",
+      "s_type": [
+        "facility"
+      ],
+      "count": 1,
+      "synonyms": [],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is an ac in the room",
+          "no": "There is no ac in the room"
+        }
+      }
+    },
+    {
+      "f_name": "iron box",
+      "f_type": "r",
+      "s_type": [
+        "facility"
+      ],
+      "count": 1,
+      "synonyms": [
+        "ironing",
+        "iron",
+        "clothes ironing"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is an iron box in the room",
+          "no": "There is no iron box in the room"
+        }
+      }
+    },
+    {
+      "f_name": "bar",
+      "f_type": "r",
+      "s_type": [
+        "facility",
+        "order"
+      ],
+      "count": 1,
+      "synonyms": [
+        "mini bar"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a mini in the room. Note that the items in the mini bar will cost extra",
+          "no": "There is no mini bar in the room"
+        }
+      }
+    },
+    {
+      "f_name": "coffee machine",
+      "f_type": "r",
+      "s_type": [
+        "facility"
+      ],
+      "count": 1,
+      "synonyms": [
+        "coffee",
+        "coffee brew",
+        "expresso machine"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a coffee machine in the room",
+          "no": "There is no coffee making machine in the room"
+        }
+      }
+    },
+    {
+      "f_name": "dish washer",
+      "f_type": "r",
+      "s_type": [
+        "facility"
+      ],
+      "count": 1,
+      "synonyms": [],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a dish washer in the room",
+          "no": "There is no dish washer in the room"
+        }
+      }
+    },
+    {
+      "f_name": "fan",
+      "f_type": "r",
+      "s_type": [
+        "facility"
+      ],
+      "count": 1,
+      "synonyms": [],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a fan in the room",
+          "no": "There is no fan in the room"
+        }
+      }
+    },
+    {
+      "f_name": "water",
+      "f_type": "r",
+      "s_type": [
+        "order"
+      ],
+      "count": 1,
+      "synonyms": [
+        "water bottle"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "There is a fan in the room",
+          "no": "There is no fan in the room"
+        }
+      }
+    },
+    {
+      "f_name": "menu",
+      "f_type": "m",
+      "s_type": [
+        "order"
+      ],
+      "present": {
+        "flag": "yes",
+        "message": {
+          "yes": "The menu is available in your room. Please refer to it to order food",
+          "no": "The hotel does not have a kitchen"
+        }
+      },
+      "menu": [
+        {
+          "f_type": "m",
+          "category": "Starters",
+          "items": [
+            {
+              "name": "Gobi manchuria",
+              "synonyms": [],
+              "cuisine": "North Indian",
+              "description": "",
+              "price": "150"
+            },
+            {
+              "name": "Paneer tikka",
+              "synonyms": [],
+              "cuisine": "North Indian",
+              "description": "",
+              "price": "170"
+            },
+            {
+              "name": "Pakora",
+              "synonyms": [],
+              "cuisine": "Pan Indian",
+              "description": "",
+              "price": "170"
+            }
+          ]
+        },
+        {
+          "f_type": "m",
+          "category": "Drinks",
+          "items": [
+            {
+              "name": "Lime Soda",
+              "synonyms": [],
+              "description": "",
+              "price": "150"
+            },
+            {
+              "name": "Paneer tikka",
+              "synonyms": [],
+              "description": "",
+              "price": "170"
+            }
+          ]
+        },
+        {
+          "f_type": "m",
+          "category": "Main Course",
+          "items": [
+            {
+              "name": "Butter paneer masala",
+              "synonyms": [],
+              "cuisine": "North Indian",
+              "description": "",
+              "price": "150"
+            },
+            {
+              "name": "Paneer tikka",
+              "synonyms": [],
+              "cuisine": "North Indian",
+              "description": "",
+              "price": "170"
+            },
+            {
+              "name": "Bisi belle baath",
+              "synonyms": [],
+              "cuisine": "South Indian",
+              "description": "",
+              "price": 200
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+}

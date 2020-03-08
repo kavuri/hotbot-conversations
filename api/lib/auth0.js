@@ -32,10 +32,9 @@ module.exports.authenticate = jwt({
 });
 
 module.exports.authorize = (permission) => {
-    console.log('permissions=', permission);
     return (req, res, next) => {
         const { permissions } = req.user;
         if (permissions.includes(permission)) return next();
-        res.status(403).send({ error: 'user does not have permission to api' });
+        res.status(403).send({ error: 'user does not have permission for api' });
     }
 }

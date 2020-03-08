@@ -38,58 +38,6 @@
 	{
 		"data": [
 			{
-				"text": "how can I use ",
-				"userDefined": false
-			},
-			{
-				"text": "equipment_slot",
-				"userDefined": true,
-				"alias": "equipment_slot",
-				"meta": "@equipment_types"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "I am unable to make ",
-				"userDefined": false
-			},
-			{
-				"text": "equipment_slot",
-				"userDefined": true,
-				"alias": "equipment_slot",
-				"meta": "@equipment_types"
-			},
-			{
-				"text": " work please help",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "help me with using ",
-				"userDefined": false
-			},
-			{
-				"text": "equipment_slot",
-				"userDefined": true,
-				"alias": "equipment_slot",
-				"meta": "@equipment_types"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
 				"text": "does this room have a ",
 				"userDefined": false
 			},

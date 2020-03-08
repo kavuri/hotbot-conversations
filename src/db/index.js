@@ -14,7 +14,7 @@ const NODE_ENV = process.env.NODE_ENV;
 console.log('init mongo');
 mongoose.Promise = global.Promise;
 var config = require('../config').db.MongoDb;
-var mongo_url = config.uri;
+var mongo_url = encodeURI(config.uri);
 
 console.log('mongo url=' + mongo_url);
 

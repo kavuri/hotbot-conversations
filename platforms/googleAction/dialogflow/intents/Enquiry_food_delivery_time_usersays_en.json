@@ -32,6 +32,16 @@
 	{
 		"data": [
 			{
+				"text": "is it going to take more time to deliver the food?",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "how much time does it take to get my food order delivered",
 				"userDefined": false
 			}

@@ -1,5 +1,17 @@
 {
 	"name": "Enquiry_hotel_floors",
 	"auto": true,
-	"webhookUsed": true
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "room_count",
+					"value": "$room_count",
+					"dataType": "@sys.number-integer"
+				}
+			]
+		}
+	]
 }

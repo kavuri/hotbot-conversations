@@ -16,18 +16,18 @@ var _ = require('lodash'),
  */
 
 var DeviceSchema = new mongoose.Schema({
-     device_id: {type: String, required: true, index: true},
-     hotel_id: {type: String, index: true}, // this is the "address1" field
-     user_id: {type: String, required: true, index: true},
-     room_no: String, // this is "address2" field
-     status: { type: String, required: true, enum: ['inactive', 'active', 'disabled', 'new'], default: 'inactive' },
-     belongs_to: {type: mongoose.Schema.Types.ObjectId, ref: 'Hotel'}
-}, {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}, strict: false});
+    device_id: { type: String, required: true, index: true },
+    hotel_id: { type: String, index: true }, // this is the "address1" field
+    user_id: { type: String, required: true, index: true },
+    room_no: String, // this is "address2" field
+    status: { type: String, required: true, enum: ['inactive', 'active', 'disabled', 'new'], default: 'inactive' },
+    belongs_to: { type: mongoose.Schema.Types.ObjectId, ref: 'Hotel' }
+}, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false });
 
-DeviceSchema.index({device_id: 1, hotel_id: 1}, {unique: true});
+DeviceSchema.index({ device_id: 1, hotel_id: 1 }, { unique: true });
 
 //Setup the middleware
-DeviceSchema.post('save', async function(doc) {
+DeviceSchema.post('save', async function (doc) {
     console.log('%%% Device save post hook.', doc);
     let audit = new AuditLogModel({
         coll: DeviceModel.collection.name,
@@ -39,7 +39,7 @@ DeviceSchema.post('save', async function(doc) {
     var log = await audit.save(audit);
 });
 
-DeviceSchema.post('updateOne', async function(doc) {
+DeviceSchema.post('updateOne', async function (doc) {
     const docToUpdate = await this.model.findOne(this.getQuery());
 
     let audit = new AuditLogModel({
@@ -53,7 +53,7 @@ DeviceSchema.post('updateOne', async function(doc) {
     console.log(log);
 });
 
-DeviceSchema.post('remove', async function(doc) {
+DeviceSchema.post('remove', async function (doc) {
     console.log('Device removed. Should not happen', doc);
 
     let audit = new AuditLogModel({

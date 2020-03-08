@@ -11,7 +11,7 @@ const _ = require('lodash');
 const dotenv = require('dotenv');
 const fetch = require('node-fetch');
 const { check } = require('express-validator');
-const UserModel = require('../../src/db/User');
+const UserModel = require('../db/User');
 const querystring = require('querystring');
 
 dotenv.config();
@@ -29,7 +29,7 @@ router.get('/:user_id',
     check('user_id').exists({ checkNull: true, checkFalsy: true }),
   ],
   async (req, res) => {
-    const user_id = querystring.unescape(req.params.user_id);
+    const user_id = querystring.unescape(req.params.user_id); // User id is URL encoded, need to decode it
 
     if (_.isUndefined(user_id)) {
       // Not possible, since user should have been authenticated

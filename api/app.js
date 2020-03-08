@@ -20,8 +20,9 @@ const helmet = require("helmet");
 const flash = require('connect-flash');
 const session = require('./lib/middleware/session');
 const config = require('./config');
-
 const app = express();
+
+const { watchOrders } = require('./lib/ordersListener');
 
 var corsOptions = {
   origin: '*',
@@ -45,18 +46,23 @@ app.use(flash());
 
 app.use('/', require('./routes/index'));
 app.use(config.api.prefix + '/user', require('./routes/user'));
-app.use(config.api.prefix + '/device',  require('./routes/device'));
-app.use(config.api.prefix + '/hotel',  require('./routes/hotel'));
-app.use(config.api.prefix + '/order',  require('./routes/order'));
+app.use(config.api.prefix + '/device', require('./routes/device'));
+app.use(config.api.prefix + '/hotel', require('./routes/hotel'));
+app.use(config.api.prefix + '/hotelGroup', require('./routes/hotelGroup'));
+app.use(config.api.prefix + '/facility', require('./routes/facility'));
+app.use(config.api.prefix + '/order', require('./routes/order'));
+
+// Listen for order changes
+watchOrders();
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   // res.redirect('/');
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401).send('invalid token...');
   } else {

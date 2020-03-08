@@ -161,12 +161,13 @@ module.exports = {
 
     async Enquiry_all_facilities() {
         var hotel_id = this.$session.$data.hotel.hotel_id,
-            main_facilities = this.$session.$data.hotel.info.main_facilities;
+            main_facilities = await DBFuncs.main_facilities(hotel_id);
 
         let facility_names;
         try {
-            var ret = await DBFuncs.all_facility_names(hotel_id, FACILITY_TYPE.FACILITIES); //returns array of form [{f_name:'abc', synonyms:['def','ghi]}]
-            facility_names = _.map(ret, 'f_name'); // get only the f_name, i.e., the facility name
+            // var ret = await DBFuncs.all_facility_names(hotel_id, FACILITY_TYPE.FACILITIES); //returns array of form [{f_name:'abc', synonyms:['def','ghi]}]
+            // facility_names = _.map(ret, 'f_name'); // get only the f_name, i.e., the facility name
+            const facility_names = await DBFuncs.all_facility_names(hotel_id, FACILITY_TYPE.FACILITIES);
             console.log('###returned facilities=', facility_names, ',main_facilities=',main_facilities);
         } catch(error) {
             console.log('error while fetching hotel facilities:', error);
@@ -176,9 +177,10 @@ module.exports = {
         // Find the intersection of main_facilities and all the facilities that the hotel supports
         var common = _.intersection(facility_names, main_facilities);
         var stitched_facilities = _.join(common, ',');
+        if (stitched_facilities.length <= 4) stitched_facilities = main_facilities; // This is to ensure we market the hotel properly, incase there is just 1 intersection
 
         // Set the facilities as part of data, so that it can be used in 'AllFacilitiesState'
-        this.$session.$data.all_facilities = facility_names;
+        // this.$session.$data.all_facilities = facility_names;
 
         this.$speech.addText(this.t('HOTEL_FACILITIES', {
                 facilities: stitched_facilities
@@ -355,5 +357,13 @@ module.exports = {
 
     async Enquiry_food_delivery_time() {
 
+    },
+
+    async Enquiry_room_last_refurbished_date() {
+
+    },
+
+    async Enquiry_hotel_floors() {
+        
     }
 }

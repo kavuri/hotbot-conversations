@@ -4,12 +4,12 @@
  */
 'use strict';
 
-var _ = require('lodash'),
+const _ = require('lodash'),
     mongoose = require('mongoose'),
     DBConn = require('./index').DBConn,
     AutoIncrement = require('./index').AutoIncrement;
 
-var HotelSchema = new mongoose.Schema({
+const HotelSchema = new mongoose.Schema({
     hotel_id: {type: String, required: true, unique: true},
     name: {type: String, required: true, index: true},
     description: String,
