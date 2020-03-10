@@ -11,7 +11,7 @@ const _ = require('lodash');
 const dotenv = require('dotenv');
 const fetch = require('node-fetch');
 const { check } = require('express-validator');
-const UserModel = require('../db/User');
+const UserModel = require('../../src/db/User');
 const querystring = require('querystring');
 
 dotenv.config();

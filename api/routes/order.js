@@ -6,7 +6,7 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-const OrderModel = require('../db/Order');
+const OrderModel = require('../../src/db/Order');
 const { check, validationResult } = require('express-validator');
 const auth0 = require('../lib/auth0');
 const ordersListener = require('../lib/ordersListener');

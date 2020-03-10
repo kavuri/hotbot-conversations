@@ -7,7 +7,7 @@
 const express = require('express');
 const router = express.Router();
 const auth0 = require('../lib/auth0');
-const HotelModel = require('../db/Hotel'),
+const HotelModel = require('../../src/db/Hotel'),
     _ = require('lodash'),
     { check, validationResult } = require('express-validator');
 
@@ -39,8 +39,8 @@ router.get('/',
     });
 
 router.post('/:group_id',
-    auth0.authenticate,
-    auth0.authorize('create:hotel'),
+    //auth0.authenticate,
+    //auth0.authorize('create:hotel'),
     [
         check('group_id').exists({ checkNull: true, checkFalsy: true }),
         check('name').exists({ checkNull: true, checkFalsy: true }),

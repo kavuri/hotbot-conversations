@@ -7,7 +7,7 @@
 const express = require('express');
 const router = express.Router();
 const auth0 = require('../lib/auth0');
-const HotelGroupModel = require('../db/HotelGroup'),
+const HotelGroupModel = require('../../src/db/HotelGroup'),
     _ = require('lodash'),
     { check, validationResult } = require('express-validator');
 

@@ -177,6 +177,11 @@ function search(facility_name) {
     return [];
 }
 
+/**
+ * @param hotel_id
+ * @param facility_name
+ * @param facility_type
+ */
 module.exports.facility = async function (hotel_id, facility_name, facility_type) {
     console.log('@@facility hotel_id=' + hotel_id + ',facility_name=' + facility_name + ',facility_type=' + facility_type);
     if (_.isNull(hotel_id) || _.isUndefined(hotel_id) ||
@@ -191,7 +196,6 @@ module.exports.facility = async function (hotel_id, facility_name, facility_type
 
     const g = await cache.get(hotel_id);
     if (g.hasNode(facility_name)) {
-        // Facility is found. Send it out
         // This node could be a child node. The parent would have the full-info. So check if there is a parent
         const parent = g.parent(facility_name);
         if (_.isUndefined(parent)) {
@@ -204,7 +208,12 @@ module.exports.facility = async function (hotel_id, facility_name, facility_type
     } else {
         // Could not find node directly. Do a fuzzy search
         const res = search(facility_name);
-        return res;
+        if (_.isEmpty(res)) {
+            // Could not find the item. Return not found
+            throw new KamError.FacilityDoesNotExistError('facility ' + facility_name + ' does not exist');
+        } else {
+
+        }
     }
 }
 

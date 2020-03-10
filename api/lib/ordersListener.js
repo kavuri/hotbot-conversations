@@ -5,7 +5,7 @@
 
 'use strict';
 
-const OrderModel = require('../db/Order');
+const OrderModel = require('../../src/db/Order');
 const _ = require('lodash');
 
 let clients = {};

@@ -10,23 +10,25 @@
        AutoIncrement = require('./index').AutoIncrement;
 
 var StatusSchema = new mongoose.Schema({
+    set_by: {type: String, required: true}, // This is the email id of the logged-in user
     status: {type: String, required: true, enum: ['new', 'progress', 'done', 'cant_serve','cancelled'], default: 'new'},
     created: { type: Date, default: Date.now }
 });
 
 var PrioritySchema = new mongoose.Schema({
+    set_by: {type: String, required: true}, // This is the email id of the logged-in user
     priority: {type: String, required: true, enum: ['urgent', 'asap', 'leisure'], default: 'asap'},
     created: { type: Date, default: Date.now }
 });
 
 var CommentSchema = new mongoose.Schema({
-    // comment_by: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User'},
+    comment_by: {type: String, required: true}, // This is the email id of the logged-in user
     comment: {type: String, required: true},
     created: { type: Date, default: Date.now }
 });
 
 var OrderItems = new mongoose.Schema({
-    f_id: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Facility'},
+    item_name: {type: String, required: true}, //This is same as the node name of the item in the graph
     req_count: {type: Number},
     served_count: {type: Number}
 });

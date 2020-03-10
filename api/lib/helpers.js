@@ -6,7 +6,7 @@
 'use strict';
 
 const _ = require('lodash');
-const UserModel = require('../db/User');
+const UserModel = require('../../src/db/User');
 
 module.exports.findHotelOfUser = async (user_id) => {
     console.log('findHotelOfUser=', user_id);
