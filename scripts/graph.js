@@ -49,6 +49,11 @@ const menu = 'menu';
  * drink: true/false = its a drink
  *          Not mandatory. Mark only for drinks
  *          
+ * Meta Nodes
+ * 'all_items': Holds all the items that can be searched
+ * 'facilities': all facilities
+ * 'menu': all menu items
+ * 'roomitem': all room items (like AC, TV, fridge, napkins)
  */
 function createGraph(hotel_id, hotel_name) {
     if (_.isUndefined(hotel_id) || _.isUndefined(hotel_name)) {
@@ -697,7 +702,7 @@ module.exports.create = async function(hotel_id='000', hotel_name='Dummy hotel')
 
     createGraph(hotel_id, hotel_name);
     const json = graphlib.json.write(g);
-    console.log(JSON.stringify(json));
+    // console.log(JSON.stringify(json));
     console.log('nodes=', g.nodeCount());
 
     let data;
@@ -708,4 +713,4 @@ module.exports.create = async function(hotel_id='000', hotel_name='Dummy hotel')
     }
 }
 
-require('./graph').create();
+// require('./graph').create();

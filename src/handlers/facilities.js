@@ -219,27 +219,66 @@ module.exports = {
     },
 
     async Enquiry_facility_exists() {
-        var facility = await get_facility(this);
+        let hotel_id = this.$session.$data.hotel.hotel_id,
+            facility_name = this.$inputs.facility_slot.value;
+        let facility;
+        try {
+            facility = await DBFuncs.facility(hotel_id, facility_name, FACILITY_TYPE.FACILITIES);
+        } catch (error) {
+            if (error instanceof KamError.InputError) {
+                this.tell(thisObj.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.DBError) {
+                this.tell(thisObj.t('SYSTEM_ERROR'));
+            } else if (error instanceof KamError.FacilityDoesNotExistError) {
+                this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', {
+                    facility: facility_name
+                }));
+            }
+        }
 
         console.log('+++facility=', facility);
-        var flag = facility.present.flag;
-        var message = facility.present.message[flag];
-        if (!_.isEmpty(message) || !_.isUndefined(message)) {
-            this.$speech.addText(message)
+        if (_.isEqual(facility.present, true)) {
+            // facility exists
+            const msg = facility.msg['yes'];
+            console.log('sending message:', msg);
+            this.$speech.addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
-                    facility: facility.f_name
+                    facility: facility_name
                 }));
-
-            // Store the facility info for this session
-            this.$session.$data.facility = facility;
-
-            return this.followUpState('FacilityExistsState')
-                .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        } else if (_.isEqual(facility.present, false)) {
+            // facility does not exist
+            const msg = facility.msg['no'];
+            console.log('sending message:', msg);
+            this.$speech.addText(msg)
+                .addBreak('200ms')
+                .addText(this.t('YES_NO_REPROMPT', {
+                    facility: facility_name
+                }));
         } else {
-            console.log('something wrong with the database setup:', flag, message);
+            console.log('something wrong with the database setup:');
             return this.tell(this.t('SYSTEM_ERROR'));
         }
+
+
+        this.ask(this.$speech);
+        // var message = facility.present.message[flag];
+        // if (!_.isEmpty(message) || !_.isUndefined(message)) {
+        //     this.$speech.addText(message)
+        //         .addBreak('200ms')
+        //         .addText(this.t('FACILITY_FOLLOWUP_QUESTION', {
+        //             facility: facility.f_name
+        //         }));
+
+        //     // Store the facility info for this session
+        //     this.$session.$data.facility = facility;
+
+        //     return this.followUpState('FacilityExistsState')
+        //         .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        // } else {
+        //     console.log('something wrong with the database setup:', flag, message);
+        //     return this.tell(this.t('SYSTEM_ERROR'));
+        // }
     },
 
     'FacilityExistsState': {

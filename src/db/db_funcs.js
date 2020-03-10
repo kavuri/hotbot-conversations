@@ -152,16 +152,15 @@ function search(facility_name) {
         maxPatternLength: 32,
         minMatchCharLength: 3,
         keys: [
-            "synonyms",
-            "f_name"
+            "items"
         ]
     };
 
-    // Get all the facilities and their synonyms
-    const facilities = g.node('facilities');
+    // Get all the items from 'all_items' node
+    const items = g.node('all_items');
+
     var data = [{
-        f_name: facilities.f_name,
-        synonyms: facilities.synonyms
+        items: items
     }];
 
     console.log('++data=', data);
@@ -171,7 +170,8 @@ function search(facility_name) {
     if (!_.isEmpty(result)) {
         // There are some results
         if (result[0].score < 0.15) { // the more the score is close to 0, the closer the search string to the result
-            return g.node(result[0].item.f_name);
+            // return g.node(result[0].item.f_name);
+            return items[result[0].item];
         }
     }
     return [];
@@ -205,15 +205,16 @@ module.exports.facility = async function (hotel_id, facility_name, facility_type
             // Parent exists and is the real node. Return it
             return parent;
         }
-    } else {
-        // Could not find node directly. Do a fuzzy search
-        const res = search(facility_name);
-        if (_.isEmpty(res)) {
-            // Could not find the item. Return not found
-            throw new KamError.FacilityDoesNotExistError('facility ' + facility_name + ' does not exist');
-        } else {
+    }
 
-        }
+    console.log('doing fuzzy search...');
+    // Could not find node directly. Do a fuzzy search
+    const res = search(facility_name);
+    if (_.isEmpty(res)) {
+        // Could not find the item. Return not found
+        throw new KamError.FacilityDoesNotExistError('facility ' + facility_name + ' does not exist');
+    } else {
+        return g.node(res);
     }
 }
 
