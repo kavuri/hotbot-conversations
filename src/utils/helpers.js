@@ -4,7 +4,8 @@
  */
 
 const moment = require('moment-timezone'),
-      _ = require('lodash');
+      _ = require('lodash'),
+      KamError = require('./KamError');
 
 module.exports.ITEM_STATUS = {
     NOT_ORDERED: 'not_ordered',

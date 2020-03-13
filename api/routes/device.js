@@ -100,8 +100,8 @@ router.put('/:device_id/deactivate',
  * @returns updated device object
  */
 router.put('/:device_id',
-    auth0.authenticate,
-    auth0.authorize('create:device'),
+    // auth0.authenticate,
+    // auth0.authorize('create:device'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('device_id').exists({ checkNull: true, checkFalsy: true }),

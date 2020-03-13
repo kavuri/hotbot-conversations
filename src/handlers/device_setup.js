@@ -111,7 +111,7 @@ module.exports = {
     async Device_setup() {
         console.log('In Device_setup...');
 
-        let DeviceModel = require('../db/').DeviceModel;
+        let DeviceModel = require('../db/Device');
 
         var device = new DeviceModel({
             device_id: this.$request.context.System.device.deviceId,
@@ -130,8 +130,8 @@ module.exports = {
         }
     },
 
-    async Unhandled() {
-        console.log('Unhandled in Device_setup');
-        this.tell('Unhandled in device setup');
-    }
+    // async Unhandled() {
+    //     console.log('Unhandled in Device_setup');
+    //     this.tell('Unhandled in device setup');
+    // }
 }
