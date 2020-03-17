@@ -27,7 +27,7 @@ const HotelGroupSchema = new mongoose.Schema({
         phone: [String],
         email: [String]
     },
-    status: {type: String, required: true, enum: ['active', 'inactive'], default: 'inactive'}
+    status: {type: String, enum: ['active', 'inactive'], default: 'active'}
    }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false});
 
 HotelGroupSchema.index({group_id: 1}, {unique: true});

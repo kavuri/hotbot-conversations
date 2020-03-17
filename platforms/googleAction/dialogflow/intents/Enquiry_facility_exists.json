@@ -7,6 +7,12 @@
 			"parameters": [
 				{
 					"isList": false,
+					"name": "req_count",
+					"value": "$req_count",
+					"dataType": "@sys.number-integer"
+				},
+				{
+					"isList": false,
 					"name": "facility_slot",
 					"value": "$facility_slot",
 					"dataType": "@facility_types"

@@ -2,6 +2,36 @@
 	{
 		"data": [
 			{
+				"text": "what languages can the receptionist speak",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what languages can the receptionist converse in",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i speak to the receptionist in my language",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "Which languages are spoken at Reception",
 				"userDefined": false
 			}

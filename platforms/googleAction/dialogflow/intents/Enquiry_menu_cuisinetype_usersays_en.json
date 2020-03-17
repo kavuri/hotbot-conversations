@@ -2,6 +2,136 @@
 	{
 		"data": [
 			{
+				"text": "tell me the menu items list",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "list of food items available",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is special here in terms of food",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "todays special food item",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "todays special menu",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is todays special",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is weekend special food item",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "any special food item today",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the restaurants specials",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "anything special on the menu",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how can i order from the menu",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how to order from the menu",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what tiffins do you have here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "what are the different food items",
 				"userDefined": false
 			}
@@ -158,39 +288,7 @@
 	{
 		"data": [
 			{
-				"text": "does the restaurant serve ",
-				"userDefined": false
-			},
-			{
-				"text": "meal_types_slot",
-				"userDefined": true,
-				"alias": "meal_types_slot",
-				"meta": "@meal_types"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "how about ",
-				"userDefined": false
-			},
-			{
-				"text": "meal_types_slot",
-				"userDefined": true,
-				"alias": "meal_types_slot",
-				"meta": "@meal_types"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "is ",
+				"text": "do you serve ",
 				"userDefined": false
 			},
 			{
@@ -200,27 +298,7 @@
 				"meta": "@meal_types"
 			},
 			{
-				"text": " available",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "is ",
-				"userDefined": false
-			},
-			{
-				"text": "meal_types_slot",
-				"userDefined": true,
-				"alias": "meal_types_slot",
-				"meta": "@meal_types"
-			},
-			{
-				"text": " serve",
+				"text": " ",
 				"userDefined": false
 			}
 		],

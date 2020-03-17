@@ -32,8 +32,7 @@ app.setHandler(
     require('./handlers/device_setup'),
     require('./handlers/policies'),
     require('./handlers/communities'),
-    require('./handlers/facilities'),
-    require('./handlers/orders')
+    require('./handlers/facilities')
 );
 
 module.exports.app = app;

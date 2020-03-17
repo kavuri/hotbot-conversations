@@ -8,6 +8,7 @@ const express = require('express');
 const router = express.Router();
 const auth0 = require('../lib/auth0');
 const HotelModel = require('../../src/db/Hotel'),
+    RoomModel = require('../../src/db/Room'),
     _ = require('lodash'),
     { check, validationResult } = require('express-validator');
 
@@ -15,8 +16,8 @@ const HotelModel = require('../../src/db/Hotel'),
  * @returns all hotels
  */
 router.get('/',
-    auth0.authenticate,
-    auth0.authorize('read:hotel'),
+    //auth0.authenticate,
+    //auth0.authorize('read:hotel'),
     async function (req, res) {
         console.log('get all hotels');
         const resPerPage = parseInt(req.query.resPerPage || 9); // results per page
@@ -48,8 +49,7 @@ router.post('/:group_id',
         check('contact').exists({ checkNull: true, checkFalsy: true }),
         check('coordinates').exists({ checkNull: true, checkFalsy: true }),
         check('front_desk_count').exists({ checkNull: true, checkFalsy: true }),
-        check('room_count').exists({ checkNull: true, checkFalsy: true }),
-        check('reception_number').exists({ checkNull: true, checkFalsy: true }),
+        check('reception_number').exists({ checkNull: true, checkFalsy: true })
     ],
     async function (req, res) {
         try {
@@ -67,7 +67,54 @@ router.post('/:group_id',
         } catch (error) {
             res.status(500).send(error);
         }
-
     });
 
+/**
+ * Add a room to a hotel
+ */
+router.put('/:hotel_id',
+    //auth0.authenticate,
+    //auth0.authorize('create:hotel'),
+    [
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+        check('room_no').exists({ checkNull: true, checkFalsy: true }),
+    ],
+    async function (req, res) {
+
+        try {
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        let hotel_id = req.params.hotel_id;
+        let room = req.body;
+        try {
+            // Find the hotel so that reference to room can be made
+            let hotel = await HotelModel.findOne({ hotel_id: hotel_id }).populate('rooms').exec();
+            if (_.isUndefined(hotel) || _.isNull(hotel)) {
+                return res.status(404).send({error:'hotel with id ' + hotel_id + ' not found'});
+            }
+            // Check if room_no has already been added to hotel
+            room.hotel_id = hotel_id;
+
+            if (!_.isEqual(_.findIndex(hotel.rooms, { room_no: room.room_no }), -1)) {
+                // Room has already been added to the hotel. Do not add again
+                return res.status(200).send(hotel);
+            }
+
+            // Create room object
+            const r = new RoomModel(room);
+            let ret = await r.save();
+
+            // Update room to the hotel
+            hotel.rooms.push(ret);
+            hotel = await hotel.save();
+
+            // Send the result
+            res.status(200).send(hotel);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
 module.exports = router;

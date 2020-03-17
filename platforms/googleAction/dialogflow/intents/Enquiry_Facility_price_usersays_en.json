@@ -2,6 +2,46 @@
 	{
 		"data": [
 			{
+				"text": "Is ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " included in the room rent",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "does ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " come with the room rent",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "what are the charges for ",
 				"userDefined": false
 			},

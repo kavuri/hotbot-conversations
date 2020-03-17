@@ -35,17 +35,25 @@
     "FACILITY_NOT_AVAILABLE": "This hotel does not have the facility {{item}}",
     "ITEM_ORDER_QUESTION": "Would you like me to place an order for {{item}}",
     "ORDER_ANYTHING_ELSE": "Would you like to order anything else?",
-    "ORDER_ASK_COUNT": "How many {{item}} would you like?",
+    "ORDER_ASK_ITEM_NAME": "What would you like to order?",
     "FACILITY_FOLLOWUP_QUESTION": "Would you like to know more about the {{item}}?",
 
     "ASK_ITEM_NAME": "Which item would you like to have?",
     "ITEM_NOT_AVAILABLE": "We do not see to have {{item_name}}. Would you like anything else?",
     "REPEAT_ORDER_WITH_COUNT": "You have requested for {{req_count}} {{item_name}}",
     "REPEAT_ORDER_WITHOUT_COUNT": "I have taken the order for {{item_name}}",
-    "ITEM_ALREADY_ORDERED": "You have already requested {{item_name}}. Are you sure you want to request again?",
     "ASK_CONFIRM_ORDER": "You have requested for {{items}}. Shall I confirm this order?",
     "TELL_ORDER_CONFIRMED": "Your order is confirmed. We will serve your order as soon as possible. Have a nice day",
     "ASK_FOR_ORDER_CANCEL": "Shall I cancel your order of {{order}}?",
-    "CONFIRM_ORDER_CANCEL": "I have canceled your order. Would you like anything else?"
+    "CONFIRM_ORDER_CANCEL": "I have canceled your order. Would you like anything else?",
+
+    "ORDER_ITEM_EXISTS_WITH_PRICE": "We have {{item_name}} at our hotel and {{price_msg}} ",
+    "ORDER_FREE": " it is free ",
+    "ORDER_COSTS": " it costs {{price}} ",
+    "ORDER_IN_PROGRESS": " You have ordered {{item_name}} at {{order_time}} and we are working on it. ",
+    "ORDER_ASK_AGAIN": " Would you like to order again?",
+    "ORDER_UNABLE_TO_SERVE": "Sorry, that we were unable to serve your previous order .",
+    "ORDER_TELL_PLACE_AGAIN": " I will place your order again.",
+    "ORDER_ASK_COUNT": "How many would you like?"
   }
 }

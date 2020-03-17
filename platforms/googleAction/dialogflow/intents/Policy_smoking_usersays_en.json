@@ -2,6 +2,264 @@
 	{
 		"data": [
 			{
+				"text": "am i allowed to light a ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": " Am i allowed to ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy of the hotel please",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you tell me about ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " rules of the hotel please",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": " am i allowed to ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " in ",
+				"userDefined": false
+			},
+			{
+				"text": "place_slot",
+				"userDefined": true,
+				"alias": "place_slot",
+				"meta": "@place_in_hotel"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "may i know the ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy please",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "may i please know about the ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "will you please explain the ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "May i hear about the ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "Please explain the ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please elaborate on the ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "can i chew ",
 				"userDefined": false
 			},
@@ -168,7 +426,7 @@
 	{
 		"data": [
 			{
-				"text": "what the policy on ",
+				"text": "what is the policy on ",
 				"userDefined": false
 			},
 			{
@@ -184,7 +442,7 @@
 	{
 		"data": [
 			{
-				"text": "whats the policy on ",
+				"text": "can i know about ",
 				"userDefined": false
 			},
 			{
@@ -192,6 +450,30 @@
 				"userDefined": true,
 				"alias": "smoking_slot",
 				"meta": "@smoking_types"
+			},
+			{
+				"text": " policies please",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "may i know the ",
+				"userDefined": false
+			},
+			{
+				"text": "smoking_slot",
+				"userDefined": true,
+				"alias": "smoking_slot",
+				"meta": "@smoking_types"
+			},
+			{
+				"text": " policy here",
+				"userDefined": false
 			}
 		],
 		"isTemplate": false,

@@ -10,6 +10,7 @@ const auth0 = require('../lib/auth0');
 
 const DeviceModel = require('../../src/db/Device'),
     HotelModel = require('../../src/db/Hotel'),
+    RoomModel = require('../../src/db/Room'),
     _ = require('lodash'),
     { check, validationResult } = require('express-validator');
 
@@ -18,16 +19,22 @@ const DeviceModel = require('../../src/db/Device'),
  * @returns all devices in that hotel
  */
 router.get('/',
-    auth0.authenticate,
-    auth0.authorize('read:device'),
+    //auth0.authenticate,
+    //auth0.authorize('read:device'),
     [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true })
     ],
     async function (req, res) {
-        console.log('get all devices.', req.user, req.session);
-        let status = req.params.status ? req.params.status : 'inactive'
+        console.log('get all devices.', req.query.hotel_id);
         try {
-            let devices = await DeviceModel.find({ status: status }).sort({ last_reset: -1 }).exec();
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        let hotel_id = req.query.hotel_id;
+        try {
+            let devices = await DeviceModel.find({hotel_id: hotel_id}).populate('belongs_to').populate('room').exec();
             // console.log(devices);
             return res.status(200).send(devices);
         } catch (error) {
@@ -42,8 +49,8 @@ router.get('/',
  * @returns device object
  */
 router.put('/:device_id/activate',
-    auth0.authenticate,
-    auth0.authorize('create:device'),
+    //auth0.authenticate,
+    //auth0.authorize('create:device'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('device_id').exists({ checkNull: true, checkFalsy: true })
@@ -75,10 +82,11 @@ router.put('/:device_id/activate',
  */
 router.put('/:device_id/deactivate',
     auth0.authenticate,
-    auth0.authorize('create:device'), [
-    check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
-    check('device_id').exists({ checkNull: true, checkFalsy: true })
-],
+    auth0.authorize('create:device'),
+    [
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+        check('device_id').exists({ checkNull: true, checkFalsy: true })
+    ],
     async function (req, res) {
         console.log('de-activating device ' + req.params.device_id);
 
@@ -116,13 +124,19 @@ router.put('/:device_id',
             return res.status(422).send(error);
         }
 
-        let device_id = req.params.device_id, hotel_id = req.body.hotel_id, room = req.body.room, status = req.body.status;
+        let device_id = req.params.device_id, hotel_id = req.body.hotel_id, status = req.body.status, room_no = req.body.room_no;
 
         try {
             // Get hotel object
             let hotel = await HotelModel.findOne({ hotel_id: hotel_id }).exec();
             if (_.isNull(hotel) || _.isUndefined(hotel)) {
                 return res.status(400).send('hotel with id ' + hotel_id + ' not found');
+            }
+
+            // Find the room corresponding to the room_no and hotel_id
+            let room = await RoomModel.findOne({ hotel_id: hotel_id, room_no: room_no }).exec();
+            if (_.isUndefined(room) || _.isNull(room)) {
+                return res.status(500).send({ error: 'room with hotel_id=' + hotel_id + ',room_no=' + room_no + ' not found' });
             }
 
             // Update the device

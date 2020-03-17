@@ -32,8 +32,8 @@ const HotelSchema = new mongoose.Schema({
         lat: { type: String, required: true },
         lng: { type: String, required: true }
     },
+    rooms: [{type: mongoose.Schema.Types.ObjectId, ref: 'Room' }],
     front_desk_count: Number,
-    room_count: Number,
     reception_number: String
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false });
 
@@ -50,7 +50,7 @@ HotelSchema.plugin(AutoIncrement.plugin, {
 
 //Setup the middleware
 HotelSchema.post('save', async function (doc) {
-    console.log('%%% Creating graph for hotel:', doc);
+    //console.log('%%% Creating graph for hotel:', doc);
 
     // Create the facilities for this hotel from the default graph representation
     graph.create(doc.hotel_id, doc.name);

@@ -2,10 +2,106 @@
 	{
 		"data": [
 			{
+				"text": "I need a replacement for ",
+				"userDefined": false
+			},
+			{
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "tell me the process of making ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " work",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how to make ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " work",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when will the ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " in my room work",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when will you fix ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " in my room",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@facility_types"
 			},
 			{
 				"text": " is not working",
@@ -25,7 +121,7 @@
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " in my room is not working",
@@ -45,7 +141,7 @@
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " in my room",
@@ -65,7 +161,7 @@
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " working in my room",
@@ -85,7 +181,7 @@
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " in my room",
@@ -105,7 +201,7 @@
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " not working",
@@ -125,7 +221,7 @@
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " in my room",
@@ -145,7 +241,7 @@
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " work please help",
@@ -165,7 +261,7 @@
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -181,7 +277,27 @@
 				"text": "equipment_slot",
 				"userDefined": true,
 				"alias": "equipment_slot",
-				"meta": "@equipment_types"
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please help to fix ",
+				"userDefined": false
+			},
+			{
+				"text": "equipment_slot",
+				"userDefined": true,
+				"alias": "equipment_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " in my room",
+				"userDefined": false
 			}
 		],
 		"isTemplate": false,

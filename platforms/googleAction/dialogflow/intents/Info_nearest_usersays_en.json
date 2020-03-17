@@ -2,6 +2,62 @@
 	{
 		"data": [
 			{
+				"text": "which is the nearest ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "Which is the best ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "where is the best ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " nearby",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "how far is the nearest ",
 				"userDefined": false
 			},

@@ -2,6 +2,106 @@
 	{
 		"data": [
 			{
+				"text": "how to pay my hotel bill",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "which method to pay my bill",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the payment methods",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are bill paying methods",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "bill paying types",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the acceptable payment methods ",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can i use ",
+				"userDefined": false
+			},
+			{
+				"text": "payment_method_slot",
+				"userDefined": true,
+				"alias": "payment_method_slot",
+				"meta": "@payment_method_types"
+			},
+			{
+				"text": " to pay my bill",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "may i use ",
+				"userDefined": false
+			},
+			{
+				"text": "payment_method_slot",
+				"userDefined": true,
+				"alias": "payment_method_slot",
+				"meta": "@payment_method_types"
+			},
+			{
+				"text": " to pay my bill",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "what payment methods are accepted",
 				"userDefined": false
 			}

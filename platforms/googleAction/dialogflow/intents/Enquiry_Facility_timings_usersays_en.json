@@ -2,6 +2,78 @@
 	{
 		"data": [
 			{
+				"text": "what are the timings for ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "how to use ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when can i go to ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when can i use ",
+				"userDefined": false
+			},
+			{
+				"text": "facility_slot",
+				"userDefined": true,
+				"alias": "facility_slot",
+				"meta": "@facility_types"
+			},
+			{
+				"text": " ",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "can i go to ",
 				"userDefined": false
 			},
@@ -20,22 +92,6 @@
 				"userDefined": true,
 				"alias": "datetime",
 				"meta": "@sys.time"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "can i use ",
-				"userDefined": false
-			},
-			{
-				"text": "facility_slot",
-				"userDefined": true,
-				"alias": "facility_slot",
-				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,

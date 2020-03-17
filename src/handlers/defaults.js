@@ -7,9 +7,8 @@
 
 let _ = require('lodash'),
     DeviceModel = require('../db/Device'),
-    HotelModel = require('../db/Hotel'),
     KamError = require('../utils/KamError'),
-    rp = require('request-promise');
+    HotelModel = require('../db/Hotel');
 
 module.exports = {
 
@@ -42,41 +41,48 @@ module.exports = {
         //Account linking ends
 
         // FixME Add user_name in Device_To_Hotel/separate login table for tracking purpose
-        var device_id = this.$request.context.System.device.deviceId,
-            user_id = this.$request.context.System.user.userId,
-            intent = this.$request.getIntentName();
+        var device_id = this.$request.context.System.device.deviceId;
+            //user_id = this.$request.context.System.user.userId;
 
         // Get the hotel id from this device_id and user_id
 
         let data;
         try {
-            data = await DeviceModel.findOne({device_id: device_id}).populate('belongs_to');
+            console.log('getting device...', device_id)
+            //data = await DeviceModel.findOne({ device_id: device_id }).populate('belongs_to');
+            data = await DeviceModel.findOne({ device_id: device_id }).populate('belongs_to').populate('room');
 
             console.log('hotel data..', JSON.stringify(data));
             if (_.isUndefined(data) || _.isEmpty(data)) {
                 // Device is not registered
-                this.$speech.addText(this.t('DEVICE_NOT_REGISTERED'))
-                  .addText(this.t('ASK_TO_REGISTER_DEVICE'));
-                
+                this.$speech
+                    .addText(this.t('DEVICE_NOT_REGISTERED'))
+                    .addBreak('200ms')
+                    .addText(this.t('ASK_TO_REGISTER_DEVICE'));
+
                 console.log('device is not registered...');
                 return this.followUpState('RegisterDeviceState')
                     .ask(this.$speech, this.t('YES_NO_REPROMPT'));
-            } else if (_.isUndefined(data.belongs_to) || !_.isEqual(data.status, 'active')) {
+            } else if (
+                _.isUndefined(data.belongs_to) ||
+                _.isEqual(data.status, 'inactive') ||
+                _.isNull(data.belongs_to)) {
                 return this.tell(this.t('DEVICE_NOT_ASSIGNED_TO_HOTEL'));
             } else {
                 // Set the hotel_id and info in the session data
                 this.$session.$data.hotel = {
                     hotel_id: data.hotel_id,
-                    room_no: data.room_no,
+                    room_no: data.room.room_no,
                     user_id: data.user_id,
                     name: data.belongs_to.name
                 }
             }
 
-        } catch(error) {
+        } catch (error) {
             // Some DB error
+            console.log('error while fetching device:', error);
             if (error instanceof KamError.DBError) {
-                this.tell(this.t('SYSTEM_ERROR'));   
+                this.tell(this.t('SYSTEM_ERROR'));
             }
         }
     },
@@ -106,7 +112,7 @@ module.exports = {
     //FIXME: Replace 'ABC' to the hotel name
     async LAUNCH() {
         console.info('LAUNCH handler', this.$session.$data.hotel);
-        this.ask(this.t('WELCOME', {hotel_name: this.$session.$data.hotel.name}));
+        this.ask(this.t('WELCOME', { hotel_name: this.$session.$data.hotel.name }));
     },
 
     END() {

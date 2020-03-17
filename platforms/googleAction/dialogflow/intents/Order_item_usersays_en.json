@@ -2,6 +2,92 @@
 	{
 		"data": [
 			{
+				"text": "what to order for lunch",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please take my lunch order",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "this is my food order",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "i want to order some food",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you take tiffin order",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you take food order",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what can i order today",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "i would like to eat ",
+				"userDefined": false
+			},
+			{
+				"text": "menu_slot",
+				"userDefined": true,
+				"alias": "menu_slot",
+				"meta": "@menu_type"
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "I would like new ",
 				"userDefined": false
 			},
@@ -9,7 +95,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -25,23 +111,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "I need a replacement for ",
-				"userDefined": false
-			},
-			{
-				"text": "order_item_slot",
-				"userDefined": true,
-				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -67,7 +137,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -83,7 +153,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " can you please send some",
@@ -103,27 +173,11 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " in the room can you please send the same",
 				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "I need a replacement for ",
-				"userDefined": false
-			},
-			{
-				"text": "order_item_slot",
-				"userDefined": true,
-				"alias": "order_item_slot",
-				"meta": "@order_item_types"
 			}
 		],
 		"isTemplate": false,
@@ -149,7 +203,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -165,7 +219,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -191,7 +245,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -213,7 +267,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " please",
@@ -233,7 +287,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -249,7 +303,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -265,7 +319,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -287,7 +341,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " as well",
@@ -307,7 +361,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " to it",
@@ -337,7 +391,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " to it",
@@ -357,7 +411,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -373,7 +427,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -389,7 +443,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -405,7 +459,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -421,7 +475,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -437,7 +491,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " now",
@@ -457,7 +511,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -473,7 +527,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -489,7 +543,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -505,7 +559,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -521,7 +575,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " for me",
@@ -541,7 +595,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -557,7 +611,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -573,7 +627,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -589,7 +643,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -605,7 +659,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -621,7 +675,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -637,7 +691,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -650,10 +704,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "menuslot",
+				"text": "menu_slot",
 				"userDefined": true,
-				"alias": "menuslot",
-				"meta": "@menu"
+				"alias": "menu_slot",
+				"meta": "@menu_type"
 			},
 			{
 				"text": " for ",
@@ -663,7 +717,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -676,10 +730,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "menuslot",
+				"text": "menu_slot",
 				"userDefined": true,
-				"alias": "menuslot",
-				"meta": "@menu"
+				"alias": "menu_slot",
+				"meta": "@menu_type"
 			}
 		],
 		"isTemplate": false,
@@ -695,7 +749,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -711,7 +765,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -724,10 +778,10 @@
 				"userDefined": false
 			},
 			{
-				"text": "menuslot",
+				"text": "menu_slot",
 				"userDefined": true,
-				"alias": "menuslot",
-				"meta": "@menu"
+				"alias": "menu_slot",
+				"meta": "@menu_type"
 			}
 		],
 		"isTemplate": false,
@@ -743,7 +797,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -759,7 +813,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " to the railway station",
@@ -779,7 +833,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -795,7 +849,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " to the airport",
@@ -815,7 +869,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -831,7 +885,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " to airport",
@@ -851,7 +905,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -860,34 +914,14 @@
 	{
 		"data": [
 			{
-				"text": "can i get ",
+				"text": "i would like to get ",
 				"userDefined": false
 			},
 			{
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
-			},
-			{
-				"text": " here",
-				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "how about ",
-				"userDefined": false
-			},
-			{
-				"text": "order_item_slot",
-				"userDefined": true,
-				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,
@@ -903,7 +937,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			},
 			{
 				"text": " to my room",
@@ -923,7 +957,7 @@
 				"text": "order_item_slot",
 				"userDefined": true,
 				"alias": "order_item_slot",
-				"meta": "@order_item_types"
+				"meta": "@facility_types"
 			}
 		],
 		"isTemplate": false,

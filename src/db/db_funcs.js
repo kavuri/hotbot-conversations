@@ -8,10 +8,9 @@
 const _ = require('lodash'),
     Fuse = require('fuse.js'),
     KamError = require('../utils/KamError'),
-    FacilityModel = require('./Facility.js'),
     OrderModel = require('./Order'),
-    ITEM_STATUS = require('../utils/helpers').ITEM_STATUS,
-    cache = require('../cache');
+    cache = require('../cache'),
+    CheckinCheckout = require('./CheckinCheckout');
 
 /**
  * Returns all facilities of the hotel
@@ -49,7 +48,7 @@ module.exports.main_facilities = async (hotel_id) => {
     return main_facilities;
 }
 
-function search(name, g) {
+async function search(name, g) {
     if (_.isUndefined(name)) {
         throw new KamError.InputError('invalid data for search. name=' + name);
     }
@@ -60,7 +59,7 @@ function search(name, g) {
         includeScore: true,
         threshold: 0.4,
         location: 0,
-        distance: 20,
+        distance: 100,
         maxPatternLength: 32,
         minMatchCharLength: 3,
         keys: [
@@ -70,11 +69,7 @@ function search(name, g) {
 
     // Get all the items from 'all_items' node
     const items = g.node('all_items');
-    console.log('total=', items.length)
-
-    var data = {
-        items: items
-    };
+    // console.log('total=', items.length)
 
     var fuse = new Fuse(items, fuse_options);
     // console.log('++data=', JSON.stringify(fuse));
@@ -84,13 +79,15 @@ function search(name, g) {
     if (!_.isEmpty(result)) {
         // There are some results
         // if (result[0].score < 0.15) { // the more the score is close to 0, the closer the search string to the result
-            // return g.node(result[0].item.f_name);
-            const res = items[result[0].item];
-            console.log('search result=',res);
-            return res;
+        // return g.node(result[0].item.f_name);
+        console.log('result=',items[result[0].item])
+        let res = items[result[0].item];
+        console.log('returning=', res);
+        return res;
         // }
+    } else {
+        return {};
     }
-    return [];
 }
 
 /**
@@ -105,24 +102,37 @@ module.exports.item = async function (hotel_id, name) {
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'name=' + name);
     }
 
-    // Three step process. Optimized
-    // 1. Find the item from the graph - O(1)
-    // 2. If item is not found, do a fuzzy search from all the facilities
-    // 3. If the item is found in step 2, use the name as the node to fetch from graph again
+    let g;
+    try {
+        g = await cache.get(hotel_id);
+    } catch (error) {
+        console.log('error while getting item from cache:', error)
+        throw error;
+    }
 
-    const g = await cache.get(hotel_id);
-    const res = search(name, g);
+    // Three step process. Optimized
+    // 1. Search for the item using fuzzy search
+    // 2. If item is not found, throw an error that item not found
+    // 3. If the item is found,
+    //   3.1. If the item has a parent, return the parent, else
+    //   3.2 If the item does not have a parent, return the node
+    console.log('searchin for ' + name);
+    const res = await search(name, g);
+    console.log(':item got:', res);
     if (_.isEmpty(res)) {
         // Could not find the item. Return not found
         console.log('facility ' + name + ' not found in search');
-        throw new KamError.FacilityDoesNotExistError('facility ' + name + ' does not exist');
+        //throw new KamError.FacilityDoesNotExistError('facility ' + name + ' does not exist');
+        return {};
     } else {
         const parent = g.parent(res);
         if (_.isUndefined(parent)) {
+            console.log('no parent. returning ', g.node(res));
             // Parent does not exist. Send the node
-            return g.node(name);
+            return g.node(res);
         } else {
             // Parent exists and is the real node. Return it
+            console.log('parent exists:', parent, ' returning ', g.node(parent));
             return g.node(parent);
         }
     }
@@ -142,8 +152,11 @@ module.exports.successors = async (hotel_id, name) => {
  **********************************************************************************************************/
 module.exports.create_order = async function (hotel_id, room_no, user_id, items) {
 
-    if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(user_id) ||
-        (_.isUndefined(items) || _.isEmpty(items))) {
+    if (_.isUndefined(hotel_id) ||
+        _.isUndefined(room_no) ||
+        _.isUndefined(user_id) ||
+        _.isUndefined(items) ||
+        _.isEmpty(items)) {
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',user_id=' + user_id + ',items=', items);
     }
 
@@ -174,43 +187,20 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
 /**
  * @param hotel_id - the id of the hotel
  * @param room_no - the room number
- * @param f__id - the item id
+ * @param item - the item 
  * @returns {}
  */
-module.exports.is_item_already_ordered = async function (hotel_id, room_no, f_id) {
-    if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(f_id)) {
-        throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + item_id);
+module.exports.is_item_already_ordered = async function (hotel_id, room_no, item) {
+    if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(item)) {
+        throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + item);
     }
 
     try {
-        // Check for items ordered only today
-        var start = new Date();
-        start.setHours(0, 0, 0, 0);
-
-        var end = new Date();
-        end.setHours(23, 59, 59, 999);
-
-        var order = await OrderModel.find(
-            {
-                hotel_id: hotel_id,
-                room_no: room_no,
-                "items.facility": f_id,
-                created_at: { $gte: start, $lte: end }
-            }).sort({ created_at: -1 }).exec();
-
-        if (_.isEmpty(order)) { // Item has not been ordered ever
-            // No such order has been made
-            return { item: f_id, status: ITEM_STATUS.NOT_ORDERED };
-        }
-        //  else if () { // There are have been same orders and already served. This is going to be a hotel specific condition
-
-        //  } else if () { // There was a same order, but not served yet.
-
-        //  }
-        console.log('item=', order);
-
-        //TODO: Should status of the order be checked? Whether the previously ordered item is served?
-        // Also check for 'cancelled' status
+        // start = checkin time of the guest
+        const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
+        let room = await CheckinCheckoutModel.findOne(filter).exec();
+        let sameOrder = _.filter(room.orders, { items: [{ name: item.name }] });
+        return sameOrder;
     } catch (error) {
         console.log('error thrown', error);
         throw new KamError.DBError(error);
@@ -254,7 +244,7 @@ async function test_is_item_already_ordered() {
 
 const test_search = async () => {
     const g = await cache.get('000');
-    var t = search('swimming pool', g);
+    var t = search('time', g);
     console.log('t=', t);
 }
 

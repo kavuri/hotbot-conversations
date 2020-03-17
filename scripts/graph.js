@@ -51,6 +51,10 @@ const menu = 'menu';
  *          Like: "I would like to reserve a table in the restaurant at 09:00PM" or "I would like to book a taxi"
  *          Not mandatory. Mark only for facilities that are bookable/reservable
  *          For other items, like food, book would be false, since the user cannot say "I would like to book a dosa"
+ * limit: {count: 1, for:'day/stay'} = the limit on the items to be served for free
+ * price: 'amount > 0' = the price of the item
+ *          Set only if price > 0, else if no price is set for the item, it is deemed as free
+ *          An item cannot have limit and price at the sametime. Because, the hotel can serve the item at a price
  *          
  * Meta Nodes
  * 'all_items': Holds all the items that can be searched
@@ -292,7 +296,7 @@ function createGraph(hotel_id, hotel_name) {
     g.setNode('salt', { o: true, a: true, m: true, msg: { yes: 'We can provide you salt. Do you want some?', no: 'We do not provide salt' } });
     g.setNode('sugar', { o: true, a: true, m: true, msg: { yes: 'We do have sugar at our hotel', no: 'We do not provide sugar' } });
     g.setNode('oil', { o: true, p: false, m: true, msg: { yes: 'We can provide you oil. Do you want some?', no: 'We do not provide oil' } });   //FIXME: Complete the order cycle
-    g.setNode('tissues', { o: true, a: true, price: '0', msg: { yes: 'We have tissues at our hotel', no: 'We do not have tissues to order' } });
+    g.setNode('tissues', { o: true, a: true, price: '0', limit: { count: 1, for: 'stay' }, msg: { yes: 'We have tissues at our hotel', no: 'We do not have tissues to order' } });
     g.setParent('paper napkins', 'tissues');
     g.setParent('paper napkin', 'tissues');
     g.setParent('wipes', 'tissues');
@@ -306,11 +310,14 @@ function createGraph(hotel_id, hotel_name) {
     g.setParent('clothe hangers', 'hanger');
     g.setNode('clock', { p: false, o: true, ri: true, msg: { yes: 'There is a table clock in your room', no: 'We do not have a clock. You can ask Alexa for the time instead' } });
     g.setParent('watch', 'clock');
-    g.setNode('towel', { p: false, o: true, ri: true, c: true, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
+    g.setNode('pullover', { p: true, o: true, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
+    g.setParent('rug', 'pullover');
+    g.setNode('pillow', { p: true, o: true, ri: true, c: false, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
+    g.setNode('towel', { p: false, o: true, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
     g.setParent('bath towel', 'towel');
-    g.setNode('napkin', { p: false, o: true, ri: true, c: true, msg: { yes: 'There are napkins provided in your room', no: 'We do not provide napkins' } });
+    g.setNode('napkin', { p: false, o: true, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are napkins provided in your room', no: 'We do not provide napkins' } });
     g.setParent('hand napkin', 'napkin');
-    g.setNode('soap', { p: false, o: true, ri: true, c: true, msg: { yes: 'There is a soap in your bathroom', no: 'We do not provide a soap. You will need to get your own' } });
+    g.setNode('soap', { p: false, o: true, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a soap in your bathroom', no: 'We do not provide a soap. You will need to get your own' } });
     g.setParent('bath soap', 'soap');
     g.setParent('bath cream', 'soap');
     g.setParent('shower cream', 'soap');
@@ -333,12 +340,12 @@ function createGraph(hotel_id, hotel_name) {
     g.setNode('tea machine', { p: false, o: true, ri: true, msg: { yes: 'There is a tea machine in your room ', no: 'We do not have a tea machine' } });
     g.setNode('dish washer', { p: false, o: true, ri: true, msg: { yes: 'There is a dish washer in your room ', no: 'We do not have a dish washer' } });
     g.setNode('fan', { p: false, o: true, ri: true, msg: { yes: 'There is a fan in your room ', no: 'We do not have a fan in the room' } });
-    g.setNode('water', { p: false, o: true, ri: true, c: true, price: 20, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water' } });
+    g.setNode('water', { p: false, o: true, ri: true, c: true, price: 20, limit: { count: 1, for: 'day' }, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water' } });
     g.setParent('water bottle', 'water');
     g.setParent('bottle of water', 'water');
 
     // Menu items
-    g.setNode('menu', { f: true, a: true, msg: {yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Call the front desk' }});
+    g.setNode('menu', { f: true, a: true, msg: { yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Call the front desk' } });
     g.setNode('cuisines', { f: true, a: true, o: true, msg: { yes: 'We serve <%=cuisines %> ' } });
     g.setParent('menu options', 'cuisines');
     g.setParent('menu types', 'cuisines');
@@ -539,7 +546,7 @@ function createGraph(hotel_id, hotel_name) {
     g.setNode('Horlicks', { o: true, d: true, a: true, c: true, m: true, amount: [{ quantity: 1, price: '₹70' }], contents: '', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Bournvita', { o: true, d: true, a: true, c: true, m: true, amount: [{ quantity: 1, price: '₹70' }], contents: '', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Nescafe', { o: true, d: true, a: true, c: true, m: true, amount: [{ quantity: 1, price: '₹70' }], contents: '', description: '', time: { from: '0900', to: '2300' } });
-    g.setNode('Tea', { o: true, d: true, a: true, c: true, m: true, amount: [{ quantity: 1, price: '₹30' }], contents: '', description: '', time: { from: '0900', to: '2300' } });
+    g.setNode('Tea', { o: true, d: true, a: true, c: false, m: true, amount: [{ quantity: 1, price: '₹30' }], contents: '', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Filter Coffee', { o: true, d: true, a: true, c: true, m: true, amount: [{ quantity: 1, price: '₹50' }], contents: '', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Mango Panna', { o: true, d: true, a: true, c: true, m: true, amount: [{ quantity: 1, price: '₹70' }], contents: '', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Ginger Lemon Soda', { o: true, d: true, a: true, c: true, m: true, amount: [{ quantity: 1, price: '₹90' }], contents: '', description: '', time: { from: '0900', to: '2300' } });
@@ -614,9 +621,9 @@ function createGraph(hotel_id, hotel_name) {
 
 function linkPolicies(hotel_id) {
     const nodes = g.nodes();
-    for (var i=0; i<nodes.length; i++) {
+    for (var i = 0; i < nodes.length; i++) {
         var node = g.node(nodes[i]);
-         if (!_.isUndefined(node)) {
+        if (!_.isUndefined(node)) {
             if (!_.isUndefined(node['p']) && _.isEqual(node['p'], true)) {
                 // console.log(policies + '->' + name);
                 g.setEdge(policies, nodes[i], { label: 'policy' });
@@ -627,7 +634,7 @@ function linkPolicies(hotel_id) {
 
 function linkFacilities(hotel_id) {
     const nodes = g.nodes();
-    for (var i=0; i<nodes.length; i++) {
+    for (var i = 0; i < nodes.length; i++) {
         var node = g.node(nodes[i]);
         if (!_.isUndefined(node)) {
             if (!_.isUndefined(node['f']) && _.isEqual(node['f'], true)) {
@@ -649,9 +656,9 @@ function linkFacilities(hotel_id) {
 
 function linkRoomItems(hotel_id) {
     const nodes = g.nodes();
-    for (var i=0; i<nodes.length; i++) {
+    for (var i = 0; i < nodes.length; i++) {
         var node = g.node(nodes[i]);
-         if (!_.isUndefined(node)) {
+        if (!_.isUndefined(node)) {
             if (!_.isUndefined(node['ri']) && _.isEqual(node['ri'], true)) {
                 // console.log(roomitem + '->' + name);
                 g.setEdge(roomitem, nodes[i], { label: 'roomitem' });
@@ -662,9 +669,9 @@ function linkRoomItems(hotel_id) {
 
 function linkMenuItems(hotel_id) {
     const nodes = g.nodes();
-    for (var i=0; i<nodes.length; i++) {
+    for (var i = 0; i < nodes.length; i++) {
         var node = g.node(nodes[i]);
-         if (!_.isUndefined(node)) {
+        if (!_.isUndefined(node)) {
             if (!_.isUndefined(node['m']) && _.isEqual(node['m'], 'yes')) {
                 // console.log('menu' + '->' + name);
                 g.setEdge('m', nodes[i], { label: 'menu' });

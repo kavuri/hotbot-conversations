@@ -4,6 +4,1048 @@
 			"invocationName": "hotel reception",
 			"types": [
 				{
+					"name": "smoking_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "cigerette",
+								"synonyms": [
+									"smoke",
+									"smoking",
+									"cigar",
+									"tobacco",
+									"bidi"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "place_in_hotel",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "hotel"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "room"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lobby",
+								"synonyms": [
+									"open area"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bar"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "kitchen"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gym"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "play area"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lounge"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "terrace"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "swimming pool",
+								"synonyms": [
+									"pool",
+									"swimming",
+									"kids pool"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "alcohol_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "whiskey"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "brandy"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gin"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "rum"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "beer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "alcohol",
+								"synonyms": [
+									"booze",
+									"drink",
+									"drinking"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "vodka"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "karhu"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bud weiser"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hard drink"
+							}
+						}
+					]
+				},
+				{
+					"name": "payment_method_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "credit card"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "debit card",
+								"synonyms": [
+									"bank card"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "forex card",
+								"synonyms": [
+									"foreign currency card"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cash",
+								"synonyms": [
+									"dollar",
+									"rupees"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "wallet",
+								"synonyms": [
+									"apple pay",
+									"google pay",
+									"pay tm",
+									"phone pay"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "wire transfer",
+								"synonyms": [
+									"bank transfer",
+									"internet banking transfer"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "facility_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "alcohol",
+								"synonyms": [
+									"booze",
+									"drink",
+									"drinking",
+									"whiskey",
+									"brandy",
+									"gin",
+									"rum",
+									"gin",
+									"beer",
+									"vodka",
+									"karhu",
+									"bud weiser",
+									"hard drink"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cuisine",
+								"synonyms": [
+									"cuisine",
+									"Indian",
+									"Chinese",
+									"North India",
+									"South Indian",
+									"Punjabi",
+									"Bengali",
+									"Karnataka",
+									"Andhra",
+									"Tamil",
+									"Kerala",
+									"Bengali",
+									"Gujrati",
+									"Jain",
+									"Rajastani"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Veg",
+								"synonyms": [
+									"vegetarian",
+									"vegan"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "Non Veg",
+								"synonyms": [
+									"non vegetarian"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "microwave",
+								"synonyms": [
+									"food reheat",
+									"reheat",
+									"microwave oven"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bottle sterilizer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "oven"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "refrigerator"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cooking facilities",
+								"synonyms": [
+									"cooking equipment",
+									"stove",
+									"cutlery",
+									"knife"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "fan"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "ac",
+								"synonyms": [
+									"air conditioner",
+									"air cooler",
+									"room cooler",
+									"air heater",
+									"room warmer"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "remote",
+								"synonyms": [
+									"tv remote",
+									"television remote"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "iron",
+								"synonyms": [
+									"iron box",
+									"clothes ironing",
+									"ironing machine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hair dryer",
+								"synonyms": [
+									"dryer",
+									"hair drying machine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "mini bar"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "menu",
+								"synonyms": [
+									"food menu",
+									"restaurant menu"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "expresso machine",
+								"synonyms": [
+									"coffee machine"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dish washer",
+								"synonyms": [
+									"dish washing facility"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "water",
+								"synonyms": [
+									"water bottle",
+									"bottle of water"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "shower"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "flush"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "commode",
+								"synonyms": [
+									"loo",
+									"poo place"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lock",
+								"synonyms": [
+									"key",
+									"room lock",
+									"room key",
+									"automatic lock"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "door",
+								"synonyms": [
+									"room door",
+									"door knob"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tea",
+								"synonyms": [
+									"green tea",
+									"tea bags",
+									"tea powder"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "coffee",
+								"synonyms": [
+									"coffee powder"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "glass",
+								"synonyms": [
+									"drinking glass",
+									"wine glass",
+									"plastic mug",
+									"mug"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "towels"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "napkins",
+								"synonyms": [
+									"wipes"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "toilet paper",
+								"synonyms": [
+									"toilet wipes"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tooth brush",
+								"synonyms": [
+									"brush"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tooth paste",
+								"synonyms": [
+									"paste",
+									"brushing paste"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "tongue cleaner"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "shampoo",
+								"synonyms": [
+									"hair wash",
+									"hair cleaner"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "conditioner",
+								"synonyms": [
+									"hair conditioner"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "soap",
+								"synonyms": [
+									"soap liquid",
+									"bathing soap",
+									"body soap",
+									"body shampoo",
+									"body cleaner"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "comb",
+								"synonyms": [
+									"hair comb"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "pillows",
+								"synonyms": [
+									"pillow",
+									"bed pillows"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bed sheets",
+								"synonyms": [
+									"sheets",
+									"pull over"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "chair",
+								"synonyms": [
+									"extra chair"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "clothes dryer"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hanger",
+								"synonyms": [
+									"hangers",
+									"clothes hanger"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "body lotion",
+								"synonyms": [
+									"lotion",
+									"body cream",
+									"face cream",
+									"cream"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "hair gel",
+								"synonyms": [
+									"hair cream"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cot",
+								"synonyms": [
+									"child bed",
+									"extra bed"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "idly"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "samosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "chicken curry"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "food"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "breakfast",
+								"synonyms": [
+									"tiffin",
+									"morning snacks"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lunch"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dinner"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "supper"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "evening snacks"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "light meals"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "gym",
+								"synonyms": [
+									"workout place",
+									"fitness center",
+									"exercise",
+									"jogging",
+									"walk area",
+									"philates"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "yoga"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "walk area",
+								"synonyms": [
+									"jogging",
+									"running",
+									"jog",
+									"run",
+									"fast walk"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "zumbga"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "philates"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "reception",
+								"synonyms": [
+									"front desk",
+									"receptionist"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "swimming pool",
+								"synonyms": [
+									"swim",
+									"pool"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "parking",
+								"synonyms": [
+									"car parking",
+									"vehicle parking",
+									"two wheeler parking",
+									"valet"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lift",
+								"synonyms": [
+									"elevator",
+									"escalator"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "restaurant"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "childrens play area",
+								"synonyms": [
+									"play area",
+									"play ground",
+									"child play area"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "children day care facility",
+								"synonyms": [
+									"day care",
+									"child care",
+									"day care facility",
+									"child care facility"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "laundry",
+								"synonyms": [
+									"self laundry",
+									"washing clothes",
+									"drying clothes",
+									"laundry services",
+									"coin laundry"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "spa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "massage"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "children swimming pool",
+								"synonyms": [
+									"child pool",
+									"baby pool",
+									"kids pool",
+									"swimming for kids"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bar",
+								"synonyms": [
+									"drinking place"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "pub"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "room service"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "cab",
+								"synonyms": [
+									"taxi",
+									"cab booking",
+									"taxi booking"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "airport shuttle",
+								"synonyms": [
+									"airport transport",
+									"airport cab",
+									"airport taxi"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "fridge",
+								"synonyms": [
+									"room fridge",
+									"refrigerator"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bicycle",
+								"synonyms": [
+									"cycle"
+								]
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "bike",
+								"synonyms": [
+									"scooter",
+									"two wheeler",
+									"motor bike",
+									"gear bike",
+									"bike rental",
+									"scooter rent"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "meal_types",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "food"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "breakfast"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "lunch"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "dinner"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "supper"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "evening snacks"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "light meals"
+							}
+						}
+					]
+				},
+				{
+					"name": "menu_type",
+					"values": [
+						{
+							"id": null,
+							"name": {
+								"value": "dosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "idly"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "samosa"
+							}
+						},
+						{
+							"id": null,
+							"name": {
+								"value": "chicken curry"
+							}
+						}
+					]
+				},
+				{
 					"name": "community_types",
 					"values": [
 						{
@@ -554,1715 +1596,6 @@
 					]
 				},
 				{
-					"name": "smoking_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "cigerette",
-								"synonyms": [
-									"smoke",
-									"smoking",
-									"cigar",
-									"tobacco",
-									"bidi"
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "place_in_hotel",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "hotel"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "room"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lobby",
-								"synonyms": [
-									"open area"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bar"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "kitchen"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "gym"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "play area"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lounge"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "terrace"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "swimming pool",
-								"synonyms": [
-									"pool",
-									"swimming",
-									"kids pool"
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "alcohol_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "whiskey"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "brandy"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "gin"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "rum"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "beer"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "alcohol",
-								"synonyms": [
-									"booze",
-									"drink",
-									"drinking"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "vodka"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "karhu"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bud weiser"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hard drink"
-							}
-						}
-					]
-				},
-				{
-					"name": "payment_method_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "credit card"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "debit card",
-								"synonyms": [
-									"bank card"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "forex card",
-								"synonyms": [
-									"foreign currency card"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cash",
-								"synonyms": [
-									"dollar",
-									"rupees"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "wallet",
-								"synonyms": [
-									"apple pay",
-									"google pay",
-									"pay tm",
-									"phone pay"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "wire transfer",
-								"synonyms": [
-									"bank transfer",
-									"internet banking transfer"
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "facility_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "gym",
-								"synonyms": [
-									"workout place",
-									"fitness center",
-									"exercise"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "yoga"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "walk area",
-								"synonyms": [
-									"jogging",
-									"running",
-									"jog",
-									"run",
-									"fast walk"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "zumbga"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "philates"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "gym",
-								"synonyms": [
-									"work out",
-									"exercise",
-									"fitness center",
-									"yoga",
-									"walk area",
-									"philates",
-									"jogging"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "reception",
-								"synonyms": [
-									"front desk",
-									"receptionist"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "swimming pool",
-								"synonyms": [
-									"swim",
-									"pool"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "breakfast",
-								"synonyms": [
-									"tiffin",
-									"morning snacks"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "parking",
-								"synonyms": [
-									"car parking",
-									"vehicle parking",
-									"two wheeler parking",
-									"valet"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lift",
-								"synonyms": [
-									"elevator",
-									"escalator"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "restaurant"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "childrens play area",
-								"synonyms": [
-									"play area",
-									"play ground",
-									"child play area"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "children day care facility",
-								"synonyms": [
-									"day care",
-									"child care",
-									"day care facility",
-									"child care facility"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "laundry",
-								"synonyms": [
-									"self laundry",
-									"washing clothes",
-									"drying clothes",
-									"laundry services",
-									"coin laundry"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "spa"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "massage"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "children swimming pool",
-								"synonyms": [
-									"child pool",
-									"baby pool",
-									"kids pool",
-									"swimming for kids"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bar",
-								"synonyms": [
-									"drinking place"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "pub"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "room service"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cab",
-								"synonyms": [
-									"taxi",
-									"cab booking",
-									"taxi booking"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "airport shuttle",
-								"synonyms": [
-									"airport transport",
-									"airport cab",
-									"airport taxi"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "fridge",
-								"synonyms": [
-									"room fridge",
-									"refrigerator"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bicycle",
-								"synonyms": [
-									"cycle"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bike",
-								"synonyms": [
-									"scooter",
-									"two wheeler",
-									"motor bike",
-									"gear bike",
-									"bike rental",
-									"scooter rent"
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "meal_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "food"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "breakfast"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lunch"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "dinner"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "supper"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "evening snacks"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "light meals"
-							}
-						}
-					]
-				},
-				{
-					"name": "equipment_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "microwave",
-								"synonyms": [
-									"food reheat",
-									"reheat",
-									"microwave oven"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bottle sterilizer"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "oven"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "refrigerator"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cooking facilities",
-								"synonyms": [
-									"cooking equipment",
-									"stove",
-									"cutlery",
-									"knife"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "fan"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "ac",
-								"synonyms": [
-									"air conditioner",
-									"air cooler",
-									"room cooler",
-									"air heater",
-									"room warmer"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "remote",
-								"synonyms": [
-									"tv remote",
-									"television remote"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "iron",
-								"synonyms": [
-									"iron box",
-									"clothes ironing",
-									"ironing machine"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hair dryer",
-								"synonyms": [
-									"dryer",
-									"hair drying machine"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "mini bar"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "menu",
-								"synonyms": [
-									"food menu",
-									"restaurant menu"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "expresso machine",
-								"synonyms": [
-									"coffee machine"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "dish washer",
-								"synonyms": [
-									"dish washing facility"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "water"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "shower"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "flush"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "commode",
-								"synonyms": [
-									"loo",
-									"poo place"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lock",
-								"synonyms": [
-									"key",
-									"room lock",
-									"room key",
-									"automatic lock"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "door",
-								"synonyms": [
-									"room door",
-									"door knob"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "fan"
-							}
-						}
-					]
-				},
-				{
-					"name": "order_item_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "whiskey"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "brandy"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "gin"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "rum"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "beer"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "alcohol",
-								"synonyms": [
-									"booze",
-									"drink",
-									"drinking"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "vodka"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "karhu"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bud weiser"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hard drink"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Indian"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Chinese"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "North India"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "South Indian"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Bengali"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Gujarathi"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Veg",
-								"synonyms": [
-									"vegetarian",
-									"vegan"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Non Veg",
-								"synonyms": [
-									"non vegetarian"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "continental"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "oriental"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Andhra"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Kannada"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Maharastrian"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Punjabi"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "kerala"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "microwave",
-								"synonyms": [
-									"food reheat",
-									"reheat",
-									"microwave oven"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bottle sterilizer"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "oven"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "refrigerator"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cooking facilities",
-								"synonyms": [
-									"cooking equipment",
-									"stove",
-									"cutlery",
-									"knife"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "fan"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "ac",
-								"synonyms": [
-									"air conditioner",
-									"air cooler",
-									"room cooler",
-									"air heater",
-									"room warmer"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "remote",
-								"synonyms": [
-									"tv remote",
-									"television remote"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "iron",
-								"synonyms": [
-									"iron box",
-									"clothes ironing",
-									"ironing machine"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hair dryer",
-								"synonyms": [
-									"dryer",
-									"hair drying machine"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "mini bar"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "menu",
-								"synonyms": [
-									"food menu",
-									"restaurant menu"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "expresso machine",
-								"synonyms": [
-									"coffee machine"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "dish washer",
-								"synonyms": [
-									"dish washing facility"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "water"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "shower"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "flush"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "commode",
-								"synonyms": [
-									"loo",
-									"poo place"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lock",
-								"synonyms": [
-									"key",
-									"room lock",
-									"room key",
-									"automatic lock"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "door",
-								"synonyms": [
-									"room door",
-									"door knob"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "fan"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "tea",
-								"synonyms": [
-									"green tea",
-									"tea bags",
-									"tea powder"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "coffee",
-								"synonyms": [
-									"coffee powder"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "glass",
-								"synonyms": [
-									"drinking glass",
-									"wine glass",
-									"plastic mug",
-									"mug"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "towels",
-								"synonyms": [
-									"towel"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "napkins",
-								"synonyms": [
-									"wipes"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "toilet paper",
-								"synonyms": [
-									"toilet wipes"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "tooth brush",
-								"synonyms": [
-									"brush"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "tooth paste",
-								"synonyms": [
-									"paste",
-									"brushing paste"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "tongue cleaner"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "shampoo",
-								"synonyms": [
-									"hair wash",
-									"hair cleaner"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "conditioner",
-								"synonyms": [
-									"hair conditioner"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "soap",
-								"synonyms": [
-									"soaps",
-									"soap liquid",
-									"bathing soap",
-									"body soap",
-									"body shampoo",
-									"body cleaner"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "comb",
-								"synonyms": [
-									"hair comb"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "pillows",
-								"synonyms": [
-									"pillow",
-									"bed pillows"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bed sheets",
-								"synonyms": [
-									"sheets",
-									"pull over"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "chair",
-								"synonyms": [
-									"extra chair"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "clothes dryer"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hanger",
-								"synonyms": [
-									"hangers",
-									"clothes hanger"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "body lotion",
-								"synonyms": [
-									"lotion",
-									"body cream",
-									"face cream",
-									"cream"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hair gel",
-								"synonyms": [
-									"hair cream"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cot",
-								"synonyms": [
-									"child bed",
-									"extra bed"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "dosa"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "idly"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "samosa"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "chicken curry"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "food"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "breakfast"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lunch"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "dinner"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "supper"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "evening snacks"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "light meals"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "gym",
-								"synonyms": [
-									"workout place",
-									"fitness center",
-									"exercise"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "yoga"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "walk area",
-								"synonyms": [
-									"jogging",
-									"running",
-									"jog",
-									"run",
-									"fast walk"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "zumbga"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "philates"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "gym",
-								"synonyms": [
-									"work out",
-									"exercise",
-									"fitness center",
-									"yoga",
-									"walk area",
-									"philates",
-									"jogging"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "reception",
-								"synonyms": [
-									"front desk",
-									"receptionist"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "swimming pool",
-								"synonyms": [
-									"swim",
-									"pool"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "breakfast",
-								"synonyms": [
-									"tiffin",
-									"morning snacks"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "parking",
-								"synonyms": [
-									"car parking",
-									"vehicle parking",
-									"two wheeler parking",
-									"valet"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lift",
-								"synonyms": [
-									"elevator",
-									"escalator"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "restaurant"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "childrens play area",
-								"synonyms": [
-									"play area",
-									"play ground",
-									"child play area"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "children day care facility",
-								"synonyms": [
-									"day care",
-									"child care",
-									"day care facility",
-									"child care facility"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "laundry",
-								"synonyms": [
-									"self laundry",
-									"washing clothes",
-									"drying clothes",
-									"laundry services",
-									"coin laundry"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "spa"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "massage"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "children swimming pool",
-								"synonyms": [
-									"child pool",
-									"baby pool",
-									"kids pool",
-									"swimming for kids"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bar",
-								"synonyms": [
-									"drinking place"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "pub"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "room service"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cab",
-								"synonyms": [
-									"taxi",
-									"cab booking",
-									"taxi booking"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "airport shuttle",
-								"synonyms": [
-									"airport transport",
-									"airport cab",
-									"airport taxi"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "fridge",
-								"synonyms": [
-									"room fridge",
-									"refrigerator"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bicycle",
-								"synonyms": [
-									"cycle"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bike",
-								"synonyms": [
-									"scooter",
-									"two wheeler",
-									"motor bike",
-									"gear bike",
-									"bike rental",
-									"scooter rent"
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "menu",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "dosa"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "idly"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "samosa"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "chicken curry"
-							}
-						}
-					]
-				},
-				{
-					"name": "cuisine_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "Indian"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Chinese"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "North India"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "South Indian"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Bengali"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Gujarathi"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Veg",
-								"synonyms": [
-									"vegetarian",
-									"vegan"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Non Veg",
-								"synonyms": [
-									"non vegetarian"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "continental"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "oriental"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Andhra"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Kannada"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Maharastrian"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "Punjabi"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "kerala"
-							}
-						}
-					]
-				},
-				{
 					"name": "takeaway",
 					"values": [
 						{
@@ -2302,287 +1635,9 @@
 							}
 						}
 					]
-				},
-				{
-					"name": "room_item_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "tea",
-								"synonyms": [
-									"green tea",
-									"tea bags",
-									"tea powder"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "coffee",
-								"synonyms": [
-									"coffee powder"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "glass",
-								"synonyms": [
-									"drinking glass",
-									"wine glass",
-									"plastic mug",
-									"mug"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "towels"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "napkins",
-								"synonyms": [
-									"wipes"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "toilet paper",
-								"synonyms": [
-									"toilet wipes"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "tooth brush",
-								"synonyms": [
-									"brush"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "tooth paste",
-								"synonyms": [
-									"paste",
-									"brushing paste"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "tongue cleaner"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "shampoo",
-								"synonyms": [
-									"hair wash",
-									"hair cleaner"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "conditioner",
-								"synonyms": [
-									"hair conditioner"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "soap",
-								"synonyms": [
-									"soap liquid",
-									"bathing soap",
-									"body soap",
-									"body shampoo",
-									"body cleaner"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "comb",
-								"synonyms": [
-									"hair comb"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "pillows",
-								"synonyms": [
-									"pillow",
-									"bed pillows"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bed sheets",
-								"synonyms": [
-									"sheets",
-									"pull over"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "chair",
-								"synonyms": [
-									"extra chair"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "clothes dryer"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hanger",
-								"synonyms": [
-									"hangers",
-									"clothes hanger"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "body lotion",
-								"synonyms": [
-									"lotion",
-									"body cream",
-									"face cream",
-									"cream"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hair gel",
-								"synonyms": [
-									"hair cream"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cot",
-								"synonyms": [
-									"child bed",
-									"extra bed"
-								]
-							}
-						}
-					]
 				}
 			],
 			"intents": [
-				{
-					"name": "Community_options",
-					"samples": [
-						"{option_number}",
-						"option {option_number}",
-						"tell me about option {option_number}",
-						"tell me more about option {option_number}",
-						"please tell me about option {option_number}",
-						"give me details about option {option_number}",
-						"i would like to know about {option_number}",
-						"i would like to know more about {option_number}",
-						"i want to know about {option_number}",
-						"i want to know more about {option_number}"
-					],
-					"slots": [
-						{
-							"name": "option_number",
-							"type": "AMAZON.NUMBER"
-						}
-					]
-				},
-				{
-					"name": "Community_nearby_all",
-					"samples": [
-						"do you know about places nearby",
-						"do you have information about places nearby",
-						"tell me about places nearby",
-						"can I know about nearby places",
-						"can you tell me about nearby places",
-						"do you know about nearby places",
-						"do you have information about nearby places",
-						"tell me about nearby places",
-						"can I know about places nearby",
-						"can you tell me about places nearby"
-					]
-				},
-				{
-					"name": "Community_nearby",
-					"samples": [
-						"i would like to know about any {community_slot} nearby",
-						"can i know about {community_slot} nearby",
-						"can you please let me know about {community_slot} nearby",
-						"can you get me {community_slot} nearby",
-						"is there any {community_slot} nearby",
-						"let me know about any {community_slot} nearby",
-						"please help me with a {community_slot} nearby",
-						"tell me about any {community_slot} nearby",
-						"find me a {community_slot} in the area",
-						"where can i get {community_slot}",
-						"what's a great {community_slot} nearby",
-						"where is the nearest {community_slot}",
-						"i would like to know about the nearest {community_slot}",
-						"can you tell me about nearest {community_slot}",
-						"can you please tell me about nearest {community_slot}",
-						"can you get me nearest {community_slot}",
-						"can you please get me nearest {community_slot}",
-						"let me know about nearest {community_slot}",
-						"tell me about the nearest {community_slot}",
-						"please tell me about the nearest {community_slot}",
-						"i would like to know about {community_slot}",
-						"can you tell me about {community_slot}",
-						"can you please tell me about {community_slot}",
-						"can you get me {community_slot}",
-						"can you please get me {community_slot}",
-						"let me know about {community_slot}",
-						"tell me about the {community_slot}",
-						"please tell me about the {community_slot}"
-					],
-					"slots": [
-						{
-							"name": "community_slot",
-							"type": "community_types"
-						}
-					]
-				},
 				{
 					"name": "Device_setup",
 					"samples": [
@@ -2601,6 +1656,19 @@
 				{
 					"name": "Policy_smoking",
 					"samples": [
+						"am i allowed to light a {smoking_slot} here",
+						" Am i allowed to {smoking_slot} here",
+						"{smoking_slot} policy of the hotel please",
+						"what is the {smoking_slot} policy here",
+						"can you tell me about {smoking_slot} policy here",
+						"{smoking_slot} rules of the hotel please",
+						" am i allowed to {smoking_slot} in {place_slot}",
+						"may i know the {smoking_slot} policy please",
+						"may i please know about the {smoking_slot} policy here",
+						"will you please explain the {smoking_slot} policy here",
+						"May i hear about the {smoking_slot} policy here",
+						"Please explain the {smoking_slot} policy here",
+						"please elaborate on the {smoking_slot} policy here",
 						"can i chew {smoking_slot} at {place_slot}",
 						"can i {smoking_slot}",
 						"can i {smoking_slot} in the {place_slot}",
@@ -2609,8 +1677,9 @@
 						"is it okay to {smoking_slot}",
 						"is {smoking_slot} allowed in {place_slot}",
 						"is {smoking_slot} okay",
-						"what the policy on {smoking_slot}",
-						"whats the policy on {smoking_slot}"
+						"what is the policy on {smoking_slot}",
+						"can i know about {smoking_slot} policies please",
+						"may i know the {smoking_slot} policy here"
 					],
 					"slots": [
 						{
@@ -2626,6 +1695,24 @@
 				{
 					"name": "Policy_alcohol",
 					"samples": [
+						"may i know the {alcohol_slot} policy of the hotel",
+						"may i know the policy on {alcohol_slot} consumption",
+						"what is the {alcohol_slot} consumption policy here",
+						"please explain the {alcohol_slot} consumption policy here",
+						"please explain the {alcohol_slot} policy here",
+						"what are the {alcohol_slot} consumption rules here",
+						"can you explain the {alcohol_slot} consumption rules here",
+						"can you explain {alcohol_slot} consumption policy here",
+						"can you elaborate on the {alcohol_slot} consumption policy here",
+						"may i know about the {alcohol_slot} consumption rules here",
+						"please explain the {alcohol_slot} consumption rules of the hotel",
+						"please elaborate on the {alcohol_slot} consumption rules of the hotel",
+						" {alcohol_slot} consumption policy of the hotel please",
+						"{alcohol_slot} consumption rules of the hotel please",
+						"is {alcohol_slot} allowed in here",
+						"is {alcohol_slot} allowed here",
+						"is {alcohol_slot} consumption allowed here",
+						"is {alcohol_slot} consumption okay in here",
 						"am i allowed to {alcohol_slot} in my {place_slot}",
 						"can i consume {alcohol_slot}",
 						"can i drink {alcohol_slot} in the {place_slot}",
@@ -2634,7 +1721,6 @@
 						"can i {alcohol_slot} in the hotel",
 						"can i {alcohol_slot} {alcohol_slot}",
 						"is it okay to bring {alcohol_slot} to the hotel",
-						"is it okay to drink {alcohol_slot}",
 						"is it okay to drink {alcohol_slot}",
 						"is it okay to {alcohol_slot} {alcohol_slot} here",
 						"is {alcohol_slot} allowed",
@@ -2657,12 +1743,31 @@
 				{
 					"name": "Policy_cancellation",
 					"samples": [
+						"room booking cancellation policy",
+						"room booking cancellation rules",
+						"please explain the cancellation policy of the hotel",
+						"please elaborate on the cancellation rules of the hotel",
+						"please elaborate on the cancellation policy of the hotel",
+						"please explain the cancellation rules of the hotel",
+						"elaborate on the cancellation policy of the hotel",
+						"elaborate on the cancellation rules of the hotel",
+						"can i cancel my booking on {datetime_slot}",
+						"cancellation policy",
+						"cancellation charges",
+						"tell me cancellation charges",
+						"room charge after cancel",
+						"how to cancel my room",
+						"how to cancel my booking",
+						"how to cancel room booking",
+						"cancel booking charge",
+						"cancel booking rate",
+						"what is room cancellation rate",
 						"can i cancel mid-way",
 						"can i cancel my booking",
 						"can i cancel my stay",
 						"money back on cancellation",
 						"rule for cancellation",
-						"what are the cancellation rule",
+						"what are the cancellation policies",
 						"what are the cancellation rules",
 						"what is the cancellation policy",
 						"will i get my money back if i cancel now",
@@ -2679,8 +1784,25 @@
 				{
 					"name": "Policy_infants",
 					"samples": [
+						"do you charge extra for infants",
+						"do you charge extra for kids",
+						"do you charge extra for children",
+						"can kids stay in the room for free",
+						"how many kids can stay for free",
+						"what are the charges for kids stay ",
+						"can childrens come",
+						"can children come",
+						"how many childrens free stay",
+						"what is childrens charges",
+						"free for baby",
+						"charge for baby",
+						"do you charge for babies",
+						"do you charge extra for babies",
+						"what is baby charges",
+						"any extra charge for baby",
+						"any extra charge for childrens",
 						"can I bring infants",
-						"can infant stay",
+						"can an infant stay",
 						"can infants stay",
 						"can my child stay for free",
 						"do you charge for infant",
@@ -2696,6 +1818,21 @@
 				{
 					"name": "Policy_checkout_time",
 					"samples": [
+						"check out time please",
+						"details of check out policy",
+						"checkout policy please",
+						"may i know the check out time please",
+						"please tell the check out time",
+						"when is the check out time",
+						"when can i check out",
+						"whats your check out policy",
+						"what are your check out timings",
+						"please give the check out timings",
+						"help with the check out timings please",
+						"need help with the check out timings",
+						"what are the check out timings like",
+						"what is check out time",
+						"when i check out",
 						"at what time is the check out",
 						"check out time",
 						"is it possible for a late checkout",
@@ -2707,11 +1844,20 @@
 				{
 					"name": "Policy_noshow",
 					"samples": [
+						"are there any no show charges",
+						"do you charge if i do not show up on the check-in date ",
+						"do i get charged if i do not show up on the check-in date",
+						"no show policy please",
+						"detail me on the no show policy please",
+						"what if i dont come",
+						"no come what charges",
+						"no check-in charge",
+						"no check-in what charge",
 						"are there no show charge",
 						"are there no show charges",
 						"if i do not check in on the check-in date will",
 						"if i do not check-in on the check-in date will i be charged",
-						"what are the no show charge",
+						"what is the no show charge",
 						"what are the no show charges",
 						"what if i do not check in on the specific date",
 						"what is the policy for no show",
@@ -2721,6 +1867,14 @@
 				{
 					"name": "Policy_outside_food",
 					"samples": [
+						"will i be charged for bringing outside food",
+						"can i bring outside food",
+						"can i eat outside food in the room",
+						"is outside food allowed into the room",
+						"is outside food allowed in the hotel",
+						"can i bring food from outside",
+						"am i allowed to bring outside food",
+						"can i get outside food to the room or hotel",
 						"can i get food from outside",
 						"can i order food online",
 						"can my friend get food from outside",
@@ -2737,6 +1891,19 @@
 				{
 					"name": "Policy_checkin_time",
 					"samples": [
+						"check in time please",
+						"check in time ",
+						"when is the check in time",
+						"when can i check in",
+						"what are the check in timings",
+						"may i know the check in time",
+						"please tell the check in time",
+						"tell me the check in time please",
+						"when do i check in",
+						"what is my check in time",
+						"my check in time please",
+						"what is check in time",
+						"hotel check in time",
 						"at what time is the check in",
 						"can i checkin at {timeperiodslot}",
 						"is it possible to checkin at time",
@@ -2755,6 +1922,17 @@
 				{
 					"name": "Policy_pets",
 					"samples": [
+						"does this hotel allow pets",
+						"can i bring any pets",
+						"are pets allowed here",
+						"what are the pet policies",
+						"can i leave my {animal_slot} in the hotel",
+						"do you have any pet spas",
+						"pet care in the hotel",
+						"pets policy",
+						"pet policies",
+						"pet charges",
+						"can i walk my {animal_slot} in the hotel premises",
 						"are pet allowed",
 						"are pets allowed",
 						"can I bring my {animal_slot}",
@@ -2773,6 +1951,14 @@
 				{
 					"name": "Policy_payment_method",
 					"samples": [
+						"how to pay my hotel bill",
+						"which method to pay my bill",
+						"what are the payment methods",
+						"what are bill paying methods",
+						"bill paying types",
+						"what are the acceptable payment methods ",
+						"can i use {payment_method_slot} to pay my bill",
+						"may i use {payment_method_slot} to pay my bill",
 						"what payment methods are accepted",
 						"can I pay the bill with my {payment_method_slot}",
 						"is {payment_method_slot} accepted",
@@ -2790,6 +1976,9 @@
 				{
 					"name": "Enquiry_reception_languages",
 					"samples": [
+						"what languages can the receptionist speak",
+						"what languages can the receptionist converse in",
+						"can i speak to the receptionist in my language",
 						"Which languages are spoken at Reception",
 						"What all languages does the receptionist know",
 						"Does the receptionist know my language"
@@ -2798,31 +1987,29 @@
 				{
 					"name": "Enquiry_room_last_refurbished_date",
 					"samples": [
+						"when was the room cleaning done",
+						"when was the last room cleaning done",
+						"did anyone clean the room",
+						"have they cleaned the room yet",
+						"did they clean the room",
+						"did they complete room cleaning",
 						"When was the room last refurbished",
-						"When was the room cleaned?",
-						"Has the room been cleaned?",
-						"Is this hotel refurbished?",
-						"is this room cleaned?",
-						"is the room cleaning complete?"
-					]
-				},
-				{
-					"name": "Enquiry_hotel_floors",
-					"samples": [
-						"How many floors does the hotel have",
-						"How many rooms does this hotel have",
-						"Are there {room_count} rooms in this hotel?"
-					],
-					"slots": [
-						{
-							"name": "room_count",
-							"type": "AMAZON.NUMBER"
-						}
+						"When was the room cleaned",
+						"Has the room been cleaned",
+						"Is this hotel refurbished",
+						"is this room cleaned",
+						"is the room cleaning complete"
 					]
 				},
 				{
 					"name": "Enquiry_all_facilities",
 					"samples": [
+						"name the hotel amenities",
+						"name the hotel amenities please",
+						"list out the hotel amenities",
+						"list all the hotel amenities",
+						"list all the hotel facilities",
+						"list all the hotel specialities",
 						"hotel amenities",
 						"hotel features",
 						"hotel facilities",
@@ -2840,6 +2027,35 @@
 				{
 					"name": "Enquiry_facility_exists",
 					"samples": [
+						"is there a {facility_slot} in the room",
+						"tell me about {facility_slot}",
+						"does this room have a {facility_slot}",
+						"can I use {facility_slot} in this room",
+						"how about having {facility_slot} in this room",
+						"I am not sure if there is {facility_slot}",
+						"can you tell me if this room has {facility_slot}",
+						"can i boil baby milk bottle",
+						"can i boil baby milk bottles",
+						"can i sterilize bottle",
+						"can i sterilize bottles",
+						"can you boil baby milk bottle",
+						"can you boil baby milk bottles",
+						"can you strelize milk bottle",
+						"can you strelize milk bottles",
+						"is it possible to boil with hot water baby milk bottle",
+						"is it possible to boil with hot water baby milk bottles",
+						"is it possible to sterilize bottle",
+						"is it possible to sterilize bottles",
+						"can i use {facility_slot}",
+						"can i use {facility_slot} in your kitchen",
+						"can you {facility_slot} in the kitchen",
+						"do you have a {facility_slot}",
+						"does the hotel have {facility_slot}",
+						"does the kitchen have {facility_slot}",
+						"is it possible to warm in {facility_slot} in the kitchen",
+						"is it possible to {facility_slot} in the kitchen",
+						"is there a {facility_slot} in the hotel",
+						"is {facility_slot} available",
 						"does this hotel have a {facility_slot}",
 						"is there a {facility_slot} here",
 						"do you have {facility_slot}",
@@ -2857,10 +2073,15 @@
 						"is there a place to {facility_slot}",
 						"is there a {facility_slot}",
 						"tell me about the {facility_slot}",
-						"where is the {facility_slot} place",
-						"where is the {facility_slot}"
+						"do you have {req_count} of {facility_slot}",
+						"can I get {facility_slot} {req_count} each",
+						"is there a {facility_slot} in the room"
 					],
 					"slots": [
+						{
+							"name": "req_count",
+							"type": "AMAZON.NUMBER"
+						},
 						{
 							"name": "facility_slot",
 							"type": "facility_types"
@@ -2870,8 +2091,11 @@
 				{
 					"name": "Enquiry_Facility_timings",
 					"samples": [
+						"what are the timings for {facility_slot}",
+						"how to use {facility_slot}",
+						"when can i go to {facility_slot} ",
+						"when can i use {facility_slot} ",
 						"can i go to {facility_slot} {datetime}",
-						"can i use {facility_slot}",
 						"how about the timings for {facility_slot}",
 						"i would like to use {facility_slot} is it open {datetime}",
 						"is it okay to use {facility_slot} {datetime}",
@@ -2908,6 +2132,8 @@
 				{
 					"name": "Enquiry_Facility_price",
 					"samples": [
+						"Is {facility_slot} included in the room rent",
+						"does {facility_slot} come with the room rent",
 						"what are the charges for {facility_slot}",
 						"how much do I have to pay for {facility_slot}",
 						"is using {facility_slot} free",
@@ -2940,6 +2166,9 @@
 				{
 					"name": "Enquiry_Facility_location",
 					"samples": [
+						"please help me with the {facility_slot} directions",
+						"please help me with the {facility_slot} location",
+						"how to go to the {facility_slot}",
 						"where is the {facility_slot} located",
 						"how can I reach {facility_slot}",
 						"what is the way to {facility_slot}",
@@ -2957,7 +2186,10 @@
 						"what is the easiest way to reach the {facility_slot}",
 						"what is the location of the {facility_slot}",
 						"where is the {facility_slot} located",
-						"where is it located"
+						"where is it located",
+						"where is the {facility_slot}",
+						"i cant find {facility_slot}",
+						"where can I find the {facility_slot}"
 					],
 					"slots": [
 						{
@@ -2967,20 +2199,21 @@
 					]
 				},
 				{
-					"name": "Enquiry_menu",
-					"samples": [
-						"is there a menu in the room",
-						"where can i find menu",
-						"where is the menu",
-						"where is the menu in the room",
-						"I cant find the menu",
-						"I need a menu",
-						"where is the food menu"
-					]
-				},
-				{
 					"name": "Enquiry_menu_cuisinetype",
 					"samples": [
+						"tell me the menu items list",
+						"list of food items available",
+						"what is special here in terms of food",
+						"todays special food item",
+						"todays special menu",
+						"what is todays special",
+						"what is weekend special food item",
+						"any special food item today",
+						"what are the restaurants specials",
+						"anything special on the menu",
+						"how can i order from the menu",
+						"how to order from the menu",
+						"what tiffins do you have here",
 						"what are the different food items",
 						"what does the restaurant serve",
 						"what food is available",
@@ -2994,10 +2227,7 @@
 						"can i get {meal_types_slot} here",
 						"do i get {meal_types_slot} here",
 						"does the restaurant serve {meal_types_slot}",
-						"does the restaurant serve {meal_types_slot}",
-						"how about {meal_types_slot}",
-						"is {meal_types_slot} available",
-						"is {meal_types_slot} serve",
+						"do you serve {meal_types_slot} ",
 						"is {meal_types_slot} served",
 						"what is the food type",
 						"what kind of food is served here",
@@ -3010,44 +2240,6 @@
 							"name": "meal_types_slot",
 							"type": "meal_types"
 						}
-					]
-				},
-				{
-					"name": "Enquiry_kitchen_equipment",
-					"samples": [
-						"can i use {equipment_typesslot}",
-						"can i use {equipment_typesslot} in your kitchen",
-						"can you {equipment_typesslot} in the kitchen",
-						"do you have a {equipment_typesslot}",
-						"does the hotel have {equipment_typesslot}",
-						"does the kitchen have {equipment_typesslot}",
-						"is it possible to warm in {equipment_typesslot} in the kitchen",
-						"is it possible to {equipment_typesslot} in the kitchen",
-						"is there a {equipment_typesslot} in the hotel",
-						"is {equipment_typesslot} available"
-					],
-					"slots": [
-						{
-							"name": "equipment_typesslot",
-							"type": "equipment_types"
-						}
-					]
-				},
-				{
-					"name": "Enquiry_kitchen_bottlesterilize",
-					"samples": [
-						"can i boil baby milk bottle",
-						"can i boil baby milk bottles",
-						"can i sterilize bottle",
-						"can i sterilize bottles",
-						"can you boil baby milk bottle",
-						"can you boil baby milk bottles",
-						"can you strelize milk bottle",
-						"can you strelize milk bottles",
-						"is it possible to boil with hot water baby milk bottle",
-						"is it possible to boil with hot water baby milk bottles",
-						"is it possible to sterilize bottle",
-						"is it possible to sterilize bottles"
 					]
 				},
 				{
@@ -3081,6 +2273,11 @@
 				{
 					"name": "Equipment_not_working",
 					"samples": [
+						"I need a replacement for {equipment_slot}",
+						"tell me the process of making {equipment_slot} work",
+						"how to make {equipment_slot} work",
+						"when will the {equipment_slot} in my room work",
+						"when will you fix {equipment_slot} in my room",
 						"{equipment_slot} is not working",
 						"the {equipment_slot} in my room is not working",
 						"can you please fix {equipment_slot} in my room",
@@ -3090,30 +2287,13 @@
 						"fix {equipment_slot} in my room",
 						"I am unable to make {equipment_slot} work please help",
 						"how can I use {equipment_slot}",
-						"help me with using {equipment_slot}"
+						"help me with using {equipment_slot}",
+						"please help to fix {equipment_slot} in my room"
 					],
 					"slots": [
 						{
 							"name": "equipment_slot",
-							"type": "equipment_types"
-						}
-					]
-				},
-				{
-					"name": "Equipment_info",
-					"samples": [
-						"is there a {equipment_slot} in the room",
-						"tell me about {equipment_slot}",
-						"does this room have a {equipment_slot}",
-						"can I use {equipment_slot} in this room",
-						"how about having {equipment_slot} in this room",
-						"I am not sure if there is {equipment_slot}",
-						"can you tell me if this room has {equipment_slot}"
-					],
-					"slots": [
-						{
-							"name": "equipment_slot",
-							"type": "equipment_types"
+							"type": "facility_types"
 						}
 					]
 				},
@@ -3123,7 +2303,7 @@
 						"can i get the time to get my food delivered",
 						"does it take more than one hour to get my food delivered",
 						"how much is the delivery time for food",
-						"is it going to take more time to deliver the food?",
+						"is it going to take more time to deliver the food",
 						"how much time does it take to get my food order delivered",
 						"how much time for the food ",
 						"how much time for the order",
@@ -3136,13 +2316,19 @@
 				{
 					"name": "Order_item",
 					"samples": [
+						"what to order for lunch",
+						"please take my lunch order",
+						"this is my food order",
+						"i want to order some food",
+						"can you take tiffin order",
+						"can you take food order",
+						"what can i order today",
+						"i would like to eat {menu_slot}",
 						"I would like new {order_item_slot}",
 						"can you please get some set of new {order_item_slot}",
-						"I need a replacement for {order_item_slot}",
 						"can you please send {req_count} {order_item_slot}",
 						"I am out of {order_item_slot} can you please send some",
 						"there are no {order_item_slot} in the room can you please send the same",
-						"I need a replacement for {order_item_slot}",
 						"Can you get me a {req_count} of {order_item_slot}",
 						"I quickly need some {order_item_slot}",
 						"I need {req_count} {order_item_slot}",
@@ -3171,11 +2357,11 @@
 						"can you place an order for {order_item_slot}",
 						"i need a {order_item_slot}",
 						"i need some {order_item_slot}",
-						"i would like a {menuslot} for {order_item_slot}",
-						"i would like to order a {menuslot}",
+						"i would like a {menu_slot} for {order_item_slot}",
+						"i would like to order a {menu_slot}",
 						"i would like to order {order_item_slot}",
 						"i would like to place an order for {order_item_slot}",
-						"i would like to place an order for {menuslot}",
+						"i would like to place an order for {menu_slot}",
 						"please order some {order_item_slot}",
 						"can i get a {order_item_slot} to the railway station",
 						"i need a {order_item_slot}",
@@ -3183,8 +2369,7 @@
 						"please book a {order_item_slot}",
 						"please book a {order_item_slot} to airport",
 						"can i get {order_item_slot}",
-						"can i get {order_item_slot} here",
-						"how about {order_item_slot}",
+						"i would like to get {order_item_slot}",
 						"i would like to order {order_item_slot} to my room",
 						"i want a {order_item_slot}"
 					],
@@ -3195,17 +2380,23 @@
 						},
 						{
 							"name": "order_item_slot",
-							"type": "order_item_types"
+							"type": "facility_types"
 						},
 						{
-							"name": "menuslot",
-							"type": "menu"
+							"name": "menu_slot",
+							"type": "menu_type"
 						}
 					]
 				},
 				{
 					"name": "Order_cancel",
 					"samples": [
+						"please cancel my request",
+						"cancel my previous order",
+						"i want to cancel my order",
+						"i want to cancel my precious order",
+						"i want to cancel my last order",
+						"i would like to cancel my order",
 						"please cancel my order",
 						"I have changed my mind cancel my order",
 						"cancel my last order",
@@ -3244,6 +2435,9 @@
 				{
 					"name": "Info_nearest",
 					"samples": [
+						"which is the nearest {facility_slot}",
+						"Which is the best {facility_slot} nearby",
+						"where is the best {facility_slot} nearby",
 						"how far is the nearest {facility_slot}",
 						"is there a place to buy some food",
 						"is there a {facility_slot} nearby",

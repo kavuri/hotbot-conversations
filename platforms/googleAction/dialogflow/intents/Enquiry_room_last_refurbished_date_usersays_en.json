@@ -2,6 +2,66 @@
 	{
 		"data": [
 			{
+				"text": "when was the room cleaning done",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "when was the last room cleaning done",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "did anyone clean the room",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "have they cleaned the room yet",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "did they clean the room",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "did they complete room cleaning",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "When was the room last refurbished",
 				"userDefined": false
 			}
@@ -12,7 +72,7 @@
 	{
 		"data": [
 			{
-				"text": "When was the room cleaned?",
+				"text": "When was the room cleaned",
 				"userDefined": false
 			}
 		],
@@ -22,7 +82,7 @@
 	{
 		"data": [
 			{
-				"text": "Has the room been cleaned?",
+				"text": "Has the room been cleaned",
 				"userDefined": false
 			}
 		],
@@ -32,7 +92,7 @@
 	{
 		"data": [
 			{
-				"text": "Is this hotel refurbished?",
+				"text": "Is this hotel refurbished",
 				"userDefined": false
 			}
 		],
@@ -42,7 +102,7 @@
 	{
 		"data": [
 			{
-				"text": "is this room cleaned?",
+				"text": "is this room cleaned",
 				"userDefined": false
 			}
 		],
@@ -52,7 +112,7 @@
 	{
 		"data": [
 			{
-				"text": "is the room cleaning complete?",
+				"text": "is the room cleaning complete",
 				"userDefined": false
 			}
 		],

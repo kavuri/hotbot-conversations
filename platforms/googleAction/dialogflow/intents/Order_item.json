@@ -15,13 +15,13 @@
 					"isList": false,
 					"name": "order_item_slot",
 					"value": "$order_item_slot",
-					"dataType": "@order_item_types"
+					"dataType": "@facility_types"
 				},
 				{
 					"isList": false,
-					"name": "menuslot",
-					"value": "$menuslot",
-					"dataType": "@menu"
+					"name": "menu_slot",
+					"value": "$menu_slot",
+					"dataType": "@menu_type"
 				}
 			]
 		}

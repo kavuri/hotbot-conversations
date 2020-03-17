@@ -2,6 +2,362 @@
 	{
 		"data": [
 			{
+				"text": "may i know the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " policy of the hotel",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "may i know the policy on ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what is the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please explain the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please explain the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "what are the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption rules here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you explain the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption rules here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you explain ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "can you elaborate on the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption policy here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "may i know about the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption rules here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please explain the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption rules of the hotel",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "please elaborate on the ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption rules of the hotel",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": " ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption policy of the hotel please",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption rules of the hotel please",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " allowed in here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " allowed here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption allowed here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
+				"text": "is ",
+				"userDefined": false
+			},
+			{
+				"text": "alcohol_slot",
+				"userDefined": true,
+				"alias": "alcohol_slot",
+				"meta": "@alcohol_types"
+			},
+			{
+				"text": " consumption okay in here",
+				"userDefined": false
+			}
+		],
+		"isTemplate": false,
+		"count": 0
+	},
+	{
+		"data": [
+			{
 				"text": "am i allowed to ",
 				"userDefined": false
 			},
@@ -160,22 +516,6 @@
 			{
 				"text": " to the hotel",
 				"userDefined": false
-			}
-		],
-		"isTemplate": false,
-		"count": 0
-	},
-	{
-		"data": [
-			{
-				"text": "is it okay to drink ",
-				"userDefined": false
-			},
-			{
-				"text": "alcohol_slot",
-				"userDefined": true,
-				"alias": "alcohol_slot",
-				"meta": "@alcohol_types"
 			}
 		],
 		"isTemplate": false,

@@ -8,7 +8,9 @@
 var _ = require('lodash'),
     mongoose = require('mongoose'),
     AuditLogModel = require('./AuditLog'),
-    DBConn = require('./index').DBConn;
+    DBConn = require('./index').DBConn,
+    HotelModel = require('../db/Hotel'),
+    RoomModel = require('../db/Room');
 
 /**
  * Table schema
@@ -21,7 +23,8 @@ var DeviceSchema = new mongoose.Schema({
     user_id: { type: String, required: true, index: true },
     room_no: String, // this is "address2" field
     status: { type: String, required: true, enum: ['inactive', 'active', 'disabled', 'new'], default: 'inactive' },
-    belongs_to: { type: mongoose.Schema.Types.ObjectId, ref: 'Hotel' }
+    belongs_to: { type: mongoose.Schema.Types.ObjectId, ref: 'Hotel' },
+    room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room' }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false });
 
 DeviceSchema.index({ device_id: 1, hotel_id: 1 }, { unique: true });
