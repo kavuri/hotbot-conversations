@@ -19,7 +19,7 @@ const CheckinCheckoutModel = require('../../src/db/CheckinCheckout'),
  */
 router.post('/checkin',
     //auth0.authenticate,
-    //auth0.authorize('create:device'),
+    //auth0.authorize('create:hotel'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('room_no').exists({ checkNull: true, checkFalsy: true }),
@@ -65,7 +65,7 @@ router.post('/checkin',
  */
 router.put('/checkout',
     //auth0.authenticate,
-    //auth0.authorize('create:device'),
+    //auth0.authorize('create:hotel'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('room_no').exists({ checkNull: true, checkFalsy: true }),

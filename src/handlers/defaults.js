@@ -8,48 +8,25 @@
 let _ = require('lodash'),
     DeviceModel = require('../db/Device'),
     KamError = require('../utils/KamError'),
-    HotelModel = require('../db/Hotel');
+    HotelModel = require('../db/Hotel'),
+    dotenv = require('dotenv'),
+    fetch = require('node-fetch');
+
+dotenv.config();
 
 module.exports = {
 
     // Always triggered when a user opens your app, no matter the query (new session)
     async NEW_SESSION() {
         console.log('new session handler:');
-        //Account linking starts
-        let token = await this.$request.getAccessToken();
-        console.log('Token : ' + token);
 
-        // checkSessionToken(this, token);
-
-        // if (_.isEmpty(token) || _.isNull(token) || _.isUndefined(token) || _.isUndefined(token)) {
-        //     this.$alexaSkill.showAccountLinkingCard();
-        //     return this.tell('Please link you Account');
-        // }else{
-        //     let options = {
-        //         method: 'GET',
-        //         uri: 'https://kamamishu-india.auth0.com/userinfo',
-        //         headers: {
-        //             authorization: 'Bearer ' + token,
-        //         }
-        //     };
-
-        //     await rp(options).then((body) => {
-        //         let data = JSON.parse(body);
-        //         let user_name = data.name ;
-        //     });
-        // }
-        //Account linking ends
-
-        // FixME Add user_name in Device_To_Hotel/separate login table for tracking purpose
         var device_id = this.$request.context.System.device.deviceId;
-            //user_id = this.$request.context.System.user.userId;
-
-        // Get the hotel id from this device_id and user_id
+        //user_id = this.$request.context.System.user.userId;
 
         let data;
         try {
             console.log('getting device...', device_id)
-            //data = await DeviceModel.findOne({ device_id: device_id }).populate('belongs_to');
+            // Get the hotel id from this device_id and user_id
             data = await DeviceModel.findOne({ device_id: device_id }).populate('belongs_to').populate('room');
 
             console.log('hotel data..', JSON.stringify(data));
@@ -109,8 +86,10 @@ module.exports = {
         console.info('NEW_USER handler');
     },
 
-    //FIXME: Replace 'ABC' to the hotel name
     async LAUNCH() {
+        // FIXME: Add user in Device_To_Hotel/separate login table for tracking purpose
+        const user = checkSessionToken(this);
+
         console.info('LAUNCH handler', this.$session.$data.hotel);
         this.ask(this.t('WELCOME', { hotel_name: this.$session.$data.hotel.name }));
     },
@@ -129,23 +108,23 @@ module.exports = {
     }
 }
 
-// function checkSessionToken(this, token) {
-//     if (_.isEmpty(token) || _.isNull(token) || _.isUndefined(token) || _.isUndefined(token)) {
-//         this.$alexaSkill.showAccountLinkingCard();
-//         return this.tell('Please link you Account');
-//     }else{
-//             let options = {
-//                 method: 'GET',
-//                 uri: 'https://kamamishu-india.auth0.com/userinfo',
-//                 headers: {
-//                     authorization: 'Bearer ' + token,
-//                 }
-//             };
-
-//             await rp(options).then((body) => {
-//                 let data = JSON.parse(body);
-//                 let user_name = data.name ;
-//             });
-//     }
-//         // Account linking ends
-// }
+async function checkSessionToken(thisObj) {
+    let token = await thisObj.$request.getAccessToken();
+    //console.log('checking for token:', token);
+    if (_.isEmpty(token) || _.isNull(token) || _.isUndefined(token)) {
+        //console.log('no token in request. Sending account linking card');
+        thisObj.$alexaSkill.showAccountLinkingCard();
+        return thisObj.tell('Please link you Account');
+    } else {
+        //console.log('invoking GET userinfo');
+        const user = await fetch('https://' + process.env.AUTH0_DOMAIN + '/userinfo', {
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer ' + token,
+            }
+        });
+        //console.log('userinfo=', user);
+        return user;
+    }
+    // Account linking ends
+}

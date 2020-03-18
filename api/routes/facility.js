@@ -46,7 +46,7 @@ router.get('/',
  */
 router.put('/:facility_id',
     auth0.authenticate,
-    auth0.authorize('update:facility'),
+    auth0.authorize('create:facility'),
     [
         check('facility_id').exists({ checkNull: true, checkFalsy: true })
     ],

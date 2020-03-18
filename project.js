@@ -8,29 +8,28 @@
 // ------------------------------------------------------------------
 
 module.exports = {
-    alexaSkill: {
-       nlu: 'alexa',
-    },
-    googleAction: {
-       nlu: 'dialogflow',
-       dialogflow: {
+   alexaSkill: {
+      nlu: 'alexa',
+   },
+   googleAction: {
+      nlu: 'dialogflow',
+      dialogflow: {
          projectId: 'frontdesk-a6a13',
          keyFile: './frontdesk-a6a13-dcf0042ab507.json'
-       }
-    },
-    endpoint: '${JOVO_WEBHOOK_URL}',
+      }
+   },
+   endpoint: '${JOVO_WEBHOOK_URL}',
 
-    stages: {
-       defaultStage: 'dev',
-       dev: {
+   stages: {
+      defaultStage: 'dev',
+      dev: {
 
-       },
-       test: {
+      },
+      test: {
 
-       },
-       prod: {
+      },
+      prod: {
 
-       }
-    }
+      }
+   }
 };
- 
