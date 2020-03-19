@@ -331,34 +331,6 @@
       ]
     },
     {
-      "name": "Enquiry_reception_languages",
-      "phrases": [
-        "what languages can the receptionist speak",
-        "what languages can the receptionist converse in",
-        "can i speak to the receptionist in my language",
-        "Which languages are spoken at Reception",
-        "What all languages does the receptionist know",
-        "Does the receptionist know my language"
-      ]
-    },
-    {
-      "name": "Enquiry_room_last_refurbished_date",
-      "phrases": [
-        "when was the room cleaning done",
-        "when was the last room cleaning done",
-        "did anyone clean the room",
-        "have they cleaned the room yet",
-        "did they clean the room",
-        "did they complete room cleaning",
-        "When was the room last refurbished",
-        "When was the room cleaned",
-        "Has the room been cleaned",
-        "Is this hotel refurbished",
-        "is this room cleaned",
-        "is the room cleaning complete"
-      ]
-    },
-    {
       "name": "Enquiry_all_facilities",
       "phrases": [
         "name the hotel amenities",
@@ -476,7 +448,8 @@
         "what about {facility_slot} time",
         "what about {facility_slot} timings",
         "when is the {facility_slot} open",
-        "what time is {facility_slot} served"
+        "what time is {facility_slot} served",
+        "when is the {facility_slot} open"
       ],
       "inputs": [
         {
@@ -798,27 +771,6 @@
             "alexa": "AMAZON.NUMBER",
             "dialogflow": "@sys.number-integer"
           }
-        }
-      ]
-    },
-    {
-      "name": "Info_nearest",
-      "phrases": [
-        "which is the nearest {facility_slot}",
-        "Which is the best {facility_slot} nearby",
-        "where is the best {facility_slot} nearby",
-        "how far is the nearest {facility_slot}",
-        "is there a place to buy some food",
-        "is there a {facility_slot} nearby",
-        "what is the closest {facility_slot}",
-        "what is the nearest place to get food",
-        "where can i get food",
-        "where is the nearest {facility_slot}"
-      ],
-      "inputs": [
-        {
-          "name": "facility_slot",
-          "type": "facility_types"
         }
       ]
     }

@@ -127,14 +127,27 @@ module.exports.item = async function (hotel_id, name) {
         const parent = g.parent(res);
         if (_.isUndefined(parent)) {
             console.log('no parent. returning ', g.node(res));
+            var node = g.node(res);
+            node.name = res;
             // Parent does not exist. Send the node
-            return g.node(res);
+            return node;
         } else {
             // Parent exists and is the real node. Return it
             console.log('parent exists:', parent, ' returning ', g.node(parent));
-            return g.node(parent);
+            var node = g.node(parent);
+            node.name = parent;
+            return node;
         }
     }
+}
+
+module.exports.getNode = async (hotel_id, name) => {
+    if (_.isUndefined(hotel_id) || _.isUndefined(name)) {
+        throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', name=' + name);
+    }
+
+    const g = await cache.get(hotel_id);
+    return g.node(name);
 }
 
 module.exports.successors = async (hotel_id, name) => {

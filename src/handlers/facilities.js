@@ -43,36 +43,33 @@ function resetOrdersInSession(thisObj) {
 
 module.exports = {
     async Enquiry_reception_languages() {
-        var hotel_id = this.$session.$data.hotel_id;
-        console.log('Enquiry_reception_languages. hotel_id=' + hotel_id);
-
+        const hotel_id = this.$session.$data.hotel.hotel_id;
         let facility;
-        // Session data is empty, get the facility from database
         try {
-            facility = await DBFuncs.item(hotel_id, 'reception');
+            facility = await DBFuncs.item(hotel_id, 'reception_languages');
         } catch (error) {
-            if (error instanceof KamError.InputError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.DBError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.FacilityDoesNotExistError) {
-                this.ask(this.t('FACILITY_NOT_AVAILABLE', {
-                    facility: item_name
-                }));
-            }
+            console.log('error while fetching hotel facility:', error);
+            throw error;
         }
 
-        if (facility.p) {   // If reception is present
-            var langs = await DBFuncs.item(hotel_id, 'reception_languages');
-            const msg = langs.message;
-            this.$speech
-                .addText(msg)
-                .addBreak('200ms')
-                .addText(this.t('ANYTHING_ELSE'));
-
-            // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
-            return this.ask(this.$speech);
+        let msg;
+        if (_.isEmpty(facility)) {
+            // No such policy defined for this hotel
+            msg = this.t('FACILITY_NOT_AVAILABLE');
         }
+
+        if (_.has(facility, 'f') && _.isEqual(facility.f, true)) {
+            // Its a facility. Get the message
+            msg = facility.msg;
+        }
+        this
+            .$speech
+            .addText(msg)
+            .addBreak('200ms')
+            .addText(this.t('ANYTHING_ELSE'));
+
+        // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
+        return this.ask(this.$speech);
     },
 
     async Enquiry_all_facilities() {
@@ -105,9 +102,11 @@ module.exports = {
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
 
-        return this
-            .followUpState('ReadOutAllFacilitiesState')
-            .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        this.removeState(); // This makes the next invocation go global
+        return this.ask(this.$speech);
+        // return this
+        //     .followUpState('ReadOutAllFacilitiesState')
+        //     .ask(this.$speech, this.t('YES_NO_REPROMPT'));
     },
 
     'ReadOutAllFacilitiesState': {
@@ -536,14 +535,13 @@ module.exports = {
                 this.tell(thisObj.t('SYSTEM_ERROR'));
             } else if (error instanceof KamError.DBError) {
                 this.tell(thisObj.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.FacilityDoesNotExistError) {
-                this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', {
-                    facility: item_name
-                }));
             }
         }
+        if (_.isEmpty(item)) {
+            this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', { facility: item_name }));
+        }
 
-        console.log('+++item=', item);
+        console.log('+++timings item=', item);
 
         let present = item.a;
         if (_.isEqual(present), false) {
@@ -556,8 +554,12 @@ module.exports = {
         }
 
         // Get the timings node
-        let timings_node_name = item_name + '_timings';
-        let timings = await DBFuncs.item(hotel_id, timings_node_name);
+        let timings_node_name = item.name + '_timings';
+        console.log('getting node_name=', timings_node_name);
+        let timings = await DBFuncs.getNode(hotel_id, timings_node_name);
+        if (_.isUndefined(timings)) {   // FIXME: Ensure this does not happen
+            this.tell(thisObj.t('SYSTEM_ERROR'));
+        }
 
         let msg = timings.msg;
 
@@ -579,11 +581,10 @@ module.exports = {
                 this.tell(thisObj.t('SYSTEM_ERROR'));
             } else if (error instanceof KamError.DBError) {
                 this.tell(thisObj.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.FacilityDoesNotExistError) {
-                this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', {
-                    facility: item_name
-                }));
             }
+        }
+        if (_.isEmpty(item)) {
+            this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', { facility: item_name }));
         }
 
         console.log('+++item=', item);
@@ -599,8 +600,11 @@ module.exports = {
         }
 
         // Get the timings node
-        let price_node_name = item_name + '_price';
-        let price = await DBFuncs.item(hotel_id, price_node_name);
+        let price_node_name = item.name + '_price';
+        let price = await DBFuncs.getNode(hotel_id, price_node_name);
+        if (_.isUndefined(price)) {   // FIXME: Ensure this does not happen
+            this.tell(thisObj.t('SYSTEM_ERROR'));
+        }
 
         let msg = price.msg;
 
@@ -622,11 +626,10 @@ module.exports = {
                 this.tell(thisObj.t('SYSTEM_ERROR'));
             } else if (error instanceof KamError.DBError) {
                 this.tell(thisObj.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.FacilityDoesNotExistError) {
-                this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', {
-                    facility: item_name
-                }));
             }
+        }
+        if (_.isEmpty(item)) {
+            this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', { facility: item_name }));
         }
 
         console.log('+++item=', item);
@@ -642,8 +645,11 @@ module.exports = {
         }
 
         // Get the timings node
-        let location_node_name = item_name + '_location';
-        let location = await DBFuncs.item(hotel_id, location_node_name);
+        let location_node_name = item.name + '_location';
+        let location = await DBFuncs.getNode(hotel_id, location_node_name);
+        if (_.isUndefined(location)) {   // FIXME: Ensure this does not happen
+            this.tell(thisObj.t('SYSTEM_ERROR'));
+        }
 
         let msg = location.msg;
 
