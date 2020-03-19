@@ -14,3 +14,46 @@
   * Implement global fallback intents for the final pieces in every conversation
   * Fix the conversations and their strings
   * Check-in & Check-out functionality has to implemented. How does the front desk tell the system on user check-in & check-out - Backend complete
+
+
+# Go To Market
+
+ 1. Kamamishu Website
+  - Build a site in wix.com. Buy domain kamamishu.com and kamamishu.in
+  - Create emails. 1. contact@kamamishu.com, 2. admin@kamamishu.com
+  - Large font, professional, videos, marketing stuff
+ 2. Design brochure that needs to be placed in the hotel room
+  - The brochure should have invocations that the guests can refer to
+  - A single pager on how it works
+ 3. Test kamamishu voice conversations
+  - Write test plan with all the scenarios
+  - Create jest unit test cases
+  - Automate testing with every change
+  - Create deployment package for hotbot-conversations, hotbot-api
+   - Is PM2 used to deploy?
+   - Create deployment script for mongodb
+   - Create 2 EC2 instances in AWS
+   - Deploy conversations and api servers
+  -  Dev complete
+   - Code review
+   - Fix the conversation flow
+   - Fix the messages that are sent to the guest
+   - Build the app for hotel front desk
+   - Family testing of the app
+   - Ensure all certification needs are satisfied
+ 6. AWS Alexa certification process
+  - Submit for certification
+  - Meet Alexa certification team if required to speed up the certification process
+ 7. LinkedIn, Facebook, Twitter accounts & marketing
+  - Create LinkedIn, Facebook, Twitter accounts for Kamamishu
+ 8. Start reaching out to hotels
+  - Buy some Alexa device (~10) = Rs.30K
+  - Deploy in 3 hotels (which ones?), 3 room each in pilot phase
+  - Create list of hotels to pursue 
+  - Maintain a CRM system
+ 9. Legal documents
+  - Create Letter of Intent with Hotel
+   - Create post pilot phase usage agreement
+  - Create End user License agreement
+  - Create device ownership agreement
+  - Anything else?

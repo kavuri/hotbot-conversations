@@ -140,7 +140,7 @@ router.put('/:device_id',
             }
 
             // Update the device
-            await DeviceModel.updateOne({ device_id: device_id }, { $set: { hotel_id: hotel_id, belongs_to: hotel, room: room, status: status } });
+            await DeviceModel.updateOne({ device_id: device_id }, { $set: { hotel_id: hotel_id, room_no: room_no, belongs_to: hotel, room: room, status: status } });
             return res.status(200).send({ device_id: device_id });
         } catch (error) {
             console.log('error in adding device to hotel.', error);
