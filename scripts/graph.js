@@ -79,7 +79,7 @@ function createGraph(hotel_id, hotel_name) {
     g.setEdge(hotel_id, menu, { label: 'menu' });
 
     // Create policies nodes
-    g.setNode('smoking', { p: true, msg: 'smoking is allowed in <%= areas %>', areas: ['lobby', 'smoking room'] });
+    g.setNode('smoking', { p: true, msg: 'smoking is not allowed in the hotel premises.'});
     g.setParent('smoke', 'smoking');
     g.setParent('cigar', 'smoking');
     g.setParent('cigerette', 'smoking');
@@ -90,7 +90,7 @@ function createGraph(hotel_id, hotel_name) {
     g.setParent('cigar', 'smoking');
     g.setParent('hookah', 'smoking');
 
-    g.setNode('alcohol', { p: true, msg: 'alcohol consumption is allowed in <%= areas %>', areas: ['bar', 'room'] });
+    g.setNode('alcohol', { p: true, msg: 'alcohol consumption is allowed in the room' });
     g.setParent('rum', 'alcohol');
     g.setParent('gin', 'alcohol');
     g.setParent('whiskey', 'alcohol');
@@ -101,11 +101,11 @@ function createGraph(hotel_id, hotel_name) {
     g.setParent('cognac', 'alcohol');
 
     g.setNode('cancellation', { p: true, synonyms: ['room cancellation'], msg: 'The room cancellation policy is mentioned in your booking details. Please contact hotel reception for any information about this' });
-    g.setNode('infants', { p: true, synonyms: ['children policy', 'infants stay'], age: 5, msg: 'There are no charges for infants below the age of <%= age %> years and are welcome to stay. ' });
-    g.setNode('checkout time', { p: true, synonyms: ['vacate time', 'vacating'], time: '1200', msg: 'The checkout time for the room is <%= time %>. Please contact reception at <%= reception_no %> if you want to extend your stay beyond checkout time.' });
+    g.setNode('infants', { p: true, synonyms: ['children policy', 'infants stay'], age: 5, msg: 'Kids below 5 years of age are free to stay in the hotel' });
+    g.setNode('checkout time', { p: true, synonyms: ['vacate time', 'vacating'], time: '1200', msg: 'The checkout time for the room is 12:00 PM. Please contact reception at if you want to extend your stay beyond checkout time.' });
     g.setNode('no show', { p: true, synonyms: [], msg: 'In case of no show the first nights room rent would be charged. The rest of the booking amount would be refunded to your account.' });
     g.setNode('outside food', { p: true, synonyms: ['food from outside'], msg: 'We do not allow outside food to be brought into the hotel' });
-    g.setNode('checkin time', { p: true, synonyms: [], time: '1200', msg: 'The check in time for this hotel is <%= checkin_time %>' });
+    g.setNode('checkin time', { p: true, synonyms: [], time: '1200', msg: 'The check in time for this hotel is 02:00PM ' });
     g.setNode('pets', { p: true, synonyms: ['dog', 'cat', 'my pet'], msg: 'Usually pets are not allowed in this hotel. Please check with the front desk on the kind of pets you can bring to this hotel' });
     g.setNode('payment methods', { p: true, 'synonyms': ['credit card', 'debit card', 'cash', 'bank transfer', 'wire transfer'], msg: 'We accept payment by PayTM, Credit card, debit card, cash' });
 
@@ -738,4 +738,4 @@ module.exports.create = async function (hotel_id = '000', hotel_name = 'Dummy ho
     }
 }
 
-// require('./graph').create();
+require('./graph').create("103");

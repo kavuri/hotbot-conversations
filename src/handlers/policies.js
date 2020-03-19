@@ -10,33 +10,49 @@ const _ = require('lodash'),
     HELPER = require('../utils/helpers'),
     DBFuncs = require('../db/db_funcs');
 
+/**
+ * This is a common function to get the policy information from an input
+ * @param {Hotel id} hotel_id 
+ * @param {*} policy 
+ */
+async function policyMessage(hotel_id, policy) {
+    try {
+        policy = await DBFuncs.item(hotel_id, policy);
+    } catch (error) {
+        console.log('error while fetching hotel policies:', error);
+        throw error;
+    }
+
+    let msg;
+    if (_.isEmpty(policy) || _.has(policy, 'f') || _.isEqual(policy.f, true)) {
+        // No such policy defined for this hotel
+        msg = this.t('POLICY_DOES_NOT_EXIST');
+    }
+
+    if (_.has(policy, 'p') && _.isEqual(policy.p, true)) {
+        // Its a policy. Send the message
+        msg = policy.msg;
+    }
+    return msg;
+}
+
 module.exports = {
     async Policy_smoking() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let smoking_policy;
+        let msg;
         try {
-            smoking_policy = await DBFuncs.facility(hotel_id, "smoking", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'smoking');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        var allowed_smoking_places = smoking_policy.allowed, flag = smoking_policy.present.flag;
-        let message = smoking_policy.present.message[flag];
-        
-        if (_.isEqual(flag, "yes")) {
-            // smoking is allowed at certain places
-            message = HELPER.template_to_text(message, {'areas': _.join(allowed_smoking_places, ', ')});
-        }
-
-        this.$speech.addText(message)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -45,29 +61,19 @@ module.exports = {
     async Policy_alcohol() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let alcohol_policy;
+        let msg;
         try {
-            alcohol_policy = await DBFuncs.facility(hotel_id, "alcohol", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'alcohol');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        var allowed_alcohol_places = alcohol_policy.allowed, flag = alcohol_policy.present.flag;
-        let message = alcohol_policy.present.message[flag];
-
-        if (_.isEqual(flag, "yes")) {
-            // smoking is allowed at certain places
-            message = HELPER.template_to_text(message, {'areas': _.join(allowed_alcohol_places, ', ')});
-        }
-
-        this.$speech.addText(message)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -76,24 +82,19 @@ module.exports = {
     async Policy_cancellation() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let cancellation_policy;
+        let msg;
         try {
-            cancellation_policy = await DBFuncs.facility(hotel_id, "cancellation", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'cancellation');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let flag = cancellation_policy.present.flag;
-
-        let message = cancellation_policy.present.message[flag];
-        this.$speech.addText(message)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -102,27 +103,19 @@ module.exports = {
     async Policy_infants() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let infants_policy;
+        let msg;
         try {
-            infants_policy = await DBFuncs.facility(hotel_id, "infants", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'infants');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let flag = infants_policy.present.flag;
-        let message = infants_policy.present.message[flag];
-
-        // Replace the age in the message with the number that is part of the object
-        var text = HELPER.template_to_text(message, {'age': infants_policy.age});
-
-        this.$speech.addText(text)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -131,27 +124,19 @@ module.exports = {
     async Policy_checkout_time() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let checkout_time_policy;
+        let msg;
         try {
-            checkout_time_policy = await DBFuncs.facility(hotel_id, "checkout time", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'checkout time');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let flag = checkout_time_policy.present.flag;
-        let message = checkout_time_policy.present.message[flag];
-
-        // Replace the age in the message with the number that is part of the object
-        var text = HELPER.template_to_text(message, {'time': checkout_time_policy.time, 'reception_no': this.$session.$data.hotel.info.contact.reception});
-
-        this.$speech.addText(text)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -160,24 +145,19 @@ module.exports = {
     async Policy_noshow() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let noshow_policy;
+        let msg;
         try {
-            noshow_policy = await DBFuncs.facility(hotel_id, "no show", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'no show');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let flag = noshow_policy.present.flag;
-        let message = noshow_policy.present.message[flag];
-
-        this.$speech.addText(message)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -186,24 +166,19 @@ module.exports = {
     async Policy_outside_food() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let outside_food_policy;
+        let msg;
         try {
-            outside_food_policy = await DBFuncs.facility(hotel_id, "outside food", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'outside food');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let flag = outside_food_policy.present.flag;
-        let message = outside_food_policy.present.message[flag];
-
-        this.$speech.addText(message)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -212,26 +187,19 @@ module.exports = {
     async Policy_checkin_time() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let checkin_time_policy;
+        let msg;
         try {
-            checkin_time_policy = await DBFuncs.facility(hotel_id, "checkin time", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'checkin time');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let flag = checkin_time_policy.present.flag;
-        let message = checkin_time_policy.present.message[flag];
-
-        var text = HELPER.template_to_text(message, {'checkin_time': checkin_time_policy.time});
-        
-        this.$speech.addText(text)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -240,24 +208,19 @@ module.exports = {
     async Policy_pets() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let pets_policy;
+        let msg;
         try {
-            pets_policy = await DBFuncs.facility(hotel_id, "pets", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'pets');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let flag = pets_policy.present.flag;
-        let message = pets_policy.present.message[flag];
-
-        this.$speech.addText(message)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
@@ -266,27 +229,19 @@ module.exports = {
     async Policy_payment_method() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let payment_methods_policy;
+        let msg;
         try {
-            payment_methods_policy = await DBFuncs.facility(hotel_id, "payment methods", DBFuncs.TYPE.POLICIES);
+            msg = await policyMessage(hotel_id, 'payment methods');
         } catch (error) {
-            if (error instanceof KamError.FacilityDoesNotExistError) {
-                // FIXME: This hotel does not have such a policy
-                // Check with hotel reception?
-            }
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let flag = payment_methods_policy.present.flag;
-        let message = payment_methods_policy.present.message[flag];
-
-        // Replace the payment_methods in the message with the 'methods' string above
-        var text = HELPER.template_to_text(message, {'payment_methods': _.join(payment_methods_policy.methods, ', ')});
-        
-        this.$speech.addText(text)
+        this
+            .$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('FOLLOWUP_QUESTION'));
+            .addText(this.t('ANYTHING_ELSE'));
 
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);

@@ -93,7 +93,6 @@ async function search(name, g) {
 /**
  * @param hotel_id
  * @param name
- * @param facility_type
  */
 module.exports.item = async function (hotel_id, name) {
     console.log('@@facility hotel_id=' + hotel_id + ',name=' + name);

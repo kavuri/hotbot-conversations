@@ -41,53 +41,6 @@ function resetOrdersInSession(thisObj) {
     thisObj.$session.$data.orders = [];
 }
 
-function respond_for_multiple_items(thisObj, db_item, item_name, req_count) {
-    console.log('respond_for_multiple_items:', db_item, item_name, req_count, _.has(db_item, 'count'));
-    let db_item_has_count = _.has(db_item, 'count');
-    if (db_item_has_count && _.isUndefined(req_count)) {
-        req_count = 1;  // User must have requested like "can I get a soap"
-    }
-
-    let item = {
-        f_id: db_item._id,
-        f_name: item_name
-    };
-
-    // Check if the room item object (in database) has "count". If yes, ask for the count of items
-    if (!db_item_has_count) { // There is no count for this item
-        // Confirm the order
-        console.log('item does not require count');
-        thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITHOUT_COUNT', {
-            item_name: item_name
-        }));
-        item.req_count = 0;
-        // thisObj.$session.$data.items.push(item);
-        set_item(this, item);
-        return thisObj.followUpState('ConfirmRoomItemOrder')
-            .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
-    } else if (db_item_has_count && !_.isUndefined(req_count)) { //User has provided count of items
-        // Confirm that you are ordering
-        console.log('item has count and user has provided count');
-        thisObj.$speech.addText(thisObj.t('REPEAT_ORDER_WITH_COUNT', {
-            req_count: req_count, item_name: item_name
-        }));
-        item.req_count = req_count;
-        set_item(this, item);
-        // thisObj.$session.$data.items.push(item);
-        return thisObj.followUpState('ConfirmRoomItemOrder')
-            .ask(thisObj.$speech, thisObj.t('YES_NO_REPROMPT'));
-    } else if (db_item_has_count && _.isUndefined(count)) { // User has not provided count of items. Ask for it
-        console.log('item has count and user has not provided count');
-        thisObj.$speech.addText(thisObj.t('ORDER_REQUEST_COUNT', {
-            item_name: item_name
-        }));
-        return thisObj.followUpState('RequestItemCount')
-            .ask(thisObj.$speech, thisObj.t('ORDER_REQUEST_COUNT', {
-                item_name: item_name
-            }));
-    }
-}
-
 module.exports = {
     async Enquiry_reception_languages() {
         var hotel_id = this.$session.$data.hotel_id;
