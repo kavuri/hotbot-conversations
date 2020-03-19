@@ -1,10 +1,8 @@
 {
   "translation": {
-    "TITLE_ENABLE_LOCATION": "Enable Location",
-    "CONTENT_ENABLE_LOCATION": "Please enable Location permissions in the Amazon Alexa app.",
     "DEVICE_REGISTRATION_SUCCESS": "Device successfully registered. Add device to hotel from application.",
-    "NO_ADDRESS": "Address is not set for device. Please set the address with room number in Alexa app and re-initiate the registration",
-    "LOCATION_FAILURE": "There was an error with the Device Address API. Please try again.",
+    "DEVICE_ADDRESS_NOT_SET": "The address for this device in Alexa app is not set. Set it up and re launch",
+    "NOTIFY_MISSING_PERMISSIONS": "Please grant permission to read address from your Alexa app and re launch",
     "DEVICE_REGISTER_ERROR": "Uh Oh. Looks like something went wrong. Please try again. ",
     "SYSTEM_ERROR": "There is some problem with the service. Please try again",
     "DEVICE_NOT_REGISTERED": "This device is not registered. ",

@@ -3,28 +3,24 @@
 		"publishingInformation": {
 			"locales": {
 				"en-IN": {
-					"summary": "This skill digitises a guest interaction to get services at the hotel",
+					"summary": "Sample Short Description",
 					"examplePhrases": [
-						"Alexa, talk to front desk",
-						"Alexa, open front desk",
-						"Alexa, launch front desk"
+						"Alexa open hello world"
 					],
 					"keywords": [
-						"hotel",
-						"digital",
-						"assistant"
+						"hello",
+						"world"
 					],
-					"name": "Kamamishu - The Hotel Bot",
-					"smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/56b5/fdf2827363a34919949b7e88c7f04198/APP_ICON?versionId=4I3jpr_qBO4_lbOo8I3WxBWSTYJTR4_N&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548042554&Signature=KazKSLyKn6dUd%2FrE%2BA8cmw5rwP0%3D",
-					"description": "The hotel bot"
+					"name": "hotbot-conversation",
+					"description": "Sample Full Description",
+					"smallIconUri": "https://via.placeholder.com/108/09f/09f.png",
+					"largeIconUri": "https://via.placeholder.com/512/09f/09f.png"
 				}
 			},
-			"isAvailableWorldwide": false,
+			"isAvailableWorldwide": true,
 			"testingInstructions": "Sample Testing Instructions.",
-			"category": "ORGANIZERS_AND_ASSISTANTS",
-			"distributionCountries": [
-				"IN"
-			]
+			"category": "EDUCATION_AND_REFERENCE",
+			"distributionCountries": []
 		},
 		"apis": {
 			"custom": {
@@ -35,32 +31,23 @@
 			}
 		},
 		"manifestVersion": "1.0",
-		"permissions": [
-			{
-				"name": "alexa::devices:all:address:full:read"
-			},
-			{
-				"name": "alexa::profile:name:read"
-			},
-			{
-				"name": "alexa::profile:email:read"
-			},
-			{
-				"name": "alexa::profile:mobile_number:read"
-			},
-			{
-				"name": "alexa::alerts:reminders:skill:readwrite"
-			},
-			{
-				"name": "alexa::devices:all:geolocation:read"
-			}
-		],
 		"privacyAndCompliance": {
-			"allowsPurchases": true,
+			"allowsPurchases": false,
+			"locales": {
+				"en-IN": {
+					"privacyPolicyUrl": "http://example.com/policy",
+					"termsOfUseUrl": ""
+				}
+			},
 			"isExportCompliant": true,
 			"containsAds": false,
 			"isChildDirected": false,
-			"usesPersonalInfo": true
-		}
+			"usesPersonalInfo": false
+		},
+		"permissions": [
+			{
+				"name": "alexa:devices:all:address:country_and_postal_code:read"
+			}
+		]
 	}
 }

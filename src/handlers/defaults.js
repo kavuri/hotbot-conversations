@@ -8,20 +8,21 @@
 let _ = require('lodash'),
     DeviceModel = require('../db/Device'),
     KamError = require('../utils/KamError'),
-    HotelModel = require('../db/Hotel'),
+    HotelModel = require('../db/Hotel'),    // Even though HotelModel is not used, DeviceModel.find().populate('belongs_to') needs this. Else, the call is failing
     dotenv = require('dotenv'),
-    fetch = require('node-fetch');
+    fetch = require('node-fetch'),
+    AlexaDeviceAddressClient = require('./AlexaDeviceAddressClient');
+const ALL_ADDRESS_PERMISSION = "read::alexa:device:all:address";
+const PERMISSIONS = [ALL_ADDRESS_PERMISSION];
 
 dotenv.config();
 
 module.exports = {
-
     // Always triggered when a user opens your app, no matter the query (new session)
     async NEW_SESSION() {
         console.log('new session handler:');
 
         var device_id = this.$request.context.System.device.deviceId;
-        //user_id = this.$request.context.System.user.userId;
 
         let data;
         try {
@@ -54,7 +55,6 @@ module.exports = {
                     name: data.belongs_to.name
                 }
             }
-
         } catch (error) {
             // Some DB error
             console.log('error while fetching device:', error);
@@ -65,18 +65,51 @@ module.exports = {
     },
 
     'RegisterDeviceState': {
-        YesIntent() {
-            // Have to use 'toStatelessIntent' since, the new intent resides in a separate global state, 
-            // whereas this current state is 'RegisterDeviceState'
-            return this.toStatelessIntent('Device_setup');
+        async YesIntent() {
+            try {
+                const address = await this.$alexaSkill.$user.getDeviceAddress();
+                console.log('address=', address);
+
+                this.tell('got full address');
+                if (!_.has(address.addressLine1) || !_.has(address.addressLine2)) {
+                    // Admin has not set the hotel_id in addressLine1 and room_no in addressLine2
+                    return this.tell(this.t('DEVICE_ADDRESS_NOT_SET'));
+                }
+                var device = new DeviceModel({
+                    device_id: this.$request.context.System.device.deviceId,
+                    user_id: this.$request.context.System.user.userId,
+                    hotel_id: address.addressLine1,
+                    room_no: address.addressLine2,
+                    address: address
+                });
+
+                try {
+                    let res = await device.save();
+
+                    this.$speech.addText(this.t('DEVICE_REGISTRATION_SUCCESS'));
+                    this.tell(this.$speech);
+                } catch (error) {
+                    console.log('device setup error...', error);
+                    this.tell(this.t('DEVICE_REGISTER_ERROR'));
+                }
+            } catch (error) {
+                console.log('error while getting address:', error);
+                this.$alexaSkill.showAskForAddressCard().tell(this.t('NOTIFY_MISSING_PERMISSIONS'));
+                if (error.code === 'NO_USER_PERMISSION') {
+                    console.log('user permission not given');
+                } else {
+                    // Do something
+                    console.log('@@doing nothing:', error);
+                }
+            }
         },
 
-        NoIntent() {
+        async NoIntent() {
             console.log('not registering this device');
             return this.tell(this.t('END'));
         },
 
-        Unhandled() {
+        async Unhandled() {
             // Triggered when the requested intent could not be found in the handlers variable
             console.log('unhandled in followup state');
         }

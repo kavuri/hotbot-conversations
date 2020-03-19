@@ -10,6 +10,13 @@
 module.exports = {
    alexaSkill: {
       nlu: 'alexa',
+      manifest: {
+         permissions: [
+            {
+               name: 'read::alexa:device:all:address'
+            }
+         ]
+      }
    },
    googleAction: {
       nlu: 'dialogflow',
