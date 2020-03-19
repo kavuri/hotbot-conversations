@@ -220,20 +220,21 @@ module.exports = {
             return this.ask(this.$speech);
         }
 
-        console.log('+++item=', item);
         let msg;
-        let isOrderable = _.isUndefined(item.o) ? false : item.o;
-        if (_.isEqual(isOrderable), false) {    // Step 2
+        let isOrderable = !_.has(item.o) ? false : item.o;
+        console.log('+++item=', item, ', isOrderable=', isOrderable);
+
+        if (_.isEqual(isOrderable, false)) {    // Step 2
+            console.log('isOrdeerable is false');
             // Item is present, 'cannot' be ordered. Give information about the item
-            msg = facility.msg['yes'];
+            msg = item.msg['yes'];
             this.$speech.addText(msg)
                 .addBreak('200ms')
-                .addText(this.t('ITEM_ORDER_QUESTION', {
-                    item: item_name
-                }));
+                .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$speech);
         }
 
+        console.log('going to step 3 ......')
         let intent = this.$session.$data.intent;    // Step 3
         item.name = item_name; // Set the item name for creating the order
         this.$session.$data.item = item;    // Set the item for the followup

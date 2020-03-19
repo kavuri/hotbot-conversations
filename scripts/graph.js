@@ -230,15 +230,15 @@ function createGraph(hotel_id, hotel_name) {
     g.setNode('business lounge', { f: true, a: true, o: true, msg: { yes: 'We have 2 business lounges in our hotel', no: 'We do not have business lounges' } });
     //TODO: Complete rest of the nodes
 
-    g.setNode('reception', { f: true, a: true, o: false, msg: { yes: 'The hotel reception is located near the entrance', no: 'The hotel does not have a separate reception' } });
+    g.setNode('reception', { f: true, a: true, msg: { yes: 'The hotel reception is located near the entrance', no: 'The hotel does not have a separate reception' } });
     g.setParent('front desk', 'reception');
     g.setNode('reception_timings', { time: { from: '0000', to: '0000' }, msg: 'The reception is open 27 by 7' });
     g.setNode('reception_languages', { msg: 'The reception speaks english, hindi, telugu, tamil, malayalam, kannada' });
     createEdges('reception', ['reception_timings', 'reception_languages', { label: 'reception' }]);
 
-    g.setNode('spa', { f: true, a: true, o: true, msg: { yes: 'There is a sauna available', no: 'There is no sauna in this hotel' } });
-    g.setParent('spa', 'body treatment');
-    g.setParent('spa', 'facials');
+    g.setNode('spa', { f: true, a: true, o: true, msg: { yes: 'There is a spa in the hotel', no: 'There is no spa service in this hotel' } });
+    g.setParent('body treatments', 'spa');
+    g.setParent('facials', 'spa');
     g.setNode('spa_location', { msg: 'The spa is located on the outer corridor' });
     g.setNode('spa_timings', { msg: 'Spa is available from <%= from %> to <%= to %> and again in the evening 0600 to 2200', 'time': { 'from': '0500', 'to': '1200' } });
     g.setNode('spa_reserve', { flag: true, msg: { yes: 'You will need to register with the front desk to book a slot', no: 'There is no registration required' } });   //FIXME: Enable booking of facility
