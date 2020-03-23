@@ -10,11 +10,11 @@
   * Change launch keywords from 'hotel reception' to 'front desk', as the utterance 'launch hotel reception is hitting 'Enquiry_All_Facilities'
   * Add AMAZON.FallbackIntent and corresponding Google fallback intent for a catch-all intent
   * Can *App Data* in Jovo be used for storing hotel info, policies and facilities? https://www.jovo.tech/docs/data - DONE
-  * Implement account linking
+  * Implement account linking - DONE
   * Implement global fallback intents for the final pieces in every conversation
   * Fix the conversations and their strings
   * Check-in & Check-out functionality has to implemented. How does the front desk tell the system on user check-in & check-out - Backend complete
-
+  * Write a automation script to check the graph.js for data consistency
 
 # Go To Market
 
@@ -41,17 +41,17 @@
    - Build the app for hotel front desk
    - Family testing of the app
    - Ensure all certification needs are satisfied
- 6. AWS Alexa certification process
+ 4. AWS Alexa certification process
   - Submit for certification
   - Meet Alexa certification team if required to speed up the certification process
- 7. LinkedIn, Facebook, Twitter accounts & marketing
+ 5. LinkedIn, Facebook, Twitter accounts & marketing
   - Create LinkedIn, Facebook, Twitter accounts for Kamamishu
- 8. Start reaching out to hotels
+ 6. Start reaching out to hotels
   - Buy some Alexa device (~10) = Rs.30K
   - Deploy in 3 hotels (which ones?), 3 room each in pilot phase
   - Create list of hotels to pursue 
   - Maintain a CRM system
- 9. Legal documents
+ 7. Legal documents
   - Create Letter of Intent with Hotel
    - Create post pilot phase usage agreement
   - Create End user License agreement

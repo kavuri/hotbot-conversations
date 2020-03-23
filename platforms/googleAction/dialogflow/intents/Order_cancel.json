@@ -1,5 +1,17 @@
 {
 	"name": "Order_cancel",
 	"auto": true,
-	"webhookUsed": true
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "facility_slot",
+					"value": "$facility_slot",
+					"dataType": "@facility_types"
+				}
+			]
+		}
+	]
 }

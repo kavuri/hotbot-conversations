@@ -111,7 +111,7 @@ module.exports = {
 
         async Unhandled() {
             // Triggered when the requested intent could not be found in the handlers variable
-            console.log('unhandled in followup state');
+            console.log('global unhandled state ');
         }
     },
 
@@ -121,7 +121,7 @@ module.exports = {
 
     async LAUNCH() {
         // FIXME: Add user in Device_To_Hotel/separate login table for tracking purpose
-        const user = checkSessionToken(this);
+        //const user = checkSessionToken(this);
 
         console.info('LAUNCH handler', this.$session.$data.hotel);
         this.ask(this.t('WELCOME', { hotel_name: this.$session.$data.hotel.name }));

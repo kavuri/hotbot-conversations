@@ -92,9 +92,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -108,9 +108,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -134,9 +134,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -150,9 +150,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -170,9 +170,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -200,9 +200,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -216,9 +216,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -242,9 +242,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -264,9 +264,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -284,9 +284,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -300,9 +300,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -316,9 +316,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -338,9 +338,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -358,9 +358,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -388,9 +388,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -408,9 +408,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -424,9 +424,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -440,9 +440,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -456,9 +456,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -472,9 +472,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -488,9 +488,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -508,9 +508,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -524,9 +524,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -540,9 +540,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -556,9 +556,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -572,9 +572,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -592,9 +592,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -608,9 +608,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -624,9 +624,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -640,9 +640,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -656,9 +656,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -672,9 +672,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -688,9 +688,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -714,9 +714,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -746,9 +746,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -762,9 +762,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -794,9 +794,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -810,9 +810,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -830,9 +830,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -846,9 +846,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -866,9 +866,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -882,9 +882,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -902,9 +902,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -918,9 +918,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],
@@ -934,9 +934,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			},
 			{
@@ -954,9 +954,9 @@
 				"userDefined": false
 			},
 			{
-				"text": "order_item_slot",
+				"text": "facility_slot",
 				"userDefined": true,
-				"alias": "order_item_slot",
+				"alias": "facility_slot",
 				"meta": "@facility_types"
 			}
 		],

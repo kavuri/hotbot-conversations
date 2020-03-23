@@ -13,8 +13,8 @@
 				},
 				{
 					"isList": false,
-					"name": "order_item_slot",
-					"value": "$order_item_slot",
+					"name": "facility_slot",
+					"value": "$facility_slot",
 					"dataType": "@facility_types"
 				},
 				{

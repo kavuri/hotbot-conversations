@@ -1046,556 +1046,6 @@
 					]
 				},
 				{
-					"name": "community_types",
-					"values": [
-						{
-							"id": null,
-							"name": {
-								"value": "restaurant"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cafe"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bar"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hindu_temple",
-								"synonyms": [
-									"temple"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "beauty_salon",
-								"synonyms": [
-									"salon",
-									"parlour"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bank"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "post_office"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "library"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hospital",
-								"synonyms": [
-									"doctor",
-									"clinic"
-								]
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "accounting"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "airport"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "aquarium"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "art_gallery"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "atm"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bakery"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bicycle_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "book_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bowling_alley"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "bus_station"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "campground"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "car_dealer"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "car_rental"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "car_repair"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "car_wash"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "casino"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "cemetery"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "church"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "city_hall"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "clothing_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "convenience_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "courthouse"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "dentist"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "department_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "electrician"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "electronics_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "embassy"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "fire_station"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "florist"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "furniture_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "gas_station"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "gym"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hair_care"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hardware_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "hindu_temple"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "home_goods_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "insurance_agency"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "jewelry_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "laundry"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lawyer"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "library"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "liquor_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "local_government_office"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "locksmith"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "lodging"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "meal_delivery"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "meal_takeaway"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "mosque"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "movie_rental"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "movie_theater"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "moving_company"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "museum"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "night_club"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "painter"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "park"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "parking"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "pet_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "pharmacy"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "physiotherapist"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "plumber"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "police"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "real_estate_agency"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "roofing_contractor"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "rv_park"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "school"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "shoe_store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "shopping_mall"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "spa"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "stadium"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "storage"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "store"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "subway_station"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "supermarket"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "synagogue"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "taxi_stand"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "train_station"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "transit_station"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "travel_agency"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "veterinary_care"
-							}
-						},
-						{
-							"id": null,
-							"name": {
-								"value": "zoo"
-							}
-						}
-					]
-				},
-				{
 					"name": "takeaway",
 					"values": [
 						{
@@ -1638,21 +1088,6 @@
 				}
 			],
 			"intents": [
-				{
-					"name": "Device_setup",
-					"samples": [
-						"add device",
-						"add this device",
-						"can you setup this device",
-						"device setup",
-						"i want to add this device",
-						"i want to register device",
-						"please setup my device",
-						"register this device",
-						"setup the device",
-						"what is the address of this device"
-					]
-				},
 				{
 					"name": "Policy_smoking",
 					"samples": [
@@ -1974,34 +1409,6 @@
 					]
 				},
 				{
-					"name": "Enquiry_reception_languages",
-					"samples": [
-						"what languages can the receptionist speak",
-						"what languages can the receptionist converse in",
-						"can i speak to the receptionist in my language",
-						"Which languages are spoken at Reception",
-						"What all languages does the receptionist know",
-						"Does the receptionist know my language"
-					]
-				},
-				{
-					"name": "Enquiry_room_last_refurbished_date",
-					"samples": [
-						"when was the room cleaning done",
-						"when was the last room cleaning done",
-						"did anyone clean the room",
-						"have they cleaned the room yet",
-						"did they clean the room",
-						"did they complete room cleaning",
-						"When was the room last refurbished",
-						"When was the room cleaned",
-						"Has the room been cleaned",
-						"Is this hotel refurbished",
-						"is this room cleaned",
-						"is the room cleaning complete"
-					]
-				},
-				{
 					"name": "Enquiry_all_facilities",
 					"samples": [
 						"name the hotel amenities",
@@ -2116,7 +1523,8 @@
 						"what about {facility_slot} time",
 						"what about {facility_slot} timings",
 						"when is the {facility_slot} open",
-						"what time is {facility_slot} served"
+						"what time is {facility_slot} served",
+						"when is the {facility_slot} open"
 					],
 					"slots": [
 						{
@@ -2211,8 +1619,6 @@
 						"any special food item today",
 						"what are the restaurants specials",
 						"anything special on the menu",
-						"how can i order from the menu",
-						"how to order from the menu",
 						"what tiffins do you have here",
 						"what are the different food items",
 						"what does the restaurant serve",
@@ -2243,34 +1649,6 @@
 					]
 				},
 				{
-					"name": "Enquiry_res_food_billing",
-					"samples": [
-						"add restaurant bill to final bill",
-						"are food charges included in the final bill",
-						"are my food charged add to my hotel bill",
-						"are my food charged added to my hotel bill",
-						"can you add food bill to final bill",
-						"how am i charged for food",
-						"how are my restaurant spends billed",
-						"how is my food bill charge",
-						"is food bill part of final bill",
-						"is my restaurant bill part of the total bill",
-						"please add food bill to final bill",
-						"what about food bill",
-						"will my food bill be added to my room bill",
-						"will the final bill have food charge",
-						"will the final bill have food charges",
-						"can i pay my food bill at the time of checkout",
-						"can i pay restaurant bill while checking out",
-						"can i pay the food bill now",
-						"i would like to pay the food bill at checkout. is that okay",
-						"is it okay to pay restaurant bill at the time of checkout",
-						"is restaurant bill accepted at the time of checkout",
-						"should i pay the food bill now",
-						"should i pay the food bill now or at the time of checkout"
-					]
-				},
-				{
 					"name": "Equipment_not_working",
 					"samples": [
 						"I need a replacement for {equipment_slot}",
@@ -2298,22 +1676,6 @@
 					]
 				},
 				{
-					"name": "Enquiry_food_delivery_time",
-					"samples": [
-						"can i get the time to get my food delivered",
-						"does it take more than one hour to get my food delivered",
-						"how much is the delivery time for food",
-						"is it going to take more time to deliver the food",
-						"how much time does it take to get my food order delivered",
-						"how much time for the food ",
-						"how much time for the order",
-						"how much time would it take for my order to get delivered",
-						"please get my food delivered as soon as possible",
-						"what is the food delivery time",
-						"how much time does room service for food take"
-					]
-				},
-				{
 					"name": "Order_item",
 					"samples": [
 						"what to order for lunch",
@@ -2324,54 +1686,54 @@
 						"can you take food order",
 						"what can i order today",
 						"i would like to eat {menu_slot}",
-						"I would like new {order_item_slot}",
-						"can you please get some set of new {order_item_slot}",
-						"can you please send {req_count} {order_item_slot}",
-						"I am out of {order_item_slot} can you please send some",
-						"there are no {order_item_slot} in the room can you please send the same",
-						"Can you get me a {req_count} of {order_item_slot}",
-						"I quickly need some {order_item_slot}",
-						"I need {req_count} {order_item_slot}",
-						"{req_count} {order_item_slot} please",
-						"need some {order_item_slot}",
-						"I need extra {order_item_slot}",
-						"I need {order_item_slot}",
-						"{req_count} {order_item_slot} as well",
-						"add {order_item_slot} to it",
-						"add {req_count} of {order_item_slot} to it",
-						"I want to order a {order_item_slot}",
-						"can you help me to order {order_item_slot}",
-						"can you help me with ordering {order_item_slot}",
-						"do i have to call the front desk to order {order_item_slot}",
-						"get me some {order_item_slot}",
-						"get some {order_item_slot} now",
-						"how can i order {order_item_slot}",
-						"how to get some {order_item_slot}",
-						"i am hungry how to get some {order_item_slot}",
-						"i want to eat how can i get {order_item_slot}",
-						"order {order_item_slot} for me",
-						"please get some {order_item_slot}",
-						"please help me to get some {order_item_slot}",
-						"whom should i call to order {order_item_slot}",
-						"can you order some {order_item_slot}",
-						"can you place an order for {order_item_slot}",
-						"i need a {order_item_slot}",
-						"i need some {order_item_slot}",
-						"i would like a {menu_slot} for {order_item_slot}",
+						"I would like new {facility_slot}",
+						"can you please get some set of new {facility_slot}",
+						"can you please send {req_count} {facility_slot}",
+						"I am out of {facility_slot} can you please send some",
+						"there are no {facility_slot} in the room can you please send the same",
+						"Can you get me a {req_count} of {facility_slot}",
+						"I quickly need some {facility_slot}",
+						"I need {req_count} {facility_slot}",
+						"{req_count} {facility_slot} please",
+						"need some {facility_slot}",
+						"I need extra {facility_slot}",
+						"I need {facility_slot}",
+						"{req_count} {facility_slot} as well",
+						"add {facility_slot} to it",
+						"add {req_count} of {facility_slot} to it",
+						"I want to order a {facility_slot}",
+						"can you help me to order {facility_slot}",
+						"can you help me with ordering {facility_slot}",
+						"do i have to call the front desk to order {facility_slot}",
+						"get me some {facility_slot}",
+						"get some {facility_slot} now",
+						"how can i order {facility_slot}",
+						"how to get some {facility_slot}",
+						"i am hungry how to get some {facility_slot}",
+						"i want to eat how can i get {facility_slot}",
+						"order {facility_slot} for me",
+						"please get some {facility_slot}",
+						"please help me to get some {facility_slot}",
+						"whom should i call to order {facility_slot}",
+						"can you order some {facility_slot}",
+						"can you place an order for {facility_slot}",
+						"i need a {facility_slot}",
+						"i need some {facility_slot}",
+						"i would like a {menu_slot} for {facility_slot}",
 						"i would like to order a {menu_slot}",
-						"i would like to order {order_item_slot}",
-						"i would like to place an order for {order_item_slot}",
+						"i would like to order {facility_slot}",
+						"i would like to place an order for {facility_slot}",
 						"i would like to place an order for {menu_slot}",
-						"please order some {order_item_slot}",
-						"can i get a {order_item_slot} to the railway station",
-						"i need a {order_item_slot}",
-						"i need a {order_item_slot} to the airport",
-						"please book a {order_item_slot}",
-						"please book a {order_item_slot} to airport",
-						"can i get {order_item_slot}",
-						"i would like to get {order_item_slot}",
-						"i would like to order {order_item_slot} to my room",
-						"i want a {order_item_slot}"
+						"please order some {facility_slot}",
+						"can i get a {facility_slot} to the railway station",
+						"i need a {facility_slot}",
+						"i need a {facility_slot} to the airport",
+						"please book a {facility_slot}",
+						"please book a {facility_slot} to airport",
+						"can i get {facility_slot}",
+						"i would like to get {facility_slot}",
+						"i would like to order {facility_slot} to my room",
+						"i want a {facility_slot}"
 					],
 					"slots": [
 						{
@@ -2379,7 +1741,7 @@
 							"type": "AMAZON.NUMBER"
 						},
 						{
-							"name": "order_item_slot",
+							"name": "facility_slot",
 							"type": "facility_types"
 						},
 						{
@@ -2403,48 +1765,33 @@
 						"cancel my request",
 						"i have given a wrong request cancel it",
 						"cancel my previous request",
-						"I am sorry please cancel my request"
-					]
-				},
-				{
-					"name": "Order_change",
-					"samples": [
-						"I would like to change my order",
-						"change my order",
-						"can I change my oder",
-						"please change my order",
-						"how do I change my order",
-						"is there a way to modify my order",
-						"how do I modify my order",
-						"please modify my order",
-						"I would like to modify my previous order"
-					]
-				},
-				{
-					"name": "Count_Input",
-					"samples": [
-						"{count}"
+						"I am sorry please cancel my request",
+						"i would like to cancel {facility_slot}",
+						"please cancel my {facility_slot}",
+						"I do not want {facility_slot} cancel it",
+						"remove {facility_slot} from my order",
+						"take out {facility_slot} from my order",
+						"can I please cancel {facility_slot}",
+						"can I please cancel my previous orders",
+						"remove {facility_slot} from my order",
+						"i do not want {facility_slot} in my order"
 					],
 					"slots": [
 						{
-							"name": "count",
-							"type": "AMAZON.NUMBER"
+							"name": "facility_slot",
+							"type": "facility_types"
 						}
 					]
 				},
 				{
-					"name": "Info_nearest",
+					"name": "Ordered_items",
 					"samples": [
-						"which is the nearest {facility_slot}",
-						"Which is the best {facility_slot} nearby",
-						"where is the best {facility_slot} nearby",
-						"how far is the nearest {facility_slot}",
-						"is there a place to buy some food",
-						"is there a {facility_slot} nearby",
-						"what is the closest {facility_slot}",
-						"what is the nearest place to get food",
-						"where can i get food",
-						"where is the nearest {facility_slot}"
+						"tell me all my orders",
+						"what all have I orders",
+						"give me a list of all my orders",
+						"did I order {facility_slot}",
+						"can you please read out the orders I have made",
+						"remind me if I have ordered {facility_slot}"
 					],
 					"slots": [
 						{

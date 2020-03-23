@@ -10,7 +10,8 @@ const _ = require('lodash'),
     KamError = require('../utils/KamError'),
     OrderModel = require('./Order'),
     cache = require('../cache'),
-    CheckinCheckout = require('./CheckinCheckout');
+    CheckinCheckoutModel = require('./CheckinCheckout'),
+    uuid = require('uuid');
 
 /**
  * Returns all facilities of the hotel
@@ -80,7 +81,7 @@ async function search(name, g) {
         // There are some results
         // if (result[0].score < 0.15) { // the more the score is close to 0, the closer the search string to the result
         // return g.node(result[0].item.f_name);
-        console.log('result=',items[result[0].item])
+        console.log('result=', items[result[0].item])
         let res = items[result[0].item];
         console.log('returning=', res);
         return res;
@@ -163,7 +164,6 @@ module.exports.successors = async (hotel_id, name) => {
  *  Order functions
  **********************************************************************************************************/
 module.exports.create_order = async function (hotel_id, room_no, user_id, items) {
-
     if (_.isUndefined(hotel_id) ||
         _.isUndefined(room_no) ||
         _.isUndefined(user_id) ||
@@ -172,17 +172,32 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',user_id=' + user_id + ',items=', items);
     }
 
+    let orders = [];
+    for (var i = 0; i < items.length; i++) {
+        orders[i] = new OrderModel({
+            order_group_id: uuid(),
+            user_id: user_id,
+            hotel_id: hotel_id,
+            room_no: room_no,
+            item: items[i]
+        });
+    }
     // Generate the order_id
+    /*
     let order = new OrderModel({
         user_id: user_id,
         hotel_id: hotel_id,
         room_no: room_no,
         items: items
     });
+    */
 
-    let r;
+    let r = [];
     try {
-        r = await order.save();
+        for (var i = 0; i < orders.length; i++) {
+            r[i] = await orders[i].save();
+            console.log('saved order:', r[i]);
+        }
     } catch (error) {
         console.log('error while saving order to db');
         throw new KamError.DBError('error while saving order to db' + error);
@@ -200,9 +215,9 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
  * @param hotel_id - the id of the hotel
  * @param room_no - the room number
  * @param item - the item 
- * @returns {}
+ * @returns [] an array of orders matching the criteria
  */
-module.exports.is_item_already_ordered = async function (hotel_id, room_no, item) {
+module.exports.already_ordered_items = async function (hotel_id, room_no, item) {
     if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(item)) {
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + item);
     }
@@ -210,8 +225,8 @@ module.exports.is_item_already_ordered = async function (hotel_id, room_no, item
     try {
         // start = checkin time of the guest
         const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
-        let room = await CheckinCheckoutModel.findOne(filter).exec();
-        let sameOrder = _.filter(room.orders, { items: [{ name: item.name }] });
+        let room = await CheckinCheckoutModel.find(filter).exec();
+        let sameOrder = _.filter(room.orders, { item: { name: item.name } });
         return sameOrder;
     } catch (error) {
         console.log('error thrown', error);
@@ -219,12 +234,110 @@ module.exports.is_item_already_ordered = async function (hotel_id, room_no, item
     }
 }
 
-module.exports.cancel_order = function () {
+/**
+ *  Returns the orders that have curr_status="new" or "progress"
+ */
+module.exports.new_orders = async function (hotel_id, room_no, user_id) {
+    if (_.isUndefined(hotel_id) ||
+        _.isUndefined(room_no) ||
+        _.isUndefined(user_id)) {
+        throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',user_id=' + user_id);
+    }
+    console.log('input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',user_id=' + user_id);
 
+    const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
+    let checkinCheckout;
+    try {
+        checkinCheckout = await CheckinCheckoutModel
+            .findOne(filter)
+            .populate('orders')
+            .exec();
+        // console.log('found orders=', JSON.stringify(checkinCheckout.orders));
+        var newOrders = _.filter(checkinCheckout.orders, { curr_status: { status: "new" } });
+        var progressOrders = _.filter(checkinCheckout.orders, { curr_status: { status: "progress" } });
+        let openOrders = _.concat(newOrders, progressOrders);
+        return openOrders;
+    } catch (error) {
+        console.error('error in storing order reference to CheckinCheckout:', error);
+        throw new Error(error);
+    }
 }
 
-module.exports.modify_order = function () {
+/**
+ *  Returns all the orders made by the guest during the stay
+ */
+module.exports.all_orders = async function (hotel_id, room_no, user_id) {
+    if (_.isUndefined(hotel_id) ||
+        _.isUndefined(room_no) ||
+        _.isUndefined(user_id)) {
+        throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',user_id=' + user_id);
+    }
+    console.log('input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',user_id=' + user_id);
 
+    const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
+    let checkinCheckout, allOrders = [];
+    try {
+        checkinCheckout = await CheckinCheckoutModel
+            .findOne(filter)
+            .populate('orders')
+            .exec();
+        // console.log('found orders=', JSON.stringify(checkinCheckout.orders));
+        allOrders = checkinCheckout.orders;
+        return allOrders;
+    } catch (error) {
+        console.error('error in storing order reference to CheckinCheckout:', error);
+        throw new Error(error);
+    }
+}
+
+/**
+ * Cancels an order
+ */
+module.exports.cancel_order = async function (hotel_id, room_no, user_id, item_name) {
+    if (_.isUndefined(hotel_id) ||
+        _.isUndefined(room_no) ||
+        _.isUndefined(user_id) ||
+        _.isEmpty(item_name)) {
+        throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',user_id=' + user_id + ',item_name=', item_name);
+    }
+    console.log('input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',user_id=' + user_id + ',item_name=', item_name);
+
+    const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
+    let checkinCheckout;
+    try {
+        console.log('item_name=', item_name)
+        checkinCheckout = await CheckinCheckoutModel
+            .findOne(filter)
+            .populate('orders')
+            .exec();
+        // console.log('found orders=', JSON.stringify(checkinCheckout.orders));
+        var newOrders = _.filter(checkinCheckout.orders, { item: { name: item_name }, curr_status: { status: "new" } });
+        var progressOrders = _.filter(checkinCheckout.orders, { item: { name: item_name }, curr_status: { status: "progress" } });
+        if (!_.isEmpty(newOrders)) {
+            // There are orders, set the status to "cancelled"
+            newOrders.forEach((nO) => {
+                nO.curr_status = {
+                    status: "progress",
+                    set_by: user_id
+                }
+                nO.status.push({ set_by: user_id, status: "progress" });
+                nO.save();
+            });
+        }
+        if (!_.isEqual(progressOrders)) {
+            progressOrders.forEach((pO) => {
+                pO.curr_status = {
+                    status: "progress",
+                    set_by: user_id
+                }
+                pO.status.push({ set_by: user_id, status: "progress" });
+                pO.save();
+            });
+        }
+    } catch (error) {
+        console.error('error in storing order reference to CheckinCheckout:', error);
+        throw new Error(error);
+    }
 }
 
 module.exports.change_order_status = function () {
@@ -239,13 +352,13 @@ module.exports.add_comment_to_order = function () {
 
 }
 
-function order() {
-    var o = require('./Order');
-    var items = [
-        { item_name: "towel", req_count: 2, category: "r" },
-        { item_name: "napkins", req_count: 1, category: "r" }
-    ]
-    o.create_order("107", "25", items);
+function order_create() {
+    var o = require('./db_funcs');
+    var items = [{name:'coffee',type:'m',req_count:2}];
+    o.create_order("103",
+        "101",
+        "amzn1.ask.account.AGNAI33JLPXUYAHAS3INZIZ42OBZOF353BJ7J3EXQMS2WQF3LWUFQVU5W5NE64PW67V3Y7TCIEWJRGXVEWC63DXVXMUPOZXYPH7VNJCDX34J3SNWJVAP4REEOWQS3YPUTM547SW7AMPW2RFCJN7Q5AV7CJ3FA73APF4LBGO3CQNBDGFFJXDNTCMTO4HMHEKUZZGXWEW2QBB5CGA",
+        items);
 }
 
 async function test_is_item_already_ordered() {
@@ -260,5 +373,11 @@ const test_search = async () => {
     console.log('t=', t);
 }
 
+const test_cancel_order = async () => {
+    var o = require('./db_funcs');
+    let orders = o.cancel_order("103", "101", "1", "tea");
+}
+
 // test_search();
 // test_all_facilities();
+// order_create();

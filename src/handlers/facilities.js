@@ -13,32 +13,69 @@ const _ = require('lodash'),
     KamError = require('../utils/KamError');
 
 // Function to add order to current session
-function addOrderToSession(thisObj, item, reqCount) {
-    if (_.isEmpty(thisObj.$session.$data.orders)) {
-        // First order
+function addOrderToSession(thisObj, item, reqCount, notWorking) {
+    if (_.isEmpty(thisObj.$session.$data.orders)) { // First order
         thisObj.$session.$data.orders = [];
     }
 
-    let type;
-    if (item.m) {   // menu item
-        type = 'menu';
-    } else if (item.f) {    // facility. This is for reserving a facility
-        //TODO: Add facility reservation
-        type = 'facility';
-    } else if (item.ri) {   // room item
-        type = 'roomitem';
+    // Update the item if it has already been ordered
+    let item_idx = _.indexOf(thisObj.$session.$data.orders, item.name)
+    if (!_.isEqual(item_idx, -1)) {
+        thisObj.$session.$data.orders[item_idx].req_count += reqCount;
+    } else {
+        let type;
+        if (item.m) {   // menu item
+            type = 'menu';
+        } else if (item.f) {    // facility. This is for reserving a facility
+            //TODO: Add facility reservation
+            type = 'facility';
+        } else if (item.ri) {   // room item
+            type = 'roomitem';
+        } else if (_.isEqual(notWorking, true)) {
+            type = 'problem';
+        }
+        thisObj.$session.$data.orders.push({ type: type, name: item.name, req_count: reqCount });
     }
-    thisObj.$session.$data.orders.push({ type: type, name: item.name, count: reqCount });
 }
 
 // Function to get the current orders from session
 function getOrdersInSession(thisObj) {
-    return thisObj.$session.$data.orders;
+    if (_.has(thisObj.$session.$data, 'orders')) {
+        return thisObj.$session.$data.orders;
+    } else {
+        return [];
+    }
 }
 
 // Function to reset order from session
 function resetOrdersInSession(thisObj) {
     thisObj.$session.$data.orders = [];
+}
+
+// Removes specific item from orders
+function removeItemFromOrder(thisObj, item_name) {
+    _.remove(thisObj.$session.$data.orders, {
+        name: item_name
+    });
+}
+
+function stringifyOrdersInSession(thisObj) {
+    const orders = thisObj.$session.$data.orders;
+    let ordersToStr = '';
+    for (var i = 0; i < orders.length; i++) {
+        ordersToStr += orders[i].req_count + ' ' + orders[i].name + ', '
+        console.log('^^^', ordersToStr);
+    }
+    return ordersToStr;
+}
+
+function stringifyOrdersSentToFrontdesk(frontdeskOrders) {
+    let ordersToStr = '';
+    for (var i = 0; i < frontdeskOrders.length; i++) {
+        ordersToStr += frontdeskOrders[i].item.req_count + ' ' + frontdeskOrders[i].item.name + ', ';
+    }
+
+    return ordersToStr;
 }
 
 module.exports = {
@@ -180,10 +217,68 @@ module.exports = {
      * 7. Once done, read the orders and place them
      */
     async Order_item() {
+        console.log('In Order_item intent....');
         // Set a flag that the invocation came from an 'order'
-        this.$session.$data.intent = 'order';
+        let item, hotel_id;
+        /*
+        if (_.has(this.$session.$data, 'intent')) {
+            if (_.isEqual(this.$session.$data.intent, 'enquiry')) {
+                item = this.$session.$data.item;
+                hotel_id = this.$session.$data.hotel.hotel_id;
+            }
+        }
+        */
 
-        return this.toIntent('HandleOrderIntent');
+        const isCompleted = this.$alexaSkill.$dialog.isCompleted();
+        const hasReqCount = _.has(this.$inputs, 'req_count.value');
+        console.log('###isCompleted=', isCompleted);
+        if (!isCompleted && !hasReqCount) {
+            console.log('%%% delegating to alexa');
+            this.$alexaSkill.$dialog.delegate();
+            return this.$alexaSkill.$dialog.elicitSlot('req_count', 'Please let me know the count of items')
+        } else {
+            console.log('%%% sending to HandleOrderIntent');
+            return this.toIntent('HandleOrderIntent');
+        }
+
+        /*
+         if (!this.$alexaSkill.$dialog.isCompleted()) {
+             this.$alexaSkill.$dialog.delegate();
+         } else if (!_.has(this.$inputs, 'req_count.value')) {
+             this.$alexaSkill.$dialog.elicitSlot('req_count', 'How many items do you need?', 'How many items do you need?');
+         } else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() !== 'CONFIRMED') {
+             let speech = `Should I confirm this order?`
+             let reprompt = speech;
+             this.$alexaSkill.$dialog.confirmIntent(speech, reprompt);
+         } else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() === 'CONFIRMED') {
+             this.$session.$data.intent = 'order';
+             return this.toIntent('HandleOrderIntent');
+         }
+         */
+
+        if (_.has(this.$inputs, 'req_count.value')) {
+            return this.toIntent('HandleOrderIntent');
+        }
+        this.$alexaSkill.$dialog.delegate();
+
+        var dialogState = this.$alexaSkill.$dialog.getState();
+        console.log('##dialogState=', dialogState);
+        console.log('@@@HERE is the data:', hotel_id, item);
+        //var hasCountSlot = this.$alexaSkill.hasSlotValue('req_count');
+        //console.log('req_count slot=', hasCountSlot);
+        //if (!hasCountSlot) {
+        //} else {
+        //console.log('slot hsa been filled:', this.$inputs);
+        //}
+        // if (_.isEqual(dialogState, 'COMPLETED')) {
+        //     return this.toIntent('HandleOrderIntent');
+        // } else {
+        //     return this.$alexaSkill.$dialog.delegate();
+        // }
+
+
+        // this.tell('Got the order');
+
     },
 
     /**
@@ -196,11 +291,25 @@ module.exports = {
     async HandleOrderIntent() {
 
         let hotel_id = this.$session.$data.hotel.hotel_id,
+            intent = this.$session.$data.intent;
+        let item_name, req_count;
+        if (_.has(this.$inputs, 'facility_slot.value')) {
+            // facility slot has value
             item_name = this.$inputs.facility_slot.value;
-
-        if (_.isUndefined(item_name)) { // User has not provided what they way. Ask for it
+        } else {
             // return this.ask(this.t('ORDER_ASK_ITEM_NAME'));
             // This should be set in the Alexa console
+        }
+
+        /*
+        * This happens in the following flow
+        * Guest: Do you have coffee
+        * Kam: We have coffee at our hotel. It costs Rupees 10. Would you like to order it
+        * Guest: Yes
+        * Kam: Check if the item has been already orderd. If yes, say so and get confirmation
+        */
+        if (_.isEqual(intent, 'order') && !_.isUndefined(this.$session.$data.item)) { // The user has enquired for the item instead of ordering it
+            return this.toStateIntent('OrderItemExists_State', 'OrderFlow_CheckReorder_Intent');
         }
 
         let item;   // Step 1
@@ -221,7 +330,7 @@ module.exports = {
         }
 
         let msg;
-        let isOrderable = !_.has(item.o) ? false : item.o;
+        let isOrderable = !_.has(item, 'o') ? false : item.o;
         console.log('+++item=', item, ', isOrderable=', isOrderable);
 
         if (_.isEqual(isOrderable, false)) {    // Step 2
@@ -235,15 +344,13 @@ module.exports = {
         }
 
         console.log('going to step 3 ......')
-        let intent = this.$session.$data.intent;    // Step 3
-        item.name = item_name; // Set the item name for creating the order
         this.$session.$data.item = item;    // Set the item for the followup
         if (_.isEqual(intent, 'enquiry')) { // The user has enquired for the item instead of ordering it
             // Facility is present and can also be ordered
             // Ask user if they want to order it
             // Give information about the price as well (free or costs money)
             let msg;
-            if (!_.has(item, msg)) {
+            if (!_.has(item, 'msg')) {
                 // Message is not set in the data. Create one
                 const price = item.price;
 
@@ -252,7 +359,7 @@ module.exports = {
                     price_msg = this.t('ORDER_FREE');
                     msg = this.t('ORDER_ITEM_EXISTS_WITH_PRICE', { item_name: item.name, price_msg: price_msg });
                 } else {
-                    price_msg = this.t('ORDER_COSTS');
+                    price_msg = this.t('ORDER_COSTS', { price: price });
                     msg = this.t('ORDER_ITEM_EXISTS_WITH_PRICE', { item_name: item.name, price_msg: price_msg });
                 }
             } else {
@@ -282,18 +389,18 @@ module.exports = {
             // Check if the guest has ordered the same item + on the same day + unserved
             // If the same item has been ordered, check with guest and continue the flow, else continue the following
             try {
-                let sameOrders = await DBFuncs.is_item_already_ordered(hotel_id, room_no, item);
+                let sameOrders = await DBFuncs.already_ordered_items(hotel_id, room_no, item);
                 const prevOrdersCount = sameOrders.length;
                 if (prevOrdersCount > 0) { // There have been prior orders from this guest
                     // Status = 'new', 'progress' = tell user that the item has already been ordered. Would you like to still order it?
                     // Status = 'cant_serve' = tell user that unfortunately, the order cannot be served
                     // Status = 'done' = tell user that the item has already been order today. Would you like to order again?
                     // Status = 'cancelled', proceed with the order taking
-                    const status_new = _.filter(orders, { status: [{ status: 'new' }] });
-                    const status_progress = _.filter(orders, { status: [{ status: 'progress' }] });
-                    const status_done = _.filter(orders, { status: [{ status: 'done' }] });
-                    const status_cant_serve = _.filter(orders, { status: [{ status: 'cant_serve' }] });
-                    const status_canceled = _.filter(orders, { status: [{ status: 'cancelled' }] });
+                    const status_new = _.filter(orders, { curr_status: { status: 'new' } });
+                    const status_progress = _.filter(orders, { curr_status: { status: 'progress' } });
+                    const status_done = _.filter(orders, { status: { curr_status: 'done' } });
+                    const status_cant_serve = _.filter(orders, { curr_status: { status: 'cant_serve' } });
+                    const status_canceled = _.filter(orders, { curr_status: { status: 'cancelled' } });
                     if (!_.isEmpty(status_new) || !_.isEmpty(status_progress)) {
                         this
                             .$speech
@@ -339,7 +446,10 @@ module.exports = {
          */
         async YesIntent() {
             // Go to OrderFlowIntent
-            return this.toIntent('OrderFlow_CheckReorder_Intent');
+            console.log('OrderItem_ExistsState::Sending to OrderFlow_CheckReorder_Intent.....')
+            this.$request.setIntentName('Order_item');
+            return this.toStatelessIntent('Order_item');
+            //return this.toIntent('OrderFlow_CheckReorder_Intent');
         },
 
         /**
@@ -375,6 +485,7 @@ module.exports = {
                     .ask(this.$speech, this.t('YES_NO_REPROMPT'));
             } else if (item.c && _.isUndefined(req_count)) {    // Item has count, but its not provided in the request
                 // Item does not have a count flag. Like 'Do you have dosa'
+                console.log('intent came here....sending to AskItemCount_State');
                 this.$speech
                     .addText(this.t('ORDER_ASK_COUNT'));
                 return this
@@ -385,7 +496,7 @@ module.exports = {
                     .addText(this.t('REPEAT_ORDER_WITHOUT_COUNT'))
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ANYTHING_ELSE'));
-                addOrderToSession(this, item, 0);
+                addOrderToSession(this, item, 1);
                 return this.followUpState('ConfirmRoomItemOrder_State')
                     .ask(this.$speech, this.t('YES_NO_REPROMPT'));
             }
@@ -396,7 +507,10 @@ module.exports = {
          */
         async YesIntent() {
             // Go to OrderFlowIntent
-            return this.toIntent('OrderFlow_CheckCount_Intent');
+            console.log('sending to Order_item....');
+            this.removeState();
+            return this.toIntent('Order_item');
+            //return this.toIntent('OrderFlow_CheckCount_Intent');
         },
 
         /**
@@ -411,6 +525,7 @@ module.exports = {
         }
     },
 
+    /*
     'AskItemCount_State': {
         Count_Input() {
             let req_count = this.$inputs.count.value,
@@ -427,6 +542,7 @@ module.exports = {
                 .ask(this.$speech, this.t('YES_NO_REPROMPT'));
         }
     },
+    */
 
     'ConfirmRoomItemOrder_State': {
 
@@ -436,16 +552,12 @@ module.exports = {
 
         NoIntent() {
             // Guest has finalized the order. Configm the order, check and close
-            var str = '';
-            const orders = getOrdersInSession(this);
-            for (var i = 0; i < orders.length; i++) {
-                str += orders[i].reqCount + ' ' + orders[i].name + ', '
-                console.log('^^^', str);
-            }
+            let msg = stringifyOrdersInSession(this);
 
-            this.$speech.addText(this.t('ASK_CONFIRM_ORDER', {
-                items: str
-            }));
+            this.$speech
+                .addText(this.t('ORDER_LIST', { items: msg }))
+                .addBreak('200ms')
+                .addText(this.t('ORDER_CONFIRM_MSG'));
             return this.followUpState('OrderConfirmed_State')
                 .ask(this.$speech, this.t('YES_NO_REPROMPT'));
         }
@@ -471,7 +583,8 @@ module.exports = {
 
         NoIntent() {
             // Ask to cancel order
-            this.$speech.addText(this.t('ASK_FOR_ORDER_CANCEL', { order: this.$session.$data.order }));
+            this.$speech
+                .addText(this.t('ASK_FOR_ORDER_CANCEL'));
             return this.followUpState('CancelCurrentOrder')
                 .ask(this.$speech, this.t('YES_NO_REPROMPT'));
         }
@@ -503,25 +616,80 @@ module.exports = {
         }
     },
 
-    'AskItemCount': {
-        Count_Input() {
-            this.$session.$data.req_count = this.$inputs.req_count.value;
-
-            console.log('RequestRoomItemCount:' + this.$session.$data.req_count);
-            this.$speech
-                .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: this.$session.$data.req_count, item_name: this.$session.$data.item.name }));
-
-            addOrderToSession(this, this.$session.$data.item, this.$session.$data.req_count);
-
-            this.ask(this.$speech);
-        }
-    },
-
+    /**
+     * Two types of order cancellation
+     * 1. During the order session - clear the orders in the session & not saved to database
+     * 2. Cancel ones that are already ordered - send cancellation request to front desk
+     *   a) Fetch the orders from the DB
+     *   b) Read out the "new" and "progress" orders to the guest and ask which ones to cancel
+     *   c) If all, send cancellation request for all items in the order
+     * 
+     * Flow: For order in session
+     * 1. Guest: Cancel tea order
+     * 2. Alexa: I am canceling your order for 1 tea. Would you like anything else?
+     * 3. Guest: No
+     * 4. Alexa: Confirm order and exit
+     * 
+     * Flow: For order that reached front desk
+     * 1. Guest: Cancel tea order
+     * 2. Alexa: I will place the cancellation request. But the front desk is processing your order for 1 tea and so I cannot guarantee the cancellation. Would you like anything else?
+     * 3. Guest: No
+     * 4. Alexa: Thank you & exit
+     * 
+     */
     async Order_cancel() {
-        // TODO: Get the orders open + in room_no & hotel_id
-    },
+        const hotel_id = this.$session.$data.hotel.hotel_id,
+            user_id = this.$request.context.System.user.userId,
+            room_no = this.$session.$data.hotel.room_no,
+            item_name = this.$inputs.facility_slot.value;
 
-    async Order_change() {
+        let item;   // Step 1
+        try {
+            item = await DBFuncs.item(hotel_id, item_name);
+        } catch (error) {
+            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                return this.tell(this.t('SYSTEM_ERROR'));
+            }
+        }
+
+        if (_.isEmpty(item)) {
+            // Not possible. If the guest has ordered an item, then finding the item for cancellation should also be there
+            // TODO: But what if!
+        }
+
+        let ordersInSession = getOrdersInSession(this);
+        let ordersSentToFrontDesk = await DBFuncs.new_orders(hotel_id, room_no, user_id);
+        // facility slot has value
+
+        let orderedItem;
+        if (ordersInSession.length > 0) {
+            orderedItem = _.filter(ordersInSession, { name: item.name });
+            if (orderedItem.length > 0) {
+                // Confirm cancellation of this order
+                this.$speech
+                    .addText(this.t('ORDER_CANCEL_REMOVE_ITEM', { count: orderedItem[0].req_count, item_name: orderedItem[0].name }))   //orderedItem[0] is fine, as there cannot be multiple entries for the same item
+                    .addBreak('200ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+            }
+        } else if (ordersSentToFrontDesk.length > 0) {
+            orderedItem = _.filter(ordersSentToFrontDesk, { item: { name: item.name } });
+            if (orderedItem.length > 0) {
+                this.$speech
+                    .addText(this.t('ORDER_CANCEL_REQUEST_CANCEL_AT_FRONTDESK', { count: orderedItem[0].item.req_count, item_name: orderedItem[0].item.name }))   //orderedItem[0] is fine, as there cannot be multiple entries for the same item
+                    .addBreak('200ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+                // There are orders like this with front desk
+                // if (_.isEqual(orderedItem[0].curr_status, "progress")) {
+                // } else if (_.isEqual(orderedItem[0].curr_status, "new")) {
+                // }
+            }
+        } else {    // No such order
+            this.$speech
+                .addText(this.t('NO_SUCH_ORDER'))
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+        }
+        return this.ask(this.$speech);
 
     },
 
@@ -533,13 +701,17 @@ module.exports = {
             item = await DBFuncs.item(hotel_id, item_name);
         } catch (error) {
             if (error instanceof KamError.InputError) {
-                this.tell(thisObj.t('SYSTEM_ERROR'));
+                this.tell(this.t('SYSTEM_ERROR'));
             } else if (error instanceof KamError.DBError) {
-                this.tell(thisObj.t('SYSTEM_ERROR'));
+                this.tell(this.t('SYSTEM_ERROR'));
             }
         }
         if (_.isEmpty(item)) {
-            this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', { facility: item_name }));
+            this.$speech
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
         }
 
         console.log('+++timings item=', item);
@@ -559,7 +731,7 @@ module.exports = {
         console.log('getting node_name=', timings_node_name);
         let timings = await DBFuncs.getNode(hotel_id, timings_node_name);
         if (_.isUndefined(timings)) {   // FIXME: Ensure this does not happen
-            this.tell(thisObj.t('SYSTEM_ERROR'));
+            this.tell(this.t('SYSTEM_ERROR'));
         }
 
         let msg = timings.msg;
@@ -579,17 +751,22 @@ module.exports = {
             item = await DBFuncs.item(hotel_id, item_name);
         } catch (error) {
             if (error instanceof KamError.InputError) {
-                this.tell(thisObj.t('SYSTEM_ERROR'));
+                this.tell(this.t('SYSTEM_ERROR'));
             } else if (error instanceof KamError.DBError) {
-                this.tell(thisObj.t('SYSTEM_ERROR'));
+                this.tell(this.t('SYSTEM_ERROR'));
             }
         }
         if (_.isEmpty(item)) {
-            this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', { facility: item_name }));
+            this.$speech
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
         }
 
         console.log('+++item=', item);
 
+        // FIXME: Price can be a separate node of the facility, or it can be a price tag
         let present = item.a;
         if (_.isEqual(present), false) {
             // Facility is not available
@@ -604,7 +781,7 @@ module.exports = {
         let price_node_name = item.name + '_price';
         let price = await DBFuncs.getNode(hotel_id, price_node_name);
         if (_.isUndefined(price)) {   // FIXME: Ensure this does not happen
-            this.tell(thisObj.t('SYSTEM_ERROR'));
+            this.tell(this.t('SYSTEM_ERROR'));
         }
 
         let msg = price.msg;
@@ -624,13 +801,17 @@ module.exports = {
             item = await DBFuncs.item(hotel_id, item_name);
         } catch (error) {
             if (error instanceof KamError.InputError) {
-                this.tell(thisObj.t('SYSTEM_ERROR'));
+                this.tell(this.t('SYSTEM_ERROR'));
             } else if (error instanceof KamError.DBError) {
-                this.tell(thisObj.t('SYSTEM_ERROR'));
+                this.tell(this.t('SYSTEM_ERROR'));
             }
         }
         if (_.isEmpty(item)) {
-            this.ask(thisObj.t('FACILITY_NOT_AVAILABLE', { facility: item_name }));
+            this.$speech
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
         }
 
         console.log('+++item=', item);
@@ -649,7 +830,7 @@ module.exports = {
         let location_node_name = item.name + '_location';
         let location = await DBFuncs.getNode(hotel_id, location_node_name);
         if (_.isUndefined(location)) {   // FIXME: Ensure this does not happen
-            this.tell(thisObj.t('SYSTEM_ERROR'));
+            this.tell(this.t('SYSTEM_ERROR'));
         }
 
         let msg = location.msg;
@@ -661,6 +842,7 @@ module.exports = {
         return this.ask(this.$speech);
     },
 
+    /*
     async Enquiry_menu() {
         let hotel_id = this.$session.$data.hotel.hotel_id;
         let item;
@@ -686,6 +868,7 @@ module.exports = {
             .addText(this.t('ANYTHING_ELSE'));
         return this.ask(this.$session);
     },
+    */
 
     async Enquiry_menu_cuisinetype() {
         let hotel_id = this.$session.$data.hotel.hotel_id;
@@ -694,7 +877,7 @@ module.exports = {
             cuisines = await DBFuncs.successors(hotel_id, 'cuisines');
         } catch (error) {
             if (error instanceof KamError.InputError) {
-                this.tell(thisObj.t('SYSTEM_ERROR'));
+                this.tell(this.t('SYSTEM_ERROR'));
             }
         }
 
@@ -713,23 +896,131 @@ module.exports = {
         return this.ask(this.$session);
     },
 
-    async Enquiry_res_billing() {
+    /**
+     * Guest: What did I order?
+     * Alexa: You have ordered 2 tea, 2 idly today at 12:30 PM. Would you like to know or order anything else?
+     * Guest: Yes, I would like a coffee as well => Order_item flow
+     * (or) Guest: No
+     * Alexa: Thank you. Please wake me up incase of need
+     */
+    async Ordered_items() {
+        let hotel_id = this.$session.$data.hotel.hotel_id,
+            user_id = this.$request.context.System.user.userId,
+            room_no = this.$session.$data.hotel.room_no;
 
+        let ordersInSession = getOrdersInSession(this);
+        let ordersSentToFrontDesk = [];
+        try {
+            ordersSentToFrontDesk = await DBFuncs.all_orders(hotel_id, room_no, user_id);
+        } catch (error) {
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+
+        let msg_OrdersInSession = '';
+        if (ordersInSession.length > 0) {
+            msg_OrdersInSession = stringifyOrdersInSession(this);
+        }
+
+        let msg_OrdersAtFrontdesk = '';
+        if (ordersSentToFrontDesk.length > 0) {
+            msg_OrdersAtFrontdesk = stringifyOrdersSentToFrontdesk(ordersSentToFrontDesk);
+            if (!_.isEmpty(msg_OrdersInSession)) {
+                this.$speech
+                    .addText(this.t('ORDER_LIST', { items: msg_OrdersInSession }))
+                    .addBreak('200ms')
+                    .addText(this.t('ORDER_LIST_AT_FRONTDESK', { items: msg_OrdersAtFrontdesk }))
+                    .addBreak('200ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+            } else {
+                this.$speech
+                    .addText(this.t('ORDER_LIST', { items: msg_OrdersAtFrontdesk }))
+                    .addBreak('200ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+            }
+            // There are orders like this with front desk
+            // if (_.isEqual(orderedItem[0].curr_status, "progress")) {
+            // } else if (_.isEqual(orderedItem[0].curr_status, "new")) {
+            // }
+        }
+
+        let finalMsg = msg_OrdersInSession + msg_OrdersAtFrontdesk;
+        if (_.isEmpty(finalMsg)) {
+            this.$speech
+                .addText(this.t('ORDERS_NONE'))
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+        }
+
+        this.ask(this.$speech);
     },
 
+    /**
+     * Guest: The TV is not working
+     * Alexa: You mentioned that the TV is not working. Can you confirm
+     * Guest: Yes
+     * Alexa: I will take a request to have someone look into the problem. Would you like to know about or order anything else?
+     * (or)
+     * Alexa: I see that there is already a request placed for {{item}}. I will notify the issue to the hotel staff and they will tend to this as soon as possible
+     */
     async Equipment_not_working() {
+        let hotel_id = this.$session.$data.hotel.hotel_id,
+            user_id = this.$request.context.System.user.userId,
+            room_no = this.$session.$data.hotel.room_no,
+            item_name = this.$inputs.facility_slot.value;
 
-    },
+        let item;
+        try {
+            item = await DBFuncs.successors(hotel_id, item_name);
+        } catch (error) {
+            if (error instanceof KamError.InputError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            }
+        }
 
-    async Enquiry_food_delivery_time() {
+        if (_.isEmpty(item)) {
+            this.$speech
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
+        }
 
-    },
+        try {
+            let sameOrders = await DBFuncs.already_ordered_items(hotel_id, room_no, item);
+            if (sameOrders.length > 0) { // There have been prior orders from this guest
+                // Status = 'new', 'progress' = tell user that the item has already been ordered. Would you like to still order it?
+                const status_new = _.filter(orders, { curr_status: [{ status: 'new' }] });
+                const status_progress = _.filter(orders, { curr_status: [{ status: 'progress' }] });
+                if (!_.isEmpty(status_new) || !_.isEmpty(status_progress)) {
+                    this
+                        .$speech
+                        .addText(this.t('PROBLEM_BEING_WORKED_ON'))
+                        .addBreak('200ms')
+                        .addText(this.t('ANYTHING_ELSE'));
+                    //TODO: Change the status to 'urgent'?
+                }
+            }
+        } catch (error) {
+            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            }
+        }
 
-    async Enquiry_room_last_refurbished_date() {
+        addOrderToSession(this, item, 0, true);
+        let orders = getOrdersInSession(this);
+        console.log('creating order for non functioning item: hotel_id=' + hotel_id + ',user_id=' + user_id + ',room_no=' + room_no + ',items=', orders);
+        try {
+            DBFuncs.create_order(hotel_id, room_no, user_id, orders);
+        } catch (error) {
+            console.log('coding or db error.', error);
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
 
-    },
-
-    async Enquiry_hotel_floors() {
+        this.$speech
+            .addText(this.t('ORDER_TAKEN_FOR_NOT_WORKING_FACILITY'))
+            .addBreak('200ms')
+            .addText(this.t('ANYTHING_ELSE'));
+        return this.ask(this.$speech);
 
     }
 }

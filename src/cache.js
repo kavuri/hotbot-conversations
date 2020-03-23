@@ -34,6 +34,7 @@ module.exports.get = async function (key) {
         cache.set(key, graph);
     }
 
+    //console.log(graph);
     // Return the graph
     return graphlib.json.read(graph);
 }
