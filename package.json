@@ -5,7 +5,6 @@
   "main": "src/index.js",
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.5.0",
-    "@dagrejs/graphlib": "^2.1.4",
     "alexa-verifier-middleware": "^1.0.2",
     "dotenv": "^8.2.0",
     "es6-promise": "^4.2.8",
@@ -56,7 +55,7 @@
     "type": "git",
     "url": "git+https://github.com/jovotech/jovo-sample-voice-app-nodejs.git"
   },
-  "author": "Jovo",
+  "author": "Sateesh Kavuri",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/jovotech/jovo-sample-voice-app-nodejs/issues"
