@@ -78,6 +78,35 @@ function stringifyOrdersSentToFrontdesk(frontdeskOrders) {
     return ordersToStr;
 }
 
+/**
+ * Common funtion to check the price tag and retun the price message
+ * @param {*} thisObj 
+ * @param {*} item 
+ */
+async function priceMsg(thisObj, item) {
+    let msg = '';
+    if (!_.has(item, 'msg')) {
+        // Message is not set in the data. Check for price and create a message
+        if (!_.has(item, 'price') || _.isEqual(item.price, '0')) {
+            msg = thisObj.t('ORDER_FREE', { item_name: item.name });
+        } else if (_.has(item, 'price') && !_.isEqual(item.price, '0')) {
+            const price = item.price;
+            msg = thisObj.t('ORDER_COSTS', { item_name: item.name, price: price });
+        }
+    } else if (_.has(item, 'f')) {
+        let price_node_name = item.name + '_price';
+        let price = await DBFuncs.getNode(hotel_id, price_node_name);
+        if (_.isUndefined(price)) {   // FIXME: Ensure this does not happen
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+    } else {
+        msg = item.msg['yes'];
+    }
+
+    console.log('returning price msg:', msg);
+    return msg;
+}
+
 module.exports = {
     async Enquiry_reception_languages() {
         const hotel_id = this.$session.$data.hotel.hotel_id;
@@ -320,6 +349,8 @@ module.exports = {
                 return this.tell(this.t('SYSTEM_ERROR'));
             }
         }
+
+        let msg = '';
         if (_.isEmpty(item)) {
             this
                 .$speech
@@ -327,9 +358,15 @@ module.exports = {
                 .addBreak('200ms')
                 .addText(this.t('ORDER_ANYTHING_ELSE'));
             return this.ask(this.$speech);
+        } else if (_.isEqual(item.a, false)) {
+            msg = item.msg['no'];
+            this.$speech
+                .addText(msg)
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
         }
 
-        let msg;
         let isOrderable = !_.has(item, 'o') ? false : item.o;
         console.log('+++item=', item, ', isOrderable=', isOrderable);
 
@@ -349,26 +386,11 @@ module.exports = {
             // Facility is present and can also be ordered
             // Ask user if they want to order it
             // Give information about the price as well (free or costs money)
-            let msg;
-            if (!_.has(item, 'msg')) {
-                // Message is not set in the data. Create one
-                const price = item.price;
-
-                let price_msg;
-                if (_.isUndefined(price)) {
-                    price_msg = this.t('ORDER_FREE');
-                    msg = this.t('ORDER_ITEM_EXISTS_WITH_PRICE', { item_name: item.name, price_msg: price_msg });
-                } else {
-                    price_msg = this.t('ORDER_COSTS', { price: price });
-                    msg = this.t('ORDER_ITEM_EXISTS_WITH_PRICE', { item_name: item.name, price_msg: price_msg });
-                }
-            } else {
-                msg = item.msg['yes'];
-            }
+            let msg = await priceMsg(this, item);
             this.$speech.addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('ITEM_ORDER_QUESTION', {    // We have dosa at our restaurant. Its cost is rupees 60. Would you like to order one?
-                    item: item_name
+                    item_name: item_name
                 }));
 
             return this
@@ -530,7 +552,7 @@ module.exports = {
         Count_Input() {
             let req_count = this.$inputs.count.value,
                 item = this.$session.$data.item;
-
+ 
             console.log('RequestItemCount:' + req_count);
             this.$speech
                 .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: req_count, item_name: item.name }))
@@ -717,7 +739,7 @@ module.exports = {
         console.log('+++timings item=', item);
 
         let present = item.a;
-        if (_.isEqual(present), false) {
+        if (_.isEqual(present, false)) {
             // Facility is not available
             msg = item.msg['no'];
             this.$speech.addText(msg)
@@ -766,29 +788,28 @@ module.exports = {
 
         console.log('+++item=', item);
 
-        // FIXME: Price can be a separate node of the facility, or it can be a price tag
+        // Price can be a separate node of the facility, or it can be a price tag
         let present = item.a;
-        if (_.isEqual(present), false) {
+        let msg = '';
+        if (_.isEqual(present, false)) {
             // Facility is not available
             msg = item.msg['no'];
-            this.$speech.addText(msg)
+            this.$speech
+                .addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
-            return this.ask(this.$session);
+            return this.ask(this.$speech);
         }
 
-        // Get the timings node
-        let price_node_name = item.name + '_price';
-        let price = await DBFuncs.getNode(hotel_id, price_node_name);
-        if (_.isUndefined(price)) {   // FIXME: Ensure this does not happen
-            this.tell(this.t('SYSTEM_ERROR'));
-        }
+        msg = await priceMsg(this, item);
+        // Price can be an attribute of the node or a successor
 
-        let msg = price.msg;
-
-        this.$speech.addText(msg)
+        this.$speech
+            .addText(msg)
             .addBreak('200ms')
-            .addText(this.t('ANYTHING_ELSE'));
+            .addText(this.t('ITEM_ORDER_QUESTION', {    // We have dosa at our restaurant. Its cost is rupees 60. Would you like to order one?
+                item_name: item.name
+            }));
 
         return this.ask(this.$speech);
     },
@@ -817,7 +838,7 @@ module.exports = {
         console.log('+++item=', item);
 
         let present = item.a;
-        if (_.isEqual(present), false) {
+        if (_.isEqual(present, false)) {
             // Facility is not available
             msg = item.msg['no'];
             this.$speech.addText(msg)
@@ -853,7 +874,7 @@ module.exports = {
                 this.tell(thisObj.t('SYSTEM_ERROR'));
             }
         }
-
+ 
         console.log('+++item=', item);
         let msg;
         let present = item.a;

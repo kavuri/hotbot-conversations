@@ -789,4 +789,4 @@ module.exports.create = async function (hotel_id = '000', hotel_name = 'Dummy ho
     return json;
 }
 
-require('./graph').create("103");
+// require('./graph').create("103");
