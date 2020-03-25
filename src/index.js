@@ -14,13 +14,13 @@ const { app } = require ('./app.js');
 // ------------------------------------------------------------------
 
 //TODO: Enable SSL with the real certificate
-/*
 const fs = require('fs');
+const path = require('path');
+console.log(path.resolve(__dirname))
 Webhook.ssl = {
-    key: fs.readFileSync('/path/to/cert.key'),
-    cert: fs.readFileSync('/path/to/cert.pem'),
+    key: fs.readFileSync(path.resolve(__dirname, '../scripts/server.key')),
+    cert: fs.readFileSync(path.resolve(__dirname, '../scripts/server.cert')),
  };
- */
 
 // ExpressJS (Jovo Webhook)
 if (process.argv.indexOf('--webhook') > -1) {
