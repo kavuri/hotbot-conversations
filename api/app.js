@@ -49,7 +49,7 @@ app.use(config.api.prefix + '/user', require('./routes/user'));
 app.use(config.api.prefix + '/device', require('./routes/device'));
 app.use(config.api.prefix + '/hotel', require('./routes/hotel'));
 app.use(config.api.prefix + '/hotelGroup', require('./routes/hotelGroup'));
-app.use(config.api.prefix + '/facility', require('./routes/facility'));
+// app.use(config.api.prefix + '/facility', require('./routes/facility')); // Not required
 app.use(config.api.prefix + '/order', require('./routes/order'));
 app.use(config.api.prefix + '/room', require('./routes/room'));
 

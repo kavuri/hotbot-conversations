@@ -36,7 +36,7 @@ HotelGroupSchema.index({name: 1}, {unique: true});
 HotelGroupSchema.plugin(AutoIncrement.plugin, {
     model: 'HotelGroup',
     field: 'group_id',
-    startAt: 100,
+    startAt: 1,
     incrementBy: 1
 });
 

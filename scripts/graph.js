@@ -19,6 +19,11 @@ const policies = 'policies';
 const roomitem = 'roomitem';
 const menu = 'menu';
 
+const GraphModel = require('../src/db/Graph'),
+    HotelGroupModel = require('../src/db/HotelGroup'),
+    HotelModel = require('../src/db/Hotel'),
+    RoomModel = require('../src/db/Room');
+
 /**
  * The Node names in the graphlib have to be unique. If the same node name is used, then the old one will be overwritten
  * 
@@ -62,7 +67,7 @@ const menu = 'menu';
  * 'menu': all menu items
  * 'roomitem': all room items (like AC, TV, fridge, napkins)
  */
-function createGraph(hotel_id, hotel_name) {
+async function createGraph(hotel_id, hotel_name) {
     if (_.isUndefined(hotel_id) || _.isUndefined(hotel_name)) {
         throw new Error('invalid hotel_id or hotel_name:', hotel_id, hotel_name);
     }
@@ -770,23 +775,103 @@ function createEdges(source, targets, label) {
     });
 }
 
-// Store this JSON to Graph collection
-module.exports.create = async function (hotel_id = '000', hotel_name = 'Dummy hotel', genFile = false) {
-    const GraphModel = require('../src/db/Graph');
+/*******************************************************************************************************************************/
+const hotelData = {
+    group: { name: 'Keys Group of Hotels', description: 'Keys group of hotels' },
+    hotel: { name: 'Keys Hotel', description: 'This is a Keys hotel', address: { address1: 'ITPL Main Road 7, 7', address2: 'Near SAP office ', address3: 'Whitefield', city: 'Bengaluru', pin: '560037', state: 'Karnataka', country: 'India' }, contact: { phone: ['9888888888', '11111111'], email: ['whitefield@keyshotels.com'] }, coordinates: { lat: '12.979326', lng: '77.709559' }, rooms: [], front_desk_count: 2, reception_number: '9' },
+    rooms: [{ room_no: '100', type: 'Deluxe' }, { room_no: '101', type: 'Supreme' }, { room_no: '102', type: 'Deluxe' }]
+};
 
-    createGraph(hotel_id, hotel_name);
+async function createHotelGroup() {
+    let group;
+    const hg = new HotelGroupModel(hotelData.group);
+    try {
+        group = await hg.save();
+        //group = await HotelGroupModel.findOneAndUpdate({ name: hotelData.group.name }, hotelData.group, { new: true, upsert: true });
+    } catch (error) {
+        console.log('error in storing hotel group:', error);
+        throw error;
+    }
+    return group;
+}
+
+async function createHotelData(group, hotel_id) {
+    let hotel;
+    if (!_.isUndefined(hotel_id)) {
+        hotelData.hotel.hotel_id = hotel_id;
+    }
+    hotelData.hotel.group_id = group.group_id;
+    const h = new HotelModel(hotelData.hotel);
+    console.log('hotel data to save=', hotelData.hotel);
+
+    try {
+        hotel = await h.save();
+        // hotel = await HotelModel.findOneAndUpdate({ name: hotelData.hotel.name, group_id: group.group_id }, hotelData.hotel, { new: true, upsert: true });
+    } catch (error) {
+        console.log('error in storing hotel:', error);
+        throw error;
+    }
+    return hotel;
+}
+
+async function createRoomsData(hotel) {
+    let room = [], r;
+    try {
+        for (let i = 0; i < hotelData.rooms.length; i++) {
+            hotelData.rooms[i].hotel_id = hotel.hotel_id;
+            r = new RoomModel(hotelData.rooms[i]);
+            room[i] = await r.save();
+            // room = await RoomModel.findOneAndUpdate({ hotel_id: hotel.hotel_id, room_no: hotelData.rooms[i].room_no }, hotelData.rooms[i], { new: true, upsert: true });
+        }
+    } catch (error) {
+        console.log('error in storing hotel:', error);
+        throw error;
+    }
+    return room;
+}
+
+async function createData(hotel_id) {
+    let hotel;
+    try {
+        let group = await createHotelGroup();
+        console.log('created group=', group);
+        hotel = await createHotelData(group, hotel_id);
+        console.log('created hotel=', hotel);
+        let rooms = await createRoomsData(hotel);
+        console.log('created rooms=', rooms);
+    } catch (error) {
+        throw error;
+    }
+    return hotel;
+}
+
+// Store this JSON to Graph collection
+module.exports.create = async function (hotel_id, hotel_name, genFile = false) {
+    let hotel = {};
+    try {
+        hotel = await createData(hotel_id);
+    } catch (error) {
+        console.error('error in creating data:', error);
+        throw error;
+    }
+
+    // Create the graph representation of the data
+    // console.log('created hotel=', hotel);
+    createGraph(hotel.hotel_id, hotel.name);
     // console.log('nodes=', g.nodeCount());
 
     const json = graphlib.json.write(g);
     let data;
     try {
-        data = await GraphModel.findOneAndUpdate({ value: hotel_id }, json, { new: true, upsert: true });
+        // Save the graph to the database
+        data = await GraphModel.findOneAndUpdate({ value: hotel.hotel_id }, json, { new: true, upsert: true });
     } catch (error) {
         console.log('error in storing graph:', error);
+        throw error;
     }
 
     // console.log(JSON.stringify(json));
     return json;
 }
 
-// require('./graph').create("103");
+require('./graph').create();

@@ -5,7 +5,7 @@
   - Add ProactiveAPI to the project. This is to send notifications to the user. Useful with order fulfilment. https://www.jovo.tech/docs/amazon-alexa/proactive-events
 
 # FIXMEs
-  - Whenever a user app_metadata is changed in Auth0, the corresponding user has to be deleted from mongodb. This is because, getting the user with /api/v1/user api call first checks the user in the mongodb database. If the user exists, that user data is returned. So, whatever the changes are in Auth0 user, will not be reflected for the application. This is for the API project
+  * Whenever a user app_metadata is changed in Auth0, the corresponding user has to be deleted from mongodb. This is because, getting the user with /api/v1/user api call first checks the user in the mongodb database. If the user exists, that user data is returned. So, whatever the changes are in Auth0 user, will not be reflected for the application. This is for the API project
 
   * Change launch keywords from 'hotel reception' to 'front desk', as the utterance 'launch hotel reception is hitting 'Enquiry_All_Facilities'
   * Add AMAZON.FallbackIntent and corresponding Google fallback intent for a catch-all intent
@@ -14,7 +14,8 @@
   * Implement global fallback intents for the final pieces in every conversation
   * Fix the conversations and their strings
   * Check-in & Check-out functionality has to implemented. How does the front desk tell the system on user check-in & check-out - Backend complete
-  * Write a automation script to check the graph.js for data consistency
+  * Write a automation script to check the graph.js for data consistency - DONE
+  * If a hotel changes the available facilities, they should be updated to the graph and the facilities node should be regenerated
 
 # Go To Market
 
@@ -25,6 +26,7 @@
  2. Design brochure that needs to be placed in the hotel room
   - The brochure should have invocations that the guests can refer to
   - A single pager on how it works
+  - Brochure design - DONE
  3. Test kamamishu voice conversations
   - Write test plan with all the scenarios
   - Create jest unit test cases
@@ -57,3 +59,9 @@
   - Create End user License agreement
   - Create device ownership agreement
   - Anything else?
+
+
+# Provisioning for a new hotel
+ - Create a kamamishu email id, like hotel@kamamishu.com
+ - Create a Alexa account (https://alexa.amazon.com)
+ - Have a phone number of the Hotel as part of the registration

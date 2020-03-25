@@ -8,9 +8,6 @@
 const mongoose = require('mongoose'),
     autoIncrement = require('mongoose-auto-increment');
 
-const NODE_ENV = process.env.NODE_ENV;
-
-// module.exports = async function() {
 console.log('init mongo');
 mongoose.Promise = global.Promise;
 var config = require('../config').db.MongoDb;

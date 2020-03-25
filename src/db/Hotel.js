@@ -7,14 +7,13 @@
 const _ = require('lodash'),
     mongoose = require('mongoose'),
     DBConn = require('./index').DBConn,
-    AutoIncrement = require('./index').AutoIncrement,
-    graph = require('../../scripts/graph');
+    AutoIncrement = require('./index').AutoIncrement;
 
 const HotelSchema = new mongoose.Schema({
     hotel_id: { type: String, required: true, unique: true },
-    name: { type: String, required: true, index: true },
+    name: { type: String, required: true, unique: true },
     description: String,
-    group_id: { type: String, required: true, unique: true, ref: 'HotelGroup' },
+    group_id: { type: String, required: true, unique: true },
     address: {
         address1: String,
         address2: String,
@@ -32,28 +31,20 @@ const HotelSchema = new mongoose.Schema({
         lat: { type: String, required: true },
         lng: { type: String, required: true }
     },
-    rooms: [{type: mongoose.Schema.Types.ObjectId, ref: 'Room' }],
+    rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Room' }],
     front_desk_count: Number,
     reception_number: String
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false });
 
-HotelSchema.index({ hotel_id: 1 });
-HotelSchema.index({ name: 1 });
-HotelSchema.index({ group_id: 1 });
+HotelSchema.index({hotel_id: 1}, {unique: true});
+HotelSchema.index({ group_id: 1 }, { unique: 1 });
+HotelSchema.index({ hotel_id: 1, group_id: 1 }, { unique: true });
 
 HotelSchema.plugin(AutoIncrement.plugin, {
     model: 'Hotel',
     field: 'hotel_id',
-    startAt: 100,
+    startAt: 1,
     incrementBy: 1
-});
-
-//Setup the middleware
-HotelSchema.post('save', async function (doc) {
-    //console.log('%%% Creating graph for hotel:', doc);
-
-    // Create the facilities for this hotel from the default graph representation
-    graph.create(doc.hotel_id, doc.name);
 });
 
 module.exports = DBConn.model('Hotel', HotelSchema);

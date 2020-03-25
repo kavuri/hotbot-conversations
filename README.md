@@ -113,3 +113,47 @@
     - Scope = openid, offline_access, profile, email
     - Domain list = kamamishu-in-dev.auth0.com
  - Save
+
+ # Deployment steps
+  - Start a EC2 instance in AWS. Use Ubuntu 18.04
+  - Install MongoDB for Ubuntu 18.04. Instruction - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/. Follow steps 1-4
+  - Clone hotbot-conversations repository. `git clone https://hotbot@bitbucket.org/hotbotty/hotbbot-conversations.git`
+  to the root directory
+  - `cd hotbot-conversations/scripts`
+  - Launch mongodb = `./start_db`
+   - This will start two mongo DB instances with replica sets in directories rs01, rs02
+  - Install NodeJS
+   - Install NVM. Follow instruction here = `https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/`
+    - `nvm --version` should give `0.34.0`
+    - `nvm install 12.13.0` (13.11.0 version)
+   - `cd hotbot-conversations`
+   - `npm install`
+   - `cd hotbot-converstaions/api`
+   - `npm install`
+   - Create a file `hotbot-conversations/api/.env` and add the following contents
+      ```
+      AUTH0_CLIENT_ID=
+      AUTH0_DOMAIN=
+      AUTH0_AUDIENCE=
+      AUTH0_CLIENT_SECRET=
+      AUTH0_CALLBACK_URL=
+      SESSION_SECRET='bam bam baaam..rock..'
+      AUTH0_ADMIN_AUDIENCE=https://kamamishu.eu.auth0.com/api/v2/
+      ```
+  - Replace the Auth0 details above with the details from Auth0
+  - Create a file `hotbot-conversations/.env` and add the following contents
+      ```
+      MONGO_CLUSTER_URI=mongodb+srv://hotbbotuser:Abcd1234@cluster0-i07kz.mongodb.net/test?retryWrites=true&w=majority
+      MONGO_DB_NAME=
+      MONGO_USERNAME=
+      MONGO_PASSWORD=
+      MONGO_POOL_SIZE=5
+      AUTH0_CLIENT_ID=CbQUvI1aHMwJewlcqnF3t38I9g9jUU1T
+      AUTH0_DOMAIN=kamamishu-in-dev.auth0.com
+      AUTH0_AUDIENCE=https://kamamishu-in-dev.auth0.com/api/v2/
+      AUTH0_CLIENT_SECRET=IQHh1vemyo8J-p-yVQqIpEXIOr_C86FL_cHmMAnqZnBfmMIPOhg29J1dCylSRm6I
+      AUTH0_CALLBACK_URL=https://pitangui.amazon.com/api/skill/link/MLHXQP7BSLB59, https://layla.amazon.com/api/skill/link/MLHXQP7BSLB59, https://alexa.amazon.co.jp/api/skill/link/MLHXQP7BSLB59
+      SESSION_SECRET='bam bam baaam..rock..'
+      AUTH0_ADMIN_AUDIENCE=https://kamamishu.eu.auth0.com/api/v2/
+      ```
+  - Replace the Auth0 details above with the details from Auth0

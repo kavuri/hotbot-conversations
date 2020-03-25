@@ -258,6 +258,8 @@ module.exports = {
         }
         */
 
+        return this.toIntent('HandleOrderIntent');
+        /*
         const isCompleted = this.$alexaSkill.$dialog.isCompleted();
         const hasReqCount = _.has(this.$inputs, 'req_count.value');
         console.log('###isCompleted=', isCompleted);
@@ -269,6 +271,7 @@ module.exports = {
             console.log('%%% sending to HandleOrderIntent');
             return this.toIntent('HandleOrderIntent');
         }
+        */
 
         /*
          if (!this.$alexaSkill.$dialog.isCompleted()) {
@@ -284,29 +287,6 @@ module.exports = {
              return this.toIntent('HandleOrderIntent');
          }
          */
-
-        if (_.has(this.$inputs, 'req_count.value')) {
-            return this.toIntent('HandleOrderIntent');
-        }
-        this.$alexaSkill.$dialog.delegate();
-
-        var dialogState = this.$alexaSkill.$dialog.getState();
-        console.log('##dialogState=', dialogState);
-        console.log('@@@HERE is the data:', hotel_id, item);
-        //var hasCountSlot = this.$alexaSkill.hasSlotValue('req_count');
-        //console.log('req_count slot=', hasCountSlot);
-        //if (!hasCountSlot) {
-        //} else {
-        //console.log('slot hsa been filled:', this.$inputs);
-        //}
-        // if (_.isEqual(dialogState, 'COMPLETED')) {
-        //     return this.toIntent('HandleOrderIntent');
-        // } else {
-        //     return this.$alexaSkill.$dialog.delegate();
-        // }
-
-
-        // this.tell('Got the order');
 
     },
 
@@ -374,7 +354,8 @@ module.exports = {
             console.log('isOrdeerable is false');
             // Item is present, 'cannot' be ordered. Give information about the item
             msg = item.msg['yes'];
-            this.$speech.addText(msg)
+            this.$speech
+                .addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$speech);
@@ -387,10 +368,11 @@ module.exports = {
             // Ask user if they want to order it
             // Give information about the price as well (free or costs money)
             let msg = await priceMsg(this, item);
-            this.$speech.addText(msg)
+            this.$speech
+                .addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('ITEM_ORDER_QUESTION', {    // We have dosa at our restaurant. Its cost is rupees 60. Would you like to order one?
-                    item_name: item_name
+                    item_name: item.name
                 }));
 
             return this
@@ -506,6 +488,7 @@ module.exports = {
                 return this.followUpState('ConfirmRoomItemOrder_State')
                     .ask(this.$speech, this.t('YES_NO_REPROMPT'));
             } else if (item.c && _.isUndefined(req_count)) {    // Item has count, but its not provided in the request
+                // NOTE: This condition should not arise, since this check is done at Alexa skill intent dialog setting
                 // Item does not have a count flag. Like 'Do you have dosa'
                 console.log('intent came here....sending to AskItemCount_State');
                 this.$speech
@@ -514,6 +497,7 @@ module.exports = {
                     .followUpState('AskItemCount_State')
                     .ask(this.$speech);
             } else if (!item.c) {   // Item does not have count flag. Add it to the orders
+                // NOTE: This condition should not arise for room items and menu items, since each one of them should have count
                 this.$speech
                     .addText(this.t('REPEAT_ORDER_WITHOUT_COUNT'))
                     .addBreak('200ms')
@@ -546,25 +530,6 @@ module.exports = {
             return this.ask(this.$speech);
         }
     },
-
-    /*
-    'AskItemCount_State': {
-        Count_Input() {
-            let req_count = this.$inputs.count.value,
-                item = this.$session.$data.item;
- 
-            console.log('RequestItemCount:' + req_count);
-            this.$speech
-                .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: req_count, item_name: item.name }))
-                .addBreak('200ms')
-                .addText(this.t('ORDER_ANYTHING_ELSE'));
-            addOrderToSession(this, item, req_count);
-            //this.removeState(); // This makes the next invocation go global
-            return this.followUpState('ConfirmRoomItemOrder_State')
-                .ask(this.$speech, this.t('YES_NO_REPROMPT'));
-        }
-    },
-    */
 
     'ConfirmRoomItemOrder_State': {
 
@@ -742,7 +707,8 @@ module.exports = {
         if (_.isEqual(present, false)) {
             // Facility is not available
             msg = item.msg['no'];
-            this.$speech.addText(msg)
+            this.$speech
+                .addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$session);
@@ -841,7 +807,8 @@ module.exports = {
         if (_.isEqual(present, false)) {
             // Facility is not available
             msg = item.msg['no'];
-            this.$speech.addText(msg)
+            this.$speech
+                .addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$session);
@@ -856,7 +823,8 @@ module.exports = {
 
         let msg = location.msg;
 
-        this.$speech.addText(msg)
+        this.$speech
+            .addText(msg)
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
 
