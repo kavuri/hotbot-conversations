@@ -21,7 +21,7 @@
     "NO_FACILITIES": " This hotel has all the basic facilities ",
     "HOTEL_FACILITIES": " This hotel has facilities like {{facilities}}. ",
     "QUESTION_WANT_ALL_FACILITIES": " Would you like to know the full list of facilities? ",
-    "FACILITY_NOT_AVAILABLE": " This hotel does not have the facility {{item}} ",
+    "FACILITY_NOT_AVAILABLE": " we not have {{item}} ",
     "ITEM_ORDER_QUESTION": " If you would like to order, say, I would like to order {{item_name}}",
     "FACILITY_FOLLOWUP_QUESTION": " Would you like to know more about the {{item}}? ",
     "ASK_ITEM_NAME": " Which item would you like to have? ",

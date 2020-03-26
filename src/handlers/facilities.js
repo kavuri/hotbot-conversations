@@ -703,15 +703,15 @@ module.exports = {
 
         console.log('+++timings item=', item);
 
-        let present = item.a;
-        if (_.isEqual(present, false)) {
+        let msg = '';
+        if (_.isEqual(item.a, false)) {
             // Facility is not available
             msg = item.msg['no'];
             this.$speech
                 .addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
-            return this.ask(this.$session);
+            return this.ask(this.$speech);
         }
 
         // Get the timings node
@@ -722,8 +722,7 @@ module.exports = {
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let msg = timings.msg;
-
+        msg = timings.msg;
         this.$speech.addText(msg)
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
@@ -755,9 +754,8 @@ module.exports = {
         console.log('+++item=', item);
 
         // Price can be a separate node of the facility, or it can be a price tag
-        let present = item.a;
         let msg = '';
-        if (_.isEqual(present, false)) {
+        if (_.isEqual(item.a, false)) {
             // Facility is not available
             msg = item.msg['no'];
             this.$speech
@@ -803,15 +801,15 @@ module.exports = {
 
         console.log('+++item=', item);
 
-        let present = item.a;
-        if (_.isEqual(present, false)) {
+        let msg = '';
+        if (_.isEqual(item.a, false)) {
             // Facility is not available
             msg = item.msg['no'];
             this.$speech
                 .addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
-            return this.ask(this.$session);
+            return this.ask(this.$speech);
         }
 
         // Get the timings node
@@ -821,8 +819,7 @@ module.exports = {
             this.tell(this.t('SYSTEM_ERROR'));
         }
 
-        let msg = location.msg;
-
+        msg = location.msg;
         this.$speech
             .addText(msg)
             .addBreak('200ms')
@@ -855,7 +852,7 @@ module.exports = {
         this.$speech.addText(msg)
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
-        return this.ask(this.$session);
+        return this.ask(this.$speech);
     },
     */
 
@@ -879,7 +876,7 @@ module.exports = {
         }
 
         console.log('+++cuisines=', item);
-        let msg;
+        let msg = '';
         if (_.isEqual(item.a, false)) {
             // Facility is not available
             msg = item.msg['no'];
@@ -889,7 +886,7 @@ module.exports = {
         this.$speech.addText(msg)
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
-        return this.ask(this.$session);
+        return this.ask(this.$speech);
     },
 
     /**
@@ -1063,7 +1060,7 @@ module.exports = {
         this.$speech.addText(msg)
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
-        return this.ask(this.$session);
+        return this.ask(this.$speech);
     }
     */
 }

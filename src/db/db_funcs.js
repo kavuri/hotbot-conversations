@@ -77,18 +77,15 @@ async function search(name, g) {
     var result = fuse.search(name);
     console.log('search result=', JSON.stringify(result));
 
-    if (!_.isEmpty(result)) {
-        // There are some results
-        // if (result[0].score < 0.15) { // the more the score is close to 0, the closer the search string to the result
-        // return g.node(result[0].item.f_name);
+    // the more the score is close to 0, the closer the search string to the result
+    if (!_.isEmpty(result) && (result[0].score < 0.15)) { // FIXME: Does a treshold value of 0.15 good enough?
         console.log('result=', items[result[0].item])
         let res = items[result[0].item];
         console.log('returning=', res);
         return res;
         // }
-    } else {
-        return {};
     }
+    return {};
 }
 
 /**
@@ -354,7 +351,7 @@ module.exports.add_comment_to_order = function () {
 
 function order_create() {
     var o = require('./db_funcs');
-    var items = [{name:'coffee',type:'m',req_count:2}];
+    var items = [{ name: 'coffee', type: 'm', req_count: 2 }];
     o.create_order("103",
         "101",
         "amzn1.ask.account.AGNAI33JLPXUYAHAS3INZIZ42OBZOF353BJ7J3EXQMS2WQF3LWUFQVU5W5NE64PW67V3Y7TCIEWJRGXVEWC63DXVXMUPOZXYPH7VNJCDX34J3SNWJVAP4REEOWQS3YPUTM547SW7AMPW2RFCJN7Q5AV7CJ3FA73APF4LBGO3CQNBDGFFJXDNTCMTO4HMHEKUZZGXWEW2QBB5CGA",
