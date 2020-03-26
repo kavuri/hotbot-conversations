@@ -331,7 +331,7 @@ async function createGraph(hotel_id) {
     g.setNode('Breakfast', { f: true, a: true, o: true, msg: { yes: 'This restaurant serves breakfast', no: 'There is no breakfast facility in this hotel' } });
     g.setParent('tiffin', 'Breakfast');
     g.setParent('morning food', 'Breakfast');
-    g.setNode('breakfast_timing', { time: { from: '0700', to: '1000' }, msg: 'Breakfast is served from 0700 to 0900 during weekdays and from 0700 to 1000 on saturdays and sundays' });
+    g.setNode('breakfast_timings', { time: { from: '0700', to: '1000' }, msg: 'Breakfast is served from 0700 to 0900 during weekdays and from 0700 to 1000 on saturdays and sundays' });
     g.setNode('breakfast_location', { msg: 'Breakfast is served in the restaurant on the ground floor' });
     g.setNode('breakfast_room_service', { msg: 'Breakfast can be served in the room. Would you like me to order?' });
     g.setNode('breakfast_price', { price: 200, flag: true, msg: { yes: 'There is a charge of <%=price> for the breakfast', no: 'Breakfast is free of charge if its part of your booking' } });
@@ -881,4 +881,4 @@ module.exports.create = async function (hotel_id, hotel_name, genFile = false) {
 }
 
 // require('./graph').create();
-// addOrUpdateGraph("2");
+// require('./graph').addOrUpdate("1");

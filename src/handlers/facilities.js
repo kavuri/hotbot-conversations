@@ -94,7 +94,7 @@ async function priceMsg(thisObj, item) {
             msg = thisObj.t('ORDER_COSTS', { item_name: item.name, price: price });
         }
     } else if (_.has(item, 'f')) {
-        let price_node_name = item.name + '_price';
+        let price_node_name = item.name.toLowerCase() + '_price';
         let price = await DBFuncs.getNode(hotel_id, price_node_name);
         if (_.isUndefined(price)) {   // FIXME: Ensure this does not happen
             this.tell(this.t('SYSTEM_ERROR'));
@@ -715,7 +715,7 @@ module.exports = {
         }
 
         // Get the timings node
-        let timings_node_name = item.name + '_timings';
+        let timings_node_name = item.name.toLowerCase() + '_timings';
         console.log('getting node_name=', timings_node_name);
         let timings = await DBFuncs.getNode(hotel_id, timings_node_name);
         if (_.isUndefined(timings)) {   // FIXME: Ensure this does not happen
@@ -815,7 +815,7 @@ module.exports = {
         }
 
         // Get the timings node
-        let location_node_name = item.name + '_location';
+        let location_node_name = item.name.toLowerCase() + '_location';
         let location = await DBFuncs.getNode(hotel_id, location_node_name);
         if (_.isUndefined(location)) {   // FIXME: Ensure this does not happen
             this.tell(this.t('SYSTEM_ERROR'));
