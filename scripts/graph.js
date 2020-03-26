@@ -67,13 +67,13 @@ const GraphModel = require('../src/db/Graph'),
  * 'menu': all menu items
  * 'roomitem': all room items (like AC, TV, fridge, napkins)
  */
-async function createGraph(hotel_id, hotel_name) {
-    if (_.isUndefined(hotel_id) || _.isUndefined(hotel_name)) {
-        throw new Error('invalid hotel_id or hotel_name:', hotel_id, hotel_name);
+async function createGraph(hotel_id) {
+    if (_.isUndefined(hotel_id)) {
+        throw new Error('invalid hotel_id or hotel_name:', hotel_id);
     }
 
     // Create hotel & its nodes
-    g.setNode(hotel_id, hotel_name);
+    // g.setNode(hotel_id, hotel_name);
     g.setNode('main_facilities', ['restaurant', 'Gym', 'swimming pool', 'breakfast', 'Laundry']);
 
     // Hotel points to the following nodes
@@ -111,7 +111,7 @@ async function createGraph(hotel_id, hotel_name) {
     g.setNode('infants', { p: true, a: true, msg: 'There are no charges for infants below the age of 5 years and are welcome to stay. ' });
     g.setParent('children policy', 'infants');
     g.setParent('infants stay', 'infants');
-    g.setNode('checkout time', { p: true, a: true, msg: 'The checkout time for the room is 12:00PM. Please contact reception at <%= reception_no %> if you want to extend your stay beyond checkout time.' });
+    g.setNode('checkout time', { p: true, a: true, msg: 'The checkout time for the room is 12:00PM. Please contact reception if you want to extend your stay beyond checkout time.' });
     g.setParent('vacate time', 'checkout time');
     g.setNode('no show', { p: true, a: true, msg: 'In case of no show the first nights room rent would be charged. The rest of the booking amount would be refunded to your account.' });
     g.setNode('outside food', { p: true, a: true, msg: 'We do not allow outside food to be brought into the hotel' });
@@ -246,7 +246,7 @@ async function createGraph(hotel_id, hotel_name) {
     g.setNode('car_cleaning_price', { price: '100', flag: true, msg: { yes: 'There is a charge of <%= price %> for cleaning the car', no: 'car_cleaning is free for all the guests' } });
     createEdges('Car cleaning', ['car_cleaning_location', 'car_cleaning_timings', 'car_cleaning_reserve', 'car_cleaning_price'], { label: 'Car cleaning' });
 
-    g.setNode('Bicycle', { f: true, a: false, o: true, c: true, msg: { yes: 'We have bicycle rental service.', no: 'We do not have bicycle rental service' } });
+    g.setNode('Bicycle', { f: true, a: false, o: false, msg: { yes: 'We have bicycle rental service.', no: 'We do not have bicycle rental service' } });
     g.setParent('bicycle_rental', 'Bicycle');
     g.setNode('bicycle_location', { msg: 'bicycles are located at the bicycle parking space in front of the hotel' });
     g.setNode('bicycle_timings', { msg: 'Bicycles are available for rent round the clock', 'time': { 'from': '0500', 'to': '2400' } });
@@ -254,7 +254,7 @@ async function createGraph(hotel_id, hotel_name) {
     g.setNode('bicycle_price', { price: '100', flag: true, msg: { yes: 'There is a charge of <%= price %> for renting the bicycle for 24 hours', no: 'bicycles are free to use for all the guests of the hotel' } });
     createEdges('Bicycle', ['bicycle_location', 'bicycle_timings', 'bicycle_ booking', 'bicycle_price'], { label: 'Bicycle' });
 
-    g.setNode('Bike', { f: true, a: false, o: true, c: true, msg: { yes: 'We have motorbike rental service.', no: 'We do not have motorbike rental service' } });
+    g.setNode('Bike', { f: true, a: false, o: false, msg: { yes: 'We have motorbike rental service.', no: 'We do not have motorbike rental service' } });
     g.setParent('bike rental', 'Bike');
     g.setParent('bike for rent', 'Bike');
     g.setNode('bike_location', { msg: 'bikes are located at the bike rental space near the entrance of the hotel' });
@@ -347,17 +347,19 @@ async function createGraph(hotel_id, hotel_name) {
     g.setNode('Cutlery', { f: true, o: true, a: false, msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not supply cutlery' } }); //FIXME: Complete the flow of ordering cutlery
 
     // Room items
+    g.setNode('TV', { o: false, ri: true, a: true, c: false, price: '0', limit: { count: 1, for: 'stay' }, msg: { yes: 'We have a TV in your room and it plays all Indian channels', no: 'This room does not have a TV facility' } });
+    g.setParent('television', 'TV');
     g.setNode('Tissues', { o: true, ri: true, a: true, c: true, price: '0', limit: { count: 2, for: 'day' }, msg: { yes: 'We have tissues at our hotel', no: 'We do not have tissues to order' } });
     g.setParent('Paper napkins', 'Tissues');
     g.setParent('Paper napkin', 'Tissues');
     g.setParent('Wipes', 'Tissues');
-    g.setNode('Dustbin', { a: true, o: true, ri: true, msg: { yes: 'A dustbin is provided in your room', no: 'We do not have dustbins in  the room' } });
+    g.setNode('Dustbin', { a: true, o: true, ri: true, c: false, msg: { yes: 'A dustbin is provided in your room', no: 'We do not have dustbins in  the room' } });
     g.setParent('dust basket', 'Dustbin');
     g.setParent('garbage can', 'Dustbin');
     g.setParent('waste basket', 'Dustbin');
     g.setNode('Hanger', { a: true, o: true, ri: true, c: true, limit: { count: 10, for: 'stay' }, msg: { yes: 'Hangers are provided in the closet in your room', no: 'We do not provide hangers' } });
     g.setParent('Clothe hangers', 'Hanger');
-    g.setNode('Clock', { a: false, o: true, ri: true, msg: { yes: 'There is a table clock in your room', no: 'We do not have a clock. You can ask Alexa for the time instead' } });
+    g.setNode('Clock', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a table clock in your room', no: 'We do not have a clock. You can ask Alexa for the time instead' } });
     g.setParent('Watch', 'Clock');
     g.setNode('Pullover', { a: true, o: true, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
     g.setParent('Rug', 'Pullover');
@@ -370,31 +372,30 @@ async function createGraph(hotel_id, hotel_name) {
     g.setParent('Bath soap', 'Soap');
     g.setParent('Bath cream', 'Soap');
     g.setParent('Shower cream', 'Soap');
-    g.setNode('Shampoo', { a: true, o: true, ri: true, msg: { yes: 'There is liquid shampoo in you bathroom', no: 'We do not provide any shampoo' } });
+    g.setNode('Shampoo', { a: true, o: true, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There is liquid shampoo in you bathroom', no: 'We do not provide any shampoo' } });
     g.setParent('Hair liquid', 'Shampoo');
     g.setNode('Comb', { a: false, o: true, ri: true, c: true, limit: { count: 1, for: 'stay' }, msg: { yes: 'There is a comb provided in your bathroom', no: 'We do not provide a comb' } });
     g.setParent('Hair comb', 'Comb');
-    g.setNode('Fridge', { a: false, o: true, ri: true, msg: { yes: 'There is a fridge in your room', no: 'We do not provide a fridge' } });
+    g.setNode('Fridge', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a fridge in your room', no: 'We do not provide a fridge' } });
     g.setParent('Refrigerator', 'Fridge');
-    g.setNode('AC', { a: true, o: true, ri: true, msg: { yes: 'There is an AC in your room', no: 'We do not provide an AC' } }); // FIXME: AC is per room and not across the hotel. This needs to be linked to a room number
+    g.setNode('AC', { a: true, o: true, ri: true, c: false, msg: { yes: 'There is an AC in your room', no: 'We do not provide an AC' } }); // FIXME: AC is per room and not across the hotel. This needs to be linked to a room number
     g.setParent('Air Conditioner', 'AC');
     g.setParent('Air cooler', 'AC');
-    g.setNode('Iron box', { a: false, o: true, ri: true, msg: { yes: 'There is an iron box in your room', no: 'We do not provide an iron box' } });
+    g.setNode('Iron box', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is an iron box in your room', no: 'We do not provide an iron box' } });
     g.setParent('Iron machine', 'Iron box');
-    g.setNode('Bar', { a: false, o: true, ri: true, msg: { yes: 'There is a mini bar in your fridge. The items are chargeable', no: 'We do not have a mini bar' } });
-    g.setParent('Mini bar', 'Bar');
-    g.setNode('Coffee machine', { a: false, o: true, ri: true, msg: { yes: 'There is a coffee machine in your room ', no: 'We do not have a coffee machine' } });
+    g.setNode('Coffee machine', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a coffee machine in your room ', no: 'We do not have a coffee machine' } });
     g.setParent('Coffee brew', 'Coffee machine');
     g.setParent('Expresso machine', 'Coffee machine');
-    g.setNode('Tea machine', { a: false, o: true, ri: true, msg: { yes: 'There is a tea machine in your room ', no: 'We do not have a tea machine' } });
-    g.setNode('Dish washer', { a: false, o: true, ri: true, msg: { yes: 'There is a dish washer in your room ', no: 'We do not have a dish washer' } });
-    g.setNode('Fan', { a: true, o: true, ri: true, msg: { yes: 'There is a fan in your room ', no: 'We do not have a fan in the room' } });
+    g.setNode('Tea machine', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a tea machine in your room ', no: 'We do not have a tea machine' } });
+    g.setNode('Dish washer', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a dish washer in your room ', no: 'We do not have a dish washer' } });
+    g.setNode('Fan', { a: true, o: true, ri: true, c: false, msg: { yes: 'There is a fan in your room ', no: 'We do not have a fan in the room' } });
     g.setNode('Water', { a: true, o: true, ri: true, c: true, price: 20, limit: { count: 1, for: 'day' }, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water' } });
     g.setParent('Water bottle', 'Water');
     g.setParent('Bottle of water', 'Water');
-    g.setNode('Menu', { a: true, o: false, ri: true, msg: { yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Call the front desk' } });
-    g.setNode('Salt', { o: true, a: true, ri: true, e: true, quantity: 1, price: '0', msg: { yes: 'We have salt and is placed in the room', no: 'We do not have salt in the hotel' } });
-    g.setNode('Sugar', { o: true, a: true, ri: true, e: true, quantity: 1, price: '0', msg: { yes: 'We have sugar in the room', no: 'we do not have sugar in the hotel' } });
+    g.setNode('extra bed', { a: true, o: true, ri: true, c: true, price: 0, limit: { count: 1, for: 'day' }, msg: { yes: 'We can provide an extra bed on request', no: 'We do not have provison for extra bed' } });
+    g.setNode('Menu', { a: true, o: false, ri: true, c: false, msg: { yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Call the front desk' } });
+    g.setNode('Salt', { o: true, a: true, ri: true, e: true, c: false, quantity: 1, price: '0', msg: { yes: 'We have salt and is placed in the room', no: 'We do not have salt in the hotel' } });
+    g.setNode('Sugar', { o: true, a: true, ri: true, e: true, c: false, quantity: 1, price: '0', msg: { yes: 'We have sugar in the room', no: 'we do not have sugar in the hotel' } });
 
 
     // Menu items
@@ -845,6 +846,24 @@ async function createData(hotel_id) {
     return hotel;
 }
 
+module.exports.addOrUpdate = async (hotel_id, genFile = true) => {
+    createGraph(hotel_id);
+    // console.log('nodes=', g.nodeCount());
+
+    const json = graphlib.json.write(g);
+    let data;
+    try {
+        // Save the graph to the database
+        data = await GraphModel.findOneAndUpdate({ value: hotel_id }, json, { new: true, upsert: true });
+    } catch (error) {
+        console.log('error in storing graph:', error);
+        throw error;
+    }
+
+    // console.log(JSON.stringify(json));
+    return json;
+}
+
 // Store this JSON to Graph collection
 module.exports.create = async function (hotel_id, hotel_name, genFile = false) {
     let hotel = {};
@@ -857,21 +876,9 @@ module.exports.create = async function (hotel_id, hotel_name, genFile = false) {
 
     // Create the graph representation of the data
     // console.log('created hotel=', hotel);
-    createGraph(hotel.hotel_id, hotel.name);
-    // console.log('nodes=', g.nodeCount());
-
-    const json = graphlib.json.write(g);
-    let data;
-    try {
-        // Save the graph to the database
-        data = await GraphModel.findOneAndUpdate({ value: hotel.hotel_id }, json, { new: true, upsert: true });
-    } catch (error) {
-        console.log('error in storing graph:', error);
-        throw error;
-    }
-
-    // console.log(JSON.stringify(json));
+    let json = this.addOrUpdate(hotel.hotel_id);
     return json;
 }
 
-require('./graph').create();
+// require('./graph').create();
+// addOrUpdateGraph("2");

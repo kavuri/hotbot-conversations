@@ -861,19 +861,26 @@ module.exports = {
 
     async Enquiry_menu_cuisinetype() {
         let hotel_id = this.$session.$data.hotel.hotel_id;
-        let cuisines;
+        let item;
         try {
-            cuisines = await DBFuncs.successors(hotel_id, 'cuisines');
+            item = await DBFuncs.successors(hotel_id, 'cuisines');
         } catch (error) {
             if (error instanceof KamError.InputError) {
                 this.tell(this.t('SYSTEM_ERROR'));
             }
         }
 
-        console.log('+++cuisines=', cuisines);
+        if (_.isUndefined(item)) {
+            this.$speech
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
+        }
+
+        console.log('+++cuisines=', item);
         let msg;
-        let present = item.a & _.isUndefined(item.a);
-        if (_.isEqual(present), false) {
+        if (_.isEqual(item.a, false)) {
             // Facility is not available
             msg = item.msg['no'];
         } else if (_.isEqual(present), true) {
@@ -1011,5 +1018,52 @@ module.exports = {
             .addText(this.t('ANYTHING_ELSE'));
         return this.ask(this.$speech);
 
+    },
+
+    /** 
+    {
+      "name": "Enquiry_TV_Channels",
+      "phrases": [
+        "What are the channels on the TV",
+        "what all channels do you get",
+        "what can I see on TV",
+        "What is on TV",
+        "What is playing on TV",
+        "What can I play on TV"
+      ]
     }
+    This intent is probably not required now, as the Enquiry_facility_exists takes care of this
+    async Enquiry_TV_Channels() {
+        let hotel_id = this.$session.$data.hotel.hotel_id;
+        let item;
+        try {
+            item = await DBFuncs.item(hotel_id, 'TV');
+        } catch (error) {
+            if (error instanceof KamError.InputError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            }
+        }
+
+        if (_.isUndefined(item)) {
+            this.$speech
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
+        }
+
+        console.log('+++TV=', item);
+        let msg;
+        if (_.isEqual(item.a, false)) {
+            // Facility is not available
+            msg = item.msg['no'];
+        } else if (_.isEqual(present), true) {
+            msg = item.msg['yes'];
+        }
+        this.$speech.addText(msg)
+            .addBreak('200ms')
+            .addText(this.t('ANYTHING_ELSE'));
+        return this.ask(this.$session);
+    }
+    */
 }
