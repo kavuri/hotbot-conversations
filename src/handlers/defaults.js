@@ -71,7 +71,7 @@ module.exports = {
                 console.log('address=', address);
 
                 this.tell('got full address');
-                if (!_.has(address.addressLine1) || !_.has(address.addressLine2)) {
+                if (!_.has(address, 'addressLine1') || !_.has(address, 'addressLine2')) {
                     // Admin has not set the hotel_id in addressLine1 and room_no in addressLine2
                     return this.tell(this.t('DEVICE_ADDRESS_NOT_SET'));
                 }
