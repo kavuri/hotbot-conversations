@@ -137,7 +137,7 @@ async function createGraph(hotel_id) {
     createEdges(policies, ['smoking', 'alcohol', 'cancellation', 'infants', 'checkout time', 'no show', 'outside food', 'check-in time', 'pets', 'payment methods'], { label: 'policy' });
 
     // Create facilities
-    g.setNode('Gym', { f: true, a: false, o: false, msg: { yes: 'There is one fitness center available on the 4th floor next to the cafe', no: 'There is no gym in this hotel' } });
+    g.setNode('Gym', { f: true, a: true, o: false, msg: { yes: 'There is one fitness center available on the 4th floor next to the cafe', no: 'There is no gym in this hotel' } });
     g.setParent('fitness center', 'Gym');   // synonyms of the facility are set as children
     g.setParent('workout place', 'Gym');
     g.setNode('gym_location', { msg: 'gym is located next to the cafe on the 4th floor' });
@@ -146,7 +146,7 @@ async function createGraph(hotel_id) {
     g.setNode('gym_reserve', { flag: true, msg: { yes: 'Call up the frontdesk to make a reservation', no: 'No reservation is required. You can walk-in to the gym' } });
     createEdges('Gym', ['gym_location', 'gym_timings', 'gym_price', 'gym_reserve', { label: 'Gym' }]);
 
-    g.setNode('Kids Pool', { f: true, a: false, o: false, msg: { yes: 'There is a childrens pool available', no: 'There is no childrens pool in this hotel' } });
+    g.setNode('Kids Pool', { f: true, a: true, o: false, msg: { yes: 'There is a childrens pool available', no: 'There is no childrens pool in this hotel' } });
     g.setParent('childrens pool', 'Kids Pool');
     g.setParent('kids pool', 'Kids Pool');
     g.setParent('childrens swimming pool', 'Kids Pool');
@@ -157,7 +157,7 @@ async function createGraph(hotel_id) {
     g.setNode('kids_pool_price', { price: '200', flag: true, msg: { yes: 'There is a charge of <%= price %> for using the childrens pool', no: 'The childrens pool is free to use for all the guests' } });
     createEdges('Kids Pool', ['kids_pool_location', 'kids_pool_timings', 'kids_pool_reserve', 'kids_pool_price'], { label: 'Kids Pool' });
 
-    g.setNode('Adults Pool', { f: true, a: false, o: false, msg: { yes: 'There is an adults pool available', no: 'There is no swimming pool in this hotel' } });
+    g.setNode('Adults Pool', { f: true, a: true, o: false, msg: { yes: 'There is an adults pool available', no: 'There is no swimming pool in this hotel' } });
     g.setParent('adults pool', 'Adults Pool');
     g.setParent('big swimming pool', 'Adults Pool');
     g.setNode('adults_pool_location', { msg: 'Sky pool on the top floor. You can take the lift to reach the floor' });
@@ -166,7 +166,7 @@ async function createGraph(hotel_id) {
     g.setNode('adults_pool_price', { price: '200', flag: true, msg: { yes: 'There is a charge of <%= price %> for using the pool', no: 'The pool is free to use for all the guests' } });
     createEdges('Adults Pool', ['adults_pool_location', 'adults_pool_timings', 'adults_pool_reserve', 'adults_pool_price'], { label: 'Adults Pool' });
 
-    g.setNode('Sauna', { f: true, a: false, o: false, msg: { yes: 'There is a sauna available', no: 'There is no sauna in this hotel' } });
+    g.setNode('Sauna', { f: true, a: true, o: false, msg: { yes: 'There is a sauna available', no: 'There is no sauna in this hotel' } });
     g.setParent('steam room', 'Sauna');
     g.setParent('steam bath', 'Sauna');
     g.setNode('sauna_location', { msg: 'Sauna is located on the ground floor' });
@@ -175,7 +175,7 @@ async function createGraph(hotel_id) {
     g.setNode('sauna_price', { price: '200', flag: true, msg: { yes: 'There is a charge of <%= price %> for using the sauna', no: 'The sauna is free to use for all the guests' } });
     createEdges('Sauna', ['sauna_location', 'sauna_timings', 'sauna_reserve', 'sauna_price'], { label: 'Sauna' });
 
-    g.setNode('Dry Cleaning', { f: true, a: false, o: false, msg: { yes: 'we offer dry_clean service', no: 'we do not have dry cleaning service' } });
+    g.setNode('Dry Cleaning', { f: true, a: true, o: false, msg: { yes: 'we offer dry_clean service', no: 'we do not have dry cleaning service' } });
     g.setParent('dry cleaning', 'Dry Cleaning');
     g.setNode('dry_clean_location', { msg: 'please leave the clothes to be dry cleaned in the bag provided in the closet.We will pick them up for dry cleaning' });
     g.setNode('dry_clean_timings', { msg: 'We will deliver the dry cleaned clothes in ', 'time': { 'from': '0500', 'to': '1200' } });
@@ -183,7 +183,7 @@ async function createGraph(hotel_id) {
     g.setNode('dry_clean_price', { price: '400', flag: true, msg: { Yes: 'There are separate charges for different clothes. You can check the charges in the closet', no: 'The dry clean service is free for all the guests' } });
     createEdges('Dry Cleaning', ['dry_clean_location', 'dry_clean_timings', 'dry_clean_reserve', 'dry_clean_price'], { label: 'Dry Cleaning' });
 
-    g.setNode('Laundry', { f: true, a: false, o: false, msg: { yes: 'We offer laundry service', no: 'We do not have laundry service' } });
+    g.setNode('Laundry', { f: true, a: true, o: false, msg: { yes: 'We offer laundry service', no: 'We do not have laundry service' } });
     g.setParent('clothes wash', 'Laundry');
     g.setParent('washing', 'Laundry');
     g.setNode('laundry_location', { msg: 'Please leave the clothes to be washed in the bag provided in the closet. We will pick them up for washing' });
@@ -192,7 +192,7 @@ async function createGraph(hotel_id) {
     g.setNode('laundry_price', { price: '200', flag: true, msg: { yes: 'There are separate charges for different clothes. You can check the charges in the closet', no: 'The laundry service is free for all the guests' } });
     createEdges('Laundry', ['laundry_location', 'laundry_timings', 'laundry_reserve', 'laundry_price'], { label: 'Laundry' });
 
-    g.setNode('Ironing', { f: true, a: false, o: false, msg: { yes: 'We have an iron box in the room. You can find it in the closet', no: 'We do not have clothes ironing facility' } });
+    g.setNode('Ironing', { f: true, a: true, o: false, msg: { yes: 'We have an iron box in the room. You can find it in the closet', no: 'We do not have clothes ironing facility' } });
     g.setParent('clothes iron', 'Ironing');
     g.setNode('ironing_location', { msg: 'Please leave the clothes to be ironed in the bag in the closet. We will pick them up for ironing' });
     g.setNode('ironing_timings', { msg: 'You can place an order to iron your clothes anytime ', 'time': { 'from': '0500', 'to': '1200' } });
@@ -200,7 +200,7 @@ async function createGraph(hotel_id) {
     g.setNode('ironing_price', { price: '200', flag: true, msg: { yes: 'There is a charge of Rs.5 per piece', no: 'Ironing is free of charge' } });
     createEdges('Ironing', ['ironing_location', 'ironing_timings', 'ironing_reserve', 'ironing_price'], { label: 'Ironing' });
 
-    g.setNode('Taxi', { f: true, a: false, o: true, msg: { yes: 'We have taxi service with the hotel', no: 'We do not provide taxi service. But Uber, Ola do reach our hotel' } });
+    g.setNode('Taxi', { f: true, a: true, o: true, msg: { yes: 'We have taxi service with the hotel', no: 'We do not provide taxi service. But Uber, Ola do reach our hotel' } });
     g.setParent('cab', 'Taxi');
     g.setParent('car rental', 'Taxi');
     g.setParent('car hire', 'Taxi');    //FIXME: Complete the flow of taxi booking
@@ -211,14 +211,14 @@ async function createGraph(hotel_id) {
     g.setNode('taxi_billing', { flag: true, msg: { yes: 'The taxi charges are included in your bill', no: 'You have to pay the driver yourself' } });
     createEdges('Taxi', ['taxi_location', 'taxi_reserve', 'taxi_price', 'taxi_billing'], { label: 'Taxi' });
 
-    g.setNode('Shuttle', { f: true, a: false, o: false, msg: { yes: 'We have a shuttle service', no: 'We do not provide a shuttle service' } });
+    g.setNode('Shuttle', { f: true, a: true, o: false, msg: { yes: 'We have a shuttle service', no: 'We do not provide a shuttle service' } });
     g.setNode('shuttle_reserve', { flag: true, msg: { yes: 'I can place an order to book a taxi', no: 'I cannot make a taxi booking. You will have to use the taxi apps like Ola or Uber to book one' } });
     g.setNode('shuttle_timings', { flag: true, msg: { yes: 'The shuttle service is available from morning 0800 to evening 1800hrs at a gap of 30 minutes. You will need to wait at the reception to board a shuttle ', no: 'There is no specific timing for the shuttle. Please check with the reception for the specific timing' } });
     g.setNode('shuttle_price', { price: '200', flag: true, msg: { yes: 'There is a charge of <%=price> for using the shuttle', no: 'The shuttle service is provided on a complimentary basis by the hotel' } });
     g.setNode('shuttle_billing', { flag: true, msg: { yes: 'You do not have to pay for the shuttle', no: 'You will have to pay the driver directly' } });
     createEdges('Shuttle', ['shuttle_reserve', 'shuttle_timings', 'shuttle_price', 'shuttle_billing'], { label: 'Shuttle' });
 
-    g.setNode('Wifi', { f: true, a: false, o: false, msg: { yes: 'We have wifi facility. Please contact frontdesk for the details', no: 'We do not have wifi facility' } });
+    g.setNode('Wifi', { f: true, a: true, o: false, msg: { yes: 'We have wifi facility. Please contact frontdesk for the details', no: 'We do not have wifi facility' } });
     g.setParent('internet', 'Wifi');
     g.setParent('data connection', 'Wifi');
     g.setParent('wireless network', 'Wifi');
@@ -230,7 +230,7 @@ async function createGraph(hotel_id) {
     g.setNode('wifi_password', { flag: true, msg: { yes: 'The frontdesk will provide the wifi password', no: 'There is no wifi password' } });
     createEdges('Wifi', ['wifi_location', 'wifi_timings', 'wifi_price', 'wifi_billing', 'wifi_password'], { label: 'Wifi' });
 
-    g.setNode('Massage', { f: true, a: false, o: false, msg: { yes: 'We have a masseur in the hotel', no: 'We do not have massage facility in the hotel' } });
+    g.setNode('Massage', { f: true, a: true, o: false, msg: { yes: 'We have a masseur in the hotel', no: 'We do not have massage facility in the hotel' } });
     g.setParent('massage_room', 'Massage');
     g.setNode('massage_location', { msg: 'massage room is located to the left of the reception area on the ground floor' });
     g.setNode('massage_timings', { msg: 'The massage is open from morning <%= from %> to <%= to %> and again in the evenings from 1600 to 2200', 'time': { 'from': '0700', 'to': '1400' } });
@@ -246,7 +246,7 @@ async function createGraph(hotel_id) {
     g.setNode('car_cleaning_price', { price: '100', flag: true, msg: { yes: 'There is a charge of <%= price %> for cleaning the car', no: 'car_cleaning is free for all the guests' } });
     createEdges('Car cleaning', ['car_cleaning_location', 'car_cleaning_timings', 'car_cleaning_reserve', 'car_cleaning_price'], { label: 'Car cleaning' });
 
-    g.setNode('Bicycle', { f: true, a: false, o: false, msg: { yes: 'We have bicycle rental service.', no: 'We do not have bicycle rental service' } });
+    g.setNode('Bicycle', { f: true, a: true, o: false, msg: { yes: 'We have bicycle rental service.', no: 'We do not have bicycle rental service' } });
     g.setParent('bicycle_rental', 'Bicycle');
     g.setNode('bicycle_location', { msg: 'bicycles are located at the bicycle parking space in front of the hotel' });
     g.setNode('bicycle_timings', { msg: 'Bicycles are available for rent round the clock', 'time': { 'from': '0500', 'to': '2400' } });
@@ -254,7 +254,7 @@ async function createGraph(hotel_id) {
     g.setNode('bicycle_price', { price: '100', flag: true, msg: { yes: 'There is a charge of <%= price %> for renting the bicycle for 24 hours', no: 'bicycles are free to use for all the guests of the hotel' } });
     createEdges('Bicycle', ['bicycle_location', 'bicycle_timings', 'bicycle_ booking', 'bicycle_price'], { label: 'Bicycle' });
 
-    g.setNode('Bike', { f: true, a: false, o: false, msg: { yes: 'We have motorbike rental service.', no: 'We do not have motorbike rental service' } });
+    g.setNode('Bike', { f: true, a: true, o: false, msg: { yes: 'We have motorbike rental service.', no: 'We do not have motorbike rental service' } });
     g.setParent('bike rental', 'Bike');
     g.setParent('bike for rent', 'Bike');
     g.setNode('bike_location', { msg: 'bikes are located at the bike rental space near the entrance of the hotel' });
@@ -263,7 +263,7 @@ async function createGraph(hotel_id) {
     g.setNode('bike_price', { price: '300', flag: true, msg: { yes: 'There is a charge of <%= price %> for renting the bike for 24 hours', no: 'bikes are free to use for all the guests of the hotel' } });
     createEdges('Bike', ['bike_location', 'bike_timings', 'bike_booking', 'bike_price'], { label: 'Bike' });
 
-    g.setNode('Bar', { f: true, a: false, o: true, msg: { yes: 'We have a bar on the terrace of the hotel.', no: 'We do not have a bar' } });
+    g.setNode('Bar', { f: true, a: true, o: true, msg: { yes: 'We have a bar on the terrace of the hotel.', no: 'We do not have a bar' } });
     g.setParent('pub', 'Bar');
     g.setParent('night club', 'Bar');
     g.setParent('tavern', 'Bar');
@@ -272,13 +272,13 @@ async function createGraph(hotel_id) {
     g.setNode('bar_reserve', { flag: true, msg: { yes: 'You can call the bar extension code to reserve a table', no: 'There is no bar available in the hotel premises' } });
     createEdges('Bar', ['bar_location', 'bar_timings', 'bar_reserve'], { label: 'Bar' });
 
-    g.setNode('Sight Seeing', { f: true, a: false, o: true, msg: { yes: 'We provide sight seeing facilities with our customized packages.', no: 'We do not have tourist package facilities' } });
+    g.setNode('Sight Seeing', { f: true, a: true, o: true, msg: { yes: 'We provide sight seeing facilities with our customized packages.', no: 'We do not have tourist package facilities' } });
     //TODO: Complete rest of the nodes
 
-    g.setNode('Conference Rooms', { f: true, a: false, o: true, msg: { yes: 'We have 2 conference rooms in our hotel', no: 'We do not have conference rooms' } });
+    g.setNode('Conference Rooms', { f: true, a: true, o: true, msg: { yes: 'We have 2 conference rooms in our hotel', no: 'We do not have conference rooms' } });
     //TODO: Complete rest of the nodes
 
-    g.setNode('Business Lounge', { f: true, a: false, o: true, msg: { yes: 'We have 2 business lounges in our hotel', no: 'We do not have business lounges' } });
+    g.setNode('Business Lounge', { f: true, a: true, o: true, msg: { yes: 'We have 2 business lounges in our hotel', no: 'We do not have business lounges' } });
     //TODO: Complete rest of the nodes
 
     g.setNode('Reception', { f: true, a: true, o: false, msg: { yes: 'The hotel reception is located near the entrance', no: 'I am your receptionist. Please let me know what you want' } });
@@ -287,7 +287,7 @@ async function createGraph(hotel_id) {
     g.setNode('reception_languages', { msg: 'The reception speaks english, hindi, telugu, tamil, malayalam, kannada' });
     createEdges('Reception', ['reception_timings', 'reception_languages', { label: 'reception' }]);
 
-    g.setNode('Spa', { f: true, a: false, o: true, msg: { yes: 'There is a sauna available', no: 'There is no sauna in this hotel' } });
+    g.setNode('Spa', { f: true, a: true, o: true, msg: { yes: 'There is a sauna available', no: 'There is no sauna in this hotel' } });
     g.setParent('Spa', 'body treatment');
     g.setParent('Spa', 'facials');
     g.setNode('spa_location', { msg: 'The spa is located on the outer corridor' });
@@ -297,7 +297,7 @@ async function createGraph(hotel_id) {
     g.setNode('spa_billing', { msg: 'You will have to pay separately at the spa. The charges will not be made part of bill' });
     createEdges('Spa', ['spa_location', 'spa_timings', 'spa_reserve', 'spa_price', 'spa_billing'], { label: 'spa' });  //FIXME: Spa needs more work
 
-    g.setNode('Room Service', { f: true, a: false, o: true, msg: { yes: 'Room service is available', no: 'There is no room service' } });
+    g.setNode('Room Service', { f: true, a: true, o: true, msg: { yes: 'Room service is available', no: 'There is no room service' } });
     g.setParent('room delivery', 'Room Service');
     g.setNode('room_service_price', { price: 50, msg: 'You are charged an amount of <%= price %> for room service' });
     g.setNode('room_service_time', { time: '30 minutes', msg: 'It takes approximately <%=time %> for ordering food to room service' });
@@ -305,7 +305,7 @@ async function createGraph(hotel_id) {
     g.setNode('room_service_billing', { msg: 'The charges would be added to your room bill, that you can pay at checkout time' });
     createEdges('Room Service', ['room_service_price', 'room_service_time', 'room_service_process', 'room_service_billing'], { label: 'Room Service' });
 
-    g.setNode('Cooking', { f: true, a: false, o: true, msg: { yes: 'This hotel can provide cooking facilities. Let me know what you want', no: 'This hotel does not have cooking facilities' } }); // FIXME: Complete the flow of the user asking for the facilities
+    g.setNode('Cooking', { f: true, a: true, o: true, msg: { yes: 'This hotel can provide cooking facilities. Let me know what you want', no: 'This hotel does not have cooking facilities' } }); // FIXME: Complete the flow of the user asking for the facilities
     g.setParent('cooking facilities', 'Cooking');
     g.setParent('cooking utilities', 'Cooking');
 
@@ -343,8 +343,8 @@ async function createGraph(hotel_id) {
     // Kitchen items
     g.setNode('Bottle Steralizer', { f: true, a: true, o: true, msg: { yes: 'Bottle sterilization possible. Please visit the kitchen to get it done', no: 'Bottle sterilization not possilbe' } });
     g.setNode('Microwave', { f: true, o: false, a: true, msg: { yes: 'We have a microwave in the common floor downstairs', no: 'We do not have a microwave' } });
-    g.setNode('Oven', { f: true, a: false, o: false, msg: { yes: 'We have a oven in this hotel. You can use it downstairs', no: 'We do not have an oven' } });
-    g.setNode('Cutlery', { f: true, o: true, a: false, msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not supply cutlery' } }); //FIXME: Complete the flow of ordering cutlery
+    g.setNode('Oven', { f: true, a: true, o: false, msg: { yes: 'We have a oven in this hotel. You can use it downstairs', no: 'We do not have an oven' } });
+    g.setNode('Cutlery', { f: true, o: true, a: true, msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not supply cutlery' } }); //FIXME: Complete the flow of ordering cutlery
 
     // Room items
     g.setNode('TV', { o: false, ri: true, a: true, c: false, price: '0', limit: { count: 1, for: 'stay' }, msg: { yes: 'We have a TV in your room and it plays all Indian channels', no: 'This room does not have a TV facility' } });
