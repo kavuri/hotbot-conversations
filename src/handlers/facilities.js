@@ -499,7 +499,7 @@ module.exports = {
             } else if (!item.c) {   // Item does not have count flag. Add it to the orders
                 // NOTE: This condition should not arise for room items and menu items, since each one of them should have count
                 this.$speech
-                    .addText(this.t('REPEAT_ORDER_WITHOUT_COUNT'), {item_name: item.name})
+                    .addText(this.t('REPEAT_ORDER_WITHOUT_COUNT'), { item_name: item.name })
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ANYTHING_ELSE'));
                 addOrderToSession(this, item, 1);
@@ -657,6 +657,9 @@ module.exports = {
                     .addText(this.t('ORDER_CANCEL_REMOVE_ITEM', { count: orderedItem[0].req_count, item_name: orderedItem[0].name }))   //orderedItem[0] is fine, as there cannot be multiple entries for the same item
                     .addBreak('200ms')
                     .addText(this.t('ANYTHING_ELSE'));
+
+                // Remove order from list
+                removeItemFromOrder(this, item.name);
             }
         } else if (ordersSentToFrontDesk.length > 0) {
             orderedItem = _.filter(ordersSentToFrontDesk, { item: { name: item.name } });
@@ -665,6 +668,13 @@ module.exports = {
                     .addText(this.t('ORDER_CANCEL_REQUEST_CANCEL_AT_FRONTDESK', { count: orderedItem[0].item.req_count, item_name: orderedItem[0].item.name }))   //orderedItem[0] is fine, as there cannot be multiple entries for the same item
                     .addBreak('200ms')
                     .addText(this.t('ANYTHING_ELSE'));
+
+                // Remove order from database
+                try {
+                    await DBFuncs.cancel_order(hotel_id, room_no, user_id, item.name);
+                } catch (error) {
+                    //FIXME: Should we tell the customer about the error? 
+                }
             }
         } else {    // No such order
             this.$speech

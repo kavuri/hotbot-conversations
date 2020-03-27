@@ -455,7 +455,6 @@ async function createGraph(hotel_id) {
     g.setNode('Poori with 2 Veg/Raita', { o: true, e: true, a: true, c: true, m: true, quantity: 1, price: '143', contents: '12.00 pm to 3.30 pm - 7.00 pm to 11.00 pm', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Sambar', { o: true, e: true, a: true, c: true, m: true, quantity: 1, price: '60', contents: '', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Dahi Idli', { o: true, e: true, a: true, c: true, m: true, quantity: 1, price: '143', contents: '', description: '', time: { from: '0900', to: '2300' } });
-    g.setNode('undefined', { o: true, e: true, a: true, c: true, m: true, quantity: 1, price: '0', contents: '', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Upma & Vada (1 Piece)', { o: true, e: true, a: true, c: true, m: true, quantity: 1, price: '172', contents: '', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Rasam Idli (1 Piece)', { o: true, e: true, a: true, c: true, m: true, quantity: 1, price: '85', contents: '', description: '', time: { from: '0900', to: '2300' } });
     g.setNode('Rasam Vada (1 Piece)', { o: true, e: true, a: true, c: true, m: true, quantity: 1, price: '95', contents: '', description: '', time: { from: '0900', to: '2300' } });

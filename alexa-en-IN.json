@@ -79,10 +79,10 @@
                         "can i drink {alcohol_slot}",
                         "where can I drink {alcohol_slot}",
                         "can i {alcohol_slot} in the hotel",
-                        "can i {alcohol_slot} {alcohol_slot}",
+                        "can i {alcohol_slot} ",
                         "is it okay to bring {alcohol_slot} to the hotel",
                         "is it okay to drink {alcohol_slot}",
-                        "is it okay to {alcohol_slot} {alcohol_slot} here",
+                        "is it okay to {alcohol_slot}  here",
                         "is {alcohol_slot} allowed",
                         "is {alcohol_slot} consumption allowed",
                         "is {alcohol_slot} okay",
@@ -549,6 +549,8 @@
                         }
                     ],
                     "samples": [
+                        " tell me the menu for dinner",
+                        "tell me the items on the menu",
                         "tell me the menu items list",
                         "list of food items available",
                         "what is special here in terms of food",
@@ -597,6 +599,8 @@
                         }
                     ],
                     "samples": [
+                        "replace the {facility_slot}",
+                        "can you replace the {facility_slot}",
                         "I need a replacement for {facility_slot}",
                         "tell me the process of making {facility_slot} work",
                         "how to make {facility_slot} work",
@@ -783,12 +787,28 @@
                         }
                     ],
                     "samples": [
+                        "can you repeat my previous order",
                         "remind me if I have ordered {facility_slot}",
                         "can you please read out the orders I have made",
                         "did I order {facility_slot}",
                         "give me a list of all my orders",
                         "what all have I orders",
                         "tell me all my orders"
+                    ]
+                },
+                {
+                    "name": "Equipment_action",
+                    "slots": [
+                        {
+                            "name": "equipment_slot",
+                            "type": "equipment_types"
+                        }
+                    ],
+                    "samples": [
+                        "disable {equipment_slot}",
+                        "enable {equipment_slot}",
+                        "switch on the {equipment_slot}",
+                        "switch off the {equipment_slot}"
                     ]
                 }
             ],
@@ -993,6 +1013,131 @@
                     "values": [
                         {
                             "name": {
+                                "value": "tv channels",
+                                "synonyms": [
+                                    "channels on tv"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sugar",
+                                "synonyms": [
+                                    "brown sugar",
+                                    "sweetner"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "salt",
+                                "synonyms": [
+                                    "salt sachet",
+                                    "table salt"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "pullover",
+                                "synonyms": [
+                                    "pull over",
+                                    "rug",
+                                    "blanket"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "dust bin",
+                                "synonyms": [
+                                    "garbage bag",
+                                    "waste basket"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "tissues",
+                                "synonyms": [
+                                    "hand napkin",
+                                    "napkin",
+                                    "paper wipes",
+                                    "wipes",
+                                    "paper napkin"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "storage",
+                                "synonyms": [
+                                    "storage space",
+                                    "cloak room",
+                                    "luggage store"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sight seeing",
+                                "synonyms": [
+                                    "tourist guide",
+                                    "city tour ",
+                                    "sight seeing service",
+                                    "tourist service"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "mini bar",
+                                "synonyms": [
+                                    "bar in room"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "car cleaning",
+                                "synonyms": [
+                                    "vehicle clean service",
+                                    "car clean",
+                                    "bike clean",
+                                    "vehicle cleaning"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "wifi",
+                                "synonyms": [
+                                    "data connection",
+                                    "wifi network",
+                                    "internet"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "dry cleaning",
+                                "synonyms": [
+                                    "dry clean",
+                                    "clothes dry cleaning"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sauna",
+                                "synonyms": [
+                                    "steam room",
+                                    "steam bath"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "alcohol",
                                 "synonyms": [
                                     "booze",
@@ -1015,6 +1160,8 @@
                             "name": {
                                 "value": "cuisine",
                                 "synonyms": [
+                                    "food types",
+                                    "cuisine types",
                                     "cuisine",
                                     "Indian",
                                     "Chinese",
@@ -1035,23 +1182,6 @@
                         },
                         {
                             "name": {
-                                "value": "Veg",
-                                "synonyms": [
-                                    "vegetarian",
-                                    "vegan"
-                                ]
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Non Veg",
-                                "synonyms": [
-                                    "non vegetarian"
-                                ]
-                            }
-                        },
-                        {
-                            "name": {
                                 "value": "microwave",
                                 "synonyms": [
                                     "food reheat",
@@ -1062,12 +1192,11 @@
                         },
                         {
                             "name": {
-                                "value": "bottle sterilizer"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "oven"
+                                "value": "bottle sterilizer",
+                                "synonyms": [
+                                    "bottle warmer",
+                                    "sterilizer"
+                                ]
                             }
                         },
                         {
@@ -1133,11 +1262,6 @@
                         },
                         {
                             "name": {
-                                "value": "mini bar"
-                            }
-                        },
-                        {
-                            "name": {
                                 "value": "menu",
                                 "synonyms": [
                                     "food menu",
@@ -1177,7 +1301,10 @@
                         },
                         {
                             "name": {
-                                "value": "flush"
+                                "value": "flush",
+                                "synonyms": [
+                                    "bathroom flush"
+                                ]
                             }
                         },
                         {
@@ -1240,14 +1367,9 @@
                         },
                         {
                             "name": {
-                                "value": "towels"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "napkins",
+                                "value": "towels",
                                 "synonyms": [
-                                    "wipes"
+                                    "bath towel"
                                 ]
                             }
                         },
@@ -1285,6 +1407,7 @@
                             "name": {
                                 "value": "shampoo",
                                 "synonyms": [
+                                    "hair liquid",
                                     "hair wash",
                                     "hair cleaner"
                                 ]
@@ -1302,10 +1425,11 @@
                             "name": {
                                 "value": "soap",
                                 "synonyms": [
+                                    "bath cream",
+                                    "bath soap",
                                     "soap liquid",
                                     "bathing soap",
                                     "body soap",
-                                    "body shampoo",
                                     "body cleaner"
                                 ]
                             }
@@ -1388,26 +1512,6 @@
                         },
                         {
                             "name": {
-                                "value": "dosa"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "idly"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "samosa"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "chicken curry"
-                            }
-                        },
-                        {
-                            "name": {
                                 "value": "food"
                             }
                         },
@@ -1415,34 +1519,11 @@
                             "name": {
                                 "value": "breakfast",
                                 "synonyms": [
+                                    "morning food",
+                                    "morning breakfast",
                                     "tiffin",
                                     "morning snacks"
                                 ]
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "lunch"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "dinner"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "supper"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "evening snacks"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "light meals"
                             }
                         },
                         {
@@ -1525,7 +1606,11 @@
                         },
                         {
                             "name": {
-                                "value": "restaurant"
+                                "value": "restaurant",
+                                "synonyms": [
+                                    "dining area",
+                                    "eat out"
+                                ]
                             }
                         },
                         {
@@ -1563,12 +1648,22 @@
                         },
                         {
                             "name": {
-                                "value": "spa"
+                                "value": "spa",
+                                "synonyms": [
+                                    "manicure",
+                                    "pedicure",
+                                    "facials",
+                                    "body treatment"
+                                ]
                             }
                         },
                         {
                             "name": {
-                                "value": "massage"
+                                "value": "massage",
+                                "synonyms": [
+                                    "physioteraphy",
+                                    "body massage"
+                                ]
                             }
                         },
                         {
@@ -1586,6 +1681,9 @@
                             "name": {
                                 "value": "bar",
                                 "synonyms": [
+                                    "nigh club",
+                                    "drink",
+                                    "pub",
                                     "drinking place"
                                 ]
                             }
@@ -1597,7 +1695,10 @@
                         },
                         {
                             "name": {
-                                "value": "room service"
+                                "value": "room service",
+                                "synonyms": [
+                                    "room delivery"
+                                ]
                             }
                         },
                         {
@@ -1739,6 +1840,45 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "equipment_types",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "radio"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ac",
+                                "synonyms": [
+                                    "air cooler",
+                                    "air conditioner",
+                                    "television"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "tv",
+                                "synonyms": [
+                                    "cable tv",
+                                    "cable television"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "fan"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "light"
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -1876,6 +2016,20 @@
                             "prompts": {
                                 "elicitation": "Elicit.Slot.363953356564.658273988386"
                             }
+                        }
+                    ]
+                },
+                {
+                    "name": "Equipment_action",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "equipment_slot",
+                            "type": "equipment_types",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
                         }
                     ]
                 }

@@ -176,7 +176,9 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
             user_id: user_id,
             hotel_id: hotel_id,
             room_no: room_no,
-            item: items[i]
+            item: items[i],
+            curr_status: { status: 'new', set_by: user_id },
+            curr_priority: { priority: 'asap', set_by: user_id }
         });
     }
     // Generate the order_id
@@ -252,6 +254,7 @@ module.exports.new_orders = async function (hotel_id, room_no, user_id) {
         // console.log('found orders=', JSON.stringify(checkinCheckout.orders));
         var newOrders = _.filter(checkinCheckout.orders, { curr_status: { status: "new" } });
         var progressOrders = _.filter(checkinCheckout.orders, { curr_status: { status: "progress" } });
+        console.log('%%%newOrders=', newOrders, ',%%% progressOrders=', progressOrders);
         let openOrders = _.concat(newOrders, progressOrders);
         return openOrders;
     } catch (error) {
@@ -280,6 +283,9 @@ module.exports.all_orders = async function (hotel_id, room_no, user_id) {
             .exec();
         // console.log('found orders=', JSON.stringify(checkinCheckout.orders));
         allOrders = checkinCheckout.orders;
+        // Of these orders, remove the cancelled orders
+        _.remove(allOrders, (o) => { return _.isEqual(o.curr_status.status, 'cancelled'); });
+        console.log('++allOrders=', allOrders);
         return allOrders;
     } catch (error) {
         console.error('error in storing order reference to CheckinCheckout:', error);
@@ -290,7 +296,7 @@ module.exports.all_orders = async function (hotel_id, room_no, user_id) {
 /**
  * Cancels an order
  */
-module.exports.cancel_order = async function (hotel_id, room_no, user_id, item_name) {
+module.exports.cancel_order = async (hotel_id, room_no, user_id, item_name) => {
     if (_.isUndefined(hotel_id) ||
         _.isUndefined(room_no) ||
         _.isUndefined(user_id) ||
@@ -310,29 +316,27 @@ module.exports.cancel_order = async function (hotel_id, room_no, user_id, item_n
         // console.log('found orders=', JSON.stringify(checkinCheckout.orders));
         var newOrders = _.filter(checkinCheckout.orders, { item: { name: item_name }, curr_status: { status: "new" } });
         var progressOrders = _.filter(checkinCheckout.orders, { item: { name: item_name }, curr_status: { status: "progress" } });
+        console.log('---found newOrders=', newOrders, ',progressOrders=', progressOrders);
         let cancelledOrder;
         if (!_.isEmpty(newOrders)) {
             // There are orders, set the status to "cancelled"
-            newOrders.forEach((nO) => {
-                nO.curr_status = {
-                    status: "progress",
-                    set_by: user_id
-                }
-                nO.status.push({ set_by: user_id, status: "progress" });
-                cancelledOrder = nO.save();
+            for (let i = 0; i < newOrders.length; i++) {
+                newOrders[i].curr_status = { status: "cancelled", set_by: user_id };
+                newOrders[i].status.push({ set_by: user_id, status: "cancelled" });
+                cancelledOrder = await newOrders[i].save();
                 console.log('new order cancelled =', cancelledOrder);
-            });
+            }
         }
         if (!_.isEqual(progressOrders)) {
-            progressOrders.forEach((pO) => {
-                pO.curr_status = {
-                    status: "progress",
+            for (let i = 0; i < progressOrders.length; i++) {
+                progressOrders[i].curr_status = {
+                    status: "cancelled",
                     set_by: user_id
                 }
-                pO.status.push({ set_by: user_id, status: "progress" });
-                cancelledOrder = pO.save();
-                console.log('new order cancelled =', cancelledOrder);
-            });
+                progressOrders[i].status.push({ set_by: user_id, status: "cancelled" });
+                cancelledOrder = progressOrders[i].save();
+                console.log('progress order cancelled =', cancelledOrder);
+            }
         }
     } catch (error) {
         console.error('error in storing order reference to CheckinCheckout:', error);
