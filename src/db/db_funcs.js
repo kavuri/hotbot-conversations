@@ -310,6 +310,7 @@ module.exports.cancel_order = async function (hotel_id, room_no, user_id, item_n
         // console.log('found orders=', JSON.stringify(checkinCheckout.orders));
         var newOrders = _.filter(checkinCheckout.orders, { item: { name: item_name }, curr_status: { status: "new" } });
         var progressOrders = _.filter(checkinCheckout.orders, { item: { name: item_name }, curr_status: { status: "progress" } });
+        let cancelledOrder;
         if (!_.isEmpty(newOrders)) {
             // There are orders, set the status to "cancelled"
             newOrders.forEach((nO) => {
@@ -318,7 +319,8 @@ module.exports.cancel_order = async function (hotel_id, room_no, user_id, item_n
                     set_by: user_id
                 }
                 nO.status.push({ set_by: user_id, status: "progress" });
-                nO.save();
+                cancelledOrder = nO.save();
+                console.log('new order cancelled =', cancelledOrder);
             });
         }
         if (!_.isEqual(progressOrders)) {
@@ -328,7 +330,8 @@ module.exports.cancel_order = async function (hotel_id, room_no, user_id, item_n
                     set_by: user_id
                 }
                 pO.status.push({ set_by: user_id, status: "progress" });
-                pO.save();
+                cancelledOrder = pO.save();
+                console.log('new order cancelled =', cancelledOrder);
             });
         }
     } catch (error) {

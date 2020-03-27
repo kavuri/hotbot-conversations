@@ -499,7 +499,7 @@ module.exports = {
             } else if (!item.c) {   // Item does not have count flag. Add it to the orders
                 // NOTE: This condition should not arise for room items and menu items, since each one of them should have count
                 this.$speech
-                    .addText(this.t('REPEAT_ORDER_WITHOUT_COUNT'))
+                    .addText(this.t('REPEAT_ORDER_WITHOUT_COUNT'), {item_name: item.name})
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ANYTHING_ELSE'));
                 addOrderToSession(this, item, 1);
@@ -639,7 +639,7 @@ module.exports = {
             }
         }
 
-        if (_.isEmpty(item)) {
+        if (_.isEmpty(item) || _.isUndefined(item)) {
             // Not possible. If the guest has ordered an item, then finding the item for cancellation should also be there
             // TODO: But what if!
         }
@@ -665,10 +665,6 @@ module.exports = {
                     .addText(this.t('ORDER_CANCEL_REQUEST_CANCEL_AT_FRONTDESK', { count: orderedItem[0].item.req_count, item_name: orderedItem[0].item.name }))   //orderedItem[0] is fine, as there cannot be multiple entries for the same item
                     .addBreak('200ms')
                     .addText(this.t('ANYTHING_ELSE'));
-                // There are orders like this with front desk
-                // if (_.isEqual(orderedItem[0].curr_status, "progress")) {
-                // } else if (_.isEqual(orderedItem[0].curr_status, "new")) {
-                // }
             }
         } else {    // No such order
             this.$speech
@@ -693,7 +689,7 @@ module.exports = {
                 this.tell(this.t('SYSTEM_ERROR'));
             }
         }
-        if (_.isEmpty(item)) {
+        if (_.isEmpty(item) || _.isUndefined(item)) {
             this.$speech
                 .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
                 .addBreak('200ms')
@@ -743,7 +739,7 @@ module.exports = {
                 this.tell(this.t('SYSTEM_ERROR'));
             }
         }
-        if (_.isEmpty(item)) {
+        if (_.isEmpty(item) || _.isUndefined(item)) {
             this.$speech
                 .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
                 .addBreak('200ms')
@@ -791,7 +787,7 @@ module.exports = {
                 this.tell(this.t('SYSTEM_ERROR'));
             }
         }
-        if (_.isEmpty(item)) {
+        if (_.isEmpty(item) || _.isUndefined(item)) {
             this.$speech
                 .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
                 .addBreak('200ms')
@@ -860,16 +856,16 @@ module.exports = {
         let hotel_id = this.$session.$data.hotel.hotel_id;
         let item;
         try {
-            item = await DBFuncs.successors(hotel_id, 'cuisines');
+            item = await DBFuncs.item(hotel_id, 'Cuisines');
         } catch (error) {
             if (error instanceof KamError.InputError) {
                 this.tell(this.t('SYSTEM_ERROR'));
             }
         }
 
-        if (_.isUndefined(item)) {
+        if (_.isUndefined(item) || _.isEmpty(item)) {
             this.$speech
-                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addText(this.t('FACILITY_NONAME_NOT_AVAILABLE'))
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$speech);
@@ -880,7 +876,7 @@ module.exports = {
         if (_.isEqual(item.a, false)) {
             // Facility is not available
             msg = item.msg['no'];
-        } else if (_.isEqual(present), true) {
+        } else if (_.isEqual(item.a, true)) {
             msg = item.msg['yes'];
         }
         this.$speech.addText(msg)
@@ -970,9 +966,15 @@ module.exports = {
             }
         }
 
-        if (_.isEmpty(item)) {
+        if (_.isEmpty(item) || _.isUndefined(item)) {
+            let msg = '';
+            if (_.isUndefined(item_name)) {
+                msg = this.t('FACILITY_NONAME_NOT_AVAILABLE');
+            } else {
+                msg = this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name });
+            }
             this.$speech
-                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addText(msg)
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$speech);
@@ -1063,4 +1065,12 @@ module.exports = {
         return this.ask(this.$speech);
     }
     */
+
+    async Equipment_action() {
+        this.$speech
+            .addText(this.t('FACILITY_NONAME_NOT_AVAILABLE'))
+            .addBreak('200ms')
+            .addText(this.t('ANYTHING_ELSE'));
+        return this.ask(this.$speech);
+    }
 }

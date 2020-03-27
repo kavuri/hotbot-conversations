@@ -383,23 +383,23 @@ async function createGraph(hotel_id) {
     g.setParent('Air cooler', 'AC');
     g.setNode('Iron box', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is an iron box in your room', no: 'We do not provide an iron box' } });
     g.setParent('Iron machine', 'Iron box');
-    g.setNode('Coffee machine', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a coffee machine in your room ', no: 'We do not have a coffee machine' } });
-    g.setParent('Coffee brew', 'Coffee machine');
-    g.setParent('Expresso machine', 'Coffee machine');
+    // g.setNode('Coffee machine', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a coffee machine in your room ', no: 'We do not have a coffee machine' } });
+    // g.setParent('Coffee brew', 'Coffee machine');
+    // g.setParent('Expresso machine', 'Coffee machine');
     g.setNode('Tea machine', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a tea machine in your room ', no: 'We do not have a tea machine' } });
     g.setNode('Dish washer', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a dish washer in your room ', no: 'We do not have a dish washer' } });
     g.setNode('Fan', { a: true, o: true, ri: true, c: false, msg: { yes: 'There is a fan in your room ', no: 'We do not have a fan in the room' } });
     g.setNode('Water', { a: true, o: true, ri: true, c: true, price: 20, limit: { count: 1, for: 'day' }, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water' } });
     g.setParent('Water bottle', 'Water');
     g.setParent('Bottle of water', 'Water');
-    g.setNode('extra bed', { a: true, o: true, ri: true, c: true, price: 0, limit: { count: 1, for: 'day' }, msg: { yes: 'We can provide an extra bed on request', no: 'We do not have provison for extra bed' } });
+    g.setNode('Extra bed', { a: true, o: true, ri: true, c: true, price: 0, limit: { count: 1, for: 'day' }, msg: { yes: 'We can provide an extra bed on request', no: 'We do not have provison for extra bed' } });
     g.setNode('Menu', { a: true, o: false, ri: true, c: false, msg: { yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Call the front desk' } });
     g.setNode('Salt', { o: true, a: true, ri: true, e: true, c: false, quantity: 1, price: '0', msg: { yes: 'We have salt and is placed in the room', no: 'We do not have salt in the hotel' } });
     g.setNode('Sugar', { o: true, a: true, ri: true, e: true, c: false, quantity: 1, price: '0', msg: { yes: 'We have sugar in the room', no: 'we do not have sugar in the hotel' } });
 
 
     // Menu items
-    g.setNode('Cuisines', { f: true, a: true, o: true, msg: { yes: 'We serve <%=cuisines %> ', no: 'We do not have restaurant facility' } });
+    g.setNode('Cuisines', { f: true, a: true, o: true, msg: { yes: 'We serve South India, North Indian food', no: 'We do not have restaurant facility' } });
     g.setParent('menu options', 'cuisines');
     g.setParent('menu types', 'cuisines');
     g.setParent('food types', 'cuisines');
@@ -881,4 +881,4 @@ module.exports.create = async function (hotel_id, hotel_name, genFile = false) {
 }
 
 // require('./graph').create();
-// require('./graph').addOrUpdate("1");
+require('./graph').addOrUpdate("1");
