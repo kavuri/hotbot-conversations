@@ -83,7 +83,7 @@ function stringifyOrdersSentToFrontdesk(frontdeskOrders) {
  * @param {*} thisObj 
  * @param {*} item 
  */
-async function priceMsg(thisObj, item) {
+async function priceMsg(thisObj, hotel_id, item) {
     let msg = '';
     if (!_.has(item, 'msg')) {
         // Message is not set in the data. Check for price and create a message
@@ -334,7 +334,7 @@ module.exports = {
         if (_.isEmpty(item)) {
             this
                 .$speech
-                .addText(this.t('FACILITY_NOT_AVAILABLE', { item: item_name }))
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name }))
                 .addBreak('200ms')
                 .addText(this.t('ORDER_ANYTHING_ELSE'));
             return this.ask(this.$speech);
@@ -367,7 +367,7 @@ module.exports = {
             // Facility is present and can also be ordered
             // Ask user if they want to order it
             // Give information about the price as well (free or costs money)
-            let msg = await priceMsg(this, item);
+            let msg = await priceMsg(this, hotel_id, item);
             this.$speech
                 .addText(msg)
                 .addBreak('200ms')
@@ -771,7 +771,7 @@ module.exports = {
             return this.ask(this.$speech);
         }
 
-        msg = await priceMsg(this, item);
+        msg = await priceMsg(this, hotel_id, item);
         // Price can be an attribute of the node or a successor
 
         this.$speech
