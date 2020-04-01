@@ -6,7 +6,10 @@
 'using strict';
 
 const mongoose = require('mongoose'),
-    DBConn = require('./index').DBConn;
+    DBConn = require('./index').DBConn,
+    Order = require('./Order'),
+    Room = require('./Room'),
+    _ = require('lodash');
 
 const CheckinCheckoutSchema = new mongoose.Schema({
     hotel_id: { type: String, required: true },
@@ -15,9 +18,18 @@ const CheckinCheckoutSchema = new mongoose.Schema({
     checkout: { type: Date },
     guestName: { type: String },
     guestNumber: { type: String, required: true },
-    orders: [{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}]
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }]
 });
 
-var CheckinCheckoutModel = DBConn.model('CheckinCheckout', CheckinCheckoutSchema);
+CheckinCheckoutSchema.post('save', async (doc) => {
+    // If doc.checkout === null, its a check-in
+    // If doc.checkout !== null, its a check-out
+    let ref = null;
+    if (_.isNull(doc.checkout) || _.isUndefined(doc.checkout)) {
+        // Add reference of doc to room.checkincheckout
+        ref = doc;
+    }
+    await Room.findOneAndUpdate({ hotel_id: doc.hotel_id, room_no: doc.room_no }, { $set: { checkincheckout: ref } }).exec();
+});
 
-module.exports = CheckinCheckoutModel;
+module.exports = DBConn.model('CheckinCheckout', CheckinCheckoutSchema);

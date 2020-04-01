@@ -7,7 +7,7 @@
 var express = require('express');
 var router = express.Router();
 const CheckinCheckoutModel = require('../../src/db/CheckinCheckout'),
-      RoomModel = require('../../src/db/Room'),
+    RoomModel = require('../../src/db/Room'),
     _ = require('lodash'),
     { check, validationResult } = require('express-validator');
 
@@ -17,13 +17,14 @@ const CheckinCheckoutModel = require('../../src/db/CheckinCheckout'),
  * @param room_no
  * @returns check-in details
  */
-router.post('/checkin',
+router.post('/:room_no/checkin',
     //auth0.authenticate,
     //auth0.authorize('create:hotel'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('room_no').exists({ checkNull: true, checkFalsy: true }),
-        check('guestNumber').exists({ checkNull: true, checkFalsy: true })
+        check('guestNumber').exists({ checkNull: true, checkFalsy: true }),
+        check('guestName').exists({ checkNull: true, checkFalsy: true })
     ],
     async function (req, res) {
         try {
@@ -32,20 +33,20 @@ router.post('/checkin',
             return res.status(422).send(error);
         }
 
-        const hotel_id = req.query.hotel_id, room_no = req.query.room_no;
-        console.log('checkin in guest ' + JSON.stringify(req.body));
+        const hotel_id = req.query.hotel_id, room_no = req.params.room_no, guestName = req.body.guestName, guestNumber = req.body.guestNumber;
+        console.log('checkin in guest ' + guestName, ',' + guestNumber);
         try {
             // Find the room corresponding to the hotel_id and room
             let room = await RoomModel.findOne({ hotel_id: hotel_id, room_no: room_no }).exec();
             if (_.isUndefined(room) || _.isNull(room)) {
                 // No such room
-                return res.status(404).send({error: 'no such room in hotel=' + hotel_id + ', room_no=' + room_no});
+                return res.status(404).send({ error: 'no such room in hotel=' + hotel_id + ', room_no=' + room_no });
             }
             const checkin = new CheckinCheckoutModel({
                 hotel_id: hotel_id,
                 room_no: room_no,
-                guestName: req.body.guestName,
-                guestNumber: req.body.guestNumber
+                guestName: guestName,
+                guestNumber: guestNumber
             });
 
             let cin = await checkin.save();
@@ -63,13 +64,12 @@ router.post('/checkin',
  * @param room_no
  * @returns check-out details
  */
-router.put('/checkout',
+router.post('/:room_no/checkout',
     //auth0.authenticate,
     //auth0.authorize('create:hotel'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
-        check('room_no').exists({ checkNull: true, checkFalsy: true }),
-        check('guestNumber').exists({ checkNull: true, checkFalsy: true })
+        check('room_no').exists({ checkNull: true, checkFalsy: true })
     ],
     async function (req, res) {
         try {
@@ -78,20 +78,20 @@ router.put('/checkout',
             return res.status(422).send(error);
         }
 
-        const hotel_id = req.query.hotel_id, room_no = req.query.room_no, guestNumber = req.query.guestNumber;
+        const hotel_id = req.query.hotel_id, room_no = req.params.room_no;
         try {
             // Find the room corresponding to the hotel_id and room
-            const filter = { hotel_id: hotel_id, room_no: room_no, guestNumber: guestNumber, checkout: null };
-            console.log('filter=',filter);
+            const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
+            console.log('filter=', filter);
             let room = await CheckinCheckoutModel.findOne(filter).exec();
             if (_.isUndefined(room) || _.isNull(room)) {
                 // No checkin done for hotel_id and room_no
-                return res.status(404).send({error: 'no checkin done for hotel_id=' + hotel_id + ', room_no=' + room_no});
+                return res.status(404).send({ error: 'no checkin done for hotel_id=' + hotel_id + ', room_no=' + room_no });
             }
 
             room.checkout = new Date();
             let cout = await room.save();
-            console.log('guest ' + cout.guestNumber + ' checked in');
+            console.log('guest ' + cout + ' checked in');
             return res.status(200).send(cout);
         } catch (error) {
             console.log('error in checkin of guest.', error);

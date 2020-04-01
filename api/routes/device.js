@@ -34,7 +34,30 @@ router.get('/',
 
         let hotel_id = req.query.hotel_id;
         try {
-            let devices = await DeviceModel.find({hotel_id: hotel_id}).populate('belongs_to').populate('room').exec();
+            let devices = await DeviceModel
+                .find({ hotel_id: hotel_id })
+                .populate('belongs_to')
+                .populate('room').exec();
+            // console.log(devices);
+            return res.status(200).send(devices);
+        } catch (error) {
+            console.log('error in getting all devices.', error);
+            return res.status(400).send(error);
+        }
+    });
+
+/**
+ * @returns all unassigned devices 
+ */
+router.get('/unassigned',
+    //auth0.authenticate,
+    //auth0.authorize('read:device'),
+    async function (req, res) {
+        console.log('get all unassigned devices.', req.query.hotel_id);
+        try {
+            let devices = await DeviceModel
+                .find({ belongs_to: null, room: null })
+                .exec();
             // console.log(devices);
             return res.status(200).send(devices);
         } catch (error) {
@@ -46,43 +69,11 @@ router.get('/',
 /**
  * @param hotel_id
  * @param device_id
- * @returns device object
- */
-router.put('/:device_id/activate',
-    //auth0.authenticate,
-    //auth0.authorize('create:device'),
-    [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
-        check('device_id').exists({ checkNull: true, checkFalsy: true })
-    ],
-    async function (req, res) {
-        console.log('activating device ' + req.params.device_id, req.query.room);
-
-        try {
-            validationResult(req).throw();
-        } catch (error) {
-            return res.status(422).send(error);
-        }
-
-        let device_id = req.params.device_id;
-        try {
-            await DeviceModel.updateOne({ device_id: device_id }, { $set: { status: 'active', room: req.query.room } });
-            console.log('device activated.');
-            return res.status(200).send({ device_id: device_id, activated: true });
-        } catch (error) {
-            console.log('error in activating device.', error);
-            res.status(500).send(error);
-        }
-    });
-
-/**
- * @param hotel_id
- * @param device_id
  * @returns deactivated device object
  */
-router.put('/:device_id/deactivate',
-    auth0.authenticate,
-    auth0.authorize('create:device'),
+router.post('/:device_id/deactivate',
+    // auth0.authenticate,
+    // auth0.authorize('create:device'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('device_id').exists({ checkNull: true, checkFalsy: true })
@@ -90,11 +81,55 @@ router.put('/:device_id/deactivate',
     async function (req, res) {
         console.log('de-activating device ' + req.params.device_id);
 
-        let device_id = req.params.device_id;
         try {
-            await DeviceModel.updateOne({ device_id: device_id }, { $set: { status: 'inactive' } });
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        let device_id = req.params.device_id, hotel_id = req.query.hotel_id;
+        try {
+            let device = await DeviceModel.findOneAndUpdate(
+                { hotel_id: hotel_id, device_id: device_id },
+                { $set: { status: 'inactive' } },
+                { new: true, upsert: true });
             console.log('device deactivated.');
-            return res.status(200).send({ device_id: device_id, deactivated: true });
+            return res.status(200).send(device);
+        } catch (error) {
+            console.log('error in deactivating device.', error);
+            res.status(500).send(error);
+        }
+    });
+
+/**
+ * @param hotel_id
+ * @param device_id
+ * @returns activated device object
+ */
+router.post('/:device_id/activate',
+    // auth0.authenticate,
+    // auth0.authorize('create:device'),
+    [
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+        check('device_id').exists({ checkNull: true, checkFalsy: true })
+    ],
+    async function (req, res) {
+        console.log('activating device ' + req.params.device_id);
+
+        try {
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        let device_id = req.params.device_id, hotel_id = req.query.hotel_id;
+        try {
+            let device = await DeviceModel.findOneAndUpdate(
+                { hotel_id: hotel_id, device_id: device_id },
+                { $set: { status: 'active' } },
+                { new: true, upsert: true });
+            console.log('device activated.');
+            return res.status(200).send(device);
         } catch (error) {
             console.log('error in deactivating device.', error);
             res.status(500).send(error);
@@ -105,9 +140,46 @@ router.put('/:device_id/deactivate',
  * @param hotel_id
  * @param device_id
  * @param room_no
+ * @returns device object
+ */
+router.post('/:device_id/deregister',
+    //auth0.authenticate,
+    //auth0.authorize('create:device'),
+    [
+        check('device_id').exists({ checkNull: true, checkFalsy: true }),
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+        check('room_no').exists({ checkNull: true, checkFalsy: true })
+    ],
+    async function (req, res) {
+        console.log('deregistering device ' + req.params.device_id, req.query.hotel_id, req.query.room_no);
+
+        try {
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        let device_id = req.params.device_id, room_no = req.query.room_no, hotel_id = req.query.hotel_id;
+        try {
+            let device = await DeviceModel.findOneAndUpdate(
+                { hotel_id: hotel_id, device_id: device_id, room_no: room_no },
+                { $set: { belongs_to: undefined, room: undefined, status: 'inactive' } },
+                { new: true, upsert: true });
+            console.log('deregistered ', device);
+            return res.status(200).send(device);
+        } catch (error) {
+            console.log('error in dereigtering device.', error);
+            res.status(500).send(error);
+        }
+    });
+
+/**
+ * @param hotel_id
+ * @param device_id
+ * @param room_no
  * @returns updated device object
  */
-router.put('/:device_id',
+router.post('/:device_id/register',
     // auth0.authenticate,
     // auth0.authorize('create:device'),
     [
@@ -116,7 +188,7 @@ router.put('/:device_id',
         check('room_no').exists({ checkNull: true, checkFalsy: true })
     ],
     async function (req, res) {
-        console.log('adding device ' + req.params.device_id + ' to hotel ' + req.body.hotel_id, req.body.room, req.body.status);
+        console.log('adding device ' + req.params.device_id + ' to hotel ' + req.query.hotel_id, req.query.room_no, req.query.status);
 
         try {
             validationResult(req).throw();
@@ -124,7 +196,7 @@ router.put('/:device_id',
             return res.status(422).send(error);
         }
 
-        let device_id = req.params.device_id, hotel_id = req.body.hotel_id, status = req.body.status, room_no = req.body.room_no;
+        let device_id = req.params.device_id, hotel_id = req.query.hotel_id, status = req.query.status, room_no = req.query.room_no;
 
         try {
             // Get hotel object
@@ -140,8 +212,11 @@ router.put('/:device_id',
             }
 
             // Update the device
-            await DeviceModel.updateOne({ device_id: device_id }, { $set: { hotel_id: hotel_id, room_no: room_no, belongs_to: hotel, room: room, status: status } });
-            return res.status(200).send({ device_id: device_id });
+            let device = await DeviceModel.findOneAndUpdate(
+                { device_id: device_id },
+                { $set: { hotel_id: hotel_id, room_no: room_no, belongs_to: hotel, room: room, status: status } },
+                { new: true, upsert: true });
+            return res.status(200).send(device);
         } catch (error) {
             console.log('error in adding device to hotel.', error);
             res.status(500).send(error);

@@ -9,8 +9,8 @@ var _ = require('lodash'),
     mongoose = require('mongoose'),
     AuditLogModel = require('./AuditLog'),
     DBConn = require('./index').DBConn,
-    HotelModel = require('../db/Hotel'),
-    RoomModel = require('../db/Room');
+    HotelModel = require('./Hotel'),
+    RoomModel = require('./Room');
 
 /**
  * Table schema
@@ -69,6 +69,4 @@ DeviceSchema.post('remove', async function (doc) {
     var log = await audit.save(audit);
 });
 
-var DeviceModel = DBConn.model('Device', DeviceSchema);
-
-module.exports = DeviceModel;
+module.exports = DBConn.model('Device', DeviceSchema);
