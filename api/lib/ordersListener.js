@@ -29,7 +29,7 @@ module.exports.removeClient = function (hotel_id, clientId) {
 }
 
 module.exports.sendEvent = function (hotel_id, data) {
-    console.log('sending data to ', hotel_id, data)
+    // console.log('sending data to ', hotel_id, data)
     if (_.isUndefined(clients[hotel_id])) return; // If the front desk has not opened the orders screen, then we have no reference
 
     Object.keys(clients[hotel_id]).forEach(c => {
@@ -41,14 +41,14 @@ module.exports.sendEvent = function (hotel_id, data) {
 module.exports.watchOrders = () => {
     console.log('watching for changes in orders...');
     OrderModel.watch().on('change', data => {
-        console.log('order changed:', data);
+        // console.log('order changed:', data);
 
         if (_.isEqual(data.operationType, 'delete')) { // Document is deleted. Should not be!
             //TODO: Documents should never be deleted. Maybe add an audit log?
         } else if (_.isEqual(data.operationType, 'replace') || _.isEqual(data.operationType, 'insert')) { // Document has been modified or inserted. Resend the new one
             const hotel_id = data.hotel_id;
             this.sendEvent(hotel_id, data.fullDocument);
-            console.log('sent data to ', hotel_id);
+            // console.log('sent data to ', hotel_id);
         }
     });
 

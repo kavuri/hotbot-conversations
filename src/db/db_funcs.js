@@ -169,6 +169,14 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ',' + 'room_no=' + room_no + ',user_id=' + user_id + ',items=', items);
     }
 
+    let checkincheckout;
+    try {
+        const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
+        checkincheckout = await CheckinCheckoutModel.find(filter).exec();
+    } catch (error) {
+        throw new KamError.DBError('error while saving order to db' + error);
+    }
+
     let orders = [];
     for (var i = 0; i < items.length; i++) {
         orders[i] = new OrderModel({
@@ -178,18 +186,10 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
             room_no: room_no,
             item: items[i],
             curr_status: { status: 'new', set_by: user_id },
-            curr_priority: { priority: 'asap', set_by: user_id }
+            curr_priority: { priority: 'asap', set_by: user_id },
+            checkincheckout: checkincheckout._id
         });
     }
-    // Generate the order_id
-    /*
-    let order = new OrderModel({
-        user_id: user_id,
-        hotel_id: hotel_id,
-        room_no: room_no,
-        items: items
-    });
-    */
 
     let r = [];
     try {

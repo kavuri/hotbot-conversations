@@ -46,18 +46,36 @@ var OrderItemsSchema = new mongoose.Schema({
 var OrderSchema = new mongoose.Schema({
     hotel_id: { type: String, required: true, index: true }, // this is the "address1" field
     user_id: { type: String, required: true },
-    room_no: String,
+    room_no: { type: String, required: true },
     item: { type: OrderItemsSchema, required: true },
-    order_group_id: { type: String, required: true },
+    group_id: { type: String, required: true },
     ///items: { type: [OrderItemsSchema], required: true },
     priority: { type: [PrioritySchema], default: { priority: 'asap' } },
     status: { type: [StatusSchema], default: { status: 'new' } },
     curr_priority: { type: PrioritySchema, required: true, default: { status: 'new' } },
     curr_status: { type: StatusSchema, required: true, default: { priority: 'asap' } },
-    completion_time: Date,
-    cancelled_by: String,
-    comments: { type: [CommentSchema] }
+    curr_comment: { type: CommentSchema },
+    comments: { type: [CommentSchema] },
+    checkincheckout: { type: mongoose.Schema.Types.ObjectId, ref: 'CheckinCheckout' }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
+
+// Create a pre save hook to create a reference to checkincheckout object. This is for display of the guest information in the UI
+/*
+OrderSchema.pre('save', async () => {
+    let idea = this;
+    let filter = { hotel_id: this.hotel_id, room_no: this.room_no, checkout: null };
+    console.log('@@@pre:checkincheckout filter=', filter);
+    console.log('###this=', idea);
+    try {
+        let guestInfo = await CheckinCheckoutModel.findOne(filter).exec();
+        console.log('@@@guestInfo=', guestInfo);
+        this.checkincheckout = guestInfo;
+    } catch (error) {
+        throw new Error(error);
+    }
+    console.log('pre save:guestInfo=', this.checkincheckout);
+});
+*/
 
 // Create post save hooks
 OrderSchema.post('save', async (doc) => {
@@ -67,31 +85,17 @@ OrderSchema.post('save', async (doc) => {
     let filter = { hotel_id: doc.hotel_id, room_no: doc.room_no, orders: doc._id, checkout: null };
     try {
         let currentOrder = await CheckinCheckoutModel.findOne(filter).exec();
-        console.log('pre save:currentOrders=', currentOrder);
+        // console.log('post save:currentOrders=', currentOrder);
         if (_.isUndefined(currentOrder) || _.isNull(currentOrder)) {
             // This order is not part of checkincheckout, add to the list
             filter = { hotel_id: doc.hotel_id, room_no: doc.room_no, checkout: null };
             let updated = await CheckinCheckoutModel.findOneAndUpdate(filter, { $push: { orders: doc } }).exec();
-            console.log('updated checkincheckout=', updated);
+            // console.log('updated checkincheckout=', updated);
         }
     } catch (error) {
         console.error('error in storing order reference to CheckinCheckout:', error);
     }
-    /*
-    for (var i = 0; i < doc.items.length; i++) {
-        let prevOrderIdx = _.findIndex(room.orders, { name: doc.items[i].name })
-        if (_.isEqual(prevOrderIdx, -1)) { // Its a new order. Add it to room
-            room.orders.push({ name: doc.items[i].name, type: doc.items[i].type, count: doc.items[i].req_count });
-        } else {    // A similar order has already been made. Update the previous order
-            room.orders[prevOrderIdx].count += doc.items[i].req_count;
-        }
-    }
-    */
 });
-
-OrderSchema.pre('save', async () => {
-    console.log('+++statues=', this.status, this.curr_status);
-})
 
 OrderSchema.pre('updateOne', { document: true, query: false }, async function () {
     this.set({ updated_at: new Date() });
@@ -100,7 +104,13 @@ OrderSchema.pre('updateOne', { document: true, query: false }, async function ()
 OrderSchema.index({ hotel_id: 1, o_id: 1 }, { unique: true });
 OrderSchema.index({ hotel_id: 1, user_id: 1 });
 
-OrderItemsSchema.plugin(AutoIncrement.plugin, 'OrderItems');
+// FIXME: This group_is is not SaaS'ified
+// Meaning, if hotel "1" generated group_id=1,2,3, hotel "2" will generate 4,5, rather it should generate 1,2
+OrderSchema.plugin(AutoIncrement.plugin, {
+    model: 'Order',
+    field: 'group_id',
+    startAt: 1,
+    incrementBy: 1
+});
 
-var OrderModel = DBConn.model('Order', OrderSchema);
-module.exports = OrderModel;
+module.exports = DBConn.model('Order', OrderSchema);
