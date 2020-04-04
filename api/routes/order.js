@@ -43,7 +43,7 @@ router.post('/',
         let checkincheckout;
         try {
             const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
-            checkincheckout = await CheckinCheckoutModel.find(filter).exec();
+            checkincheckout = await CheckinCheckoutModel.findOne(filter).exec();
         } catch (error) {
             console.log('error in getting checkincheckout:', error);
             return res.status(500).send(error);
@@ -60,11 +60,12 @@ router.post('/',
             checkincheckout: checkincheckout._id
         });
 
-        // console.log('order=', order);
         let saved_order;
         try {
             saved_order = order = await order.save();
+            console.log('order=', saved_order);
         } catch (error) {
+            console.log('error while saving order:', error);
             res.status(500).send(error);
         }
 
@@ -129,7 +130,6 @@ router.get('/',
     // auth0.authorize('read:order'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
-        check('resPerPage').exists({ checkNull: true, checkFalsy: true }),
         check('page').exists({ checkNull: true, checkFalsy: true }),
     ],
     async function (req, res) {
@@ -140,13 +140,14 @@ router.get('/',
             return res.status(422).send(error);
         }
 
-        const resPerPage = parseInt(req.query.resPerPage || 10); // results per page
-        const page = parseInt(req.query.page || 1); // Page 
+        let rowsPerPage = parseInt(req.query.rowsPerPage || 10); // results per page
+        rowsPerPage = rowsPerPage > 100 ? 100 : rowsPerPage; // Maximum number of return items per page
+        const page = parseInt(req.query.page || 0); // Page 
 
         const hotel_id = req.query.hotel_id;
         let status = req.query.status;
 
-        console.log('get all orders:hotel_id=', hotel_id, 'status=', status, ', resPerPage=', resPerPage, ',page=', page);
+        console.log('get all orders:hotel_id=', hotel_id, 'status=', status, ', rowsPerPage=', rowsPerPage, ',page=', page);
 
         let query = OrderModel.find({ hotel_id: hotel_id });
         if (_.isUndefined(status)) {
@@ -164,8 +165,9 @@ router.get('/',
                 .countDocuments({ hotel_id: hotel_id })
                 .exec();
             let orders = await query
-                .skip((resPerPage * page) - resPerPage)
-                .limit(resPerPage)
+                .populate('checkincheckout')
+                .skip(rowsPerPage * page)
+                .limit(rowsPerPage)
                 .lean()
                 .sort({ createdAt: 1 })
                 .exec();
@@ -248,12 +250,10 @@ router.post('/nest', addNest);
 /**
  * @param hotel_id
  * @param order_id
- */
 router.get('/:order_id',
-    auth0.authenticate,
-    auth0.authorize('read:order'),
+    // auth0.authenticate,
+    // auth0.authorize('read:order'),
     [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('order_id').exists({ checkNull: true, checkFalsy: true })
     ],
     async function (req, res) {
@@ -264,18 +264,22 @@ router.get('/:order_id',
             return res.status(422).send(error);
         }
 
-        let hotel_id = req.params.hotel_id,
-            order_id = req.params.order_id;
+        let order_id = req.params.order_id;
 
         let order;
         try {
-            order = await OrderModel.find({ hotel_id: hotel_id, order_id: order_id }).exec();
+            order = await OrderModel
+                .findById(order_id)
+                .populate('checkincheckout')
+                .lean()
+                .exec();
         } catch (error) {
             console.error(error);
             res.status(500).send(error);
         }
         res.status(200).send(order);
     });
+ */
 
 /**
  * Change the status of the order
@@ -340,6 +344,54 @@ router.patch('/:order_id/',
             return res.status(200).send(order);
         } catch (error) {
             return res.status(500).send(error);
+        }
+    });
+
+/**
+ * Searches the item names
+ * @param hotel_id
+ * @param room_no
+ * @param status (optional. 'new' by default)
+ * @returns all orders (new or done)
+ */
+router.get('/search',
+    // auth0.authenticate,
+    // auth0.authorize('read:order'),
+    [
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+        check('text').exists({ checkNull: true, checkFalsy: true }),
+        check('page').exists({ checkNull: true, checkFalsy: true }),
+    ],
+    async function (req, res) {
+
+        try {
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        let rowsPerPage = parseInt(req.query.rowsPerPage || 10); // results per page
+        rowsPerPage = rowsPerPage > 50 ? 50 : rowsPerPage; // Maximum number of return items per page
+        const page = parseInt(req.query.page || 0); // Page 
+        const text = req.query.text;
+
+        const hotel_id = req.query.hotel_id;
+
+        console.log('search orders:hotel_id=', hotel_id, ', rowsPerPage=', rowsPerPage, ',page=', page, ', text=', text);
+
+        try {
+            let orders = await OrderModel
+                .find({ hotel_id: hotel_id, $text: { $search: text } })
+                .skip(rowsPerPage * page)
+                .limit(rowsPerPage)
+                .lean()
+                .sort({ created_at: 1 })
+                .exec();
+            console.log('$$$ result orders=', orders);
+            res.status(200).json({ data: orders, total: orders.length });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
         }
     });
 

@@ -32,7 +32,7 @@ router.get('/',
                 .lean()
                 .sort({ last_reset: -1 })
                 .exec();
-            console.log(hotels);
+            // console.log(hotels);
             return res.status(200).send(hotels);
         } catch (error) {
             console.log('error in getting all hotels.', error);

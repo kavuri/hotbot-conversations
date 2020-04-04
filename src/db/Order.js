@@ -56,7 +56,7 @@ var OrderSchema = new mongoose.Schema({
     curr_status: { type: StatusSchema, required: true, default: { priority: 'asap' } },
     curr_comment: { type: CommentSchema },
     comments: { type: [CommentSchema] },
-    checkincheckout: { type: mongoose.Schema.Types.ObjectId, ref: 'CheckinCheckout' }
+    checkincheckout: { type: mongoose.Schema.Types.ObjectId, ref: 'CheckinCheckout', required: true }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 // Create a pre save hook to create a reference to checkincheckout object. This is for display of the guest information in the UI
@@ -85,12 +85,12 @@ OrderSchema.post('save', async (doc) => {
     let filter = { hotel_id: doc.hotel_id, room_no: doc.room_no, orders: doc._id, checkout: null };
     try {
         let currentOrder = await CheckinCheckoutModel.findOne(filter).exec();
-        // console.log('post save:currentOrders=', currentOrder);
+        console.log('post save:currentOrders=', currentOrder);
         if (_.isUndefined(currentOrder) || _.isNull(currentOrder)) {
             // This order is not part of checkincheckout, add to the list
             filter = { hotel_id: doc.hotel_id, room_no: doc.room_no, checkout: null };
             let updated = await CheckinCheckoutModel.findOneAndUpdate(filter, { $push: { orders: doc } }).exec();
-            // console.log('updated checkincheckout=', updated);
+            console.log('updated checkincheckout=', updated);
         }
     } catch (error) {
         console.error('error in storing order reference to CheckinCheckout:', error);
@@ -101,8 +101,11 @@ OrderSchema.pre('updateOne', { document: true, query: false }, async function ()
     this.set({ updated_at: new Date() });
 })
 
-OrderSchema.index({ hotel_id: 1, o_id: 1 }, { unique: true });
+OrderSchema.index({ hotel_id: 1, room_no: 1 }, { unique: true });
 OrderSchema.index({ hotel_id: 1, user_id: 1 });
+OrderSchema.index({ 'item.name': 'text' });
+OrderSchema.index({ 'curr_status.status': 1 });
+OrderSchema.index({ room_no: 1 });
 
 // FIXME: This group_is is not SaaS'ified
 // Meaning, if hotel "1" generated group_id=1,2,3, hotel "2" will generate 4,5, rather it should generate 1,2
