@@ -23,6 +23,7 @@
     "json-rules-engine": "^5.0.3",
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.26",
+    "momentjs": "^2.0.0",
     "mongodb-client-encryption": "^1.0.1",
     "mongoose": "^5.7.3",
     "mongoose-auto-increment": "^5.0.1",

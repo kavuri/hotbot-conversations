@@ -6,12 +6,14 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+const querystring = require('querystring');
 const OrderModel = require('../../src/db/Order');
 const { check, validationResult } = require('express-validator');
 const auth0 = require('../lib/auth0');
 const ordersListener = require('../lib/ordersListener');
 const findHotelOfUser = require('../lib/helpers').findHotelOfUser;
 const _ = require('lodash');
+const moment = require('moment');
 const CheckinCheckoutModel = require('../../src/db/CheckinCheckout');
 
 /**
@@ -131,6 +133,7 @@ router.get('/',
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('page').exists({ checkNull: true, checkFalsy: true }),
+        check('selectedDate').exists({ checkNull: true, checkFalsy: true }),
     ],
     async function (req, res) {
 
@@ -142,14 +145,21 @@ router.get('/',
 
         let rowsPerPage = parseInt(req.query.rowsPerPage || 10); // results per page
         rowsPerPage = rowsPerPage > 100 ? 100 : rowsPerPage; // Maximum number of return items per page
-        const page = parseInt(req.query.page || 0); // Page 
 
-        const hotel_id = req.query.hotel_id;
-        let status = req.query.status;
+        const hotel_id = req.query.hotel_id,
+            page = parseInt(req.query.page),
+            status = req.query.status,
+            selectedDate = querystring.unescape(req.query.selectedDate);
 
-        console.log('get all orders:hotel_id=', hotel_id, 'status=', status, ', rowsPerPage=', rowsPerPage, ',page=', page);
+        console.log('get all orders:hotel_id=', hotel_id, 'status=', status, ', rowsPerPage=', rowsPerPage, ',page=', page, ',selectedDate=', selectedDate);
 
-        let query = OrderModel.find({ hotel_id: hotel_id });
+        let query = OrderModel.find(
+            {
+                hotel_id: hotel_id,
+                created_at: { '$gte': moment(selectedDate).startOf('day'), '$lte': moment(selectedDate).endOf('day') }
+                // });
+            }, '-priority -status -comments'); // Do not send the history fields
+
         if (_.isUndefined(status)) {
             // Nothing change. Do nothing
         } else if (_.isEqual(status, 'new')) {
@@ -161,15 +171,15 @@ router.get('/',
         }
 
         try {
-            let total = await OrderModel
-                .countDocuments({ hotel_id: hotel_id })
-                .exec();
             let orders = await query
                 .populate('checkincheckout')
                 .skip(rowsPerPage * page)
                 .limit(rowsPerPage)
                 .lean()
-                .sort({ createdAt: 1 })
+                .sort({ created_at: 1 })
+                .exec();
+            let total = await query
+                .countDocuments()
                 .exec();
             console.log('orders count=', total);
             res.status(200).json({ data: orders, total: total });
@@ -317,17 +327,17 @@ router.patch('/:order_id/',
 
         let obj = {}, arrs = {};
         if (!_.isUndefined(comment)) {
-            let c = { comment_by: user_id, comment: comment };
+            let c = { comment_by: user_id, comment: comment, created: new Date() };
             obj.curr_comment = c;
             arrs.comments = c;
         }
         if (!_.isUndefined(status)) {
-            let s = { set_by: user_id, status: status };
+            let s = { set_by: user_id, status: status, created: new Date() };
             obj.curr_status = s;
             arrs.status = s;
         }
         if (!_.isUndefined(priority)) {
-            let p = { set_by: user_id, priority: priority };
+            let p = { set_by: user_id, priority: priority, created: new Date() };
             obj.curr_priority = p;
             arrs.priority = p;
         }
