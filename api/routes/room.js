@@ -12,6 +12,78 @@ const CheckinCheckoutModel = require('../../src/db/CheckinCheckout'),
     { check, validationResult } = require('express-validator');
 
 /**
+ * Creates a room
+ * @param hotel_id
+ * @returns created room
+ */
+router.post('/',
+    //auth0.authenticate,
+    //auth0.authorize('create:hotel'),
+    [
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+        check('room_no').exists({ checkNull: true, checkFalsy: true }),
+        check('type').exists({ checkNull: true, checkFalsy: true }),
+    ],
+    async function (req, res) {
+        try {
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        const room = new RoomModel({
+            hotel_id: req.query.hotel_id,
+            room_no: req.body.room_no,
+            type: req.body.type
+        });
+
+        try {
+            // Find the room corresponding to the hotel_id and room
+            let r = await room.save();
+            return res.status(200).send(r);
+        } catch (error) {
+            console.log('error in checkin of guest.', error);
+            res.status(500).send(error);
+        }
+    });
+
+/**
+ * Gets all rooms
+ * @param hotel_id
+ * @returns created room
+ */
+router.get('/',
+    //auth0.authenticate,
+    //auth0.authorize('create:hotel'),
+    [
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+    ],
+    async function (req, res) {
+        try {
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        const hotel_id = req.query.hotel_id;
+
+        try {
+            // Find the room corresponding to the hotel_id and room
+            let rooms = await RoomModel
+                .find({ hotel_id: hotel_id })
+                .exec();
+            let total = await RoomModel
+                .find({ hotel_id: hotel_id })
+                .countDocuments()
+                .exec();
+            return res.status(200).send({ data: rooms, total: total });
+        } catch (error) {
+            console.log('error in checkin of guest.', error);
+            res.status(500).send(error);
+        }
+    });
+
+/**
  * Checks-in a guest
  * @param hotel_id
  * @param room_no
