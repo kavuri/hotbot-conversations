@@ -23,17 +23,24 @@ router.get('/',
         console.log('get all hotels');
         const resPerPage = parseInt(req.query.resPerPage || 9); // results per page
         const page = parseInt(req.query.page || 1); // Page 
+        const group_id = req.query.group_id;
+
+        let filter = {};
+        if (!_.isUndefined(group_id)) {
+            filter = { group_id: group_id };
+        }
 
         try {
-            let hotels = await HotelModel
-                .find({})
+            let query = HotelModel.find(filter);
+            let hotels = await query
                 .skip((resPerPage * page) - resPerPage)
                 .limit(resPerPage)
                 .lean()
                 .sort({ last_reset: -1 })
                 .exec();
+            let total = await query.countDocuments().exec();
             // console.log(hotels);
-            return res.status(200).send(hotels);
+            return res.status(200).send({ data: hotels, total: total });
         } catch (error) {
             console.log('error in getting all hotels.', error);
             return res.status(400).send(error);

@@ -327,17 +327,17 @@ router.patch('/:order_id/',
 
         let obj = {}, arrs = {};
         if (!_.isUndefined(comment)) {
-            let c = { comment_by: user_id, comment: comment, created: new Date() };
+            let c = { comment_by: user_id, comment: comment };
             obj.curr_comment = c;
             arrs.comments = c;
         }
         if (!_.isUndefined(status)) {
-            let s = { set_by: user_id, status: status, created: new Date() };
+            let s = { set_by: user_id, status: status };
             obj.curr_status = s;
             arrs.status = s;
         }
         if (!_.isUndefined(priority)) {
-            let p = { set_by: user_id, priority: priority, created: new Date() };
+            let p = { set_by: user_id, priority: priority };
             obj.curr_priority = p;
             arrs.priority = p;
         }

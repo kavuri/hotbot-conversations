@@ -18,21 +18,24 @@ router.get('/',
     // auth0.authenticate,
     // auth0.authorize('read:hotel'),
     async function (req, res) {
-        const resPerPage = parseInt(req.query.resPerPage || 9); // results per page
-        const page = parseInt(req.query.page || 1); // Page 
+        const resPerPage = parseInt(req.query.resPerPage || 10); // results per page
+        const page = parseInt(req.query.page || 0); // Page 
         console.log('get all hotel groups:', resPerPage, page);
         try {
-            let groups = await HotelGroupModel
-                .find({})
-                .skip((resPerPage * page) - resPerPage)
-                .limit(resPerPage)
+            let query = HotelGroupModel.find();
+            let groups = await query
+                .skip(resPerPage * page)
+                .limit(100)
                 .lean()
                 .exec();
+            let total = await query
+                .countDocuments()
+                .exec();
             console.log(groups);
-            return res.status(200).send(groups);
+            return res.status(200).send({ data: groups, total: total });
         } catch (error) {
             console.log('error in getting all hotel groups.', error);
-            return res.status(400).send(error);
+            return res.status(500).send(error);
         }
     });
 
