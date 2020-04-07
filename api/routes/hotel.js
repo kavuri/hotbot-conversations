@@ -79,7 +79,7 @@ router.get('/:hotel_id',
         }
     });
 
-router.post('/:group_id',
+router.post('/',
     //auth0.authenticate,
     //auth0.authorize('create:hotel'),
     [
@@ -98,7 +98,7 @@ router.post('/:group_id',
             return res.status(422).send(error);
         }
 
-        let group_id = req.params.group_id;
+        let group_id = req.query.group_id;
         req.body.group_id = group_id;
         const hotel = new HotelModel(req.body);
         try {
