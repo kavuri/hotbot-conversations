@@ -157,4 +157,45 @@ router.put('/:hotel_id',
             res.status(500).send(error);
         }
     });
+
+/**
+ * Update attribubtes of a hotel. The PUT method to update the room to a hotel can also be made part of this
+ */
+router.patch('/:_id',
+    //auth0.authenticate,
+    //auth0.authorize('create:hotel'),
+    [
+        check('_id').exists({ checkNull: true, checkFalsy: true }),
+    ],
+    async function (req, res) {
+
+        try {
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        let _id = req.params._id;
+        let obj = {};
+        obj = { description: req.body.description } ? { ...obj, description: req.body.description } : obj;
+        obj = { address: req.body.address } ? { ...obj, address: req.body.address } : obj;
+        obj = { contact: req.body.contact } ? { ...obj, contact: req.body.contact } : obj;
+        obj = { coordinates: req.body.coordinates } ? { ...obj, coordinates: req.body.coordinates } : obj;
+        obj = { front_desk_count: req.body.front_desk_count } ? { ...obj, front_desk_count: req.body.front_desk_count } : obj;
+        obj = { reception_number: req.body.reception_number } ? { ...obj, reception_number: req.body.reception_number } : obj;
+
+        try {
+            // Find the hotel so that reference to room can be made
+            let hotel = await HotelModel
+                .findByIdAndUpdate(_id, { $set: obj }, { new: true, upsert: true })
+                .exec();
+
+            // Send the result
+            res.status(200).send(hotel);
+        } catch (error) {
+            console.log('error in updating hotel:', error);
+            res.status(500).send(error);
+        }
+    });
+
 module.exports = router;
