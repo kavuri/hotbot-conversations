@@ -84,6 +84,40 @@ router.get('/',
     });
 
 /**
+ * Update attribubtes of a room
+ */
+router.patch('/:_id',
+    //auth0.authenticate,
+    //auth0.authorize('create:hotel'),
+    [
+        check('_id').exists({ checkNull: true, checkFalsy: true }),
+    ],
+    async function (req, res) {
+
+        try {
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        let _id = req.params._id;
+        let obj = {};
+        obj = { type: req.body.type } ? { ...obj, type: req.body.type } : obj;
+
+        try {
+            let room = await RoomModel
+                .findByIdAndUpdate(_id, { $set: obj }, { new: true, upsert: true })
+                .exec();
+
+            // Send the result
+            res.status(200).send(room);
+        } catch (error) {
+            console.log('error in updating room:', error);
+            res.status(500).send(error);
+        }
+    });
+
+/**
  * Checks-in a guest
  * @param hotel_id
  * @param room_no
