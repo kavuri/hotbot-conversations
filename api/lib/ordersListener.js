@@ -40,15 +40,19 @@ module.exports.sendEvent = function (hotel_id, data) {
 
 module.exports.watchOrders = () => {
     console.log('watching for changes in orders...');
-    OrderModel.watch().on('change', data => {
+    OrderModel.watch().on('change', async (data) => {
         // console.log('order changed:', data);
 
         if (_.isEqual(data.operationType, 'delete')) { // Document is deleted. Should not be!
             //TODO: Documents should never be deleted. Maybe add an audit log?
         } else if (_.isEqual(data.operationType, 'replace') || _.isEqual(data.operationType, 'insert')) { // Document has been modified or inserted. Resend the new one
             const hotel_id = data.hotel_id;
-            this.sendEvent(hotel_id, data.fullDocument);
-            // console.log('sent data to ', hotel_id);
+            let order = await OrderModel
+                .findById(data.fullDocument._id, '-priority -status -comments')
+                .populate('checkincheckout')
+                .lean()
+                .exec();
+            this.sendEvent(hotel_id, order);
         }
     });
 
