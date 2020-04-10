@@ -18,6 +18,7 @@ const CheckinCheckoutModel = require('../../src/db/CheckinCheckout');
 
 /**
  * Post an order. This method would not be used in real use
+ * //FIXME: Remove this endpoint in production
  * @param hotel_id
         user_id,
         room_no,
@@ -75,7 +76,8 @@ router.post('/',
     });
 
 /**
- * Gets all orders of the hotel 
+ * Gets all orders of the hotel on a particular day
+ * Also fetches all open orders (status='done' or 'progress') from all previous days
  * @param hotel_id
  * @param room_no
  * @param status (optional. 'new' by default)
@@ -85,9 +87,10 @@ router.get('/',
     // auth0.authenticate,
     // auth0.authorize('read:order'),
     [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
-        check('page').exists({ checkNull: true, checkFalsy: true }),
-        check('selectedDate').exists({ checkNull: true, checkFalsy: true }),
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),    //FIXME: Remove getting hotel from user
+        // check('page').exists({ checkNull: true, checkFalsy: true }).isInt(),
+        check('live').exists({ checkNull: true, checkFalsy: true }).custom(value => { return _.isEqual(value, 'true') || _.isEqual(value, 'false') }),
+        check('selectedDate').exists({ checkNull: true, checkFalsy: true }).custom(value => { return moment(value).isValid() }),
     ],
     async function (req, res) {
 
@@ -103,17 +106,19 @@ router.get('/',
         const hotel_id = req.query.hotel_id,
             page = parseInt(req.query.page),
             status = req.query.status,
+            live = req.query.live,
             selectedDate = querystring.unescape(req.query.selectedDate);
 
         console.log('get all orders:hotel_id=', hotel_id, 'status=', status, ', rowsPerPage=', rowsPerPage, ',page=', page, ',selectedDate=', selectedDate);
 
+        /*
         let query = OrderModel.find(
             {
                 hotel_id: hotel_id,
                 created_at: { '$gte': moment(selectedDate).startOf('day'), '$lte': moment(selectedDate).endOf('day') }
-                // });
             }, '-priority -status -comments'); // Do not send the history fields
 
+        // Set the status filter
         if (_.isUndefined(status)) {
             // Nothing change. Do nothing
         } else if (_.isEqual(status, 'new')) {
@@ -124,6 +129,7 @@ router.get('/',
             query = query.where('curr_status.status').equals(status);
         }
 
+        // Fetch all orders in previous days that are 'done' and 'progress'
         try {
             let orders = await query
                 .populate('checkincheckout')
@@ -141,6 +147,36 @@ router.get('/',
             console.error(error);
             res.status(500).send(error);
         }
+        */
+        let facets = {}
+        facets['allOnDate'] = [
+            { $match: { created_at: { '$gte': moment(selectedDate).startOf('day').toDate(), '$lte': moment(selectedDate).endOf('day').toDate() } } },
+            { $sort: { created_at: 1 } },
+            { $project: { priority: 0, status: 0, comments: 0 } }
+        ];
+        if (_.isEqual(live, 'true')) {
+            facets['allOpen'] = [
+                { $match: { 'curr_status.status': { $in: ['new', 'progress'] } } },
+                { $sort: { created_at: 1 } },
+                { $project: { priority: 0, status: 0, comments: 0 } }
+            ];
+        }
+
+        try {
+            let orders = await OrderModel
+                .aggregate([{ $match: { hotel_id: hotel_id } }])
+                .facet(facets)
+                .exec();
+            let allOrders = orders[0].allOnDate;
+            if (_.isEqual(live, 'true')) {
+                allOrders = _.concat(allOrders, orders[0].allOpen);
+            }
+            return res.status(200).send({ data: allOrders, total: allOrders.length });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
+        }
+
     });
 
 router.get('/listen',
