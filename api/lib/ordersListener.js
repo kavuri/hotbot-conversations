@@ -5,7 +5,8 @@
 
 'use strict';
 
-const OrderModel = require('../../src/db/Order');
+const OrderModel = require('../../src/db/Order'),
+    CheckinCheckout = require('../../src/db/CheckinCheckout');
 const _ = require('lodash');
 
 let clients = {};
@@ -29,8 +30,8 @@ module.exports.removeClient = function (hotel_id, clientId) {
 }
 
 module.exports.sendEvent = function (hotel_id, data) {
-    // console.log('sending data to ', hotel_id, data)
     if (_.isUndefined(clients[hotel_id])) return; // If the front desk has not opened the orders screen, then we have no reference
+    // console.log('sending data to ', hotel_id, data)
 
     Object.keys(clients[hotel_id]).forEach(c => {
         console.log('clientId=', c)
@@ -40,18 +41,22 @@ module.exports.sendEvent = function (hotel_id, data) {
 
 module.exports.watchOrders = () => {
     console.log('watching for changes in orders...');
-    OrderModel.watch().on('change', async (data) => {
-        // console.log('order changed:', data);
+    OrderModel.watch({ fullDocument: 'updateLookup' }).on('change', async (data) => {
+        console.log('order changed:', JSON.stringify(data), '+++\n', data.fullDocument);
 
         if (_.isEqual(data.operationType, 'delete')) { // Document is deleted. Should not be!
             //TODO: Documents should never be deleted. Maybe add an audit log?
-        } else if (_.isEqual(data.operationType, 'replace') || _.isEqual(data.operationType, 'insert')) { // Document has been modified or inserted. Resend the new one
+        } else if (_.isEqual(data.operationType, 'insert') || _.isEqual(data.operationType, 'update')) {
+            // This is triggered when the guest changes state (like cancel order) or increases the priority (like I need the item urgently)
+            // FIXME: If the update is done from front desk, the event will make a round trip - inefficient
             const hotel_id = data.hotel_id;
-            let order = await OrderModel
-                .findById(data.fullDocument._id, '-priority -status -comments')
-                .populate('checkincheckout')
+            let checkincheckout = await CheckinCheckout
+                .findById(data.fullDocument.checkincheckout, '-orders')
                 .lean()
                 .exec();
+            let order = data.fullDocument;
+            order['checkincheckout'] = [checkincheckout];   // This is to maintain consistency with the GET of orders, where checkincheckout is returned as an array
+            console.log('+++document=', order);
             this.sendEvent(hotel_id, order);
         }
     });

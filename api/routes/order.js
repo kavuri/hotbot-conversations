@@ -52,7 +52,7 @@ router.post('/',
             return res.status(500).send(error);
         }
 
-        console.log('checkincheckout=', checkincheckout);
+        // console.log('checkincheckout=', checkincheckout);
         let order = new OrderModel({
             hotel_id: req.body.hotel_id,
             user_id: req.body.user_id,
@@ -66,7 +66,7 @@ router.post('/',
         let saved_order;
         try {
             saved_order = order = await order.save();
-            console.log('order=', saved_order);
+            // console.log('order=', saved_order);
         } catch (error) {
             console.log('error while saving order:', error);
             res.status(500).send(error);
@@ -88,9 +88,7 @@ router.get('/',
     // auth0.authorize('read:order'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),    //FIXME: Remove getting hotel from user
-        // check('page').exists({ checkNull: true, checkFalsy: true }).isInt(),
-        check('live').exists({ checkNull: true, checkFalsy: true }).custom(value => { return _.isEqual(value, 'true') || _.isEqual(value, 'false') }),
-        check('selectedDate').exists({ checkNull: true, checkFalsy: true }).custom(value => { return moment(value).isValid() }),
+        check('reqDate').exists({ checkNull: true, checkFalsy: true }).custom(value => { return moment(value).isValid() }),
     ],
     async function (req, res) {
 
@@ -106,16 +104,15 @@ router.get('/',
         const hotel_id = req.query.hotel_id,
             page = parseInt(req.query.page),
             status = req.query.status,
-            live = req.query.live,
-            selectedDate = querystring.unescape(req.query.selectedDate);
+            reqDate = querystring.unescape(req.query.reqDate);
 
-        console.log('get all orders:hotel_id=', hotel_id, 'status=', status, ', rowsPerPage=', rowsPerPage, ',page=', page, ',selectedDate=', selectedDate);
+        console.log('get all orders:hotel_id=', hotel_id, 'status=', status, ', rowsPerPage=', rowsPerPage, ',page=', page, ',selectedDate=', reqDate);
 
         /*
         let query = OrderModel.find(
             {
                 hotel_id: hotel_id,
-                created_at: { '$gte': moment(selectedDate).startOf('day'), '$lte': moment(selectedDate).endOf('day') }
+                created_at: { '$gte': moment(reqDate).startOf('day'), '$lte': moment(reqDate).endOf('day') }
             }, '-priority -status -comments'); // Do not send the history fields
 
         // Set the status filter
@@ -148,32 +145,29 @@ router.get('/',
             res.status(500).send(error);
         }
         */
-        let facets = {}
+        let facets = {};
         facets['allOnDate'] = [
-            { $match: { created_at: { '$gte': moment(selectedDate).startOf('day').toDate(), '$lte': moment(selectedDate).endOf('day').toDate() } } },
+            { $match: { created_at: { '$gte': moment(reqDate).startOf('day').toDate(), '$lte': moment(reqDate).endOf('day').toDate() } } },
+            { $sort: { created_at: 1 } },
+            { $lookup: { from: 'checkincheckouts', localField: 'checkincheckout', foreignField: '_id', as: 'checkincheckout' } },
+            { $project: { priority: 0, status: 0, comments: 0 } },
+        ];
+        facets['allOpen'] = [
+            { $match: { 'curr_status.status': { $in: ['new', 'progress'] } } },
+            // { $match: { $and: [{ 'curr_status.status': { $in: ['new', 'progress'] } }, { created_at: { '$lt': moment(reqDate).startOf('day').toDate() } }] } },
             { $sort: { created_at: 1 } },
             { $project: { priority: 0, status: 0, comments: 0 } },
-            { $lookup: { from: 'checkincheckouts', localField: 'checkincheckout', foreignField: '_id', as: 'checkincheckout' } }
+            { $lookup: { from: 'checkincheckouts', localField: 'checkincheckout', foreignField: '_id', as: 'checkincheckout' } },
         ];
-        if (_.isEqual(live, 'true')) {
-            facets['allOpen'] = [
-                { $match: { 'curr_status.status': { $in: ['new', 'progress'] } } },
-                { $sort: { created_at: 1 } },
-                { $project: { priority: 0, status: 0, comments: 0 } },
-                { $lookup: { from: 'checkincheckouts', localField: 'checkincheckout', foreignField: '_id', as: 'checkincheckout' } }
-            ];
-        }
 
         try {
             let orders = await OrderModel
                 .aggregate([{ $match: { hotel_id: hotel_id } }])
                 .facet(facets)
                 .exec();
-            let allOrders = orders[0].allOnDate;
-            if (_.isEqual(live, 'true')) {
-                allOrders = _.concat(allOrders, orders[0].allOpen);
-            }
-            return res.status(200).send({ data: allOrders, total: allOrders.length });
+
+            // console.log('count=', orders[0].allOnDate);
+            return res.status(200).send(orders[0]);
         } catch (error) {
             console.error(error);
             res.status(500).send(error);
@@ -229,6 +223,7 @@ router.get('/testlisten',
         res.write('\n\n');
 
         const hotel_id = req.query.hotel_id;
+        console.log('__hotel_id=', hotel_id);
         const clientId = Date.now();
 
         ordersListener.addClient(hotel_id, clientId, res);
@@ -247,7 +242,7 @@ async function addNest(req, res, next) {
     res.json(newNest)
 
     // Invoke iterate and send function
-    return ordersListener.sendEvent('100', newNest);
+    return ordersListener.sendEvent('1', newNest);
 }
 
 router.post('/nest', addNest);
