@@ -1,0 +1,17 @@
+{
+	"name": "Ordered_items",
+	"auto": true,
+	"webhookUsed": true,
+	"responses": [
+		{
+			"parameters": [
+				{
+					"isList": false,
+					"name": "facility_slot",
+					"value": "$facility_slot",
+					"dataType": "@facility_types"
+				}
+			]
+		}
+	]
+}
