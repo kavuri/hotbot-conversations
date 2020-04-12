@@ -9,7 +9,7 @@ var _ = require('lodash'),
     DBConn = require('./index').DBConn;
 
 var GraphSchema = new mongoose.Schema({
-    value: {type: String, required: true, index: true}
-   }, {timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false});
+    value: { type: String, required: true, index: true }
+}, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false });
 
 module.exports = DBConn.model('Graph', GraphSchema);

@@ -67,6 +67,8 @@ router.get('/:hotel_id',
             return res.status(422).send(error);
         }
 
+        // var host = req.get('host');
+        // console.log('+++host=',host);
         let hotel_id = req.params.hotel_id;
         try {
             let hotel = await HotelModel

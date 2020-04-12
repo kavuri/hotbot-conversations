@@ -19,11 +19,6 @@ const policies = 'policies';
 const roomitem = 'roomitem';
 const menu = 'menu';
 
-const GraphModel = require('../src/db/Graph'),
-    HotelGroupModel = require('../src/db/HotelGroup'),
-    HotelModel = require('../src/db/Hotel'),
-    RoomModel = require('../src/db/Room');
-
 /**
  * The Node names in the graphlib have to be unique. If the same node name is used, then the old one will be overwritten
  * 
@@ -67,21 +62,23 @@ const GraphModel = require('../src/db/Graph'),
  * 'menu': all menu items
  * 'roomitem': all room items (like AC, TV, fridge, napkins)
  */
-async function createGraph(hotel_id) {
-    if (_.isUndefined(hotel_id)) {
-        throw new Error('invalid hotel_id or hotel_name:', hotel_id);
+function createGraph(hotel) {
+    if (_.isUndefined(hotel)) {
+        throw new Error('invalid hotel_id or hotel_name:', hotel);
     }
 
+    g.setGraph(hotel.hotel_id);
+
     // Create hotel & its nodes
-    // g.setNode(hotel_id, hotel_name);
+    g.setNode(hotel.hotel_id, hotel.name);
     g.setNode('main_facilities', ['restaurant', 'Gym', 'swimming pool', 'breakfast', 'Laundry']);
 
     // Hotel points to the following nodes
     // hotel_id->main_facilities, hotel_id->facilities, hotel_id->policies
-    g.setEdge(hotel_id, 'main_facilities', { label: 'main_facilities' });
-    g.setEdge(hotel_id, facilities, { label: 'facilities' });
-    g.setEdge(hotel_id, policies, { label: 'policies' });
-    g.setEdge(hotel_id, menu, { label: 'menu' });
+    g.setEdge(hotel.hotel_id, 'main_facilities', { label: 'main_facilities' });
+    g.setEdge(hotel.hotel_id, facilities, { label: 'facilities' });
+    g.setEdge(hotel.hotel_id, policies, { label: 'policies' });
+    g.setEdge(hotel.hotel_id, menu, { label: 'menu' });
 
     // Create policies nodes
     g.setNode('smoking', { p: true, a: true, msg: 'smoking is not allowed in the hotel premises.' });
@@ -655,22 +652,22 @@ async function createGraph(hotel_id) {
     createEdges('SummerCool Sharbat', ['Kiwi Sharbat', 'Strawberry Sharbat', 'Litchi Sharbat', 'Pineapple Sharbat', 'Mango Sharbat', 'Orange Sharbat',], { label: 'SummerCool Sharbat' });
 
     // Link policies
-    linkPolicies(hotel_id);
+    linkPolicies(hotel.hotel_id);
 
     // Create edges from facilities to all the individual facilities
     // Scan thru all the facilities and link only those for which facility is mark as 'yes'
-    linkFacilities(hotel_id);
+    linkFacilities(hotel.hotel_id);
 
     // Link the room items
     // FIXME: Each room might have different amenities. Need to have a mapping of rooms to their amenities
-    linkRoomItems(hotel_id);
+    linkRoomItems(hotel.hotel_id);
 
     // Link menu items
-    linkMenuItems(hotel_id);
+    linkMenuItems(hotel.hotel_id);
 
     // Create all_items node that has all the items (including facilities, roomitem, menu)
     // This could be a big node
-    createAllItemsNode(hotel_id);
+    createAllItemsNode(hotel.hotel_id);
 }
 
 function linkPolicies(hotel_id) {
@@ -776,6 +773,7 @@ function createEdges(source, targets, label) {
 }
 
 /*******************************************************************************************************************************/
+/*
 const hotelData = {
     group: { name: 'Keys Group of Hotels', description: 'Keys group of hotels' },
     hotel: { name: 'Keys Hotel', description: 'This is a Keys hotel', address: { address1: 'ITPL Main Road 7, 7', address2: 'Near SAP office ', address3: 'Whitefield', city: 'Bengaluru', pin: '560037', state: 'Karnataka', country: 'India' }, contact: { phone: ['9888888888', '11111111'], email: ['whitefield@keyshotels.com'] }, coordinates: { lat: '12.979326', lng: '77.709559' }, rooms: [], front_desk_count: 2, reception_number: '9' },
@@ -845,6 +843,7 @@ async function createData(hotel_id) {
     return hotel;
 }
 
+
 module.exports.addOrUpdate = async (hotel_id, genFile = true) => {
     createGraph(hotel_id);
     // console.log('nodes=', g.nodeCount());
@@ -862,22 +861,15 @@ module.exports.addOrUpdate = async (hotel_id, genFile = true) => {
     // console.log(JSON.stringify(json));
     return json;
 }
+*/
 
 // Store this JSON to Graph collection
-module.exports.create = async function (hotel_id, hotel_name, genFile = false) {
-    let hotel = {};
-    try {
-        hotel = await createData(hotel_id);
-    } catch (error) {
-        console.error('error in creating data:', error);
-        throw error;
-    }
-
-    // Create the graph representation of the data
-    // console.log('created hotel=', hotel);
-    let json = this.addOrUpdate(hotel.hotel_id);
+module.exports.create = function (hotel, hotel_name, genFile = false) {
+    createGraph(hotel);
+    // Create the json representation of the graph
+    const json = graphlib.json.write(g);
     return json;
 }
 
 // require('./graph').create();
-require('./graph').addOrUpdate("1");
+// require('./graph').addOrUpdate("1");
