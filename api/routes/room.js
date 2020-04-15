@@ -56,7 +56,7 @@ router.get('/',
     //auth0.authenticate,
     //auth0.authorize('create:hotel'),
     [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),    //FIXME: Remove hotel_id when auth is implemented
     ],
     async function (req, res) {
         try {
@@ -72,11 +72,7 @@ router.get('/',
             let rooms = await RoomModel
                 .find({ hotel_id: hotel_id })
                 .exec();
-            let total = await RoomModel
-                .find({ hotel_id: hotel_id })
-                .countDocuments()
-                .exec();
-            return res.status(200).send({ data: rooms, total: total });
+            return res.status(200).send(rooms);
         } catch (error) {
             console.log('error in checkin of guest.', error);
             res.status(500).send(error);
