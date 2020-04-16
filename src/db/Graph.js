@@ -9,7 +9,12 @@ var _ = require('lodash'),
     DBConn = require('./index').DBConn;
 
 var GraphSchema = new mongoose.Schema({
-    value: { type: String, required: true, index: true }
+    value: { type: String, required: true, index: true },
+    nodes: [{ _id: false, v: String, value: mongoose.Schema.Types.Mixed }],
+    edges: [{ _id: false, v: String, w: String, value: mongoose.Schema.Types.Mixed }]
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false });
+
+GraphSchema.index({ 'nodes.v': 1 }, { unique: true });
+GraphSchema.index({ 'edges.v': 1, 'edges.w': 1 }, { unique: true });
 
 module.exports = DBConn.model('Graph', GraphSchema);
