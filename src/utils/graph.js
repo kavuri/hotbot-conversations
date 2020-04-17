@@ -52,7 +52,7 @@ const GraphModel = require('../db/Graph');
  *          Like: "I would like to reserve a table in the restaurant at 09:00PM" or "I would like to book a taxi"
  *          Not mandatory. Mark only for facilities that are bookable/reservable
  *          For other items, like food, book would be false, since the user cannot say "I would like to book a dosa"
- * limit: {count: 1, for:'day/stay'} = the limit on the items to be served for free
+ * limit: {count: 1, per:'day/stay'} = the limit on the items to be served for free
  * price: 'amount > 0' = the price of the item
  *          Set only if price > 0, else if no price is set for the item, it is deemed as free
  *          An item cannot have limit and price at the sametime. Because, the hotel can serve the item at a price
@@ -395,9 +395,9 @@ function createGraph(hotel) {
     g.setNode('Cutlery', { ri: true, o: true, a: true, msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not supply cutlery' } }); //FIXME: Complete the flow of ordering cutlery
 
     // Room items
-    g.setNode('TV', { o: false, ri: true, a: true, c: false, price: '0', limit: { count: 1, for: 'stay' }, msg: { yes: 'We have a TV in your room and it plays all Indian channels', no: 'This room does not have a TV facility' } });
+    g.setNode('TV', { o: false, ri: true, a: true, c: false, price: '0', limit: { count: 1, per: 'stay' }, msg: { yes: 'We have a TV in your room and it plays all Indian channels', no: 'This room does not have a TV facility' } });
     g.setParent('television', 'TV');
-    g.setNode('Tissues', { o: true, ri: true, a: true, c: true, price: '0', limit: { count: 2, for: 'day' }, msg: { yes: 'We have tissues at our hotel', no: 'We do not have tissues to order' } });
+    g.setNode('Tissues', { o: true, ri: true, a: true, c: true, price: '0', limit: { count: 2, per: 'day' }, msg: { yes: 'We have tissues at our hotel', no: 'We do not have tissues to order' } });
     g.setParent('Paper napkins', 'Tissues');
     g.setParent('Paper napkin', 'Tissues');
     g.setParent('Wipes', 'Tissues');
@@ -405,24 +405,24 @@ function createGraph(hotel) {
     g.setParent('dust basket', 'Dustbin');
     g.setParent('garbage can', 'Dustbin');
     g.setParent('waste basket', 'Dustbin');
-    g.setNode('Hanger', { a: true, o: true, ri: true, c: true, limit: { count: 10, for: 'stay' }, msg: { yes: 'Hangers are provided in the closet in your room', no: 'We do not provide hangers' } });
+    g.setNode('Hanger', { a: true, o: true, ri: true, c: true, limit: { count: 10, per: 'stay' }, msg: { yes: 'Hangers are provided in the closet in your room', no: 'We do not provide hangers' } });
     g.setParent('Clothe hangers', 'Hanger');
     g.setNode('Clock', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a table clock in your room', no: 'We do not have a clock. You can ask Alexa for the time instead' } });
     g.setParent('Watch', 'Clock');
-    g.setNode('Pullover', { a: true, o: true, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
+    g.setNode('Pullover', { a: true, o: true, ri: true, c: false, limit: { count: 2, per: 'stay' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
     g.setParent('Rug', 'Pullover');
-    g.setNode('Pillow', { a: true, o: true, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are pillows provided in the room', no: 'We do not provide extra pillows' } });
-    g.setNode('Towel', { a: true, o: true, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
+    g.setNode('Pillow', { a: true, o: true, ri: true, c: false, limit: { count: 2, per: 'stay' }, msg: { yes: 'There are pillows provided in the room', no: 'We do not provide extra pillows' } });
+    g.setNode('Towel', { a: true, o: true, ri: true, c: true, limit: { count: 2, per: 'day' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
     g.setParent('Bath towel', 'Towel');
-    g.setNode('Napkin', { a: true, o: true, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are napkins provided in your room', no: 'We do not provide napkins' } });
+    g.setNode('Napkin', { a: true, o: true, ri: true, c: true, limit: { count: 2, per: 'day' }, msg: { yes: 'There are napkins provided in your room', no: 'We do not provide napkins' } });
     g.setParent('Hand napkin', 'Napkin');
-    g.setNode('Soap', { a: true, o: true, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a soap in your bathroom', no: 'We do not provide a soap. You will need to get your own' } });
+    g.setNode('Soap', { a: true, o: true, ri: true, c: true, limit: { count: 2, per: 'day' }, msg: { yes: 'There is a soap in your bathroom', no: 'We do not provide a soap. You will need to get your own' } });
     g.setParent('Bath soap', 'Soap');
     g.setParent('Bath cream', 'Soap');
     g.setParent('Shower cream', 'Soap');
-    g.setNode('Shampoo', { a: true, o: true, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There is liquid shampoo in you bathroom', no: 'We do not provide any shampoo' } });
+    g.setNode('Shampoo', { a: true, o: true, ri: true, c: true, limit: { count: 2, per: 'day' }, msg: { yes: 'There is liquid shampoo in you bathroom', no: 'We do not provide any shampoo' } });
     g.setParent('Hair liquid', 'Shampoo');
-    g.setNode('Comb', { a: false, o: true, ri: true, c: true, limit: { count: 1, for: 'stay' }, msg: { yes: 'There is a comb provided in your bathroom', no: 'We do not provide a comb' } });
+    g.setNode('Comb', { a: false, o: true, ri: true, c: true, limit: { count: 1, per: 'stay' }, msg: { yes: 'There is a comb provided in your bathroom', no: 'We do not provide a comb' } });
     g.setParent('Hair comb', 'Comb');
     g.setNode('Fridge', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a fridge in your room', no: 'We do not provide a fridge' } });
     g.setParent('Refrigerator', 'Fridge');
@@ -437,10 +437,10 @@ function createGraph(hotel) {
     g.setNode('Tea machine', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a tea machine in your room ', no: 'We do not have a tea machine' } });
     g.setNode('Dish washer', { a: false, o: true, ri: true, c: false, msg: { yes: 'There is a dish washer in your room ', no: 'We do not have a dish washer' } });
     g.setNode('Fan', { a: true, o: true, ri: true, c: false, msg: { yes: 'There is a fan in your room ', no: 'We do not have a fan in the room' } });
-    g.setNode('Water', { a: true, o: true, ri: true, c: true, price: 20, limit: { count: 1, for: 'day' }, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water' } });
+    g.setNode('Water', { a: true, o: true, ri: true, c: true, price: 20, limit: { count: 1, per: 'day' }, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water' } });
     g.setParent('Water bottle', 'Water');
     g.setParent('Bottle of water', 'Water');
-    g.setNode('Extra bed', { a: true, o: true, ri: true, c: true, price: 0, limit: { count: 1, for: 'day' }, msg: { yes: 'We can provide an extra bed on request', no: 'We do not have provison for extra bed' } });
+    g.setNode('Extra bed', { a: true, o: true, ri: true, c: true, price: 0, limit: { count: 1, per: 'day' }, msg: { yes: 'We can provide an extra bed on request', no: 'We do not have provison for extra bed' } });
     g.setNode('Menu', { a: true, o: false, ri: true, c: false, msg: { yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Call the front desk' } });
     g.setNode('Salt', { o: true, a: true, ri: true, e: true, c: false, quantity: 1, price: '0', msg: { yes: 'We have salt and is placed in the room', no: 'We do not have salt in the hotel' } });
     g.setNode('Sugar', { o: true, a: true, ri: true, e: true, c: false, quantity: 1, price: '0', msg: { yes: 'We have sugar in the room', no: 'we do not have sugar in the hotel' } });

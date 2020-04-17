@@ -35,12 +35,13 @@ router.get('/',
         console.log('getting graph for ' + hotel_id);
         try {
             let graph = await GraphModel.findOne({ value: hotel_id }).lean().exec();
+
             let g = graphlib.json.read(graph);
 
             // Get all nodes, create a structure and send it out
             let nodes = g.nodes();
             let data = [];
-            // console.log('node count=', nodes.length, nodes)
+            console.log('node count=', nodes.length);
             for (var i = 0; i < nodes.length; i++) {
                 let n = g.node(nodes[i]);
                 // console.log('node=', nodes[i], '++n=', n);
@@ -68,7 +69,6 @@ router.post('/',
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }).custom(value => { return !_.isEqual(value, 'undefined'); }),
         check('name').exists({ checkNull: true, checkFalsy: true }),
         check('a').exists({ checkNull: true, }),
-        check('o').exists({ checkNull: true, })
     ],
     async function (req, res) {
         try {
@@ -103,6 +103,31 @@ router.post('/',
     });
 
 /**
+ * This function creates a dot notation for an object. Useful for setting the specific attributes
+ * @param {*} obj 
+ * @param {*} prefix 
+ */
+function flattenFlip(obj, prefix) {
+    var data = {};
+
+    function dive(obj_, path) {
+        var keys = Object.keys(obj_);
+        for (var i = 0; i < keys.length; i++) {
+            var type = obj_[keys[i]].constructor;
+            if (type === Object || type === Array) {
+                dive(obj_[keys[i]], path + keys[i] + '.');
+                continue;
+            }
+
+            data[obj_[keys[i]]] = path + keys[i];
+        }
+    }
+
+    dive(obj, prefix ? prefix + '.' : '');
+    return data;
+}
+
+/**
  * Patches a graph with a single change (without synonym)
  * @param hotel_id
  * @param node to update
@@ -127,9 +152,15 @@ router.put('/',
         let name = _.get(item, 'name');
         console.log('hotel_id=', hotel_id, ',graph=', item);
         item = _.omit(item, ['synonyms', 'name']);
+        // Set the specific keys in the object that are to be updated
+        let flatten = flattenFlip(item);
+        let setObj = {};
+        console.log('Flattened=', flatten);
+        Object.keys(flatten).map(k => { setObj['nodes.$.value.' + flatten[k]] = k; });
+        console.log('+++setObj=', setObj);
         try {
             let u = await GraphModel
-                .findOneAndUpdate({ value: hotel_id, 'nodes.v': name }, { $set: { 'nodes.$.v': name, 'nodes.$.value': item } }, { upsert: true, fields: { 'nodes.$': 1 } })
+                .findOneAndUpdate({ value: hotel_id, 'nodes.v': name }, { $set: setObj }, { upsert: true, fields: { 'nodes.$': 1 } })
                 .exec();
             console.log('node=', JSON.stringify(u));
             res.status(200).send(u);
