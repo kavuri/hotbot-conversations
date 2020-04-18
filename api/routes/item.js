@@ -107,24 +107,22 @@ router.post('/',
  * @param {*} obj 
  * @param {*} prefix 
  */
-function flattenFlip(obj, prefix) {
-    var data = {};
-
-    function dive(obj_, path) {
-        var keys = Object.keys(obj_);
-        for (var i = 0; i < keys.length; i++) {
-            var type = obj_[keys[i]].constructor;
-            if (type === Object || type === Array) {
-                dive(obj_[keys[i]], path + keys[i] + '.');
-                continue;
+function dotify(obj) {
+    var res = {};
+    function recurse(obj, current) {
+        for (var key in obj) {
+            var value = obj[key];
+            var newKey = (current ? current + '.' + key : key);  // joined key with dot
+            if (value && typeof value === 'object') {
+                recurse(value, newKey);  // it's a nested object, so do it again
+            } else {
+                res[newKey] = value;  // it's not an object, so set the property
             }
-
-            data[obj_[keys[i]]] = path + keys[i];
         }
     }
 
-    dive(obj, prefix ? prefix + '.' : '');
-    return data;
+    recurse(obj);
+    return res;
 }
 
 /**
@@ -153,10 +151,9 @@ router.put('/',
         console.log('hotel_id=', hotel_id, ',graph=', item);
         item = _.omit(item, ['synonyms', 'name']);
         // Set the specific keys in the object that are to be updated
-        let flatten = flattenFlip(item);
+        let flatten = dotify(item);
         let setObj = {};
-        console.log('Flattened=', flatten);
-        Object.keys(flatten).map(k => { setObj['nodes.$.value.' + flatten[k]] = k; });
+        Object.keys(flatten).map(k => { setObj['nodes.$.value.' + k] = flatten[k]; });
         console.log('+++setObj=', setObj);
         try {
             let u = await GraphModel
