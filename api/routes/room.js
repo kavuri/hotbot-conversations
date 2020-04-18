@@ -71,6 +71,7 @@ router.get('/',
             // Find the room corresponding to the hotel_id and room
             let rooms = await RoomModel
                 .find({ hotel_id: hotel_id })
+                .populate('checkincheckout')
                 .exec();
             return res.status(200).send(rooms);
         } catch (error) {
