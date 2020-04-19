@@ -52,6 +52,7 @@ app.use(config.api.prefix + '/hotelGroup', require('./routes/hotelGroup'));
 app.use(config.api.prefix + '/item', require('./routes/item'));
 app.use(config.api.prefix + '/order', require('./routes/order'));
 app.use(config.api.prefix + '/room', require('./routes/room'));
+app.use(config.api.prefix + '/checkincheckout', require('./routes/checkincheckout'));
 
 // Listen for order changes
 watchOrders();
