@@ -32,4 +32,6 @@ CheckinCheckoutSchema.post('save', async (doc) => {
     await Room.findOneAndUpdate({ hotel_id: doc.hotel_id, room_no: doc.room_no }, { $set: { checkincheckout: ref } }).exec();
 });
 
+CheckinCheckoutSchema.index({ hotel_id: 1 });
+
 module.exports = DBConn.model('CheckinCheckout', CheckinCheckoutSchema);
