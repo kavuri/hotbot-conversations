@@ -6,6 +6,7 @@
 
 var express = require('express');
 var router = express.Router();
+const auth0 = require('../lib/auth0');
 const CheckinCheckoutModel = require('../../src/db/CheckinCheckout'),
     RoomModel = require('../../src/db/Room'),
     _ = require('lodash'),
@@ -17,8 +18,7 @@ const CheckinCheckoutModel = require('../../src/db/CheckinCheckout'),
  * @returns created room
  */
 router.post('/',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('create:hotel'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('room_no').exists({ checkNull: true, checkFalsy: true }),
@@ -53,8 +53,7 @@ router.post('/',
  * @returns created room
  */
 router.get('/',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('read:hotel'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),    //FIXME: Remove hotel_id when auth is implemented
     ],
@@ -84,8 +83,7 @@ router.get('/',
  * Update attribubtes of a room
  */
 router.patch('/:_id',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('create:hotel'),
     [
         check('_id').exists({ checkNull: true, checkFalsy: true }),
     ],
@@ -121,8 +119,7 @@ router.patch('/:_id',
  * @returns check-in details
  */
 router.post('/:room_no/checkin',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('create:checkin'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('room_no').exists({ checkNull: true, checkFalsy: true }),
@@ -168,8 +165,7 @@ router.post('/:room_no/checkin',
  * @returns check-out details
  */
 router.post('/:room_no/checkout',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('create:checkin'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('room_no').exists({ checkNull: true, checkFalsy: true })

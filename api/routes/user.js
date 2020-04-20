@@ -23,7 +23,6 @@ dotenv.config();
  * This is to locally create the user in the database
  */
 router.get('/:user_id',
-  auth0.authenticate,
   auth0.authorize('read:user'),
   [
     check('user_id').exists({ checkNull: true, checkFalsy: true }),

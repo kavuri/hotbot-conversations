@@ -15,8 +15,7 @@ const HotelGroupModel = require('../../src/db/HotelGroup'),
  * @returns all hotel groups
  */
 router.get('/',
-    // auth0.authenticate,
-    // auth0.authorize('read:hotel'),
+    auth0.authorize('read:hotel'),
     async function (req, res) {
         const resPerPage = parseInt(req.query.resPerPage || 10); // results per page
         const page = parseInt(req.query.page || 0); // Page 
@@ -43,8 +42,7 @@ router.get('/',
  * Create a hotel group
  */
 router.post('/',
-    // auth0.authenticate,
-    // auth0.authorize('create:hotel'),
+    auth0.authorize('create:hotel'),
     [
         check('name').exists({ checkNull: true, checkFalsy: true }),
     ],
@@ -68,8 +66,7 @@ router.post('/',
 * @returns updated group object
 */
 router.put('/:group_id',
-    auth0.authenticate,
-    auth0.authorize('update:group'),
+    auth0.authorize('create:group'),
     async function (req, res) {
         console.log('updating group ' + req.params.facility_id);
 

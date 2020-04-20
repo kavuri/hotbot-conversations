@@ -19,8 +19,7 @@ const DeviceModel = require('../../src/db/Device'),
  * @returns all devices in that hotel
  */
 router.get('/',
-    //auth0.authenticate,
-    //auth0.authorize('read:device'),
+    auth0.authorize('read:device'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true })
     ],
@@ -50,8 +49,7 @@ router.get('/',
  * @returns all unassigned devices 
  */
 router.get('/unassigned',
-    //auth0.authenticate,
-    //auth0.authorize('read:device'),
+    auth0.authorize('read:device'),
     async function (req, res) {
         console.log('get all unassigned devices.', req.query.hotel_id);
         try {
@@ -72,8 +70,7 @@ router.get('/unassigned',
  * @returns deactivated device object
  */
 router.post('/:device_id/deactivate',
-    // auth0.authenticate,
-    // auth0.authorize('create:device'),
+    auth0.authorize('create:device'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('device_id').exists({ checkNull: true, checkFalsy: true })
@@ -107,8 +104,7 @@ router.post('/:device_id/deactivate',
  * @returns activated device object
  */
 router.post('/:device_id/activate',
-    // auth0.authenticate,
-    // auth0.authorize('create:device'),
+    auth0.authorize('create:device'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('device_id').exists({ checkNull: true, checkFalsy: true })
@@ -143,8 +139,7 @@ router.post('/:device_id/activate',
  * @returns device object
  */
 router.post('/:device_id/deregister',
-    //auth0.authenticate,
-    //auth0.authorize('create:device'),
+    auth0.authorize('create:device'),
     [
         check('device_id').exists({ checkNull: true, checkFalsy: true }),
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
@@ -180,8 +175,7 @@ router.post('/:device_id/deregister',
  * @returns updated device object
  */
 router.post('/:device_id/register',
-    // auth0.authenticate,
-    // auth0.authorize('create:device'),
+    auth0.authorize('create:device'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('device_id').exists({ checkNull: true, checkFalsy: true }),

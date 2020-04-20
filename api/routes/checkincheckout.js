@@ -7,6 +7,7 @@
 
 var express = require('express');
 var router = express.Router();
+const auth0 = require('../lib/auth0');
 const CheckinCheckoutModel = require('../../src/db/CheckinCheckout'),
     _ = require('lodash'),
     { check, validationResult } = require('express-validator');
@@ -18,8 +19,7 @@ const CheckinCheckoutModel = require('../../src/db/CheckinCheckout'),
  * TODO: Right now we will return all the records. But better to page them with inputs from UI
  */
 router.get('/',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('read:checkin'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),    //FIXME: Remove hotel_id when auth is implemented
     ],
@@ -52,8 +52,7 @@ router.get('/',
  * @returns created room
  */
 router.get('/:id',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('read:checkin'),
     [
         check('id').exists({ checkNull: true, checkFalsy: true }),
     ],

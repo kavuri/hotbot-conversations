@@ -19,8 +19,7 @@ const GraphModel = require('../../src/db/Graph'),
  * @returns The graph for the hotel
  */
 router.get('/',
-    //auth0.authenticate,
-    //auth0.authorize('read:device'),   //FIXME: Remove hotel from arg when auth is implemented. Get it from session token
+    auth0.authorize('read:item'),   //FIXME: Remove hotel from arg when auth is implemented. Get it from session token
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }).custom(value => { return !_.isEqual(value, 'undefined'); })
     ],
@@ -60,11 +59,10 @@ router.get('/',
     });
 
 /**
- * Creates a new node
+ * Creates a new item
  */
 router.post('/',
-    //auth0.authenticate,
-    //auth0.authorize('read:device'),
+    auth0.authorize('create:item'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }).custom(value => { return !_.isEqual(value, 'undefined'); }),
         check('name').exists({ checkNull: true, checkFalsy: true }),
@@ -132,8 +130,7 @@ function dotify(obj) {
  * @returns None
  */
 router.put('/',
-    //auth0.authenticate,
-    //auth0.authorize('read:device'),
+    auth0.authorize('create:item'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }).custom(value => { return !_.isEqual(value, 'undefined'); }),
         check('name').exists({ checkNull: true, checkFalsy: true }),
@@ -174,8 +171,7 @@ router.put('/',
  * @returns None
  */
 router.post('/synonym',
-    //auth0.authenticate,
-    //auth0.authorize('read:device'),
+    auth0.authorize('create:item'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }).custom(value => { return !_.isEqual(value, 'undefined'); }),
         check('parent').exists({ checkNull: true, checkFalsy: true }),
@@ -209,8 +205,7 @@ router.post('/synonym',
  * @returns None
  */
 router.delete('/synonym',
-    //auth0.authenticate,
-    //auth0.authorize('read:device'),
+    auth0.authorize('create:item'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }).custom(value => { return !_.isEqual(value, 'undefined'); }),
         check('parent').exists({ checkNull: true, checkFalsy: true }),

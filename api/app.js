@@ -14,26 +14,30 @@ const createError = require('http-errors');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require("helmet");
 const flash = require('connect-flash');
 const session = require('./lib/middleware/session');
+const auth0 = require('./lib/auth0');
 const config = require('./config');
 const app = express();
 
+dotenv.config();
+
 const { watchOrders } = require('./lib/ordersListener');
 
-var corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
+// var corsOptions = {
+//   origin: '*',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(helmet());
 app.use(logger('dev'));
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -43,6 +47,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session);
 
 app.use(flash());
+
+app.use(auth0.authenticate);
 
 app.use('/', require('./routes/index'));
 app.use(config.api.prefix + '/user', require('./routes/user'));

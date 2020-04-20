@@ -11,7 +11,7 @@ const OrderModel = require('../../src/db/Order');
 const { check, validationResult } = require('express-validator');
 const auth0 = require('../lib/auth0');
 const ordersListener = require('../lib/ordersListener');
-const findHotelOfUser = require('../lib/helpers').findHotelOfUser;
+const findHotelOfUser = require('../lib/getHotel').findHotelOfUser;
 const _ = require('lodash');
 const moment = require('moment');
 const CheckinCheckoutModel = require('../../src/db/CheckinCheckout');
@@ -27,7 +27,7 @@ const CheckinCheckoutModel = require('../../src/db/CheckinCheckout');
 	    status
  */
 router.post('/',
-    // auth0.authenticate,
+    auth0.authorize('create:order'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('user_id').exists({ checkNull: true, checkFalsy: true }),
@@ -84,8 +84,7 @@ router.post('/',
  * @returns all orders (new or done)
  */
 router.get('/',
-    // auth0.authenticate,
-    // auth0.authorize('read:order'),
+    auth0.authorize('read:order'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),    //FIXME: Remove getting hotel from user
         check('reqDate').exists({ checkNull: true, checkFalsy: true }).custom(value => { return moment(value).isValid() }),
@@ -176,7 +175,6 @@ router.get('/',
     });
 
 router.get('/listen',
-    auth0.authenticate,
     auth0.authorize('read:order'),
     async (req, res, next) => {
         const headers = {
@@ -211,7 +209,6 @@ router.get('/listen',
  */
 // FIXME: Only for testing. Remove it in production
 router.get('/testlisten',
-    // auth0.authenticate,
     async (req, res, next) => {
         const headers = {
             'Content-Type': 'text/event-stream',
@@ -291,8 +288,7 @@ router.get('/:order_id',
  * @param priority
  */
 router.patch('/:order_id/',
-    // auth0.authenticate,
-    // auth0.authorize('create:order'),
+    auth0.authorize('update:order'),
     [
         check('order_id').exists({ checkNull: true, checkFalsy: true }),
     ],

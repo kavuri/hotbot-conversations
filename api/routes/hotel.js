@@ -17,8 +17,7 @@ const HotelModel = require('../../src/db/Hotel'),
  * @returns all hotels
  */
 router.get('/',
-    //auth0.authenticate,
-    //auth0.authorize('read:hotel'),
+    auth0.authorize('read:hotel'),
     async function (req, res) {
         console.log('get all hotels');
         const resPerPage = parseInt(req.query.resPerPage || 9); // results per page
@@ -55,8 +54,7 @@ router.get('/',
  * Gets the details of a hotel
  */
 router.get('/:hotel_id',
-    // auth0.authenticate,
-    // auth0.authorize('read:hotel'),
+    auth0.authorize('read:hotel'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
     ],
@@ -86,8 +84,7 @@ router.get('/:hotel_id',
     });
 
 router.post('/',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('create:hotel'),
     [
         check('group_id').exists({ checkNull: true, checkFalsy: true }),
         check('name').exists({ checkNull: true, checkFalsy: true }),
@@ -119,8 +116,7 @@ router.post('/',
  * Add a room to a hotel
  */
 router.put('/:hotel_id',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('create:hotel'),
     [
         check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('room_no').exists({ checkNull: true, checkFalsy: true }),
@@ -168,8 +164,7 @@ router.put('/:hotel_id',
  * Update attribubtes of a hotel. The PUT method to update the room to a hotel can also be made part of this
  */
 router.patch('/:_id',
-    //auth0.authenticate,
-    //auth0.authorize('create:hotel'),
+    auth0.authorize('create:hotel'),
     [
         check('_id').exists({ checkNull: true, checkFalsy: true }),
     ],

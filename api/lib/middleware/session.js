@@ -14,17 +14,25 @@ dotenv.config();
 var app = express();
 
 // config express-session
+var expiryDate = new Date(Date.now() + 60 * 60 * 1000 * 12) // 12 hours
 var sess = {
-    secret: process.env.SESSION_SECRET,
-    cookie: {},
+    name: 'sessionId',
+    secret: process.env.APP_SESSION_SECRET || 'hanuman rocks!',
     resave: false,
     saveUninitialized: true,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        domain: 'kamamishu.com',
+        path: 'kamapp',
+        expires: expiryDate,
+        sameSite: 'lax'
+    },
     store: new MongoStore({ mongooseConnection: DBConn })
 };
 
-if (app.get('env') === 'production') {
+if (process.env.NODE_ENV === 'production') {
     app.set('trust proxy', 1); // trust first proxy
-    sess.cookie.secure = true; // serve secure cookies, requires https
 }
 
 module.exports = session(sess);

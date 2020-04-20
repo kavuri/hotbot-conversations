@@ -36,7 +36,7 @@
    - Enable RBAC = enable it
    - Enable Permissions in Access token = enable it
    - Permissions. Add the following permissions
-    - read:user, read:hotel, read:device, read:order, read:facility, create:hotel, create:device, create:facility
+    - read:user, read:hotel, read:device, read:order, read:item, create:hotel, create:device, create:item, read:checkin, create:checkin, create:order, update:order
    - Machine to Machine Applications:
     - KamamishuAPI(Test Application) = Authorized (enabled)
  7. Connections -> Database -> (+)Create DB Connection
@@ -61,14 +61,14 @@
    - Create
   - Roles -> Permissions
    - Add Permissions -> Select KamamishuAPI
-   - Select all (read:user, read:hotel,read:device,read:facility,create:device,create:facility,create:hotel,read:order) 
+   - Select all (read:user, read:hotel,read:device,read:facility,create:device,create:facility,create:hotel,read:order, update:order, read:item, create:item) 
    - Add Permission
  - Roles -> Create role
   - Name = 'consumer'
   - Description = 'Hotel front desk user'
   - Roles -> Permissions
    - Add Permissions -> Select KamamishuAPI
-   - Select read:user,read:hotel,read:device,read:facility,read:order
+   - Select read:user,read:hotel,read:device,read:item,read:order, create:checkin
  - Users -> Create User
   - Email: sateesh.kavuri@gmail.com
   - Password: Abcd1234#
