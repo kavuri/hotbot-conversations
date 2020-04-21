@@ -60,7 +60,6 @@ router.get('/:id',
             return res.status(422).send(error);
         }
 
-        const hotel_id = req.query.hotel_id;
         const id = req.params.id;
         console.log('fetching all checkincheckouts for hotel ', hotel_id, ' with ', id);
 

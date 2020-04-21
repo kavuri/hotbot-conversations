@@ -59,7 +59,6 @@ router.get('/:user_id',
       'grant_type': 'client_credentials'
     })
 
-    console.log('body=', body);
     const token = await fetch('https://' + process.env.AUTH0_DOMAIN + '/oauth/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -69,8 +68,6 @@ router.get('/:user_id',
     }).then((json) => {
       return json;
     });
-
-    console.log('token=', token.access_token);
 
     const full_user = await fetch('https://' + process.env.AUTH0_DOMAIN + '/api/v2/users/' + user_id, {
       method: 'GET',
@@ -85,8 +82,6 @@ router.get('/:user_id',
     });
 
     // Store the user to the database
-    console.log('storing full user...', full_user)
-
     let u = new UserModel(full_user);
     let r;
     try {

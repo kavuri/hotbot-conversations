@@ -11,7 +11,6 @@ const OrderModel = require('../../src/db/Order');
 const { check, validationResult } = require('express-validator');
 const auth0 = require('../lib/auth0');
 const ordersListener = require('../lib/ordersListener');
-const findHotelOfUser = require('../lib/getHotel').findHotelOfUser;
 const _ = require('lodash');
 const moment = require('moment');
 const CheckinCheckoutModel = require('../../src/db/CheckinCheckout');
@@ -100,50 +99,13 @@ router.get('/',
         let rowsPerPage = parseInt(req.query.rowsPerPage || 10); // results per page
         rowsPerPage = rowsPerPage > 100 ? 100 : rowsPerPage; // Maximum number of return items per page
 
-        const hotel_id = req.query.hotel_id,
+        const hotel_id = req.user.app_metadata.hotel_id,
             page = parseInt(req.query.page),
             status = req.query.status,
             reqDate = querystring.unescape(req.query.reqDate);
 
         console.log('get all orders:hotel_id=', hotel_id, 'status=', status, ', rowsPerPage=', rowsPerPage, ',page=', page, ',selectedDate=', reqDate);
 
-        /*
-        let query = OrderModel.find(
-            {
-                hotel_id: hotel_id,
-                created_at: { '$gte': moment(reqDate).startOf('day'), '$lte': moment(reqDate).endOf('day') }
-            }, '-priority -status -comments'); // Do not send the history fields
-
-        // Set the status filter
-        if (_.isUndefined(status)) {
-            // Nothing change. Do nothing
-        } else if (_.isEqual(status, 'new')) {
-            // Get both 'new' and 'progress' orders
-            query = query.or([{ 'curr_status.status': 'new' }, { 'curr_status.status': 'progress' }]);
-        } else {
-            // Get the orders of the specific status
-            query = query.where('curr_status.status').equals(status);
-        }
-
-        // Fetch all orders in previous days that are 'done' and 'progress'
-        try {
-            let orders = await query
-                .populate('checkincheckout')
-                // .skip(rowsPerPage * page)
-                // .limit(rowsPerPage)
-                .lean()
-                .sort({ created_at: 1 })
-                .exec();
-            let total = await query
-                .countDocuments()
-                .exec();
-            console.log('orders count=', total);
-            res.status(200).json({ data: orders, total: total });
-        } catch (error) {
-            console.error(error);
-            res.status(500).send(error);
-        }
-        */
         let facets = {};
         facets['allOnDate'] = [
             { $match: { created_at: { '$gte': moment(reqDate).startOf('day').toDate(), '$lte': moment(reqDate).endOf('day').toDate() } } },
@@ -187,15 +149,7 @@ router.get('/listen',
         res.write('\n\n');
 
         const user_id = req.user.sub;
-        let hotel_id;
-        try {
-            hotel_id = await findHotelOfUser(user_id);
-            console.log('got hotel_id=', hotel_id);
-        } catch (error) {
-            console.log('error fetching hotel_id of user.', error);
-            return res.end();
-        }
-        console.log('hotel_id=', hotel_id);
+        const hotel_id = req.user.app_metadata.hotel_id;
         ordersListener.addClient(hotel_id, user_id, res);
 
         req.on('close', () => {
@@ -209,6 +163,7 @@ router.get('/listen',
  */
 // FIXME: Only for testing. Remove it in production
 router.get('/testlisten',
+    auth0.authorize('create:order'),
     async (req, res, next) => {
         const headers = {
             'Content-Type': 'text/event-stream',
@@ -242,43 +197,7 @@ async function addNest(req, res, next) {
     return ordersListener.sendEvent('1', newNest);
 }
 
-router.post('/nest', addNest);
-
-// Get a single order
-// input=hotel_id(mandatory), room_no(optional), status=open & closed (optional, open by default)
-/**
- * @param hotel_id
- * @param order_id
-router.get('/:order_id',
-    // auth0.authenticate,
-    // auth0.authorize('read:order'),
-    [
-        check('order_id').exists({ checkNull: true, checkFalsy: true })
-    ],
-    async function (req, res) {
-
-        try {
-            validationResult(req).throw();
-        } catch (error) {
-            return res.status(422).send(error);
-        }
-
-        let order_id = req.params.order_id;
-
-        let order;
-        try {
-            order = await OrderModel
-                .findById(order_id)
-                .populate('checkincheckout')
-                .lean()
-                .exec();
-        } catch (error) {
-            console.error(error);
-            res.status(500).send(error);
-        }
-        res.status(200).send(order);
-    });
- */
+router.post('/nest', auth0.authorize('create:order'), addNest);
 
 /**
  * Change the status of the order
@@ -299,12 +218,8 @@ router.patch('/:order_id/',
             return res.status(422).send(error);
         }
 
-        let hotel_id = req.query.hotel_id,
-            order_id = req.params.order_id;
-
-        // FIXME: This comes after login. But will not be there for non-logged-in user
-        // const user_id = req.user.sub;
-        const user_id = "1";
+        const order_id = req.params.order_id,
+            user_id = req.user.sub;
 
         // The attributes of an order that can be updated/added:
         // status, priority, comment

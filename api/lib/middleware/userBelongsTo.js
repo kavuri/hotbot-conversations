@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
 
     if (_.isUndefined(user)) {
         // Not yet authenticated?
-        return next();
+        return next({error: 'user not authenticated'}); // Cannot happen!
     }
     // Fetch user from database
     try {
