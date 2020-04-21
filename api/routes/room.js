@@ -53,10 +53,7 @@ router.post('/',
  * @returns created room
  */
 router.get('/',
-    auth0.authorize('read:hotel'),
-    [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),    //FIXME: Remove hotel_id when auth is implemented
-    ],
+    auth0.authorize('read:room'),
     async function (req, res) {
         try {
             validationResult(req).throw();
@@ -64,8 +61,7 @@ router.get('/',
             return res.status(422).send(error);
         }
 
-        const hotel_id = req.query.hotel_id;
-
+        const hotel_id = req.user.app_metadata.hotel_id;
         try {
             // Find the room corresponding to the hotel_id and room
             let rooms = await RoomModel
@@ -83,7 +79,7 @@ router.get('/',
  * Update attribubtes of a room
  */
 router.patch('/:_id',
-    auth0.authorize('create:hotel'),
+    auth0.authorize('update:room'),
     [
         check('_id').exists({ checkNull: true, checkFalsy: true }),
     ],
@@ -133,7 +129,10 @@ router.post('/:room_no/checkin',
             return res.status(422).send(error);
         }
 
-        const hotel_id = req.query.hotel_id, room_no = req.params.room_no, guestName = req.body.guestName, guestNumber = req.body.guestNumber;
+        const hotel_id = req.user.app_metadata.hotel_id,
+            room_no = req.params.room_no,
+            guestName = req.body.guestName,
+            guestNumber = req.body.guestNumber;
         console.log('checkin in guest ' + guestName, ',' + guestNumber);
         try {
             // Find the room corresponding to the hotel_id and room
@@ -167,7 +166,6 @@ router.post('/:room_no/checkin',
 router.post('/:room_no/checkout',
     auth0.authorize('create:checkin'),
     [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('room_no').exists({ checkNull: true, checkFalsy: true })
     ],
     async function (req, res) {
@@ -177,7 +175,8 @@ router.post('/:room_no/checkout',
             return res.status(422).send(error);
         }
 
-        const hotel_id = req.query.hotel_id, room_no = req.params.room_no;
+        const hotel_id = req.user.app_metadata.hotel_id,
+            room_no = req.params.room_no;
         try {
             // Find the room corresponding to the hotel_id and room
             const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
