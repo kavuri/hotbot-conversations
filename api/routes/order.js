@@ -85,7 +85,6 @@ router.post('/',
 router.get('/',
     auth0.authorize('read:order'),
     [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),    //FIXME: Remove getting hotel from user
         check('reqDate').exists({ checkNull: true, checkFalsy: true }).custom(value => { return moment(value).isValid() }),
     ],
     async function (req, res) {
@@ -148,8 +147,8 @@ router.get('/listen',
 
         res.write('\n\n');
 
-        const user_id = req.user.sub;
-        const hotel_id = req.user.app_metadata.hotel_id;
+        const user_id = req.user.sub,
+            hotel_id = req.user.app_metadata.hotel_id;
         ordersListener.addClient(hotel_id, user_id, res);
 
         req.on('close', () => {
