@@ -26,7 +26,7 @@ var sess = {
         domain: 'kamamishu.com',
         path: 'kamapp',
         expires: expiryDate,
-        sameSite: 'lax'
+        sameSite: 'none'
     },
     store: new MongoStore({ mongooseConnection: DBConn })
 };

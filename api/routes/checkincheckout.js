@@ -20,9 +20,6 @@ const CheckinCheckoutModel = require('../../src/db/CheckinCheckout'),
  */
 router.get('/',
     auth0.authorize('read:checkin'),
-    [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),    //FIXME: Remove hotel_id when auth is implemented
-    ],
     async function (req, res) {
         try {
             validationResult(req).throw();
@@ -30,7 +27,7 @@ router.get('/',
             return res.status(422).send(error);
         }
 
-        const hotel_id = req.query.hotel_id;
+        const hotel_id = req.user.app_metadata.hotel_id;
         console.log('fetching all checkincheckouts for hotel ', hotel_id);
 
         try {

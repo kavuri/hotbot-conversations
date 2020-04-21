@@ -20,6 +20,7 @@ const logger = require('morgan');
 const helmet = require("helmet");
 const flash = require('connect-flash');
 const session = require('./lib/middleware/session');
+const userBelongsTo = require('./lib/middleware/userBelongsTo');
 const auth0 = require('./lib/auth0');
 const config = require('./config');
 const app = express();
@@ -49,6 +50,7 @@ app.use(session);
 app.use(flash());
 
 app.use(auth0.authenticate);
+app.use(userBelongsTo); //This does the mapping of the user to the hotel and sets in the request
 
 app.use('/', require('./routes/index'));
 app.use(config.api.prefix + '/user', require('./routes/user'));

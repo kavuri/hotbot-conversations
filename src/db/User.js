@@ -9,7 +9,7 @@ const mongoose = require('mongoose'),
       DBConn = require('./index').DBConn;
 
 var UserSchema = new mongoose.Schema({
-   user_id: {type: String, required: true, unique: true},
+   user_id: {type: String, required: true, unique: true},   // user_id from Auth0 (sub)
    email: {type: String, required: true, unique: true},
    email_verified: {type: Boolean, required: true},
    name: {type: String, required: true},

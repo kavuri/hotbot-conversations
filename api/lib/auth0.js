@@ -32,6 +32,7 @@ module.exports.authenticate = jwt({
 });
 
 module.exports.authorize = (permission) => {
+    // return (req, res, next) => { console.log('user=', req.user); return next() };
     return (req, res, next) => {
         const { permissions } = req.user;
         console.log(req.user);
