@@ -51,6 +51,29 @@ router.get('/',
     });
 
 /**
+ * Gets the details of the logged-in user hotel. This is useful for getting the hotel details and updating them
+ */
+router.get('/myhotel',
+    auth0.authorize('read:myhotel'),
+    async (req, res) => {
+        const hotel_id = req.user.app_metadata.hotel_id;
+        console.log('myhotel:hotel_id=', hotel_id);
+        try {
+            let hotel = await HotelModel
+                .findOne({ hotel_id: hotel_id })
+                .populate('rooms')
+                .populate({ path: 'rooms', populate: { path: 'device' } })
+                .populate({ path: 'rooms', populate: { path: 'checkincheckout' } })
+                .exec();
+            console.log('hotel data=', JSON.stringify(hotel));
+            res.status(200).send(hotel);
+        } catch (error) {
+            console.error('error in getting hotel data:', hotel_id, error);
+            res.status(500).send(error);
+        }
+    });
+
+/**
  * Gets the details of a hotel
  */
 router.get('/:hotel_id',
@@ -164,7 +187,7 @@ router.put('/:hotel_id',
  * Update attribubtes of a hotel. The PUT method to update the room to a hotel can also be made part of this
  */
 router.patch('/:_id',
-    auth0.authorize('create:hotel'),
+    auth0.authorize('update:hotel'),
     [
         check('_id').exists({ checkNull: true, checkFalsy: true }),
     ],
