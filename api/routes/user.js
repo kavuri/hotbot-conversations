@@ -44,53 +44,7 @@ router.get('/:user_id',
     } catch (error) {
       return res.status(500).json(error);
     }
-
-    if (!_.isUndefined(user) && !_.isNull(user)) {
-      // User exists. Return the user
-      console.log('user exists...', user);
-      return res.status(200).json(user);
-    }
-
-    // Get the detailed user info
-    const body = JSON.stringify({
-      'client_id': process.env.AUTH0_CLIENT_ID,
-      'client_secret': process.env.AUTH0_CLIENT_SECRET,
-      'audience': process.env.AUTH0_ADMIN_AUDIENCE,
-      'grant_type': 'client_credentials'
-    })
-
-    const token = await fetch('https://' + process.env.AUTH0_DOMAIN + '/oauth/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: body
-    }).then(function (a) {
-      return a.json();
-    }).then((json) => {
-      return json;
-    });
-
-    const full_user = await fetch('https://' + process.env.AUTH0_DOMAIN + '/api/v2/users/' + user_id, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': 'Bearer ' + token.access_token
-      }
-    }).then(function (a) {
-      return a.json();
-    }).then((json) => {
-      return (json);
-    });
-
-    // Store the user to the database
-    let u = new UserModel(full_user);
-    let r;
-    try {
-      r = await u.save();
-    } catch (error) {
-      //TODO: What should be done incase of failure to save user?
-      res.status(500).json(error);
-    }
-    res.status(200).json(r);
+    return res.status(200).send(user);
   });
 
 module.exports = router;

@@ -48,8 +48,38 @@ router.post('/',
     });
 
 /**
- * Gets all rooms
+ * Gets all rooms for admin. This is an Admin API
  * @param hotel_id
+ * @returns created room
+ */
+router.get('/admin/',
+    [
+        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
+    ],
+    auth0.authorize('read:room'),
+    async function (req, res) {
+        try {
+            validationResult(req).throw();
+        } catch (error) {
+            return res.status(422).send(error);
+        }
+
+        const hotel_id = req.query.hotel_id;
+        try {
+            // Find the room corresponding to the hotel_id and room
+            let rooms = await RoomModel
+                .find({ hotel_id: hotel_id })
+                .populate('checkincheckout')
+                .exec();
+            return res.status(200).send(rooms);
+        } catch (error) {
+            console.log('error in checkin of guest.', error);
+            res.status(500).send(error);
+        }
+    });
+
+/**
+ * Gets all rooms
  * @returns created room
  */
 router.get('/',
