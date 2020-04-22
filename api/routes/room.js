@@ -34,7 +34,8 @@ router.post('/',
         const room = new RoomModel({
             hotel_id: req.query.hotel_id,
             room_no: req.body.room_no,
-            type: req.body.type
+            type: req.body.type,
+            checkincheckout: null
         });
 
         try {
