@@ -35,7 +35,7 @@ module.exports.authorize = (permission) => {
     // return (req, res, next) => { console.log('user=', req.user); return next() };
     return (req, res, next) => {
         const { permissions } = req.user;
-        console.log(req.user);
+        // console.log(req.user);
         if (permissions.includes(permission)) return next();
         res.status(403).send({ error: 'user does not have permission for api' });
     }

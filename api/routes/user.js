@@ -36,11 +36,11 @@ router.get('/:user_id',
     }
 
     // Check if user has been created in database
-    console.log('checking database...', JSON.stringify(user_id))
+    // console.log('checking database...', JSON.stringify(user_id))
     let user;
     try {
       user = await UserModel.findOne({ user_id: user_id }).exec();
-      console.log('user=', user);
+      // console.log('user=', user);
     } catch (error) {
       return res.status(500).json(error);
     }

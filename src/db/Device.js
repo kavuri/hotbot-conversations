@@ -10,6 +10,7 @@ var _ = require('lodash'),
     AuditLogModel = require('./AuditLog'),
     DBConn = require('./index').DBConn,
     HotelModel = require('./Hotel'),
+    DeviceModel = require('./Hotel'),
     RoomModel = require('./Room');
 
 /**

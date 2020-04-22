@@ -89,7 +89,7 @@ router.post('/:device_id/deactivate',
             let device = await DeviceModel.findOneAndUpdate(
                 { hotel_id: hotel_id, device_id: device_id },
                 { $set: { status: 'inactive' } },
-                { new: true, upsert: true });
+                { new: true, upsert: false });
             console.log('device deactivated.');
             return res.status(200).send(device);
         } catch (error) {
@@ -123,7 +123,7 @@ router.post('/:device_id/activate',
             let device = await DeviceModel.findOneAndUpdate(
                 { hotel_id: hotel_id, device_id: device_id },
                 { $set: { status: 'active' } },
-                { new: true, upsert: true });
+                { new: true, upsert: false });
             console.log('device activated.');
             return res.status(200).send(device);
         } catch (error) {
@@ -159,7 +159,7 @@ router.post('/:device_id/deregister',
             let device = await DeviceModel.findOneAndUpdate(
                 { hotel_id: hotel_id, device_id: device_id, room_no: room_no },
                 { $set: { belongs_to: undefined, room: undefined, status: 'inactive' } },
-                { new: true, upsert: true });
+                { new: true, upsert: false });
             console.log('deregistered ', device);
             return res.status(200).send(device);
         } catch (error) {
@@ -209,7 +209,7 @@ router.post('/:device_id/register',
             let device = await DeviceModel.findOneAndUpdate(
                 { device_id: device_id },
                 { $set: { hotel_id: hotel_id, room_no: room_no, belongs_to: hotel, room: room, status: status } },
-                { new: true, upsert: true });
+                { new: true, upsert: false });
             return res.status(200).send(device);
         } catch (error) {
             console.log('error in adding device to hotel.', error);
