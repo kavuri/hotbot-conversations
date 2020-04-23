@@ -154,7 +154,7 @@ router.put('/',
         console.log('+++setObj=', setObj);
         try {
             let u = await GraphModel
-                .findOneAndUpdate({ value: hotel_id, 'nodes.v': name }, { $set: setObj }, { upsert: true, fields: { 'nodes.$': 1 } })
+                .findOneAndUpdate({ value: hotel_id, 'nodes.v': name }, { $set: setObj }, { upsert: false, fields: { 'nodes.$': 1 } })
                 .exec();
             console.log('node=', JSON.stringify(u));
             res.status(200).send(u);

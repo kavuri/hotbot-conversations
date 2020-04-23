@@ -172,7 +172,8 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
     let checkincheckout;
     try {
         const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
-        checkincheckout = await CheckinCheckoutModel.find(filter).exec();
+        checkincheckout = await CheckinCheckoutModel.findOne(filter).exec();
+        console.log('checkincheckout obj=', checkincheckout);
     } catch (error) {
         throw new KamError.DBError('error while saving order to db' + error);
     }
@@ -191,6 +192,7 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
         });
     }
 
+    console.log('order=', orders);
     let r = [];
     try {
         for (var i = 0; i < orders.length; i++) {

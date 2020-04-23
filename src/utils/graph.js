@@ -924,4 +924,4 @@ module.exports.create = function (hotel, hotel_name, genFile = false) {
 }
 
 // require('./graph').create();
-require('./graph').addOrUpdate("1");
+// require('./graph').addOrUpdate("1");
