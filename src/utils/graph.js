@@ -17,7 +17,7 @@ const _ = require('lodash');
 const facilities = 'facilities';
 const policies = 'policies';
 const roomitem = 'roomitem';
-const menu = 'menu';
+const menuitem = 'menuitem';
 
 const GraphModel = require('../db/Graph');
 /**
@@ -79,10 +79,11 @@ function createGraph(hotel) {
     g.setEdge(hotel.hotel_id, 'main_facilities', { label: 'main_facilities' });
     g.setEdge(hotel.hotel_id, facilities, { label: 'facilities' });
     g.setEdge(hotel.hotel_id, policies, { label: 'policies' });
-    g.setEdge(hotel.hotel_id, menu, { label: 'menu' });
+    g.setEdge(hotel.hotel_id, roomitem, { label: 'roomitem' });
+    g.setEdge(hotel.hotel_id, menuitem, { label: 'menuitem' });
 
     // Create policies nodes
-    g.setNode('smoking', { p: true, a: true, msg: 'smoking is not allowed in the hotel premises.' });
+    g.setNode('smoking', { iType: 'p', p: true, a: true, msg: 'smoking is not allowed in the hotel premises.' });
     g.setParent('smoke', 'smoking');
     g.setParent('cigar', 'smoking');
     g.setParent('cigarette', 'smoking');
@@ -93,7 +94,7 @@ function createGraph(hotel) {
     g.setParent('cigar', 'smoking');
     g.setParent('hookah', 'smoking');
 
-    g.setNode('alcohol', { p: true, a: true, msg: 'alcohol consumption is allowed in the room' });
+    g.setNode('alcohol', { iType: 'p', p: true, a: true, msg: 'alcohol consumption is allowed in the room' });
     g.setParent('rum', 'alcohol');
     g.setParent('gin', 'alcohol');
     g.setParent('whiskey', 'alcohol');
@@ -104,29 +105,29 @@ function createGraph(hotel) {
     g.setParent('cognac', 'alcohol');
     g.setParent('wine', 'alcohol');
 
-    g.setNode('cancellation', { p: true, a: true, msg: 'The room cancellation policy is mentioned in your booking details. Please contact hotel reception for any information about this' });
+    g.setNode('cancellation', { iType: 'p', p: true, a: true, msg: 'The room cancellation policy is mentioned in your booking details. Please contact hotel reception for any information about this' });
     g.setParent('room cancellation', 'cancellation');
 
-    g.setNode('infants', { p: true, a: true, msg: 'There are no charges for infants below the age of 5 years and are welcome to stay. ' });
+    g.setNode('infants', { p: true, iType: 'p', a: true, msg: 'There are no charges for infants below the age of 5 years and are welcome to stay. ' });
     g.setParent('children policy', 'infants');
     g.setParent('infants stay', 'infants');
 
-    g.setNode('checkout time', { p: true, a: true, msg: 'The checkout time for the room is 12:00PM. Please contact reception if you want to extend your stay beyond checkout time.' });
+    g.setNode('checkout time', { p: true, iType: 'p', a: true, msg: 'The checkout time for the room is 12:00PM. Please contact reception if you want to extend your stay beyond checkout time.' });
     g.setParent('vacate time', 'checkout time');
 
-    g.setNode('no show', { p: true, a: true, msg: 'In case of no show the first nights room rent would be charged. The rest of the booking amount would be refunded to your account.' });
+    g.setNode('no show', { p: true, iType: 'p', a: true, msg: 'In case of no show the first nights room rent would be charged. The rest of the booking amount would be refunded to your account.' });
 
-    g.setNode('outside food', { p: true, a: true, msg: 'We do not allow outside food to be brought into the hotel' });
+    g.setNode('outside food', { p: true, iType: 'p', a: true, msg: 'We do not allow outside food to be brought into the hotel' });
     g.setParent('food from outside', 'outside food');
 
-    g.setNode('check-in time', { p: true, a: true, msg: 'The check in time for this hotel is 12:00PM' });
+    g.setNode('check-in time', { p: true, iType: 'p', a: true, msg: 'The check in time for this hotel is 12:00PM' });
 
-    g.setNode('pets', { p: true, a: true, msg: 'Usually pets are not allowed in this hotel. Please check with the front desk on the kind of pets you can bring to this hotel' });
+    g.setNode('pets', { p: true, iType: 'p', a: true, msg: 'Usually pets are not allowed in this hotel. Please check with the front desk on the kind of pets you can bring to this hotel' });
     g.setParent('cat', 'pets');
     g.setParent('dog', 'pets');
     g.setParent('my pet', 'pets');
 
-    g.setNode('payment methods', { p: true, a: true, msg: 'We accept payment by PayTM, Credit card, debit card, cash' });
+    g.setNode('payment methods', { p: true, iType: 'p', a: true, msg: 'We accept payment by PayTM, Credit card, debit card, cash' });
     g.setParent('credit card', 'payment method');
     g.setParent('debit card', 'payment method');
     g.setParent('cash', 'payment method');
@@ -143,7 +144,7 @@ function createGraph(hotel) {
 
     // Create facilities
     g.setNode('Gym', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'There is one fitness center available on the 4th floor next to the cafe', no: 'There is no gym in this hotel' },
         timings: { msg: 'The gym is open from 06:00 AM to 11:00 PM', time: { from: '0500', to: '1200' } },
         location: { msg: 'gym is located next to the cafe on the 4th floor' },
@@ -154,7 +155,7 @@ function createGraph(hotel) {
     g.setParent('workout place', 'Gym');
 
     g.setNode('Kids pool', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'There is a childrens pool available', no: 'There is no childrens pool in this hotel' },
         location: { msg: 'kids pool is located on the top floor.You can take the lift to reach the floor' },
         timings: { msg: 'The childrens pool is open from morning 06:00 AM to 05:00 PM and again in the evening 0600 to 2200', time: { 'from': '0500', 'to': '1200' } },
@@ -166,7 +167,7 @@ function createGraph(hotel) {
     g.setParent('kids swimming pool', 'Kids Pool');
 
     g.setNode('Adults pool', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'There is an adults pool available', no: 'There is no swimming pool in this hotel' },
         location: { msg: 'Sky pool on the top floor. You can take the lift to reach the floor' },
         timings: { msg: 'The adults pool is open from morning 06:00 AM to 05:00 PM and again in the evening 0600 to 2200', time: { 'from': '0500', 'to': '1200' } },
@@ -177,7 +178,7 @@ function createGraph(hotel) {
     g.setParent('big swimming pool', 'Adults Pool');
 
     g.setNode('Sauna', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'There is a Sauna available', no: 'There is no Sauna in this hotel' },
         location: { msg: 'Sauna is located on the ground floor' },
         timings: { msg: 'The Sauna is open from morning 06:00 AM to 09:00 PM and again in the evening 0600 to 2200', time: { from: '0500', to: '1200' } },
@@ -188,7 +189,7 @@ function createGraph(hotel) {
     g.setParent('steam bath', 'Sauna');
 
     g.setNode('Dry cleaning', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'we offer dry_clean service', no: 'we do not have Dry cleaning service' },
         location: { msg: 'please leave the clothes to be Dry cleaned in the bag provided in the closet.We will pick them up for Dry cleaning' },
         timings: { msg: 'We will deliver the Dry cleaned clothes in ', time: { 'from': '0500', 'to': '1200' } },
@@ -198,7 +199,7 @@ function createGraph(hotel) {
     g.setParent('Dry wash', 'Dry Cleaning');
 
     g.setNode('Laundry', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'We offer Laundry service', no: 'We do not have Laundry service' },
         location: { msg: 'Please leave the clothes to be washed in the bag provided in the closet. We will pick them up for washing' },
         timings: { msg: 'We will deliver the washed and ironed clothes in ', time: { 'from': '0500', 'to': '1200' } },
@@ -209,7 +210,7 @@ function createGraph(hotel) {
     g.setParent('clothes wash', 'Laundry');
 
     g.setNode('Ironing', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'We have an iron box in the room. You can find it in the closet', no: 'We do not have clothes Ironing facility' },
         Ironing_location: { msg: 'Please leave the clothes to be ironed in the bag in the closet. We will pick them up for Ironing' },
         Ironing_timings: { msg: 'You can place an order to iron your clothes anytime ', time: { 'from': '0500', 'to': '1200' } },
@@ -219,7 +220,7 @@ function createGraph(hotel) {
     g.setParent('clothes iron', 'Ironing');
 
     g.setNode('Taxi', {
-        f: true, a: true, o: true,
+        f: true, iType: 'f', a: true, o: true,
         msg: { yes: 'We have taxi service with the hotel', no: 'We do not provide taxi service. But Uber, Ola do reach our hotel' },
         location: { msg: 'The taxi will be available right in front of the hotel' },
         timings: { msg: 'The taxi is available round the clock ', time: { 'from': '0500', 'to': '2400' } },
@@ -232,7 +233,7 @@ function createGraph(hotel) {
     g.setParent('car hire', 'Taxi');    //FIXME: Complete the flow of taxi booking
 
     g.setNode('Shuttle', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'We have a shuttle service', no: 'We do not provide a shuttle service' },
         reserve: { flag: true, msg: { yes: 'I can place an order to book a taxi', no: 'I cannot make a taxi booking. You will have to use the taxi apps like Ola or Uber to book one' } },
         timings: { msg: 'The shuttle service is available from morning 0800 to evening 1800hrs at a gap of 30 minutes. You will need to wait at the reception to board a shuttle ' },
@@ -242,7 +243,7 @@ function createGraph(hotel) {
     });
 
     g.setNode('Wifi', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'We have wifi facility. Please contact frontdesk for the details', no: 'We do not have wifi facility' },
         location: { msg: 'Wifi is available everywhere' },
         timings: { msg: 'The wifi is available round the clock', time: { from: '0000', to: '0000' } },
@@ -256,7 +257,7 @@ function createGraph(hotel) {
     g.setParent('wireless', 'Wifi');
 
     g.setNode('Massage', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'We have a masseur in the hotel', no: 'We do not have massage facility in the hotel' },
         location: { msg: 'massage room is located to the left of the reception area on the ground floor' },
         timings: { msg: 'The massage is open from morning 06:00 AM to 05:00 PM and again in the evenings from 1600 to 2200', time: { 'from': '0700', 'to': '1400' } },
@@ -266,7 +267,7 @@ function createGraph(hotel) {
     g.setParent('Massage_room', 'Massage');
 
     g.setNode('Car cleaning', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'We can help you get your vehicle cleaned', no: 'We do not have vehicle cleaning service' },
         location: { msg: 'Car cleaning can be done once you hand over the car keys at the reception' },
         timings: { msg: 'The Car cleaning is done from morning 05:00 AM to 10:00 AM in the morning', time: { 'from': '0700', 'to': '1900' } },
@@ -276,7 +277,7 @@ function createGraph(hotel) {
     g.setParent('car wash', 'Car cleaning');
 
     g.setNode('Bicycle', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'We have bicycle rental service.', no: 'We do not have bicycle rental service' },
         location: { msg: 'bicycles are located at the bicycle parking space in front of the hotel' },
         timings: { msg: 'Bicycles are available for rent round the clock', time: { 'from': '0500', 'to': '2400' } },
@@ -286,7 +287,7 @@ function createGraph(hotel) {
     g.setParent('Bicycle rental', 'Bicycle');
 
     g.setNode('Bike', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'We have motorbike rental service.', no: 'We do not have motorbike rental service' },
         location: { msg: 'bikes are located at the bike rental space near the entrance of the hotel' },
         timings: { msg: 'bikes are available for rent round the clock', time: { 'from': '0500', 'to': '2400' } },
@@ -297,7 +298,7 @@ function createGraph(hotel) {
     g.setParent('bike for rent', 'Bike');
 
     g.setNode('Bar', {
-        f: true, a: true, o: true,
+        f: true, iType: 'f', a: true, o: true,
         msg: { yes: 'We have a bar on the terrace of the hotel.', no: 'We do not have a bar' },
         location: { msg: 'bar is located on the terrace of the hotel' },
         timings: { msg: 'Bar is open from morning 07:00 PM to 12:00 AM and again in the evening from 1800 to 2300', time: { 'from': '1030', 'to': '1500' } },
@@ -309,7 +310,7 @@ function createGraph(hotel) {
     g.setParent('tavern', 'Bar');
 
     g.setNode('Reception', {
-        f: true, a: true, o: false,
+        f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'The hotel reception is located near the entrance', no: 'I am your receptionist. Please let me know what you want' },
         timings: { time: { from: '0000', to: '0000' }, msg: 'The reception is open 27 by 7' },
         location: { time: { from: '0000', to: '0000' }, msg: 'The reception is open 27 by 7' },
@@ -319,7 +320,7 @@ function createGraph(hotel) {
     g.setParent('front desk', 'Reception');
 
     g.setNode('Spa', {
-        f: true, a: true, o: true,
+        f: true, iType: 'f', iType: 'f', a: true, o: true,
         msg: { yes: 'There is a Sauna available', no: 'There is no Sauna in this hotel' },
         location: { msg: 'The spa is located on the outer corridor' },
         timings: { msg: 'Spa is available from 07:00 AM to 10:00 PM and again in the evening 0600 to 2200', time: { 'from': '0500', 'to': '1200' } },
@@ -331,7 +332,7 @@ function createGraph(hotel) {
     g.setParent('Spa', 'facials');
 
     g.setNode('Room Service', {
-        f: true, a: true, o: true,
+        f: true, iType: 'f', a: true, o: true,
         msg: { yes: 'Room service is available', no: 'There is no Room service' },
         price: { price: 50, msg: 'You are charged an amount of 100 rupees for Room service' },
         location: { msg: 'You are charged an amount of 100 rupees for Room service' },
@@ -341,7 +342,7 @@ function createGraph(hotel) {
     g.setParent('room delivery', 'Room Service');
 
     g.setNode('Cooking', {
-        f: true, a: true, o: true,
+        f: true, iType: 'f', a: true, o: true,
         msg: { yes: 'This hotel can provide cooking facilities. Let me know what you want', no: 'This hotel does not have cooking facilities' },
         price: { price: 0, msg: 'The cooking facility is free of cost ' },
         location: { msg: 'Its at the kitchen on the first floor ' },
@@ -352,7 +353,7 @@ function createGraph(hotel) {
     g.setParent('Cooking utilities', 'Cooking');
 
     g.setNode('Storage', {
-        f: true, a: true, o: true,
+        f: true, iType: 'f', a: true, o: true,
         msg: { yes: 'We do have a storage space near the reception. Please carry your baggage to the reception for storage', no: 'we do not have storage space' },
         price: { price: 50, msg: 'We charge a price of 100 rupees for 1 day of storage' },
         size: { msg: 'We can store a maximum of 2 bags. But please visit the reception for clarification' },
@@ -364,7 +365,7 @@ function createGraph(hotel) {
     g.setParent('Storage space', 'Storage');
 
     g.setNode('Restaurant', {
-        f: true, a: true, o: true,
+        f: true, iType: 'f', a: true, o: true,
         msg: { yes: 'There is an inhouse restaurant in this hotel', no: 'There is no reservation in this hotel' },
         timings: { time: { 'from': '0600', 'to': '2300' }, msg: 'the restaurant is open from morning 0600 to 1100 and again in the evening 0600 to 2200' },
         location: { msg: 'the restaurant located on the ground floor' },
@@ -376,7 +377,7 @@ function createGraph(hotel) {
     g.setParent('dining area', 'Restaurant');
 
     g.setNode('Breakfast', {
-        f: true, a: true, o: true,
+        f: true, iType: 'f', a: true, o: true,
         msg: { yes: 'This restaurant serves breakfast', no: 'There is no breakfast facility in this hotel' },
         timings: { time: { from: '0700', to: '1000' }, msg: 'Breakfast is served from 0700 to 0900 during weekdays and from 0700 to 1000 on saturdays and sundays' },
         location: { msg: 'Breakfast is served in the restaurant on the ground floor' },
@@ -390,59 +391,62 @@ function createGraph(hotel) {
     g.setParent('morning food', 'Breakfast');
 
     // Kitchen items
-    g.setNode('Bottle Steralizer', { price: 0, ri: true, a: true, o: true,limit: { count: 2, for: 'day' }, msg: { yes: 'Bottle sterilization possible. Please visit the kitchen to get it done', no: 'Bottle sterilization not possilbe' } });
-    g.setNode('Microwave', { price: 0, ri: true, o: false, a: true, limit: { count: 2, for: 'day' },msg: { yes: 'We have a microwave in the common floor downstairs', no: 'We do not have a microwave' } });
-    g.setNode('Oven', { price: 0, ri: true, a: true, o: false, limit: { count: 2, for: 'day' },msg: { yes: 'We have a oven in this hotel. You can use it downstairs', no: 'We do not have an oven' } });
-    g.setNode('Cutlery', { price: 0, ri: true, o: true, a: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not supply cutlery' } }); //FIXME: Complete the flow of ordering cutlery
+    g.setNode('Bottle Steralizer', { price: 0, ri: true, iType: 'ri', a: true, o: true, limit: { count: 2, for: 'day' }, msg: { yes: 'Bottle sterilization possible. Please visit the kitchen to get it done', no: 'Bottle sterilization not possilbe' } });
+    g.setNode('Microwave', { price: 0, ri: true, o: false, iType: 'ri', a: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have a microwave in the common floor downstairs', no: 'We do not have a microwave' } });
+    g.setNode('Oven', { price: 0, ri: true, iType: 'ri', a: true, o: false, limit: { count: 2, for: 'day' }, msg: { yes: 'We have a oven in this hotel. You can use it downstairs', no: 'We do not have an oven' } });
+    g.setNode('Cutlery', { price: 0, ri: true, o: true, iType: 'ri', a: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not supply cutlery' } }); //FIXME: Complete the flow of ordering cutlery
+    g.setNode('Cleaning liquid', { price: 0, ri: true, o: true, iType: 'ri', a: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not supply cutlery' } }); //FIXME: Complete the flow of ordering cutlery
 
     // Room items
-    g.setNode('TV', { o: false, price: 0, ri: true, a: true, c: false, limit: { count: 1, for: 'stay' }, msg: { yes: 'We have a TV in your room and it plays all Indian channels', no: 'This room does not have a TV facility' } });
+    g.setNode('TV', { o: false, price: 0, ri: true, iType: 'ri', a: true, c: false, limit: { count: 1, for: 'stay' }, msg: { yes: 'We have a TV in your room and it plays all Indian channels', no: 'This room does not have a TV facility' } });
     g.setParent('television', 'TV');
-    g.setNode('Tissues', { o: true, price: 0, ri: true, a: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have tissues at our hotel', no: 'We do not have tissues to order' } });
+    g.setNode('Tissues', { o: true, price: 0, ri: true, iType: 'ri', a: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have tissues at our hotel', no: 'We do not have tissues to order' } });
     g.setParent('Paper napkins', 'Tissues');
     g.setParent('Paper napkin', 'Tissues');
     g.setParent('Wipes', 'Tissues');
-    g.setNode('Dustbin', { a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' },msg: { yes: 'A dustbin is provided in your room', no: 'We do not have dustbins in  the room' } });
+    g.setNode('Dustbin', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'A dustbin is provided in your room', no: 'We do not have dustbins in  the room' } });
     g.setParent('dust basket', 'Dustbin');
     g.setParent('garbage can', 'Dustbin');
     g.setParent('waste basket', 'Dustbin');
-    g.setNode('Hanger', { a: true, o: true, price: 0, ri: true, c: true, limit: { count: 10, for: 'stay' }, msg: { yes: 'Hangers are provided in the closet in your room', no: 'We do not provide hangers' } });
+    g.setNode('Hanger', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 10, for: 'stay' }, msg: { yes: 'Hangers are provided in the closet in your room', no: 'We do not provide hangers' } });
     g.setParent('Clothe hangers', 'Hanger');
-    g.setNode('Clock', { a: false, o: true, price: 0, ri: true, c: false,limit: { count: 2, for: 'day' }, msg: { yes: 'There is a table clock in your room', no: 'We do not have a clock. You can ask Alexa for the time instead' } });
+    g.setNode('Clock', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a table clock in your room', no: 'We do not have a clock. You can ask Alexa for the time instead' } });
     g.setParent('Watch', 'Clock');
-    g.setNode('Pullover', { a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
+    g.setNode('Pullover', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
     g.setParent('Rug', 'Pullover');
-    g.setNode('Pillow', { a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are pillows provided in the room', no: 'We do not provide extra pillows' } });
-    g.setNode('Towel', { a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
+    g.setNode('Pillow', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are pillows provided in the room', no: 'We do not provide extra pillows' } });
+    g.setNode('Towel', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
     g.setParent('Bath towel', 'Towel');
-    g.setNode('Napkin', { a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are napkins provided in your room', no: 'We do not provide napkins' } });
+    g.setNode('Napkin', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are napkins provided in your room', no: 'We do not provide napkins' } });
     g.setParent('Hand napkin', 'Napkin');
-    g.setNode('Soap', { a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a soap in your bathroom', no: 'We do not provide a soap. You will need to get your own' } });
+    g.setNode('Soap', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a soap in your bathroom', no: 'We do not provide a soap. You will need to get your own' } });
     g.setParent('Bath soap', 'Soap');
     g.setParent('Bath cream', 'Soap');
     g.setParent('Shower cream', 'Soap');
-    g.setNode('Shampoo', { a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There is liquid shampoo in you bathroom', no: 'We do not provide any shampoo' } });
+    g.setNode('Shampoo', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There is liquid shampoo in you bathroom', no: 'We do not provide any shampoo' } });
     g.setParent('Hair liquid', 'Shampoo');
     g.setNode('Comb', { a: false, o: true, price: 0, ri: true, c: true, limit: { count: 1, for: 'stay' }, msg: { yes: 'There is a comb provided in your bathroom', no: 'We do not provide a comb' } });
     g.setParent('Hair comb', 'Comb');
-    g.setNode('Fridge', { a: false, o: true, price: 0, ri: true, c: false,limit: { count: 2, for: 'day' }, msg: { yes: 'There is a fridge in your room', no: 'We do not provide a fridge' } });
+    g.setNode('Fridge', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a fridge in your room', no: 'We do not provide a fridge' } });
     g.setParent('Refrigerator', 'Fridge');
-    g.setNode('AC', { a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' },msg: { yes: 'There is an AC in your room', no: 'We do not provide an AC' } }); // FIXME: AC is per room and not across the hotel. This needs to be linked to a room number
+    g.setNode('AC', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is an AC in your room', no: 'We do not provide an AC' } }); // FIXME: AC is per room and not across the hotel. This needs to be linked to a room number
     g.setParent('Air Conditioner', 'AC');
     g.setParent('Air cooler', 'AC');
-    g.setNode('Iron box', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' },msg: { yes: 'There is an iron box in your room', no: 'We do not provide an iron box' } });
+    g.setNode('Iron box', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is an iron box in your room', no: 'We do not provide an iron box' } });
     g.setParent('Iron machine', 'Iron box');
     // g.setNode('Coffee machine', { a: false, o: true, price: 0, ri: true, c: false, msg: { yes: 'There is a coffee machine in your room ', no: 'We do not have a coffee machine' } });
     // g.setParent('Coffee brew', 'Coffee machine');
     // g.setParent('Expresso machine', 'Coffee machine');
-    g.setNode('Tea machine', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' },msg: { yes: 'There is a tea machine in your room ', no: 'We do not have a tea machine' } });
-    g.setNode('Dish washer', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' },msg: { yes: 'There is a dish washer in your room ', no: 'We do not have a dish washer' } });
-    g.setNode('Fan', { a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' },msg: { yes: 'There is a fan in your room ', no: 'We do not have a fan in the room' } });
-    g.setNode('Water', { a: true, o: true, ri: true, c: true, price: 20, limit: { count: 1, for: 'day' }, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water' } });
+    g.setNode('Tea machine', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a tea machine in your room ', no: 'We do not have a tea machine' } });
+    g.setNode('Dish washer', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a dish washer in your room ', no: 'We do not have a dish washer' } });
+    g.setNode('Fan', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a fan in your room ', no: 'We do not have a fan in the room' } });
+    g.setNode('Water', { iType: 'ri', a: true, o: true, ri: true, c: true, price: 20, limit: { count: 1, for: 'day' }, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water' } });
     g.setParent('Water bottle', 'Water');
     g.setParent('Bottle of water', 'Water');
-    g.setNode('Extra bed', { a: true, o: true, price: 0, ri: true, c: true, limit: { count: 1, for: 'day' }, msg: { yes: 'We can provide an extra bed on request', no: 'We do not have provison for extra bed' } });
-    g.setNode('Menu', { a: true, o: false, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' },msg: { yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Call the front desk' } });
+    g.setNode('Extra bed', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 1, for: 'day' }, msg: { yes: 'We can provide an extra bed on request', no: 'We do not have provison for extra bed' } });
+    g.setNode('Menu', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Call the front desk' } });
+    g.setNode('lock', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: false, limit: { count: 1, for: 'stay' }, msg: { yes: 'Its an automatic lock', no: 'You do not need a separate lock' } });
+    g.setParent('door lock', 'lock');
 
     // Menu items
     // g.setNode('Cuisines', { f: true, a: true, o: true, msg: { yes: 'We serve South India, North Indian food', no: 'We do not have restaurant facility' } });
@@ -467,154 +471,154 @@ function createGraph(hotel) {
     */
     createEdges('Cuisines', ['South Indian', 'North Indian', 'Thai', 'Kerala', 'Andhra', 'Krnataka', 'Chinese', 'Odiya', 'Jain', 'Marathi', 'Gujarathi', 'Tamil', 'Continental'], { label: 'cuisines' });
 
-    g.setNode('Salt', { o: true, a: true, m: true, mtype: 'e', c: false, qty: 1, price: 0 });
-    g.setNode('Sugar', { o: true, a: true, m: true, mtype: 'e', c: false, qty: 1, price: 0 });
+    g.setNode('Salt', { o: true, iType: 'm', a: true, m: true, mtype: 'e', c: false, qty: 1, price: 0 });
+    g.setNode('Sugar', { o: true, iType: 'm', a: true, m: true, mtype: 'e', c: false, qty: 1, price: 0 });
 
     g.setNode('Desserts', { submenu: true });
-    g.setNode('Guru Prasad Special Kulfi Falooda', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 150 });
-    g.setNode('Fruit Salad Ice cream', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 130 });
-    g.setNode('Chocolate Cup', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 75 });
-    g.setNode('Kesar Pista Cup', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 90 });
-    g.setNode('Butterscotch Cup', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 70 });
-    g.setNode('Mango Cup', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 70 });
-    g.setNode('Vanilla Cup', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 40 });
-    g.setNode('Strawberry Cup', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 50 });
-    g.setNode('Guru Prasad Udupi Spl. Ice Cream', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 200 });
-    g.setNode('Garber Ice Cream', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 180 });
-    g.setNode('Banana Spl. Ice Cream', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 180 });
-    g.setNode('Hot Chocolate Fudge', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 180 });
-    g.setNode('Orange Stunt', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 170 });
-    g.setNode('Mix Furit punch', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 180 });
-    g.setNode('Icecream Falooda', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 180 });
-    g.setNode('Gulab Jamun & Vanilla Ice-cream', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 180 });
+    g.setNode('Guru Prasad Special Kulfi Falooda', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
+    g.setNode('Fruit Salad Ice cream', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
+    g.setNode('Chocolate Cup', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 75 });
+    g.setNode('Kesar Pista Cup', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Butterscotch Cup', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Mango Cup', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Vanilla Cup', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Strawberry Cup', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
+    g.setNode('Guru Prasad Udupi Spl. Ice Cream', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 200 });
+    g.setNode('Garber Ice Cream', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
+    g.setNode('Banana Spl. Ice Cream', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
+    g.setNode('Hot Chocolate Fudge', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
+    g.setNode('Orange Stunt', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 170 });
+    g.setNode('Mix Furit punch', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
+    g.setNode('Icecream Falooda', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
+    g.setNode('Gulab Jamun & Vanilla Ice-cream', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
     createEdges('Desserts', ['Guru Prasad Special Kulfi Falooda', 'Fruit Salad Ice cream', 'Chocolate Cup', 'Kesar Pista Cup', 'Butterscotch Cup', 'Mango Cup', 'Vanilla Cup', 'Strawberry Cup', 'Guru Prasad Udupi Spl. Ice Cream', 'Garber Ice Cream', 'Banana Spl. Ice Cream', 'Hot Chocolate Fudge', 'Orange Stunt', 'Mix Furit punch', 'Icecream Falooda', 'Gulab Jamun & Vanilla Ice-cream',], { label: 'Desserts' });
 
     g.setNode('Light Eats', { submenu: true });
-    g.setNode('Rice Idli Sambar & Chutney', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 105 });
-    g.setNode('Vada with Sambar Chutney', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 115 });
-    g.setNode('Idli (1 Piece) + Vada (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Rava Idli with Korma', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 130 });
-    g.setNode('Dahi Vada', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Upma', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Idli (2 Pieces) + Vada (1 Pieces)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 155 });
-    g.setNode('Upma & Rava Kesari', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 200 });
-    g.setNode('Rasam Vada with Papad', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Rasam Idli with Papad', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 135 });
-    g.setNode('Rasam with Papad', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 105 });
-    g.setNode('Poori with 2 Veg/Raita', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 143 });
-    g.setNode('Sambar', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 60 });
-    g.setNode('Dahi Idli', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 143 });
-    g.setNode('Upma & Vada (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 172 });
-    g.setNode('Rasam Idli (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 85 });
-    g.setNode('Rasam Vada (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 95 });
-    g.setNode('Rava Idli (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 75 });
-    g.setNode('Dahi Vada (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 75 });
-    g.setNode('Idli (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 60 });
-    g.setNode('Vada (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 70 });
-    g.setNode('Papad (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 20 });
-    g.setNode('Poori (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 10 });
+    g.setNode('Rice Idli Sambar & Chutney', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 105 });
+    g.setNode('Vada with Sambar Chutney', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 115 });
+    g.setNode('Idli (1 Piece) + Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
+    g.setNode('Rava Idli with Korma', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
+    g.setNode('Dahi Vada', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
+    g.setNode('Upma', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
+    g.setNode('Idli (2 Pieces) + Vada (1 Pieces)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 155 });
+    g.setNode('Upma & Rava Kesari', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 200 });
+    g.setNode('Rasam Vada with Papad', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
+    g.setNode('Rasam Idli with Papad', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 135 });
+    g.setNode('Rasam with Papad', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 105 });
+    g.setNode('Poori with 2 Veg/Raita', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 143 });
+    g.setNode('Sambar', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 60 });
+    g.setNode('Dahi Idli', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 143 });
+    g.setNode('Upma & Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 172 });
+    g.setNode('Rasam Idli (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 85 });
+    g.setNode('Rasam Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 95 });
+    g.setNode('Rava Idli (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 75 });
+    g.setNode('Dahi Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 75 });
+    g.setNode('Idli (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 60 });
+    g.setNode('Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Papad (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 20 });
+    g.setNode('Poori (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 10 });
     createEdges('Light Eats', ['Rice Idli Sambar & Chutney', 'Vada with Sambar Chutney', 'Idli (1 Piece) + Vada (1 Piece)', 'Rava Idli with Korma', 'Dahi Vada', 'Upma', 'Idli (2 Pieces) + Vada (1 Pieces)', 'Upma & Rava Kesari', 'Rasam Vada with Papad', 'Rasam Idli with Papad', 'Rasam with Papad', 'Poori with 2 Veg/Raita', 'Sambar', 'Dahi Idli', 'Upma & Vada (1 Piece)', 'Rasam Idli (1 Piece)', 'Rasam Vada (1 Piece)', 'Rava Idli (1 Piece)', 'Dahi Vada (1 Piece)', 'Idli (1 Piece)', 'Vada (1 Piece)', 'Papad (1 Piece)', 'Poori (1 Piece)',], { label: 'Light Eats' });
 
     g.setNode('Soft Drinks', { submenu: true });
-    g.setNode('Ice Tea', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 50 });
-    g.setNode('Virgin Mojito', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 70 });
-    g.setNode('Badam Milk', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Milk Shake', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 150 });
-    g.setNode('Milk Shake with Strawberry', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Milk Shake Butter Scotch', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Milk Shake with Chocolate', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Milk Shake with Mango', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Cold Coffee', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Cold Coffee with Ice Cream', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Sweet Lassi', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 60 });
-    g.setNode('Salt Lassi', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 50 });
-    g.setNode('Soft Drink', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 40 });
-    g.setNode('Butter Milk', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 40 });
-    g.setNode('Lemon Water', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 30 });
-    g.setNode('Mineral Water', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Ice Tea', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
+    g.setNode('Virgin Mojito', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Badam Milk', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Milk Shake', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
+    g.setNode('Milk Shake with Strawberry', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Milk Shake Butter Scotch', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Milk Shake with Chocolate', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Milk Shake with Mango', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Cold Coffee', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
+    g.setNode('Cold Coffee with Ice Cream', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Sweet Lassi', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 60 });
+    g.setNode('Salt Lassi', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
+    g.setNode('Soft Drink', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Butter Milk', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Lemon Water', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 30 });
+    g.setNode('Mineral Water', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
     createEdges('Soft Drinks', ['Ice Tea', 'Virgin Mojito', 'Badam Milk', 'Milk Shake', 'Milk Shake with Strawberry', 'Milk Shake Butter Scotch', 'Milk Shake with Chocolate', 'Milk Shake with Mango', 'Cold Coffee', 'Cold Coffee with Ice Cream', 'Sweet Lassi', 'Salt Lassi', 'Soft Drink', 'Butter Milk', 'Lemon Water', 'Mineral Water',], { label: 'Soft Drinks' });
 
     g.setNode('Special Rice Items', { submenu: true });
-    g.setNode('Pulao North Indian', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 150 });
-    g.setNode('Pongal (Sunday)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 125 });
-    g.setNode('Bisi Bele Bath (Anna) (Monday)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 125 });
-    g.setNode('Tomato Rice (Tuesday, Thursday)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 125 });
-    g.setNode('Veg Pulao South Indian (Wednesday, Saturday)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 125 });
-    g.setNode('Lemon Rice (Friday)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 125 });
-    g.setNode('Curd Rice (All 7 days)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 125 });
-    g.setNode('Plain Rice', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 60 });
-    g.setNode('Sambar Rice', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 150 });
-    g.setNode('Rasam Rice', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 150 });
+    g.setNode('Pulao North Indian', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
+    g.setNode('Pongal (Sunday)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 125 });
+    g.setNode('Bisi Bele Bath (Anna) (Monday)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 125 });
+    g.setNode('Tomato Rice (Tuesday, Thursday)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 125 });
+    g.setNode('Veg Pulao South Indian (Wednesday, Saturday)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 125 });
+    g.setNode('Lemon Rice (Friday)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 125 });
+    g.setNode('Curd Rice (All 7 days)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 125 });
+    g.setNode('Plain Rice', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 60 });
+    g.setNode('Sambar Rice', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
+    g.setNode('Rasam Rice', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
     createEdges('Special Rice Items', ['Pulao North Indian', 'Pongal (Sunday)', 'Bisi Bele Bath (Anna) (Monday)', 'Tomato Rice (Tuesday, Thursday)', 'Veg Pulao South Indian (Wednesday, Saturday)', 'Lemon Rice (Friday)', 'Curd Rice (All 7 days)', 'Plain Rice', 'Sambar Rice', 'Rasam Rice',], { label: 'Special Rice Items' });
 
     g.setNode('Sweets Items', { submenu: true });
-    g.setNode('Special Kheer', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Rava Kesari', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 90 });
-    g.setNode('Gulab Jamun', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 60 });
-    g.setNode('Mysore Pak (1 Piece)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 40 });
-    g.setNode('Jhangiri (2 Pieces)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 40 });
-    g.setNode('Mysore Pak (1 Kg)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 500 });
-    g.setNode('Jhangiri (1 Kg)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 500 });
-    g.setNode('Gajar Ka Halwa (Seasonal)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Gajar Ka Halwa (Per Kg)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 500 });
+    g.setNode('Special Kheer', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Rava Kesari', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Gulab Jamun', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 60 });
+    g.setNode('Mysore Pak (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Jhangiri (2 Pieces)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Mysore Pak (1 Kg)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 500 });
+    g.setNode('Jhangiri (1 Kg)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 500 });
+    g.setNode('Gajar Ka Halwa (Seasonal)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Gajar Ka Halwa (Per Kg)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 500 });
     createEdges('Sweets Items', ['Special Kheer', 'Rava Kesari', 'Gulab Jamun', 'Mysore Pak (1 Piece)', 'Jhangiri (2 Pieces)', 'Mysore Pak (1 Kg)', 'Jhangiri (1 Kg)', 'Gajar Ka Halwa (Seasonal)', 'Gajar Ka Halwa (Per Kg)',], { label: 'Sweets Items' });
 
     g.setNode('Chinese Items');
-    g.setNode('Veg Chopsuey', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 165 });
-    g.setNode('Veg Manchurian Dry', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 195 });
-    g.setNode('Veg Sweet & Sour', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 175 });
-    g.setNode('Chili Paneer Dry', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 195 });
-    g.setNode('Chili Paneer Gravy', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 195 });
-    g.setNode('Chili Mushroom Dry', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 195 });
-    g.setNode('Chili Mushroom Gravy', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 195 });
-    g.setNode('Crispy Potato', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Chili Potato', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Potato Pepper', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Veg Spring Roll', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 150 });
-    g.setNode('Half Veg. Chowmien', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 95 });
-    g.setNode('Manchurian (Half)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 130 });
+    g.setNode('Veg Chopsuey', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 165 });
+    g.setNode('Veg Manchurian Dry', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 195 });
+    g.setNode('Veg Sweet & Sour', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 175 });
+    g.setNode('Chili Paneer Dry', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 195 });
+    g.setNode('Chili Paneer Gravy', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 195 });
+    g.setNode('Chili Mushroom Dry', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 195 });
+    g.setNode('Chili Mushroom Gravy', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 195 });
+    g.setNode('Crispy Potato', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Chili Potato', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Potato Pepper', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Veg Spring Roll', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
+    g.setNode('Half Veg. Chowmien', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 95 });
+    g.setNode('Manchurian (Half)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
     createEdges('Chinese Items', ['Veg Chopsuey', 'Veg Manchurian Dry', 'Veg Sweet & Sour', 'Chili Paneer Dry', 'Chili Paneer Gravy', 'Chili Mushroom Dry', 'Chili Mushroom Gravy', 'Crispy Potato', 'Chili Potato', 'Potato Pepper', 'Veg Spring Roll', 'Half Veg. Chowmien', 'Manchurian (Half)'], { label: 'Chinese Items' });
 
     g.setNode('Dosas');
-    g.setNode('Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Sada Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 100 });
-    g.setNode('Butter Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Butter Sada Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Paneer Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 165 });
-    g.setNode('Mysore Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Mysore Paneer Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 180 });
-    g.setNode('Mysore Sada Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 135 });
-    g.setNode('Onion Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 145 });
-    g.setNode('Onion Sada Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Onion Butter Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 165 });
-    g.setNode('Paper Plain Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Paper Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 210 });
-    g.setNode('Special Paper Paneer Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 290 });
-    g.setNode('Special Family Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 980 });
-    g.setNode('Family Paneer Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 1150 });
-    g.setNode('Vada (1 Piece) with Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 55 });
+    g.setNode('Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 100 });
+    g.setNode('Butter Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
+    g.setNode('Butter Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Paneer Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 165 });
+    g.setNode('Mysore Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Mysore Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
+    g.setNode('Mysore Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 135 });
+    g.setNode('Onion Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 145 });
+    g.setNode('Onion Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Onion Butter Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 165 });
+    g.setNode('Paper Plain Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Paper Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 210 });
+    g.setNode('Special Paper Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 290 });
+    g.setNode('Special Family Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 980 });
+    g.setNode('Family Paneer Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 1150 });
+    g.setNode('Vada (1 Piece) with Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 55 });
     createEdges('Dosas', ['Masala Dosa', 'Sada Dosa', 'Butter Masala Dosa', 'Butter Sada Dosa', 'Paneer Masala Dosa', 'Mysore Masala Dosa', 'Mysore Paneer Dosa', 'Mysore Sada Dosa', 'Onion Masala Dosa', 'Onion Sada Dosa', 'Onion Butter Masala Dosa', 'Paper Plain Dosa', 'Paper Masala Dosa', 'Special Paper Paneer Dosa', 'Special Family Masala Dosa', 'Family Paneer Masala Dosa', 'Vada (1 Piece) with Dosa',], { label: 'Dosas' });
 
     g.setNode('Rava Dosas');
-    g.setNode('Rava Paneer Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 165 });
-    g.setNode('Rava Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 135 });
-    g.setNode('Rava Sada Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Coconut Rava Paneer Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 200 });
-    g.setNode('Coconut Rava Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Coconut Rava Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 130 });
-    g.setNode('Onion Rava Paneer Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 190 });
-    g.setNode('Onion Rava Masala Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 150 });
-    g.setNode('Onion Rava Dosa', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 130 });
+    g.setNode('Rava Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 165 });
+    g.setNode('Rava Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 135 });
+    g.setNode('Rava Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
+    g.setNode('Coconut Rava Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 200 });
+    g.setNode('Coconut Rava Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Coconut Rava Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
+    g.setNode('Onion Rava Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 190 });
+    g.setNode('Onion Rava Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
+    g.setNode('Onion Rava Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
     createEdges('Rava Dosas', ['Rava Paneer Dosa', 'Rava Masala Dosa', 'Rava Sada Dosa', 'Coconut Rava Paneer Dosa', 'Coconut Rava Masala Dosa', 'Coconut Rava Dosa', 'Onion Rava Paneer Dosa', 'Onion Rava Masala Dosa', 'Onion Rava Dosa',], { label: 'Rava Dosas' });
 
     g.setNode('Uttapam Items');
-    g.setNode('Mixed Veg Uttapam', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Coconut Uttapam', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Onion Tomato Uttapam', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Tomato Uttapam', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 130 });
-    g.setNode('Onion Uttapam', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Sada Uttapam', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Paneer Uttapam', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 200 });
+    g.setNode('Mixed Veg Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
+    g.setNode('Coconut Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
+    g.setNode('Onion Tomato Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
+    g.setNode('Tomato Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
+    g.setNode('Onion Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Sada Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
+    g.setNode('Paneer Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 200 });
     createEdges('Uttapam Items', ['Mixed Veg Uttapam', 'Coconut Uttapam', 'Onion Tomato Uttapam', 'Tomato Uttapam', 'Onion Uttapam', 'Sada Uttapam', 'Paneer Uttapam',], { label: 'Uttapam Items' });
 
     g.setNode('North Indian Thali');
@@ -630,40 +634,40 @@ function createGraph(hotel) {
     g.setNode('North Indian Menu (Veg Alacarta)');
 
     g.setNode('Chinese Soups');
-    g.setNode('Cream of Tomato Soup', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Mixed Veg Soup', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Veg Talumein Soup', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Veg Hot & Sour Soup', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Sweet Corn Soup', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 135 });
+    g.setNode('Cream of Tomato Soup', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Mixed Veg Soup', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Veg Talumein Soup', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Veg Hot & Sour Soup', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
+    g.setNode('Sweet Corn Soup', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 135 });
     createEdges('Chinese Soups', ['Cream of Tomato Soup', 'Mixed Veg Soup', 'Veg Talumein Soup', 'Veg Hot & Sour Soup', 'Sweet Corn Soup',], { label: 'Chinese Soups' });
 
     g.setNode('Roti and Naan');
-    g.setNode('Butter Roti', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 25 });
-    g.setNode('Paratha', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 50 });
-    g.setNode('Naan (Plain)', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 40 });
-    g.setNode('Butter Naan', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 50 });
-    g.setNode('Roti', { o: true, mtype: 'e', a: true, c: true, m: true, qty: 1, price: 20 });
+    g.setNode('Butter Roti', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 25 });
+    g.setNode('Paratha', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
+    g.setNode('Naan (Plain)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Butter Naan', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
+    g.setNode('Roti', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 20 });
     createEdges('Roti and Naan', ['Butter Roti', 'Paratha', 'Naan (Plain)', 'Butter Naan', 'Roti',], { label: 'Roti and Naan' });
 
     g.setNode('Beverages');
-    g.setNode('Horlicks', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 70 });
-    g.setNode('Bournvita', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 70 });
-    g.setNode('Nescafe', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 70 });
-    g.setNode('Tea', { o: true, mtype: 'd', a: true, c: false, m: true, qty: 1, price: 30 });
-    g.setNode('Filter Coffee', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 50 });
-    g.setNode('Mango Panna', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 70 });
-    g.setNode('Ginger Lemon Soda', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 90 });
-    g.setNode('Masala Soda', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 80 });
-    g.setNode('Lemon Soda', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 80 });
-    g.setNode('Kokam Soda', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 100 });
-    g.setNode('Banana Lassi', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 100 });
-    g.setNode('Mango Lassi', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 100 });
-    g.setNode('Banana Shake', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Kiwi Shake', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Saffron Shake', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Mix Fruit Shake', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 180 });
-    g.setNode('Dry Fruit Shake', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 180 });
-    g.setNode('Mango Shake (only Season)', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Horlicks', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Bournvita', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Nescafe', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Tea', { o: true, mtype: 'd', iType: 'm', a: true, c: false, m: true, qty: 1, price: 30 });
+    g.setNode('Filter Coffee', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
+    g.setNode('Mango Panna', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Ginger Lemon Soda', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Masala Soda', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Lemon Soda', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Kokam Soda', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 100 });
+    g.setNode('Banana Lassi', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 100 });
+    g.setNode('Mango Lassi', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 100 });
+    g.setNode('Banana Shake', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Kiwi Shake', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Saffron Shake', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Mix Fruit Shake', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
+    g.setNode('Dry Fruit Shake', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
+    g.setNode('Mango Shake (only Season)', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
     createEdges('Beverages', ['Horlicks', 'Bournvita', 'Nescafe', 'Tea', 'Filter Coffee', 'Mango Panna', 'Ginger Lemon Soda', 'Masala Soda', 'Lemon Soda', 'Kokam Soda', 'Banana Lassi', 'Mango Lassi', 'Banana Shake', 'Kiwi Shake', 'Saffron Shake', 'Mix Fruit Shake', 'Dry Fruit Shake', 'Mango Shake (only Season)',], { label: 'Beverages' });
 
     g.setNode('Full Meals (South Indian)');
@@ -671,36 +675,36 @@ function createGraph(hotel) {
     g.setNode('North Indian Eco Thali');
 
     g.setNode('Juice Items');
-    g.setNode('Anar Juice', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Pineapple Juice', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 130 });
-    g.setNode('Watermelon Juice', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Mix Fruit Juice', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Mosambi Juice', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Orange Juice (Only Season)', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Mango Juice (Only Season)', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Grape Juice (Only Season)', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 150 });
-    g.setNode('Strawberry Juice (Only Season)', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 130 });
-    g.setNode('Kiwi Juice', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 150 });
-    g.setNode('Kokum Juice', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 100 });
+    g.setNode('Anar Juice', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Pineapple Juice', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
+    g.setNode('Watermelon Juice', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
+    g.setNode('Mix Fruit Juice', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
+    g.setNode('Mosambi Juice', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
+    g.setNode('Orange Juice (Only Season)', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
+    g.setNode('Mango Juice (Only Season)', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
+    g.setNode('Grape Juice (Only Season)', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
+    g.setNode('Strawberry Juice (Only Season)', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
+    g.setNode('Kiwi Juice', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
+    g.setNode('Kokum Juice', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 100 });
     createEdges('Juice Items', ['Anar Juice', 'Pineapple Juice', 'Watermelon Juice', 'Mix Fruit Juice', 'Mosambi Juice', 'Orange Juice (Only Season)', 'Mango Juice (Only Season)', 'Grape Juice (Only Season)', 'Strawberry Juice (Only Season)', 'Kiwi Juice', 'Kokum Juice',], { label: 'Juice Items' });
 
     g.setNode('Mojito Items');
-    g.setNode('Mint Mojito', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 90 });
-    g.setNode('Pineapple Mojito', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 90 });
-    g.setNode('Litchi Mojito', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 90 });
-    g.setNode('Kiwi Mojito', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 90 });
-    g.setNode('Mongo Mojito', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 90 });
-    g.setNode('Orange Mojito', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 90 });
-    g.setNode('Strawberry Mojito', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Mint Mojito', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Pineapple Mojito', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Litchi Mojito', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Kiwi Mojito', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Mongo Mojito', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Orange Mojito', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Strawberry Mojito', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
     createEdges('Mojito Items', ['Mint Mojito', 'Pineapple Mojito', 'Litchi Mojito', 'Kiwi Mojito', 'Mongo Mojito', 'Orange Mojito', 'Strawberry Mojito',], { label: 'Mojito Items' });
 
     g.setNode('SummerCool Sharbat');
-    g.setNode('Kiwi Sharbat', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 80 });
-    g.setNode('Strawberry Sharbat', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 80 });
-    g.setNode('Litchi Sharbat', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 80 });
-    g.setNode('Pineapple Sharbat', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 80 });
-    g.setNode('Mango Sharbat', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 80 });
-    g.setNode('Orange Sharbat', { o: true, mtype: 'd', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Kiwi Sharbat', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Strawberry Sharbat', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Litchi Sharbat', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Pineapple Sharbat', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Mango Sharbat', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Orange Sharbat', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
     createEdges('SummerCool Sharbat', ['Kiwi Sharbat', 'Strawberry Sharbat', 'Litchi Sharbat', 'Pineapple Sharbat', 'Mango Sharbat', 'Orange Sharbat',], { label: 'SummerCool Sharbat' });
 
     // Link policies
@@ -775,9 +779,9 @@ function linkMenuItems(hotel_id) {
     for (var i = 0; i < nodes.length; i++) {
         var node = g.node(nodes[i]);
         if (!_.isUndefined(node)) {
-            if (!_.isUndefined(node['m']) && _.isEqual(node['m'], 'yes')) {
+            if (!_.isUndefined(node['m']) && _.isEqual(node['m'], true)) {
                 // console.log('menu' + '->' + name);
-                g.setEdge('m', nodes[i], { label: 'menu' });
+                g.setEdge(menuitem, nodes[i], { label: 'menuitem' });
             }
         }
     }
@@ -793,21 +797,21 @@ function createAllItemsNode(hotel_id) {
     for (var i = 0; i < nodes.length; i++) {
         name = nodes[i];
         node = g.node(name);
-        // Add the children of this node, if any
-        children = g.children(name);
-        for (var j = 0; j < children.length; j++) {
-            allItems.push(children[j]);
-        }
 
         // If the node is not a parent, then check the attributes of the node, like 'facility', 'menu', 'roomitem' and add it
         // Do not add a node without attribute. It could be a parent node
         if (!_.isUndefined(node)) {
             if (
-                (!_.isUndefined(node['p']) && _.isEqual(node['p'], true)) ||
                 (!_.isUndefined(node['f']) && _.isEqual(node['f'], true)) ||
                 (!_.isUndefined(node['m']) && _.isEqual(node['m'], true)) ||
                 (!_.isUndefined(node['ri']) && _.isEqual(node['ri'], true))
             ) {
+                // Add the children of this node, if any
+                children = g.children(name);
+                for (var j = 0; j < children.length; j++) {
+                    allItems.push(children[j]);
+                }
+
                 // Add to the list
                 allItems.push(name);
             }
@@ -815,7 +819,7 @@ function createAllItemsNode(hotel_id) {
     }
     g.setNode('all_items', allItems);
 
-    // console.log('all items=',g.node('all_items'), ',count=', g.node('all_items').length);
+    console.log('all items=',g.node('all_items'), ',count=', g.node('all_items').length);
 }
 
 function createEdges(source, targets, label) {

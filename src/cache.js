@@ -38,6 +38,11 @@ module.exports.get = async function (key) {
     // Return the graph
     return graphlib.json.read(graph);
 }
+
+module.exports.del = async (key) => {
+    cache.del(key);
+}
+
 module.exports.setArray = async function (keyValues) {
     cache.mset(keyValues);
 }

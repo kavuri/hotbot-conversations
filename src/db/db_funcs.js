@@ -14,6 +14,59 @@ const _ = require('lodash'),
     uuid = require('uuid');
 
 /**
+ * Remove the cache item from database
+ */
+module.exports.resetCache = async (hotel_id) => {
+    cache.del(hotel_id);
+}
+
+/**
+ * Returns all the hotel menu items without the policies, facilities and room items. This is mainly to inject the data into the intent calls
+ * The policies are in the policies handler - should not be a problem
+ * Room items and facilities are part of the Alexa slot types
+ * Menu items can be injected via dynamicEntities feature
+ * 
+ * Structure of the dynamic entities
+ {
+    name: 'facility_types',
+    values: [
+        {
+            id: 'idli',
+            name: {
+                value: 'idli',
+                synonyms: ['rava idli'],
+            }
+        },
+        {
+            id: 'dosa',
+            name: {
+                value: 'dosa'
+            }
+        },
+    ]
+ }
+ */
+module.exports.allMenuItems = async (hotel_id) => {
+    const g = await cache.get(hotel_id);
+
+    // Get all menu items
+    const menuitems = g.successors('menuitem');
+    if (_.isEmpty(menuitems) || _.isUndefined(menuitems)) {
+        // Does this hotel have no facilities? Bad marketing. There should be something
+        throw new KamError.DBSetupError('this hotel does not seem to have any menu items');
+    }
+
+    let mapped = menuitems.map((item) => {
+        return { name: { value: item, synonyms: (_.isEmpty(g.children(item)) ? undefined : g.children(item)) } }
+    });
+
+    return {
+        name: 'facility_types',
+        values: mapped.slice(0, 99) // Since Alexa can only take 100 items, slice off all entries beyond 100
+    };
+}
+
+/**
  * Returns all facilities of the hotel
  */
 module.exports.allFacilities = async (hotel_id) => {
@@ -56,8 +109,11 @@ async function search(name, g) {
 
     // Use fuse to search for the name
     var fuse_options = {
+        isCaseSensitive: false,
         shouldSort: true,
         includeScore: true,
+        includeMatches: false,
+        findAllMatches: true,
         threshold: 0.4,
         location: 0,
         distance: 100,
@@ -70,7 +126,9 @@ async function search(name, g) {
 
     // Get all the items from 'all_items' node
     const items = g.node('all_items');
-    // console.log('total=', items.length)
+    // const itemsObj = { items: items };
+    // console.dir(items, {'maxArrayLength': null});
+    console.log('total=', items.length);
 
     var fuse = new Fuse(items, fuse_options);
     // console.log('++data=', JSON.stringify(fuse));
@@ -79,8 +137,7 @@ async function search(name, g) {
 
     // the more the score is close to 0, the closer the search string to the result
     if (!_.isEmpty(result) && (result[0].score < 0.15)) { // FIXME: Does a treshold value of 0.15 good enough?
-        console.log('result=', items[result[0].item])
-        let res = items[result[0].item];
+        let res = result[0];
         console.log('returning=', res);
         return res;
         // }
@@ -91,8 +148,10 @@ async function search(name, g) {
 /**
  * @param hotel_id
  * @param name
+ * @param absMatch, if true, do not fuzzy search, else perform fuzzy search
+ * @returns the item from database
  */
-module.exports.item = async function (hotel_id, name) {
+module.exports.item = async function (hotel_id, name, absMatch) {
     console.log('@@facility hotel_id=' + hotel_id + ',name=' + name);
     if (_.isNull(hotel_id) || _.isUndefined(hotel_id) ||
         _.isNull(name) || _.isUndefined(name)) {
@@ -116,17 +175,19 @@ module.exports.item = async function (hotel_id, name) {
     console.log('searchin for ' + name);
     const res = await search(name, g);
     console.log(':item got:', res);
+    // TODO: Use absMatch hint flag
     if (_.isEmpty(res)) {
         // Could not find the item. Return not found
         console.log('facility ' + name + ' not found in search');
         //throw new KamError.FacilityDoesNotExistError('facility ' + name + ' does not exist');
         return {};
     } else {
-        const parent = g.parent(res);
+        let item_name = res.item;
+        const parent = g.parent(item_name);
         if (_.isUndefined(parent)) {
-            console.log('no parent. returning ', g.node(res));
-            var node = g.node(res);
-            node.name = res;
+            console.log('no parent. returning ', g.node(item_name));
+            var node = g.node(item_name);
+            node.name = item_name;
             // Parent does not exist. Send the node
             return node;
         } else {
@@ -218,8 +279,8 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
  * @param item - the item 
  * @returns [] an array of orders matching the criteria
  */
-module.exports.already_ordered_items = async function (hotel_id, room_no, item) {
-    if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(item)) {
+module.exports.already_ordered_items = async function (hotel_id, room_no, itemObj) {
+    if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(itemObj)) {
         throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + item);
     }
 
@@ -227,7 +288,7 @@ module.exports.already_ordered_items = async function (hotel_id, room_no, item) 
         // start = checkin time of the guest
         const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
         let room = await CheckinCheckoutModel.find(filter).exec();
-        let sameOrder = _.filter(room.orders, { item: { name: item.name } });
+        let sameOrder = _.filter(room.orders, { item: { name: itemObj.name() } });
         return sameOrder;
     } catch (error) {
         console.log('error thrown', error);

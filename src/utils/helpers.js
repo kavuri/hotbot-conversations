@@ -62,43 +62,8 @@ module.exports.user_temperature_unit = async (jovo_obj) => {
     }
 };
 
-module.exports.hotel_info = async (hotel_id, hotel_item) => {
-    if (_.isEmpty(hotel_id) || _.isNull(hotel_id) || _.isUndefined(hotel_id)) {
-        // Something is wrong. Send out system problem to user
-        console.log('Empty hotel_id. Looks like this device is not registered properly.', hotel_id);
-        throw new HotelDoesNotExistError("hotel with id " + hotel_id + " does not exist");
-    }
-
-    let hotel_info;
-    try {
-        hotel_info = await HOTEL.get(hotel_id, hotel_item);
-
-        if (_.isEmpty(hotel_info) || _.isNull(hotel_info) || _.isUndefined(hotel_info)) {
-            // This should not happen, basically means that smoking policies are not present in the database
-            throw new DbError('looks like data entry issue.' + hotel_item + ' does not exist');
-        }
-    } catch(error) {
-        console.log('pre_check:error:', error);
-        throw ERROR["DB_ERROR"];
-    }
-
-    return hotel_info;
-};
-
 module.exports.template_to_text = (tmpl, fields) => {
     var template = _.template(tmpl);
     var text = template(fields);
     return text;
-};
-
-module.exports.FUSE_OPTIONS = {
-    shouldSort: true,
-    threshold: 0.5,
-    location: 0,
-    distance: 100,
-    maxPatternLength: 32,
-    minMatchCharLength: 3,
-    keys: [
-      "name"
-    ]
 };

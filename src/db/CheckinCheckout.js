@@ -7,7 +7,6 @@
 
 const mongoose = require('mongoose'),
     DBConn = require('./index').DBConn,
-    Order = require('./Order'),
     Room = require('./Room'),
     _ = require('lodash');
 

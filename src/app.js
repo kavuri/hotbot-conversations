@@ -19,7 +19,7 @@ app.use(
     new JovoDebugger(),
     // new DynamoDb()
     // new FileDb(),
-    new MongoDb()  
+    new MongoDb()
 );
 
 

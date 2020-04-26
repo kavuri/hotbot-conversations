@@ -377,18 +377,6 @@
                         "how about having {facility_slot} in this room",
                         "I am not sure if there is {facility_slot}",
                         "can you tell me if this room has {facility_slot}",
-                        "can i boil baby milk bottle",
-                        "can i boil baby milk bottles",
-                        "can i sterilize bottle",
-                        "can i sterilize bottles",
-                        "can you boil baby milk bottle",
-                        "can you boil baby milk bottles",
-                        "can you strelize milk bottle",
-                        "can you strelize milk bottles",
-                        "is it possible to boil with hot water baby milk bottle",
-                        "is it possible to boil with hot water baby milk bottles",
-                        "is it possible to sterilize bottle",
-                        "is it possible to sterilize bottles",
                         "can i use {facility_slot}",
                         "can i use {facility_slot} in your kitchen",
                         "can you {facility_slot} in the kitchen",
@@ -641,30 +629,17 @@
                     "slots": [
                         {
                             "name": "req_count",
-                            "type": "AMAZON.NUMBER",
-                            "samples": [
-                                "three please",
-                                "I need four",
-                                "Two"
-                            ]
+                            "type": "AMAZON.NUMBER"
                         },
                         {
                             "name": "facility_slot",
-                            "type": "facility_types",
-                            "samples": [
-                                "I would need {facility_slot}",
-                                "{facility_slot}"
-                            ]
+                            "type": "facility_types"
                         }
                     ],
                     "samples": [
-                        "what to order for lunch",
-                        "please take my lunch order",
-                        "this is my food order",
-                        "i want to order some food",
-                        "can you take tiffin order",
-                        "can you take food order",
-                        "what can i order today",
+                        "i want {facility_slot}",
+                        "i want a {facility_slot}",
+                        "order me a {facility_slot}",
                         "i would like to eat {facility_slot}",
                         "I would like new {facility_slot}",
                         "can you please get some set of new {facility_slot}",
@@ -702,13 +677,22 @@
                         "i would like to order a {facility_slot}",
                         "i would like to order {facility_slot}",
                         "i would like to place an order for {facility_slot}",
-                        "i would like to place an order for {facility_slot}",
-                        "please book a {facility_slot}",
-                        "please book a {facility_slot} to airport",
-                        "can i get {facility_slot}",
-                        "i would like to get {facility_slot}",
                         "i would like to order {req_count} of {facility_slot} to my room",
-                        "i want a {facility_slot} {req_count} of them"
+                        "i want a {facility_slot} {req_count} of them",
+                        "do you have anything to eat now",
+                        "does the restaurant serve something to eat ",
+                        "what can I get to eat",
+                        "get me something to eat",
+                        "please feed this hungry bear",
+                        "i am very hungry",
+                        "can I get something to eat",
+                        "what can i order today",
+                        "can you take tiffin order",
+                        "i want to order some food",
+                        "this is my food order",
+                        "please take my dinner order",
+                        "please take my lunch order",
+                        "I what to order for lunch"
                     ]
                 },
                 {
@@ -787,6 +771,8 @@
                         }
                     ],
                     "samples": [
+                        "what are my order until now",
+                        "what all did i order",
                         "can you repeat my previous order",
                         "remind me if I have ordered {facility_slot}",
                         "can you please read out the orders I have made",
@@ -1013,6 +999,73 @@
                     "values": [
                         {
                             "name": {
+                                "value": "lift"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "bed",
+                                "synonyms": [
+                                    "cot",
+                                    "children bed",
+                                    "extra bed"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "tea bags",
+                                "synonyms": [
+                                    "tea powder"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iron box",
+                                "synonyms": [
+                                    "clothes iron",
+                                    "ironing box"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "watch",
+                                "synonyms": [
+                                    "clock",
+                                    "table clock",
+                                    "wall clock"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "cutlery",
+                                "synonyms": [
+                                    "bowl",
+                                    "tumbler",
+                                    "glass",
+                                    "plate",
+                                    "spoon"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "oven"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "TV",
+                                "synonyms": [
+                                    "television"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "tv channels",
                                 "synonyms": [
                                     "channels on tv"
@@ -1051,6 +1104,7 @@
                             "name": {
                                 "value": "dust bin",
                                 "synonyms": [
+                                    "dust basket",
                                     "garbage bag",
                                     "waste basket"
                                 ]
@@ -1072,6 +1126,7 @@
                             "name": {
                                 "value": "storage",
                                 "synonyms": [
+                                    "luggage",
                                     "storage space",
                                     "cloak room",
                                     "luggage store"
@@ -1101,6 +1156,7 @@
                             "name": {
                                 "value": "car cleaning",
                                 "synonyms": [
+                                    "car wash",
                                     "vehicle clean service",
                                     "car clean",
                                     "bike clean",
@@ -1112,6 +1168,9 @@
                             "name": {
                                 "value": "wifi",
                                 "synonyms": [
+                                    "network",
+                                    "wireless network",
+                                    "data",
                                     "data connection",
                                     "wifi network",
                                     "internet"
@@ -1158,30 +1217,6 @@
                         },
                         {
                             "name": {
-                                "value": "cuisine",
-                                "synonyms": [
-                                    "food types",
-                                    "cuisine types",
-                                    "cuisine",
-                                    "Indian",
-                                    "Chinese",
-                                    "North India",
-                                    "South Indian",
-                                    "Punjabi",
-                                    "Bengali",
-                                    "Karnataka",
-                                    "Andhra",
-                                    "Tamil",
-                                    "Kerala",
-                                    "Bengali",
-                                    "Gujrati",
-                                    "Jain",
-                                    "Rajastani"
-                                ]
-                            }
-                        },
-                        {
-                            "name": {
                                 "value": "microwave",
                                 "synonyms": [
                                     "food reheat",
@@ -1208,6 +1243,7 @@
                             "name": {
                                 "value": "cooking facilities",
                                 "synonyms": [
+                                    "cooking",
                                     "cooking equipment",
                                     "stove",
                                     "cutlery",
@@ -1217,7 +1253,11 @@
                         },
                         {
                             "name": {
-                                "value": "fan"
+                                "value": "fan",
+                                "synonyms": [
+                                    "table fan",
+                                    "ceiling fan"
+                                ]
                             }
                         },
                         {
@@ -1245,6 +1285,7 @@
                             "name": {
                                 "value": "iron",
                                 "synonyms": [
+                                    "ironing",
                                     "iron box",
                                     "clothes ironing",
                                     "ironing machine"
@@ -1264,6 +1305,7 @@
                             "name": {
                                 "value": "menu",
                                 "synonyms": [
+                                    "menu card",
                                     "food menu",
                                     "restaurant menu"
                                 ]
@@ -1338,16 +1380,6 @@
                         },
                         {
                             "name": {
-                                "value": "tea",
-                                "synonyms": [
-                                    "green tea",
-                                    "tea bags",
-                                    "tea powder"
-                                ]
-                            }
-                        },
-                        {
-                            "name": {
                                 "value": "coffee",
                                 "synonyms": [
                                     "coffee powder"
@@ -1367,8 +1399,9 @@
                         },
                         {
                             "name": {
-                                "value": "towels",
+                                "value": "towel",
                                 "synonyms": [
+                                    "towels",
                                     "bath towel"
                                 ]
                             }
@@ -1563,11 +1596,6 @@
                         },
                         {
                             "name": {
-                                "value": "philates"
-                            }
-                        },
-                        {
-                            "name": {
                                 "value": "reception",
                                 "synonyms": [
                                     "front desk",
@@ -1579,6 +1607,8 @@
                             "name": {
                                 "value": "swimming pool",
                                 "synonyms": [
+                                    "adults pool",
+                                    "adults swimming pool",
                                     "swim",
                                     "pool"
                                 ]
@@ -1592,15 +1622,6 @@
                                     "vehicle parking",
                                     "two wheeler parking",
                                     "valet"
-                                ]
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "lift",
-                                "synonyms": [
-                                    "elevator",
-                                    "escalator"
                                 ]
                             }
                         },
@@ -1661,6 +1682,7 @@
                             "name": {
                                 "value": "massage",
                                 "synonyms": [
+                                    "massage room",
                                     "physioteraphy",
                                     "body massage"
                                 ]
@@ -1670,6 +1692,7 @@
                             "name": {
                                 "value": "children swimming pool",
                                 "synonyms": [
+                                    "kids swimming pool",
                                     "child pool",
                                     "baby pool",
                                     "kids pool",
@@ -1715,6 +1738,7 @@
                             "name": {
                                 "value": "airport shuttle",
                                 "synonyms": [
+                                    "shuttle",
                                     "airport transport",
                                     "airport cab",
                                     "airport taxi"
@@ -1893,19 +1917,15 @@
                             "name": "req_count",
                             "type": "AMAZON.NUMBER",
                             "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.1375175845893.1389257903427"
-                            }
+                            "elicitationRequired": false,
+                            "prompts": {}
                         },
                         {
                             "name": "facility_slot",
                             "type": "facility_types",
                             "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.1375175845893.131008159447"
-                            }
+                            "elicitationRequired": false,
+                            "prompts": {}
                         }
                     ]
                 },
@@ -2116,6 +2136,10 @@
                 "variations": [
                     {
                         "type": "PlainText",
+                        "value": "tell me the facility name"
+                    },
+                    {
+                        "type": "PlainText",
                         "value": "Which item or facility price would you like to know"
                     }
                 ]
@@ -2123,6 +2147,10 @@
             {
                 "id": "Elicit.Slot.948105453920.923506454334",
                 "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "tell me the facility name"
+                    },
                     {
                         "type": "PlainText",
                         "value": "Which facility location would you like to know"
@@ -2152,6 +2180,32 @@
                     {
                         "type": "PlainText",
                         "value": "Please tell the name of the facility that is not working"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.610999198675.1326706510852",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please repeat the name of the item"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "Can you please repeat the item name"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1272904951511.1365606365216",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Which item would you like to order?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "Can you please repeat the item name"
                     }
                 ]
             }

@@ -14,6 +14,8 @@
     "WELCOME": "  Hello, {{hotel_name}} front desk. How can I help?  ",
     "HELP_MESSAGE": "  I am the assistant for your stay. I can help with facilities available at the hotel, ordering services like food, laundry and also can provide info about this place. How can I help you today?  ",
     "REPEAT_REQUEST": "  I did not understand your request. Can you please repeat?  ",
+    "REQUEST_ITEM_COUNT": "How many of {{item_name}} would you like?",
+    "REPEAT_ITEM_NAME": " Can you please repeat the name of the item? ",
     "END": "  Thank you. Please wake me up incase of need; I am here to make your stay pleasant.  ",
     "ANYTHING_ELSE": " Would you like to know or order anything else? ",
     "YES_NO_REPROMPT": " Please answer with yes or no. ",

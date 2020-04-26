@@ -12,71 +12,8 @@ const _ = require('lodash'),
     DBFuncs = require('../db/db_funcs'),
     KamError = require('../utils/KamError');
 
-// Function to add order to current session
-function addOrderToSession(thisObj, item, reqCount, notWorking) {
-    if (_.isEmpty(thisObj.$session.$data.orders)) { // First order
-        thisObj.$session.$data.orders = [];
-    }
-
-    // Update the item if it has already been ordered
-    let item_idx = _.indexOf(thisObj.$session.$data.orders, item.name)
-    if (!_.isEqual(item_idx, -1)) {
-        thisObj.$session.$data.orders[item_idx].req_count += reqCount;
-    } else {
-        let type;
-        if (item.m) {   // menu item
-            type = 'menu';
-        } else if (item.f) {    // facility. This is for reserving a facility
-            //TODO: Add facility reservation
-            type = 'facility';
-        } else if (item.ri) {   // room item
-            type = 'roomitem';
-        } else if (_.isEqual(notWorking, true)) {
-            type = 'problem';
-        }
-        thisObj.$session.$data.orders.push({ type: type, name: item.name, req_count: reqCount });
-    }
-}
-
-// Function to get the current orders from session
-function getOrdersInSession(thisObj) {
-    if (_.has(thisObj.$session.$data, 'orders')) {
-        return thisObj.$session.$data.orders;
-    } else {
-        return [];
-    }
-}
-
-// Function to reset order from session
-function resetOrdersInSession(thisObj) {
-    thisObj.$session.$data.orders = [];
-}
-
-// Removes specific item from orders
-function removeItemFromOrder(thisObj, item_name) {
-    _.remove(thisObj.$session.$data.orders, {
-        name: item_name
-    });
-}
-
-function stringifyOrdersInSession(thisObj) {
-    const orders = thisObj.$session.$data.orders;
-    let ordersToStr = '';
-    for (var i = 0; i < orders.length; i++) {
-        ordersToStr += orders[i].req_count + ' ' + orders[i].name + ', '
-        console.log('^^^', ordersToStr);
-    }
-    return ordersToStr;
-}
-
-function stringifyOrdersSentToFrontdesk(frontdeskOrders) {
-    let ordersToStr = '';
-    for (var i = 0; i < frontdeskOrders.length; i++) {
-        ordersToStr += frontdeskOrders[i].item.req_count + ' ' + frontdeskOrders[i].item.name + ', ';
-    }
-
-    return ordersToStr;
-}
+const { Item } = require('./Item');
+const { OrdersInSession } = require('./OrdersInSession');
 
 /**
  * Common funtion to check the price tag and retun the price message
@@ -105,6 +42,54 @@ async function priceMsg(thisObj, hotel_id, item) {
 
     console.log('returning price msg:', msg);
     return msg;
+}
+
+async function checkForReorders(itemObj, hotel_id, room_no) {
+    // Check if the guest has ordered the same item + on the same day + unserved
+    // If the same item has been ordered, check with guest and continue the flow, else continue the following
+    let prevOrders = { status: 'none' };
+    try {
+        let sameOrders = await DBFuncs.already_ordered_items(hotel_id, room_no, itemObj);
+        const prevOrdersCount = sameOrders.length;
+        if (prevOrdersCount > 0) { // There have been prior orders from this guest
+            // Status = 'new', 'progress' = tell user that the item has already been ordered. Would you like to still order it?
+            // Status = 'cant_serve' = tell user that unfortunately, the order cannot be served
+            // Status = 'done' = tell user that the item has already been order today. Would you like to order again?
+            // Status = 'cancelled', proceed with the order taking
+            const status_new = _.filter(orders, { curr_status: { status: 'new' } });
+            const status_progress = _.filter(orders, { curr_status: { status: 'progress' } });
+            const status_done = _.filter(orders, { status: { curr_status: 'done' } });
+            const status_cant_serve = _.filter(orders, { curr_status: { status: 'cant_serve' } });
+            const status_canceled = _.filter(orders, { curr_status: { status: 'cancelled' } });
+            if (!_.isEmpty(status_new) || !_.isEmpty(status_progress)) {
+                prevOrders['status'] = 'progress';
+            } else if (!_.isEmpty(status_done) || !_.isEmpty(status_canceled)) {
+                let price = itemObj.price(), limit = itemObj.limit();
+                // Check the limits for this order
+                if (!_.isUndefined(limit)) {    // There are limits on this item
+                    if (_.isEqual(price, 0)) {    // The item costs money, so why check for limit. This is a problem in DB setup
+                        // Do nothing. Continue with the order process
+                    } else if (price > 0) {    // The item is free
+                        //TODO: Implement the "limit on orders" flow -> complicated!
+                    }
+                }
+            } else if (!_.isEmpty(status_cant_serve)) {
+                // What to do if the hotel was unable to serve a previous order, and the user wants to place the order again
+                //this
+                //    .$speech
+                //    .addText(this.t('ORDER_UNABLE_TO_SERVE'))
+                //    .addBreak('200ms')
+                //    .addText(this.t('ORDER_PLACE_AGAIN'));
+
+                //FIXME: Is it required to tell the person that the hotel was unable to serve previous order?
+            }
+        }
+    } catch (error) {
+        if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+    }
+    return prevOrders;
 }
 
 module.exports = {
@@ -223,9 +208,7 @@ module.exports = {
      * 9. Once done, read the orders and place them
      */
     async Enquiry_facility_exists() {
-        // Set a flag that the invocation came from an enquiry
-        this.$session.$data.intent = 'enquiry';
-
+        //TODO: Implement
         return this.toIntent('HandleOrderIntent');
     },
 
@@ -246,91 +229,49 @@ module.exports = {
      * 7. Once done, read the orders and place them
      */
     async Order_item() {
-        console.log('In Order_item intent....');
-        // Set a flag that the invocation came from an 'order'
-        let item, hotel_id;
-        /*
-        if (_.has(this.$session.$data, 'intent')) {
-            if (_.isEqual(this.$session.$data.intent, 'enquiry')) {
-                item = this.$session.$data.item;
-                hotel_id = this.$session.$data.hotel.hotel_id;
+        console.log('++got into HandleOrderIntent');
+        let hotel_id = this.$session.$data.hotel.hotel_id,
+            room_no = this.$session.$data.hotel.room_no,
+            inSessionOrders = new OrdersInSession();
+
+        let item_name = _.has(this.$inputs.facility_slot, 'value') ? this.$inputs.facility_slot.value : '';
+
+        console.log('+++hasValue+++', this.$inputs.facility_slot);
+        console.log('---hasEntityMatch---', JSON.stringify(this.$alexaSkill.hasEntityMatch('facility_slot')));
+        console.log('---getEntityMatches---', JSON.stringify(this.$alexaSkill.getEntityMatches('facility_slot')));
+        console.log('---getDynamicEntityMatches---', JSON.stringify(this.$alexaSkill.getDynamicEntityMatches('facility_slot')));
+        console.log('---getStaticEntityMatches---', JSON.stringify(this.$alexaSkill.getStaticEntityMatches('ifacility_slot')));
+
+        let absMatch = true;
+        if (!this.$alexaSkill.$dialog.isCompleted()) {
+            this.$alexaSkill.$dialog.delegate();
+        } else if (_.isEmpty(item_name)) {
+            if (!this.$alexaSkill.hasEntityMatch('facility_slot') &&
+                _.isEmpty(this.$alexaSkill.getEntityMatches('facility_slot'))) {
+                console.log('+++--No Matches--+++');
+                absMatch = false;
+                return this
+                    .$alexaSkill
+                    .$dialog
+                    .elicitSlot('facility_slot', this.t('REPEAT_REQUEST'), this.t('REPEAT_REQUEST'));
             }
         }
-        */
+        // else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() !== 'CONFIRMED') {
+        //     let reprompt = speech = `So you would like to order ${this.$inputs.facility_slot.value}, right?`;
+        //     return this.$alexaSkill.$dialog.confirmIntent(speech, reprompt);
+        // }
 
-        return this.toIntent('HandleOrderIntent');
-        /*
-        const isCompleted = this.$alexaSkill.$dialog.isCompleted();
-        const hasReqCount = _.has(this.$inputs, 'req_count.value');
-        console.log('###isCompleted=', isCompleted);
-        if (!isCompleted && !hasReqCount) {
-            console.log('%%% delegating to alexa');
-            this.$alexaSkill.$dialog.delegate();
-            return this.$alexaSkill.$dialog.elicitSlot('req_count', 'Please let me know the count of items')
-        } else {
-            console.log('%%% sending to HandleOrderIntent');
-            return this.toIntent('HandleOrderIntent');
-        }
-        */
-
-        /*
-         if (!this.$alexaSkill.$dialog.isCompleted()) {
-             this.$alexaSkill.$dialog.delegate();
-         } else if (!_.has(this.$inputs, 'req_count.value')) {
-             this.$alexaSkill.$dialog.elicitSlot('req_count', 'How many items do you need?', 'How many items do you need?');
-         } else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() !== 'CONFIRMED') {
-             let speech = `Should I confirm this order?`
-             let reprompt = speech;
-             this.$alexaSkill.$dialog.confirmIntent(speech, reprompt);
-         } else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() === 'CONFIRMED') {
-             this.$session.$data.intent = 'order';
-             return this.toIntent('HandleOrderIntent');
-         }
-         */
-
-    },
-
-    /**
-     * This is a common handler for both Enquiry_facility and Order_item intents
-     * The only difference between these two intents is the way the response is given to the user.
-     * 
-     * For example, 'Do you have a dosa' vs. 'I want to order a dosa'. Responses should be
-     * 'We have a dosa, would you like to order one'? vs 'I have taken the order for a dosa, would you like anything else?'
-     */
-    async HandleOrderIntent() {
-
-        let hotel_id = this.$session.$data.hotel.hotel_id,
-            intent = this.$session.$data.intent;
-        let item_name, req_count;
-        if (_.has(this.$inputs, 'facility_slot.value')) {
-            // facility slot has value
-            item_name = this.$inputs.facility_slot.value;
-        } else {
-            // return this.ask(this.t('ORDER_ASK_ITEM_NAME'));
-            // This should be set in the Alexa console
-        }
-
-        /*
-        * This happens in the following flow
-        * Guest: Do you have coffee
-        * Kam: We have coffee at our hotel. It costs Rupees 10. Would you like to order it
-        * Guest: Yes
-        * Kam: Check if the item has been already orderd. If yes, say so and get confirmation
-        */
-        if (_.isEqual(intent, 'order') && !_.isUndefined(this.$session.$data.item)) { // The user has enquired for the item instead of ordering it
-            return this.toStateIntent('OrderItemExists_State', 'OrderFlow_CheckReorder_Intent');
-        }
-
-        let item;   // Step 1
+        // Check if the item exists before asking for count
+        let item = {};   // Step 1
         try {
-            item = await DBFuncs.item(hotel_id, item_name);
+            item = await DBFuncs.item(hotel_id, item_name, absMatch);
         } catch (error) {
             if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
                 return this.tell(this.t('SYSTEM_ERROR'));
             }
         }
 
-        let msg = '';
+        // If the hotel does not have this item, say so and ask for something else  
         if (_.isEmpty(item)) {
             this
                 .$speech
@@ -338,8 +279,38 @@ module.exports = {
                 .addBreak('200ms')
                 .addText(this.t('ORDER_ANYTHING_ELSE'));
             return this.ask(this.$speech);
-        } else if (_.isEqual(item.a, false)) {
-            msg = item.msg['no'];
+        }
+
+        let itemObj = {};
+        if (!_.isEmpty(item)) {
+            itemObj = Item.load(item);
+        }
+
+        let reqCount = _.has(this.$inputs.req_count, 'value') ? this.$inputs.req_count.value : 1;
+        if (itemObj.hasCount()) {
+            if (!this.$alexaSkill.$dialog.isCompleted()) {
+                this.$alexaSkill.$dialog.delegate();
+            } else if (_.isEmpty(reqCount)) {
+                console.log('+++--No Matches--+++');
+                return this
+                    .$alexaSkill
+                    .$dialog
+                    .elicitSlot('req_count', this.t('REQUEST_ITEM_COUNT'), this.t('REQUEST_ITEM_COUNT'));
+            }
+            //  else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() !== 'CONFIRMED') {
+            //     let reprompt = speech = `So you would like ${req_count} of ${item_name}, right?`;
+            //     return this.$alexaSkill.$dialog.confirmIntent(speech, reprompt);
+            // } else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() === 'CONFIRMED') {
+            //     console.log('Guest confirmed order:', this.$inputs.facility_slot);
+            //     // return this.tell('You have requested for ' + req_count + ' ' + item_name);
+            //     // FIXME: Populate the count
+            // }
+        }
+
+        // If item is not available say so and ask for something else
+        let msg = '';
+        if (!itemObj.available()) {
+            msg = itemObj.msgNo();
             this.$speech
                 .addText(msg)
                 .addBreak('200ms')
@@ -347,13 +318,11 @@ module.exports = {
             return this.ask(this.$speech);
         }
 
-        let isOrderable = !_.has(item, 'o') ? false : item.o;
-        console.log('+++item=', item, ', isOrderable=', isOrderable);
-
-        if (_.isEqual(isOrderable, false)) {    // Step 2
+        // If item is not orderable, tell about the item and ask for something else
+        if (!itemObj.orderable()) {
             console.log('isOrdeerable is false');
             // Item is present, 'cannot' be ordered. Give information about the item
-            msg = item.msg['yes'];
+            msg = itemObj.msgYes();
             this.$speech
                 .addText(msg)
                 .addBreak('200ms')
@@ -361,162 +330,71 @@ module.exports = {
             return this.ask(this.$speech);
         }
 
-        console.log('going to step 3 ......')
-        this.$session.$data.item = item;    // Set the item for the followup
-        if (_.isEqual(intent, 'enquiry')) { // The user has enquired for the item instead of ordering it
-            // Facility is present and can also be ordered
-            // Ask user if they want to order it
-            // Give information about the price as well (free or costs money)
-            let msg = await priceMsg(this, hotel_id, item);
-            this.$speech
-                .addText(msg)
-                .addBreak('200ms')
-                .addText(this.t('ITEM_ORDER_QUESTION', {    // We have dosa at our restaurant. Its cost is rupees 60. Would you like to order one?
-                    item_name: item.name
-                }));
-
-            return this
-                .followUpState('OrderItemExists_State')
-                .ask(this.$speech, this.t('YES_NO_REPROMPT'));
-        } else {
-            return this.toStateIntent('OrderItemExists_State', 'OrderFlow_CheckReorder_Intent');
-        }
-    },
-
-    'OrderItemExists_State': {
-        async OrderFlow_CheckReorder_Intent() {
-            var item = this.$session.$data.item,
-                room_no = this.$session.$data.hotel.room_no;
-
-            let price = item.price, limit = item.limit;
-
-            // Check if the guest has ordered the same item + on the same day + unserved
-            // If the same item has been ordered, check with guest and continue the flow, else continue the following
-            try {
-                let sameOrders = await DBFuncs.already_ordered_items(hotel_id, room_no, item);
-                const prevOrdersCount = sameOrders.length;
-                if (prevOrdersCount > 0) { // There have been prior orders from this guest
-                    // Status = 'new', 'progress' = tell user that the item has already been ordered. Would you like to still order it?
-                    // Status = 'cant_serve' = tell user that unfortunately, the order cannot be served
-                    // Status = 'done' = tell user that the item has already been order today. Would you like to order again?
-                    // Status = 'cancelled', proceed with the order taking
-                    const status_new = _.filter(orders, { curr_status: { status: 'new' } });
-                    const status_progress = _.filter(orders, { curr_status: { status: 'progress' } });
-                    const status_done = _.filter(orders, { status: { curr_status: 'done' } });
-                    const status_cant_serve = _.filter(orders, { curr_status: { status: 'cant_serve' } });
-                    const status_canceled = _.filter(orders, { curr_status: { status: 'cancelled' } });
-                    if (!_.isEmpty(status_new) || !_.isEmpty(status_progress)) {
-                        this
-                            .$speech
-                            .addText(this.t('ORDER_IN_PROGRESS'))
-                            .addBreak('200ms')
-                            .addText(this.t('ORDER_ASK_AGAIN'));
-
-                        return this
-                            .followUpState('OrderAgain_State')
-                            .ask(this.$speech, this.t('YES_NO_PROMPT'));
-                    } else if (!_.isEmpty(status_done) || !_.isEmpty(status_canceled)) {
-                        // Check the limits for this order
-                        if (!_.isUndefined(limit)) {    // There are limits on this item
-                            if (!_.isUndefined(price)) {    // The item costs money, so why check for limit. This is a problem in DB setup
-                                // Do nothing. Continue with the order process
-                            } else {    // The item is free
-                                //TODO: Implement the "limit on orders" flow -> complicated!
-                            }
-                        }
-                    } else if (!_.isEmpty(status_cant_serve)) {
-                        // What to do if the hotel was unable to serve a previous order, and the user wants to place the order again
-                        //this
-                        //    .$speech
-                        //    .addText(this.t('ORDER_UNABLE_TO_SERVE'))
-                        //    .addBreak('200ms')
-                        //    .addText(this.t('ORDER_PLACE_AGAIN'));
-
-                        //FIXME: Is it required to tell the person that the hotel was unable to serve previous order?
-                    }
-                }
-            } catch (error) {
-                if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
-                    this.tell(this.t('SYSTEM_ERROR'));
-                }
-            }
-
-            // Go to intent OrderFlow_CheckCount_Intent
-            return this.toStateIntent('OrderAgain_State', 'OrderFlow_CheckCount_Intent');
-        },
-
-        /**
-         * This YesIntent is invoked when the user says YES for a question: 'We have the dosa, would you like to order it?'
-         */
-        async YesIntent() {
-            // Go to OrderFlowIntent
-            console.log('OrderItem_ExistsState::Sending to OrderFlow_CheckReorder_Intent.....')
-            this.$request.setIntentName('Order_item');
-            return this.toStatelessIntent('Order_item');
-            //return this.toIntent('OrderFlow_CheckReorder_Intent');
-        },
-
-        /**
-         * This NoIntent is invoked since the user says that they do not want the item
-         */
-        NoIntent() {
-            console.log('User does not want anything');
-            this.$speech
-                .addText(this.t('ANYTHING_ELSE'));
-            this.removeState(); // This makes the next invocation go global
-            return this.ask(this.$speech);
-        }
-    },
-
-    'OrderAgain_State': {
-        async OrderFlow_CheckCount_Intent() {
-
-            var item = this.$session.$data.item,
-                room_no = this.$session.$data.hotel.room_no,
-                req_count = _.isUndefined(this.$inputs.req_count) ? undefined : this.$inputs.req_count.value;
-
-            // If item has count
-            if (item.c && !_.isUndefined(req_count)) {    // count is defined for this item & its also provided as part of request
+        // Check for re-orders
+        // No matches. Elicit
+        // this.$alexaSkill.clearDynamicEntities();
+        let prevOrders = await checkForReorders(itemObj, hotel_id, room_no);
+        inSessionOrders.add(itemObj, reqCount);
+        this.$session.$data.orders = inSessionOrders.currOrders(); // Set these orders in session, so that other intents have access to these
+        console.log('prevOrders=', prevOrders, '---currOrders=', this.$session.$data.orders);
+        switch (prevOrders.status) {
+            case 'none':    //No previous orders
+                // Read the order and ask for confirmation
                 this.$speech
-                    .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: req_count, item_name: item.name }))
+                    .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: reqCount, item_name: itemObj.name() }))
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ANYTHING_ELSE'));
-
-                addOrderToSession(this, item, req_count);
-
-                //this.removeState(); // This is to ensure that the user can anything else
-                return this.followUpState('ConfirmRoomItemOrder_State')
-                    .ask(this.$speech, this.t('YES_NO_REPROMPT'));
-            } else if (item.c && _.isUndefined(req_count)) {    // Item has count, but its not provided in the request
-                // NOTE: This condition should not arise, since this check is done at Alexa skill intent dialog setting
-                // Item does not have a count flag. Like 'Do you have dosa'
-                console.log('intent came here....sending to AskItemCount_State');
-                this.$speech
-                    .addText(this.t('ORDER_ASK_COUNT'));
+console.log('there are no prev orders...sending to confirmroomitemorder');
                 return this
-                    .followUpState('AskItemCount_State')
-                    .ask(this.$speech);
-            } else if (!item.c) {   // Item does not have count flag. Add it to the orders
-                // NOTE: This condition should not arise for room items and menu items, since each one of them should have count
-                this.$speech
-                    .addText(this.t('REPEAT_ORDER_WITHOUT_COUNT'), { item_name: item.name })
-                    .addBreak('200ms')
-                    .addText(this.t('ORDER_ANYTHING_ELSE'));
-                addOrderToSession(this, item, 1);
-                return this.followUpState('ConfirmRoomItemOrder_State')
+                    .followUpState('ConfirmRoomItemOrder_State')
                     .ask(this.$speech, this.t('YES_NO_REPROMPT'));
-            }
-        },
+                break;
+            case 'progress':
+                this
+                    .$speech
+                    .addText(this.t('ORDER_IN_PROGRESS'))
+                    .addBreak('200ms')
+                    .addText(this.t('ORDER_ASK_AGAIN'));
+                this.$session.$data.tmpItem = { itemObj: itemObj, req_count: reqCount };
 
+console.log('there is an order in progress...');
+                return this
+                    .followUpState('ReOrder_State')
+                    .ask(this.$speech, this.t('YES_NO_PROMPT'));
+                break;
+            case 'done':
+                break;
+            case 'cant_serve':
+                break;
+        }
+
+        console.log('### did not hit switch conditions');
+    },
+
+    'ReOrder_State': {
         /**
          * This YesIntent is when user wants to re-order an item that has already been in progress
          */
         async YesIntent() {
             // Go to OrderFlowIntent
-            console.log('sending to Order_item....');
-            this.removeState();
-            return this.toIntent('Order_item');
-            //return this.toIntent('OrderFlow_CheckCount_Intent');
+
+            let orders = _.isUndefined(this.$session.$data.orders) ? [] : this.$session.$data.orders;
+            let inSessionOrders = new OrdersInSession(orders);
+            if (!_.has(this.$session.$data.tmpItem, 'itemObj')) {
+                console.log('tmpObj....', this.$session.$data.tmpItem);
+                inSessionOrders.add(this.$session.$data.tmpItem.itemObj, this.$session.$data.tmpItem.req_count);
+                this.$session.$data.orders = inSessionOrders.currOrders();
+                this.$speech
+                    .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: this.$session.$data.tmpItem.req_count, item_name: this.$session.$data.tmpItem.itemObj.name() }))
+                    .addBreak('200ms')
+                    .addText(this.t('ORDER_ANYTHING_ELSE'));
+
+                return this
+                    .followUpState('ConfirmRoomItemOrder_State')
+                    .ask(this.$speech, this.t('YES_NO_REPROMPT'))
+            } else {
+                //FIXME: Should not happen, but take care of this
+            }
         },
 
         /**
@@ -524,6 +402,7 @@ module.exports = {
          */
         NoIntent() {
             console.log('User does not want anything');
+            this.$session.$data.tmpItem = {};
             this.$speech
                 .addText(this.t('ANYTHING_ELSE'));
             this.removeState(); // This makes the next invocation go global
@@ -532,14 +411,15 @@ module.exports = {
     },
 
     'ConfirmRoomItemOrder_State': {
-
         YesIntent() {
-            return this.ask(this.t('ASK_ITEM_NAME'));
+            return this.toIntent('Order_Item'); // Start the request process again
         },
 
         NoIntent() {
+            let orders = _.isUndefined(this.$session.$data.orders) ? [] : this.$session.$data.orders;
+            let inSessionOrders = new OrdersInSession(orders);
             // Guest has finalized the order. Configm the order, check and close
-            let msg = stringifyOrdersInSession(this);
+            let msg = inSessionOrders.toString();
 
             this.$speech
                 .addText(this.t('ORDER_LIST', { items: msg }))
@@ -556,7 +436,7 @@ module.exports = {
             var hotel_id = this.$session.$data.hotel.hotel_id,
                 user_id = this.$request.context.System.user.userId,
                 room_no = this.$session.$data.hotel.room_no,
-                orders = getOrdersInSession(this);
+                orders = _.isUndefined(this.$session.$data.orders) ? [] : this.$session.$data.orders;
             console.log('creating order: hotel_id=' + hotel_id + ',user_id=' + user_id + ',room_no=' + room_no + ',items=', orders);
             try {
                 DBFuncs.create_order(hotel_id, room_no, user_id, orders);
@@ -581,6 +461,11 @@ module.exports = {
      * Global NoIntent
      */
     async NoIntent() {
+        // If the cache is not cleared and if data is changed from UI, the cache will have old data
+        // This is a hack to get around this problem - beats the purpose of cache
+        // FIXME: Find time to fix this
+        DBFuncs.resetCache();
+
         // Say thank you and end
         this.tell(this.t('END'));
     },
@@ -588,7 +473,8 @@ module.exports = {
     'CancelCurrentOrder': {
         YesIntent() {
             // Reset the values of items, order, item_name and count in the session object
-            resetOrdersInSession(this);
+            this.$session.$data.orders = [];
+            // resetOrdersInSession(this);
 
             this.$speech
                 .addText(this.t('CONFIRM_ORDER_CANCEL'))
@@ -845,7 +731,7 @@ module.exports = {
                 this.tell(thisObj.t('SYSTEM_ERROR'));
             }
         }
- 
+     
         console.log('+++item=', item);
         let msg;
         let present = item.a;
@@ -1052,7 +938,7 @@ module.exports = {
                 this.tell(this.t('SYSTEM_ERROR'));
             }
         }
-
+     
         if (_.isUndefined(item)) {
             this.$speech
                 .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
@@ -1060,7 +946,7 @@ module.exports = {
                 .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$speech);
         }
-
+     
         console.log('+++TV=', item);
         let msg;
         if (_.isEqual(item.a, false)) {
@@ -1082,5 +968,9 @@ module.exports = {
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
         return this.ask(this.$speech);
+    },
+
+    async Order_Request() {
+        this.tell('Not implemented yet');
     }
 }

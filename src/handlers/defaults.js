@@ -11,6 +11,7 @@ let _ = require('lodash'),
     HotelModel = require('../db/Hotel'),    // Even though HotelModel is not used, DeviceModel.find().populate('belongs_to') needs this. Else, the call is failing
     dotenv = require('dotenv'),
     fetch = require('node-fetch'),
+    DBFuncs = require('../db/db_funcs'),
     AlexaDeviceAddressClient = require('./AlexaDeviceAddressClient');
 const ALL_ADDRESS_PERMISSION = "read::alexa:device:all:address";
 const PERMISSIONS = [ALL_ADDRESS_PERMISSION];
@@ -26,9 +27,12 @@ module.exports = {
 
         let data;
         try {
-            console.log('getting device...', device_id)
+            console.log('getting device...', device_id);
             // Get the hotel id from this device_id and user_id
-            data = await DeviceModel.findOne({ device_id: device_id }).populate('belongs_to').populate('room');
+            data = await DeviceModel
+                .findOne({ device_id: device_id })
+                .populate('belongs_to')
+                .populate('room');
 
             console.log('hotel data..', JSON.stringify(data));
             if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -122,6 +126,20 @@ module.exports = {
     async LAUNCH() {
         // FIXME: Add user in Device_To_Hotel/separate login table for tracking purpose
         //const user = checkSessionToken(this);
+
+        // Inject menu items
+        // We do not inject any items that are not part of the skill in Alexa
+        let menuItems = null;
+        try {
+            menuItems = await DBFuncs.allMenuItems(this.$session.$data.hotel.hotel_id);
+        } catch (error) {
+            // If error, does not have menu items
+        }
+
+        if (!_.isNull(menuItems)) {
+            // Inject the menu items
+            this.$alexaSkill.replaceDynamicEntities([menuItems]);
+        }
 
         console.info('LAUNCH handler', this.$session.$data.hotel);
         this.ask(this.t('WELCOME', { hotel_name: this.$session.$data.hotel.name }));
