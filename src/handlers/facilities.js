@@ -47,22 +47,26 @@ async function priceMsg(thisObj, hotel_id, item) {
 async function checkForReorders(itemObj, hotel_id, room_no) {
     // Check if the guest has ordered the same item + on the same day + unserved
     // If the same item has been ordered, check with guest and continue the flow, else continue the following
-    let prevOrders = { status: 'none' };
+    let prevOrders = { status: 'none', prev: {} };
     try {
         let sameOrders = await DBFuncs.already_ordered_items(hotel_id, room_no, itemObj);
         const prevOrdersCount = sameOrders.length;
+        console.log('^^prevOrderCount=', prevOrdersCount);
         if (prevOrdersCount > 0) { // There have been prior orders from this guest
             // Status = 'new', 'progress' = tell user that the item has already been ordered. Would you like to still order it?
             // Status = 'cant_serve' = tell user that unfortunately, the order cannot be served
             // Status = 'done' = tell user that the item has already been order today. Would you like to order again?
             // Status = 'cancelled', proceed with the order taking
-            const status_new = _.filter(orders, { curr_status: { status: 'new' } });
-            const status_progress = _.filter(orders, { curr_status: { status: 'progress' } });
-            const status_done = _.filter(orders, { status: { curr_status: 'done' } });
-            const status_cant_serve = _.filter(orders, { curr_status: { status: 'cant_serve' } });
-            const status_canceled = _.filter(orders, { curr_status: { status: 'cancelled' } });
+            const status_new = _.filter(sameOrders, { curr_status: { status: 'new' } });
+            const status_progress = _.filter(sameOrders, { curr_status: { status: 'progress' } });
+            const status_done = _.filter(sameOrders, { status: { curr_status: 'done' } });
+            const status_cant_serve = _.filter(sameOrders, { curr_status: { status: 'cant_serve' } });
+            const status_canceled = _.filter(sameOrders, { curr_status: { status: 'cancelled' } });
             if (!_.isEmpty(status_new) || !_.isEmpty(status_progress)) {
-                prevOrders['status'] = 'progress';
+                prevOrders = {
+                    status: 'progress',
+                    prev: _.concat(status_new, status_progress)
+                }
             } else if (!_.isEmpty(status_done) || !_.isEmpty(status_canceled)) {
                 let price = itemObj.price(), limit = itemObj.limit();
                 // Check the limits for this order
@@ -286,11 +290,15 @@ module.exports = {
             itemObj = Item.load(item);
         }
 
-        let reqCount = _.has(this.$inputs.req_count, 'value') ? this.$inputs.req_count.value : 1;
+        let reqCount = -1;
+        if (_.has(this.$inputs.req_count, 'value')) {
+            reqCount = parseInt(this.$inputs.req_count.value);
+            if (isNaN(reqCount)) reqCount = -1;
+        }
         if (itemObj.hasCount()) {
             if (!this.$alexaSkill.$dialog.isCompleted()) {
                 this.$alexaSkill.$dialog.delegate();
-            } else if (_.isEmpty(reqCount)) {
+            } else if (_.isEqual(reqCount, -1)) {
                 console.log('+++--No Matches--+++');
                 return this
                     .$alexaSkill
@@ -331,11 +339,7 @@ module.exports = {
         }
 
         // Check for re-orders
-        // No matches. Elicit
-        // this.$alexaSkill.clearDynamicEntities();
         let prevOrders = await checkForReorders(itemObj, hotel_id, room_no);
-        inSessionOrders.add(itemObj, reqCount);
-        this.$session.$data.orders = inSessionOrders.currOrders(); // Set these orders in session, so that other intents have access to these
         console.log('prevOrders=', prevOrders, '---currOrders=', this.$session.$data.orders);
         switch (prevOrders.status) {
             case 'none':    //No previous orders
@@ -344,20 +348,27 @@ module.exports = {
                     .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: reqCount, item_name: itemObj.name() }))
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ANYTHING_ELSE'));
-console.log('there are no prev orders...sending to confirmroomitemorder');
+                console.log('there are no prev orders...sending to confirmroomitemorder');
+                inSessionOrders.add(itemObj, reqCount);
+                this.$session.$data.orders = inSessionOrders.currOrders(); // Set these orders in session, so that other intents have access to these
+
                 return this
                     .followUpState('ConfirmRoomItemOrder_State')
                     .ask(this.$speech, this.t('YES_NO_REPROMPT'));
                 break;
             case 'progress':
+                let cnt = 0;
+                prevOrders.prev.map((p) => {
+                    cnt += p.item.req_count;
+                });
                 this
                     .$speech
-                    .addText(this.t('ORDER_IN_PROGRESS'))
+                    .addText(this.t('ORDER_IN_PROGRESS', { req_count: cnt, item_name: itemObj.name() }))
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ASK_AGAIN'));
-                this.$session.$data.tmpItem = { itemObj: itemObj, req_count: reqCount };
+                this.$session.$data.tmpItem = { item: item, req_count: reqCount };
 
-console.log('there is an order in progress...');
+                console.log('there is an order in progress...');
                 return this
                     .followUpState('ReOrder_State')
                     .ask(this.$speech, this.t('YES_NO_PROMPT'));
@@ -377,15 +388,18 @@ console.log('there is an order in progress...');
          */
         async YesIntent() {
             // Go to OrderFlowIntent
+            console.log('Guest wants to reorder......');
 
             let orders = _.isUndefined(this.$session.$data.orders) ? [] : this.$session.$data.orders;
             let inSessionOrders = new OrdersInSession(orders);
-            if (!_.has(this.$session.$data.tmpItem, 'itemObj')) {
+            console.log('===+++orders=', inSessionOrders.toString());
+            if (_.has(this.$session.$data.tmpItem, 'item')) {
                 console.log('tmpObj....', this.$session.$data.tmpItem);
-                inSessionOrders.add(this.$session.$data.tmpItem.itemObj, this.$session.$data.tmpItem.req_count);
+                let itemObj = Item.load(this.$session.$data.tmpItem.item);
+                inSessionOrders.add(itemObj, this.$session.$data.tmpItem.req_count);
                 this.$session.$data.orders = inSessionOrders.currOrders();
                 this.$speech
-                    .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: this.$session.$data.tmpItem.req_count, item_name: this.$session.$data.tmpItem.itemObj.name() }))
+                    .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: this.$session.$data.tmpItem.req_count, item_name: itemObj.name() }))
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ANYTHING_ELSE'));
 
@@ -464,7 +478,10 @@ console.log('there is an order in progress...');
         // If the cache is not cleared and if data is changed from UI, the cache will have old data
         // This is a hack to get around this problem - beats the purpose of cache
         // FIXME: Find time to fix this
-        DBFuncs.resetCache();
+        DBFuncs.delCache(this.$session.$data.hotel.hotel_id);
+
+        // Clear the dynamic entities
+        this.$alexaSkill.clearDynamicEntities();
 
         // Say thank you and end
         this.tell(this.t('END'));
@@ -480,6 +497,7 @@ console.log('there is an order in progress...');
                 .addText(this.t('CONFIRM_ORDER_CANCEL'))
                 .addBreak('200ms')
                 .addText(this.t('ORDER_ANYTHING_ELSE'));
+            this.removeState(); // This makes the next invocation go global
             return this.ask(this.$speech);
         },
 

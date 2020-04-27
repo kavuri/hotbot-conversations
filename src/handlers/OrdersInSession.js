@@ -14,7 +14,7 @@ class OrdersInSession {
         this.orders = orders;
     }
 
-    add(itemObj, reqCount, notWorking) {
+    add(itemObj, reqCount, notWorking = false) {
         // Update the item if it has already been ordered
         console.log('++--itemObj=', itemObj, '++-', itemObj instanceof MenuItem);
         let item_idx = _.indexOf(this.orders, itemObj.name());

@@ -16,7 +16,7 @@ const _ = require('lodash'),
 /**
  * Remove the cache item from database
  */
-module.exports.resetCache = async (hotel_id) => {
+module.exports.delCache = async (hotel_id) => {
     cache.del(hotel_id);
 }
 
@@ -281,14 +281,22 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
  */
 module.exports.already_ordered_items = async function (hotel_id, room_no, itemObj) {
     if (_.isUndefined(hotel_id) || _.isUndefined(room_no) || _.isUndefined(itemObj)) {
-        throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + item);
+        throw new KamError.InputError('invalid input. hotel_id=' + hotel_id + ', room_no=' + room_no + ',items=' + itemObj);
     }
 
     try {
         // start = checkin time of the guest
         const filter = { hotel_id: hotel_id, room_no: room_no, checkout: null };
-        let room = await CheckinCheckoutModel.find(filter).exec();
-        let sameOrder = _.filter(room.orders, { item: { name: itemObj.name() } });
+        let room = await CheckinCheckoutModel
+            .findOne(filter)
+            .populate('orders')
+            .exec();
+        console.log('----room=', JSON.stringify(room));
+        let sameOrder = _.filter(room.orders, (o) => {
+            return _.isEqual(_.lowerCase(o.item.name), _.lowerCase(itemObj.name()));
+            // { item: { name: itemObj.name() } }
+        });
+        console.log('----sameOrder=', sameOrder);
         return sameOrder;
     } catch (error) {
         console.log('error thrown', error);
