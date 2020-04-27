@@ -21,6 +21,8 @@ dotenv.config();
 module.exports = {
     // Always triggered when a user opens your app, no matter the query (new session)
     async NEW_SESSION() {
+        //FIXME: Deep invocations do not work, since NEW_SESSION is not invoked for deep invocations.
+        // Like, 'Alexa launch front desk and order a coffee for me'
         console.log('new session handler:');
 
         var device_id = this.$request.context.System.device.deviceId;
@@ -146,16 +148,22 @@ module.exports = {
     },
 
     END() {
-        let reason = this.getEndReason();
-
         //TODO: Store the reason to database
+        console.log('THE END ....');
 
-        this.tell('END');
+        return this.tell(this.t('END'));
     },
 
     Unhandled() {
         // Triggered when the requested intent could not be found in the handlers variable
         console.log('Global unhandled intent...');
+        this.$speech
+            .addText(this.t('SORRY'))
+            .addBreak('100ms')
+            .addText(this.t('UNKNOWN_REQUEST'))
+            .addBreak('100ms')
+            .addText(this.t('HELP_MESSAGE'));
+        return this.ask(this.$speech);
     }
 }
 
