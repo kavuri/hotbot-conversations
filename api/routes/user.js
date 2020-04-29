@@ -42,6 +42,7 @@ router.get('/:user_id',
       user = await UserModel.findOne({ user_id: user_id }).exec();
       // console.log('user=', user);
     } catch (error) {
+      console.log('error getting user:', error);
       return res.status(500).json(error);
     }
     return res.status(200).send(user);

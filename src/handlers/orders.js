@@ -12,9 +12,17 @@ let _ = require('lodash'),
     KamError = require('../utils/KamError'),
     DBFuncs = require('../db/db_funcs');
 
-const { Item } = require('./Item');
+const { Item, MenuItem, Facility, RoomItem } = require('./Item');
 const { OrdersInSession } = require('./OrdersInSession');
 
+/*********************************************** Order_Item handler *****************************************************/
+/**
+ * Finds same kind of orders
+ * @param {any} itemObj The object of the item
+ * @param {any} hotel_id
+ * @param {any} room_no
+ * @returns {status:'progress'/none, pre:[previous orders]}
+ */
 async function checkForReorders(itemObj, hotel_id, room_no) {
     // Check if the guest has ordered the same item + on the same day + unserved
     // If the same item has been ordered, check with guest and continue the flow, else continue the following
@@ -61,7 +69,7 @@ async function checkForReorders(itemObj, hotel_id, room_no) {
         }
     } catch (error) {
         if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
-            this.tell(this.t('SYSTEM_ERROR'));
+            throw error;
         }
     }
     return prevOrders;
@@ -149,7 +157,7 @@ module.exports = {
             itemObj = Item.load(item);
         }
 
-        let reqCount = -1;
+        let reqCount = 1;
         if (_.has(this.$inputs.req_count, 'value')) {
             reqCount = parseInt(this.$inputs.req_count.value);
             if (isNaN(reqCount)) reqCount = -1;
@@ -198,13 +206,14 @@ module.exports = {
         }
 
         // Check for re-orders
+        console.log('+++_---itemObj=', itemObj, '--typeof=', itemObj instanceof MenuItem);
         let prevOrders = await checkForReorders(itemObj, hotel_id, room_no);
         console.log('prevOrders=', prevOrders, '---currOrders=', this.$session.$data.orders);
         switch (prevOrders.status) {
             case 'none':    //No previous orders
                 // Read the order and ask for confirmation
                 this.$speech
-                    .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: reqCount, item_name: itemObj.name() }))
+                    .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: reqCount, item_name: itemObj.name }))
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ANYTHING_ELSE'));
                 console.log('there are no prev orders...sending to confirmroomitemorder');
@@ -222,10 +231,10 @@ module.exports = {
                 });
                 this
                     .$speech
-                    .addText(this.t('ORDER_IN_PROGRESS', { req_count: cnt, item_name: itemObj.name() }))
+                    .addText(this.t('ORDER_IN_PROGRESS', { req_count: cnt, item_name: itemObj.name }))
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ASK_AGAIN'));
-                this.$session.$data.tmpItem = { item: item, req_count: reqCount };
+                this.$session.$data.tmpItem = { itemObj: itemObj, req_count: reqCount };
 
                 console.log('there is an order in progress...');
                 return this
@@ -252,13 +261,13 @@ module.exports = {
             let orders = _.isUndefined(this.$session.$data.orders) ? [] : this.$session.$data.orders;
             let inSessionOrders = new OrdersInSession(orders);
             console.log('===+++orders=', inSessionOrders.toString());
-            if (_.has(this.$session.$data.tmpItem, 'item')) {
+            if (_.has(this.$session.$data.tmpItem, 'itemObj')) {
                 console.log('tmpObj....', this.$session.$data.tmpItem);
-                let itemObj = Item.load(this.$session.$data.tmpItem.item);
+                let itemObj = Item.load(this.$session.$data.tmpItem.itemObj);
                 inSessionOrders.add(itemObj, this.$session.$data.tmpItem.req_count);
                 this.$session.$data.orders = inSessionOrders.currOrders();
                 this.$speech
-                    .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: this.$session.$data.tmpItem.req_count, item_name: itemObj.name() }))
+                    .addText(this.t('REPEAT_ORDER_WITH_COUNT', { req_count: this.$session.$data.tmpItem.req_count, item_name: itemObj.name }))
                     .addBreak('200ms')
                     .addText(this.t('ORDER_ANYTHING_ELSE'));
 
@@ -334,7 +343,6 @@ module.exports = {
         YesIntent() {
             // Reset the values of items, order, item_name and count in the session object
             this.$session.$data.orders = [];
-            // resetOrdersInSession(this);
 
             this.$speech
                 .addText(this.t('CONFIRM_ORDER_CANCEL'))
@@ -345,9 +353,277 @@ module.exports = {
         },
 
         NoIntent() {
-            // The guest is in two minds.
-            // TODO: What to do now?
+            this.$speech
+                .addText(this.t('ORDER_ANYTHING_ELSE'));
+            this
+                .ask(this.$speech);
+        }
+    },
+    /*********************************************** Order_Item handler END *****************************************************/
+
+    /**
+     * Two types of order cancellation
+     * 1. During the order session - clear the orders in the session & not saved to database
+     * 2. Cancel ones that are already ordered - send cancellation request to front desk
+     *   a) Fetch the orders from the DB
+     *   b) Read out the "new" and "progress" orders to the guest and ask which ones to cancel
+     *   c) If all, send cancellation request for all items in the order
+     * 
+     * Flow: For order in session
+     * 1. Guest: Cancel tea order
+     * 2. Alexa: I am canceling your order for 1 tea. Would you like anything else?
+     * 3. Guest: No
+     * 4. Alexa: Confirm order and exit
+     * 
+     * Flow: For order that reached front desk
+     * 1. Guest: Cancel tea order
+     * 2. Alexa: I will place the cancellation request. But the front desk is processing your order for 1 tea and so I cannot guarantee the cancellation. Would you like anything else?
+     * 3. Guest: No
+     * 4. Alexa: Thank you & exit
+     * 
+     */
+    async Order_cancel() {
+        const hotel_id = this.$session.$data.hotel.hotel_id,
+            user_id = this.$request.context.System.user.userId,
+            room_no = this.$session.$data.hotel.room_no,
+            item_name = this.$inputs.facility_slot.value;
+
+        let orderCount = 0;
+        let ordersInSession = _.isUndefined(this.$session.$data.orders) ? [] : this.$session.$data.orders;
+        let ordersSentToFrontDesk = [];
+        try {
+            ordersSentToFrontDesk = await DBFuncs.new_orders(hotel_id, room_no, user_id);
+        } catch (error) {
+            console.log('error in fetching orders sent to front desk:', error);
+            //FIXME: What to do incase of DB errors
+        }
+        console.log('++allorders=', ordersInSession, '---at frontdesk=', ordersSentToFrontDesk);
+        orderCount = ordersInSession.length + ordersSentToFrontDesk.length;
+
+        // Read out the orders and ask for confirmation
+        let msg_InSession = '';
+        if (ordersInSession.length > 0) {
+            let inSessionOrders = new OrdersInSession(ordersInSession);
+            msg_InSession = inSessionOrders.toString();
+        }
+        let msg_AtFrontDesk = '';
+        if (ordersSentToFrontDesk.length > 0) {
+            msg_AtFrontDesk = ', ' + OrdersInSession.stringifyOrdersAtFrontDesk(ordersSentToFrontDesk);
+        }
+        console.log('mesages=', msg_InSession, '++at fd=', msg_AtFrontDesk);
+
+        if (_.isEmpty(item_name) || (!this.$alexaSkill.hasEntityMatch('facility_slot') && _.isEmpty(this.$alexaSkill.getEntityMatches('facility_slot')))) {
+            console.log('item name not provided...');
+            if (!this.$alexaSkill.$dialog.isCompleted()) {
+                console.log('delegating...');
+                this.$alexaSkill.$dialog.delegate();
+            } else {
+                if (!_.isEmpty(msg_InSession)) {
+                    this.$speech
+                        .addText(this.t('ORDER_LIST', { items: msg_InSession }))
+                        .addBreak('200ms');
+                }
+                if (!_.isEmpty(msg_AtFrontDesk)) {
+                    this.$speech
+                        .addText(this.t('ORDER_LIST_AT_FRONTDESK', { items: msg_AtFrontDesk }))
+                        .addBreak('200ms');
+                }
+
+                if (_.isEmpty(msg_InSession) && _.isEmpty(msg_AtFrontDesk)) {
+                    console.log('%%no items ordered...asking user..');
+                    this.$speech
+                        .addText(this.t('ORDERS_NONE'))
+                        .addBreak('200ms')
+                        .addText(this.t('ANYTHING_ELSE'));
+                    return this.ask(this.$speech);
+                } else {
+                    console.log('^^some item found.ading message:');
+                    this.$speech
+                        .addText(this.t('ORDER_WHICH_TO_CANCEL'));
+                    return this
+                        .$alexaSkill
+                        .$dialog
+                        .elicitSlot('facility_slot', this.$speech, this.$speech);
+                }
+            }
+        } else if (!_.isEmpty(item_name)) {
+            console.log('user has provided an item name to cancl:', item_name);
+            // If the user has told the name of the item
+            let item = {};   // Step 1
+            try {
+                item = await DBFuncs.item(hotel_id, item_name);
+            } catch (error) {
+                if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                    return this.tell(this.t('SYSTEM_ERROR'));
+                }
+            }
+
+            console.log('FOUN item:', item);
+            let orderedItem;
+            if (ordersInSession.length > 0) {
+                orderedItem = _.filter(ordersInSession, { name: item.name });
+                console.log('--item is in session:', orderedItem);
+                if (orderedItem.length > 0) {
+                    // Confirm cancellation of this order
+                    this.$speech
+                        .addText(this.t('ORDER_CANCEL_REMOVE_ITEM', { count: orderedItem[0].req_count, item_name: orderedItem[0].name }))   //orderedItem[0] is fine, as there cannot be multiple entries for the same item
+                        .addBreak('200ms')
+                        .addText(this.t('ANYTHING_ELSE'));
+
+                    // Remove order from list
+                    _.remove(this.$session.$data.orders, { name: item_name });
+                }
+            } else if (ordersSentToFrontDesk.length > 0) {
+                orderedItem = _.filter(ordersSentToFrontDesk, { item: { name: item.name } });
+                console.log('--item is in previous orders:', orderedItem);
+                if (orderedItem.length > 0) {
+                    this.$speech
+                        .addText(this.t('ORDER_CANCEL_REQUEST_CANCEL_AT_FRONTDESK', { count: orderedItem[0].item.req_count, item_name: orderedItem[0].item.name }))   //orderedItem[0] is fine, as there cannot be multiple entries for the same item
+                        .addBreak('200ms')
+                        .addText(this.t('ANYTHING_ELSE'));
+
+                    // Remove order from database
+                    try {
+                        await DBFuncs.cancel_order(hotel_id, room_no, user_id, item.name);
+                    } catch (error) {
+                        //FIXME: Should we tell the customer about the error?
+                    }
+                }
+            }
+            this.ask(this.$speech);
         }
     },
 
+    /**
+     * Guest: What did I order?
+     * Alexa: You have ordered 2 tea, 2 idly today at 12:30 PM. Would you like to know or order anything else?
+     * Guest: Yes, I would like a coffee as well => Order_item flow
+     * (or) Guest: No
+     * Alexa: Thank you. Please wake me up incase of need
+     */
+    async Ordered_items() {
+        let hotel_id = this.$session.$data.hotel.hotel_id,
+            user_id = this.$request.context.System.user.userId,
+            room_no = this.$session.$data.hotel.room_no;
+
+        let ordersInSession = _.isUndefined(this.$session.$data.orders) ? [] : this.$session.$data.orders;
+        let ordersSentToFrontDesk = [];
+        try {
+            ordersSentToFrontDesk = await DBFuncs.new_orders(hotel_id, room_no, user_id);
+        } catch (error) {
+            console.log('error in fetching orders sent to front desk:', error);
+            //FIXME: What to do incase of DB errors
+        }
+        console.log('++allorders=', ordersInSession, '---at frontdesk=', ordersSentToFrontDesk);
+        orderCount = ordersInSession.length + ordersSentToFrontDesk.length;
+
+        // Read out the orders and ask for confirmation
+        let msg_InSession = '';
+        if (ordersInSession.length > 0) {
+            let inSessionOrders = new OrdersInSession(ordersInSession);
+            msg_InSession = inSessionOrders.toString();
+        }
+        let msg_AtFrontDesk = '';
+        if (ordersSentToFrontDesk.length > 0) {
+            msg_AtFrontDesk = ', ' + OrdersInSession.stringifyOrdersAtFrontDesk(ordersSentToFrontDesk);
+        }
+        console.log('mesages=', msg_InSession, '++at fd=', msg_AtFrontDesk);
+
+        if (!_.isEmpty(msg_InSession)) {
+            this.$speech
+                .addText(this.t('ORDER_LIST', { items: msg_InSession }))
+                .addBreak('200ms');
+        }
+        if (!_.isEmpty(msg_AtFrontDesk)) {
+            this.$speech
+                .addText(this.t('ORDER_LIST_AT_FRONTDESK', { items: msg_AtFrontDesk }))
+                .addBreak('200ms');
+        }
+
+        if (_.isEmpty(msg_InSession) && _.isEmpty(msg_AtFrontDesk)) {
+            console.log('%%no items ordered...asking user..');
+            this.$speech
+                .addText(this.t('ORDERS_NONE'))
+                .addBreak('200ms');
+        }
+
+        this.$speech.addText(this.t('ANYTHING_ELSE'));
+        this.ask(this.$speech);
+    },
+
+    /**
+     * Guest: The TV is not working
+     * Alexa: You mentioned that the TV is not working. Can you confirm
+     * Guest: Yes
+     * Alexa: I will take a request to have someone look into the problem. Would you like to know about or order anything else?
+     * (or)
+     * Alexa: I see that there is already a request placed for {{item}}. I will notify the issue to the hotel staff and they will tend to this as soon as possible
+     */
+    async Equipment_not_working() {
+        let hotel_id = this.$session.$data.hotel.hotel_id,
+            user_id = this.$request.context.System.user.userId,
+            room_no = this.$session.$data.hotel.room_no,
+            item_name = this.$inputs.facility_slot.value;
+
+        let item;
+        try {
+            item = await DBFuncs.successors(hotel_id, item_name);
+        } catch (error) {
+            if (error instanceof KamError.InputError) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            }
+        }
+
+        if (_.isEmpty(item) || _.isUndefined(item)) {
+            let msg = '';
+            if (_.isUndefined(item_name)) {
+                msg = this.t('FACILITY_NONAME_NOT_AVAILABLE');
+            } else {
+                msg = this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name });
+            }
+            this.$speech
+                .addText(msg)
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
+        }
+
+        try {
+            let sameOrders = await DBFuncs.already_ordered_items(hotel_id, room_no, item);
+            if (sameOrders.length > 0) { // There have been prior orders from this guest
+                // Status = 'new', 'progress' = tell user that the item has already been ordered. Would you like to still order it?
+                const status_new = _.filter(orders, { curr_status: [{ status: 'new' }] });
+                const status_progress = _.filter(orders, { curr_status: [{ status: 'progress' }] });
+                if (!_.isEmpty(status_new) || !_.isEmpty(status_progress)) {
+                    this
+                        .$speech
+                        .addText(this.t('PROBLEM_BEING_WORKED_ON'))
+                        .addBreak('200ms')
+                        .addText(this.t('ANYTHING_ELSE'));
+                    //TODO: Change the status to 'urgent'?
+                }
+            }
+        } catch (error) {
+            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                this.tell(this.t('SYSTEM_ERROR'));
+            }
+        }
+
+        addOrderToSession(this, item, 0, true);
+        let orders = this.$session.$data.orders;
+        console.log('creating order for non functioning item: hotel_id=' + hotel_id + ',user_id=' + user_id + ',room_no=' + room_no + ',items=', orders);
+        try {
+            DBFuncs.create_order(hotel_id, room_no, user_id, orders);
+        } catch (error) {
+            console.log('coding or db error.', error);
+            this.tell(this.t('SYSTEM_ERROR'));
+        }
+
+        this.$speech
+            .addText(this.t('ORDER_TAKEN_FOR_NOT_WORKING_FACILITY'))
+            .addBreak('200ms')
+            .addText(this.t('ANYTHING_ELSE'));
+        return this.ask(this.$speech);
+
+    },
 }

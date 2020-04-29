@@ -9,21 +9,21 @@ const _ = require('lodash');
 
 class Item {
     constructor(item) {
-        this._name = item.name;
-        this._a = item.a;
-        this._type = item.iType;
+        this.name = item.name;
+        this.a = item.a;
+        this.type = item.iType;
     }
 
     available() {
-        return this._a;
+        return this.a;
     }
 
     type() {
-        return this._type;
+        return this.type;
     }
 
     name() {
-        return this._name;
+        return this.name;
     }
 
     static load(item) {
@@ -32,21 +32,18 @@ class Item {
         if (_.has(item, 'ri') && item.ri) { item.iType = 'ri'; return new RoomItem(item); }
         if (_.has(item, 'm') && item.m) { item.iType = 'm'; return new MenuItem(item); }
     }
-
-    static facilities() {
-
-    }
 }
 module.exports.Item = Item;
 
 class Policy extends Item {
     constructor(policy) {
         super(policy);
-        this._msg = policy.msg;
+        this.p = policy.p;
+        this.msg = policy.msg;
     }
 
     msg() {
-        return this._msg;
+        return this.msg;
     }
 }
 module.exports.Policy = Policy;
@@ -54,17 +51,17 @@ module.exports.Policy = Policy;
 class Facility extends Item {
     constructor(facility) {
         super(facility);
-        this._o = facility.o;
-        this._msg_yes = facility.msg.yes;
-        this._msg_no = facility.msg.no;
-        this._timings = facility.timings;
-        this._location = facility.location;
-        this._price = facility.price;
-        this._reserve = facility.reserve;
+        this.f = facility.f;
+        this.o = facility.o;
+        this.msg = facility.msg;
+        this.timings = facility.timings;
+        this.location = facility.location;
+        this.price = facility.price;
+        this.reserve = facility.reserve;
     }
 
     orderable() {
-        return this._o;
+        return this.o;
     }
 
     hasCount() {
@@ -72,30 +69,30 @@ class Facility extends Item {
     }
 
     msgYes() {
-        return this._msg_yes;
+        return this.msg.yes;
     }
 
     msgNo() {
-        return this._msg_no;
+        return this.msg.no;
     }
 
     timingsMsg() {
         //TODO: Use the 'from', 'to' objects to determine the exact message. For now, just the raw message is fine
-        return this._timings.msg;
+        return this.timings.msg;
     }
 
     locationMsg() {
-        return this._location.msg;
+        return this.location.msg;
     }
 
     priceMsg() {
         //TODO: Use the 'price' objects to determine the exact message. For now, just the raw message is fine
-        return this._price.msg;
+        return this.price.msg;
     }
 
     reserveMsg() {
         //TODO: Implement reservation of a facility feature
-        return this._reserve.msg;
+        return this.reserve.msg;
     }
 }
 module.exports.Facility = Facility;
@@ -103,40 +100,40 @@ module.exports.Facility = Facility;
 class RoomItem extends Item {
     constructor(roomitem) {
         super(roomitem);
-        this._o = roomitem.o;
-        this._c = roomitem.c;
-        this._price = roomitem.price;
-        this._limit = roomitem.limit;
-        this._msg_yes = roomitem.msg.yes;
-        this._msg_no = roomitem.msg.no;
+        this.ri = roomitem.ri;
+        this.o = roomitem.o;
+        this.c = roomitem.c;
+        this.price = roomitem.price;
+        this.limit = roomitem.limit;
+        this.msg = roomitem.msg;
     }
 
     orderable() {
-        return this._o;
+        return this.o;
     }
 
     hasCount() {
-        return this._c;
+        return this.c;
     }
 
     price() {
-        return this._price;
+        return this.price;
     }
 
     limit() {
-        return this._limit.count;
+        return this.limit.count;
     }
 
     limitFor() {
-        return this._limit.for;
+        return this.limit.for;
     }
 
     msgYes() {
-        return this._msg_yes;
+        return this.msg.yes;
     }
 
     msgNo() {
-        return this._msg_no;
+        return this.msg.no;
     }
 }
 module.exports.RoomItem = RoomItem;
@@ -144,31 +141,32 @@ module.exports.RoomItem = RoomItem;
 class MenuItem extends Item {
     constructor(menuitem) {
         super(menuitem);
-        this._o = menuitem.o;
-        this._mtype = menuitem.mtype;
-        this._c = menuitem.c;
-        this._qty = menuitem.qty;
-        this._price = menuitem.price;
+        this.m = menuitem.m;
+        this.o = menuitem.o;
+        this.mtype = menuitem.mtype;
+        this.c = menuitem.c;
+        this.qty = menuitem.qty;
+        this.price = menuitem.price;
     }
 
     orderable() {
-        return this._o;
+        return this.o;
     }
 
     menuItemType() {
-        return this._mtype;
+        return this.mtype;
     }
 
     hasCount() {
-        return this._c;
+        return this.c;
     }
 
     quantity() {
-        return this._qty;
+        return this.qty;
     }
 
     price() {
-        return this._price;
+        return this.price;
     }
 }
 module.exports.MenuItem = MenuItem;

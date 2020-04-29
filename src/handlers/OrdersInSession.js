@@ -17,7 +17,7 @@ class OrdersInSession {
     add(itemObj, reqCount, notWorking = false) {
         // Update the item if it has already been ordered
         console.log('++--itemObj=', itemObj, '++-', itemObj instanceof MenuItem);
-        let item_idx = _.indexOf(this.orders, itemObj.name());
+        let item_idx = _.indexOf(this.orders, itemObj.name);
         if (!_.isEqual(item_idx, -1)) { // Item has not been ordered already, update the count
             this.orders[item_idx].req_count += reqCount;
         } else {    // This item has not been already ordered
@@ -32,7 +32,7 @@ class OrdersInSession {
             } else if (notWorking) {
                 type = 'problem';
             }
-            this.orders.push({ type: type, name: itemObj.name(), req_count: reqCount });
+            this.orders.push({ type: type, name: itemObj.name, req_count: reqCount });
         }
 
     }
@@ -44,7 +44,7 @@ class OrdersInSession {
 
     remove(itemObj) {
         _.remove(this.orders, {
-            name: itemObj.name()
+            name: itemObj.name
         });
     }
 

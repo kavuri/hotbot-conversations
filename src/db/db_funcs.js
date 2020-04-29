@@ -293,7 +293,7 @@ module.exports.already_ordered_items = async function (hotel_id, room_no, itemOb
             .exec();
         console.log('----room=', JSON.stringify(room));
         let sameOrder = _.filter(room.orders, (o) => {
-            return _.isEqual(_.lowerCase(o.item.name), _.lowerCase(itemObj.name()));
+            return _.isEqual(_.lowerCase(o.item.name), _.lowerCase(itemObj.name));
             // { item: { name: itemObj.name() } }
         });
         console.log('----sameOrder=', sameOrder);
@@ -325,7 +325,7 @@ module.exports.new_orders = async function (hotel_id, room_no, user_id) {
         // console.log('found orders=', JSON.stringify(checkinCheckout.orders));
         var newOrders = _.filter(checkinCheckout.orders, { curr_status: { status: "new" } });
         var progressOrders = _.filter(checkinCheckout.orders, { curr_status: { status: "progress" } });
-        console.log('%%%newOrders=', newOrders, ',%%% progressOrders=', progressOrders);
+        //console.log('%%%newOrders=', newOrders, ',%%% progressOrders=', progressOrders);
         let openOrders = _.concat(newOrders, progressOrders);
         return openOrders;
     } catch (error) {
