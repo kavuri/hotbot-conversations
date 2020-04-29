@@ -42,6 +42,7 @@ async function priceMsg(thisObj, hotel_id, item) {
 }
 
 module.exports = {
+    /*
     async Enquiry_reception_languages() {
         const hotel_id = this.$session.$data.hotel.hotel_id;
         let facility;
@@ -71,12 +72,14 @@ module.exports = {
         // Followup state is not required, as this is a straight forward answer and the next query from guest can be anything else
         return this.ask(this.$speech);
     },
+    */
 
     async Enquiry_all_facilities() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let allFacilities;
+        let allFacilities, main_facilities;
         try {
+            main_facilities = await DBFuncs.main_facilities(hotel_id);
             allFacilities = await DBFuncs.allFacilities(hotel_id);
             console.log('###returned facilities=', facility_names);
         } catch (error) {
@@ -90,11 +93,7 @@ module.exports = {
             }
         }
 
-        // If the number of facilities is >4, tell the first four
-        if (allFacilities.length > 4) {
-            allFacilities = _.slice(allFacilities, 0, 4);
-        }
-        let stitch = _.join(allFacilities, ',');
+        let stitch = _.join(main_facilities, ',');
 
         this
             .$speech
@@ -102,7 +101,6 @@ module.exports = {
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
 
-        this.removeState(); // This makes the next invocation go global
         return this.ask(this.$speech);
         // return this
         //     .followUpState('ReadOutAllFacilitiesState')

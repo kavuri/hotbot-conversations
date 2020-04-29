@@ -72,7 +72,6 @@ function createGraph(hotel) {
 
     // Create hotel & its nodes
     g.setNode(hotel.hotel_id, hotel.name);
-    g.setNode('main_facilities', ['restaurant', 'Gym', 'swimming pool', 'breakfast', 'Laundry']);
 
     // Hotel points to the following nodes
     // hotel_id->main_facilities, hotel_id->facilities, hotel_id->policies
@@ -141,6 +140,15 @@ function createGraph(hotel) {
 
     // Set the edges
     createEdges(policies, ['smoking', 'alcohol', 'cancellation', 'infants', 'checkout time', 'no show', 'outside food', 'check-in time', 'pets', 'payment methods'], { label: 'policy' });
+
+    g.setNode('main_facilities', {
+        f: true, iType: 'f', a: false, o: false,
+        msg: { yes: ' ', no: ' ' },
+        timings: { msg: ' ', time: { from: ' ', to: ' ' } },
+        location: { msg: ' ' },
+        price: { msg: ' ', price: 0 },
+        reserve: { msg: { yes: ' ', no: ' ' } },
+    });
 
     // Create facilities
     g.setNode('Gym', {
@@ -747,6 +755,7 @@ function linkFacilities(hotel_id) {
             if (!_.isUndefined(node['f']) && _.isEqual(node['f'], true)) {
                 // console.log(facilities + '->' + name);
                 g.setEdge(facilities, nodes[i], { label: 'facility' });
+                if (!_.isEqual(nodes[i], 'main_facilities')) g.setParent(nodes[i], 'main_facilities');  // Not to create cycles in the graph
             }
         }
     }
@@ -819,7 +828,7 @@ function createAllItemsNode(hotel_id) {
     }
     g.setNode('all_items', allItems);
 
-    console.log('all items=',g.node('all_items'), ',count=', g.node('all_items').length);
+    console.log('all items=', g.node('all_items'), ',count=', g.node('all_items').length);
 }
 
 function createEdges(source, targets, label) {
@@ -928,4 +937,4 @@ module.exports.create = function (hotel, hotel_name, genFile = false) {
 }
 
 // require('./graph').create();
-// require('./graph').addOrUpdate("1");
+require('./graph').addOrUpdate("1");

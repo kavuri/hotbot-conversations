@@ -88,7 +88,6 @@ module.exports.allFacilities = async (hotel_id) => {
 
 /**
  * Returns of the main facilities (a subset of allFacilities)
- * FIXME: This is not used right now. Maybe later
  */
 module.exports.main_facilities = async (hotel_id) => {
     console.log('main_facilities:', hotel_id);
@@ -97,7 +96,7 @@ module.exports.main_facilities = async (hotel_id) => {
     }
 
     const g = await cache.get(hotel_id);
-    const main_facilities = g.node('main_facilities');
+    const main_facilities = g.children('main_facilities');
     console.log('main facilities=', main_facilities);
     return main_facilities;
 }
