@@ -62,7 +62,7 @@
     "ORDERS_NONE": " You do not have any open orders ",
     "NO_SUCH_ORDER": " I do not see any order for {{item_name}}  ",
 
-    "PROBLEM_BEING_WORKED_ON": " You notice on the problem with {{item_name}} is being worked on. I have sent one more reminder now ",
-    "ORDER_TAKEN_FOR_NOT_WORKING_FACILITY": "  I have taken a request for non functioning of {{item_name}} "
+    "PROBLEM_BEING_WORKED_ON": " We have received your request to fix {{item_name}} and are working on it and will ensure to fix it as soon as possible ",
+    "ORDER_TAKEN_FOR_NOT_WORKING_FACILITY": "  I have taken a request to fix {{item_name}} "
   }
 }

@@ -29,7 +29,9 @@ class OrdersInSession {
                 type = 'facility';
             } else if (itemObj instanceof RoomItem) {   // room item
                 type = 'roomitem';
-            } else if (notWorking) {
+            }
+
+            if (notWorking) {
                 type = 'problem';
             }
             this.orders.push({ type: type, name: itemObj.name, req_count: reqCount });

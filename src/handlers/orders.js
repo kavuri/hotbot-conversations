@@ -565,14 +565,16 @@ module.exports = {
             room_no = this.$session.$data.hotel.room_no,
             item_name = this.$inputs.facility_slot.value;
 
-        let item;
+        console.log('Requested item name=', item_name);
+        let item = {};
         try {
-            item = await DBFuncs.successors(hotel_id, item_name);
+            item = await DBFuncs.item(hotel_id, item_name);
         } catch (error) {
             if (error instanceof KamError.InputError) {
                 this.tell(this.t('SYSTEM_ERROR'));
             }
         }
+        console.log('Item from DB=', item);
 
         if (_.isEmpty(item) || _.isUndefined(item)) {
             let msg = '';
@@ -588,42 +590,44 @@ module.exports = {
             return this.ask(this.$speech);
         }
 
-        try {
-            let sameOrders = await DBFuncs.already_ordered_items(hotel_id, room_no, item);
-            if (sameOrders.length > 0) { // There have been prior orders from this guest
-                // Status = 'new', 'progress' = tell user that the item has already been ordered. Would you like to still order it?
-                const status_new = _.filter(orders, { curr_status: [{ status: 'new' }] });
-                const status_progress = _.filter(orders, { curr_status: [{ status: 'progress' }] });
-                if (!_.isEmpty(status_new) || !_.isEmpty(status_progress)) {
-                    this
-                        .$speech
-                        .addText(this.t('PROBLEM_BEING_WORKED_ON'))
-                        .addBreak('200ms')
-                        .addText(this.t('ANYTHING_ELSE'));
-                    //TODO: Change the status to 'urgent'?
+        //FIXME: If the item in question is not a roomitem or a facility, then respond back accordingly
+
+        let itemObj = Item.load(item);
+        let prevOrders = await checkForReorders(itemObj, hotel_id, room_no);
+        console.log('prevOrders=', prevOrders, '---currOrders=', this.$session.$data.orders);
+        switch (prevOrders.status) {
+            case 'none':    //No previous orders
+                let inSessionOrders = new OrdersInSession();
+                inSessionOrders.add(itemObj, 0, true);
+
+                let orders = inSessionOrders.currOrders();
+                console.log('creating order for non functioning item: hotel_id=' + hotel_id + ',user_id=' + user_id + ',room_no=' + room_no + ',items=', orders);
+                try {
+                    DBFuncs.create_order(hotel_id, room_no, user_id, orders);
+                } catch (error) {
+                    console.log('coding or db error.', error);
+                    return this.tell(this.t('SYSTEM_ERROR'));
                 }
-            }
-        } catch (error) {
-            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            }
-        }
 
-        addOrderToSession(this, item, 0, true);
-        let orders = this.$session.$data.orders;
-        console.log('creating order for non functioning item: hotel_id=' + hotel_id + ',user_id=' + user_id + ',room_no=' + room_no + ',items=', orders);
-        try {
-            DBFuncs.create_order(hotel_id, room_no, user_id, orders);
-        } catch (error) {
-            console.log('coding or db error.', error);
-            this.tell(this.t('SYSTEM_ERROR'));
+                this.$speech
+                    .addText(this.t('ORDER_TAKEN_FOR_NOT_WORKING_FACILITY', { item_name: itemObj.name }))
+                    .addBreak('200ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+                break;
+            case 'progress':
+                this
+                    .$speech
+                    .addText(this.t('PROBLEM_BEING_WORKED_ON'))
+                    .addBreak('200ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+                break;
+            case 'done':
+                //TODO: Say that the problem seems to have been already fixed?
+                break;
+            case 'cant_serve':
+                //TODO: Say that we are unable to fix the problem?
+                break;
         }
-
-        this.$speech
-            .addText(this.t('ORDER_TAKEN_FOR_NOT_WORKING_FACILITY'))
-            .addBreak('200ms')
-            .addText(this.t('ANYTHING_ELSE'));
         return this.ask(this.$speech);
-
     },
 }
