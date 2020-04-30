@@ -10,31 +10,54 @@
 
 const _ = require('lodash'),
     DBFuncs = require('../db/db_funcs'),
-    KamError = require('../utils/KamError');
+    KamError = require('../utils/KamError'),
+    { Item, MenuItem, RoomItem, Facility } = require('./Item');
 
 /**
  * Common funtion to check the price tag and retun the price message
  * @param {*} thisObj 
  * @param {*} item 
  */
-async function priceMsg(thisObj, hotel_id, item) {
+function priceMsg(thisObj, hotel_id, itemObj) {
     let msg = '';
-    if (!_.has(item, 'msg')) {
-        // Message is not set in the data. Check for price and create a message
-        if (!_.has(item, 'price') || _.isEqual(item.price, '0')) {
-            msg = thisObj.t('ORDER_FREE', { item_name: item.name });
-        } else if (_.has(item, 'price') && !_.isEqual(item.price, '0')) {
-            const price = item.price;
-            msg = thisObj.t('ORDER_COSTS', { item_name: item.name, price: price });
+    if (itemObj instanceof MenuItem) {
+        let price = itemObj.price;
+        msg = _.isEqual(price, 0) ? thisObj.t('ITEM_FREE') : thisObj.t('ITEM_COSTS', { item_name: itemObj.name, price: price });
+        console.log('^^^Its a menu item. msg=', msg);
+    } else if (itemObj instanceof RoomItem) {
+        let price = itemObj.price;
+        let limit = itemObj.limitCount();
+        let limitFor = itemObj.limitFor();
+        let limitMsg = '';
+        console.log('limit=', limit, ', limitFor=', limitFor);
+        if (!_.isEqual(limit, -1)) {
+            switch (limitFor) {
+                case 'day':
+                    limitMsg = thisObj.t('LIMIT_PER_DAY', { limit: limit });
+                    break;
+                case 'stay':
+                    limitMsg = thisObj.t('LIMIT_PER_STAY', { limit: limit });
+                    break;
+                default:
+                // No such case now
+            }
         }
-    } else if (_.has(item, 'f')) {
-        let price_node_name = item.name.toLowerCase() + '_price';
-        let price = await DBFuncs.getNode(hotel_id, price_node_name);
-        if (_.isUndefined(price)) {   // FIXME: Ensure this does not happen
-            this.tell(this.t('SYSTEM_ERROR'));
+        console.log('--limit msg=', limitMsg);
+        if (_.isEqual(price, 0) && _.isEqual(limit, -1)) {
+            // Its free of cost for ever
+            //msg = itemObj.msgYes();
+        } else if (_.isEqual(price, 0) && !_.isEqual(limit, -1)) {
+            msg = limitMsg;
+            //msg = itemObj.msgYes() + limitMsg;
+        } else if (!_.isEqual(price, 0) && _.isEqual(limit, -1)) {
+            msg = thisObj.t('ITEM_COSTS', { price: price });
+        } else if (!_.isEqual(price, 0) && !_.isEqual(limit, -1)) {
+            msg = thisObj.t('ITEM_COSTS', { price: price }) + thisObj.$speech.addBreak('300ms') + limitMsg;
         }
-    } else {
-        msg = item.msg['yes'];
+        console.log('---msg=', msg);
+    } else if (itemObj instanceof Facility) {
+        msg = itemObj.priceMsg();
+        console.log('^^^Its a facility. msg=', msg);
     }
 
     console.log('returning price msg:', msg);
@@ -155,8 +178,92 @@ module.exports = {
      * 9. Once done, read the orders and place them
      */
     async Enquiry_facility_exists() {
-        //TODO: Implement
-        return this.toIntent('HandleOrderIntent');
+        console.log('++facility exists intent');
+        let hotel_id = this.$session.$data.hotel.hotel_id,
+            room_no = this.$session.$data.hotel.room_no,
+            item_name = this.$inputs.facility_slot.value;
+
+        // Check if the item exists before asking for count
+        console.log('++++item name=', item_name);
+        let item = {};   // Step 1
+        try {
+            item = await DBFuncs.item(hotel_id, item_name);
+        } catch (error) {
+            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                return this.tell(this.t('SYSTEM_ERROR'));
+            }
+        }
+
+        console.log('found item=', item);
+        // If the hotel does not have this item, say so and ask for something else  
+        if (_.isEmpty(item)) {
+            this
+                .$speech
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name }))
+                .addBreak('200ms')
+                .addText(this.t('ORDER_ANYTHING_ELSE'));
+            return this.ask(this.$speech);
+        }
+
+        let itemObj = {};
+        if (!_.isEmpty(item)) {
+            itemObj = Item.load(item);
+        }
+
+        // If item is not available say so and ask for something else
+        let msg = '';
+        if (!itemObj.available()) {
+            msg = itemObj.msgNo();
+            this.$speech
+                .addText(msg)
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
+        }
+
+        // If item is not orderable, tell about the item and ask for something else
+        if (!itemObj.orderable()) {
+            console.log('isOrdeerable is false');
+            // Item is present, 'cannot' be ordered. Give information about the item
+            msg = itemObj.msgYes();
+            this.$speech
+                .addText(msg)
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            return this.ask(this.$speech);
+        } else if (itemObj.orderable()) {   // Item is orderable, ask user if they would like to order
+            // Get the price message and tell the user about it
+            let msg = priceMsg(this, hotel_id, itemObj);
+            this.$speech
+                .addText(this.t('ITEM_EXISTS', { item_name: itemObj.name }))
+                .addBreak('100ms')
+                .addText(this.t('AND'))
+                .addText(msg)
+                .addBreak('400ms')
+                .addText(this.t('ITEM_LIKE_TO_ORDER'));
+
+            this.$session.$data.facility_slot = item_name;
+            this.$session.$data.itemObj = itemObj;
+            return this
+                .followUpState('Query_To_Order_State')
+                .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        }
+    },
+
+    'Query_To_Order_State': {
+        async YesIntent() {
+            console.log('Going to Order_Item intent');
+            // Set the facility_slot to the name of the item
+            this.removeState();
+            return this.toStatelessIntent('Order_item');
+        },
+
+        async NoIntent() {
+            this.$speech
+                .addText(this.t('ANYTHING_ELSE'));
+            this.removeState();
+            this.ask(this.$speech);
+        }
     },
 
     /**
@@ -261,7 +368,7 @@ module.exports = {
             return this.ask(this.$speech);
         }
 
-        msg = await priceMsg(this, hotel_id, item);
+        msg = priceMsg(this, hotel_id, item);
         // Price can be an attribute of the node or a successor
 
         this.$speech

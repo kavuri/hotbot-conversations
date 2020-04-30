@@ -47,7 +47,7 @@ async function checkForReorders(itemObj, hotel_id, room_no) {
                     prev: _.concat(status_new, status_progress)
                 }
             } else if (!_.isEmpty(status_done) || !_.isEmpty(status_canceled)) {
-                let price = itemObj.price(), limit = itemObj.limit();
+                let price = itemObj.price, limit = itemObj.limitCount;
                 // Check the limits for this order
                 if (!_.isUndefined(limit)) {    // There are limits on this item
                     if (_.isEqual(price, 0)) {    // The item costs money, so why check for limit. This is a problem in DB setup
@@ -96,81 +96,159 @@ module.exports = {
     async Order_item() {
         console.log('++got into HandleOrderIntent');
         let hotel_id = this.$session.$data.hotel.hotel_id,
-            room_no = this.$session.$data.hotel.room_no,
+            room_no = this.$session.$data.hotel.room_no;
+
+        if (_.has(this.$session.$data, 'orders') && (this.$session.$data.orders.length > 0)) {
+            inSessionOrders = new OrdersInSession(this.$session.$data.orders);
+        } else {
             inSessionOrders = new OrdersInSession();
+        }
 
+        console.log('^^^facility_slot=', this.$inputs, '---slot=', this.$inputs.facility_slot);
         let item_name = _.has(this.$inputs.facility_slot, 'value') ? this.$inputs.facility_slot.value : '';
-
-        console.log('+++hasValue+++', this.$inputs.facility_slot);
-        console.log('---hasEntityMatch---', JSON.stringify(this.$alexaSkill.hasEntityMatch('facility_slot')));
-        console.log('---getEntityMatches---', JSON.stringify(this.$alexaSkill.getEntityMatches('facility_slot')));
-        console.log('---getDynamicEntityMatches---', JSON.stringify(this.$alexaSkill.getDynamicEntityMatches('facility_slot')));
-        console.log('---getStaticEntityMatches---', JSON.stringify(this.$alexaSkill.getStaticEntityMatches('ifacility_slot')));
-
-        let absMatch = true;
-        if (!this.$alexaSkill.$dialog.isCompleted()) {
-            this.$alexaSkill.$dialog.delegate();
-        } else if (_.isEmpty(item_name)) {
-            if (!this.$alexaSkill.hasEntityMatch('facility_slot') &&
-                _.isEmpty(this.$alexaSkill.getEntityMatches('facility_slot'))) {
-                console.log('+++--No Matches--+++');
-                absMatch = false;
-                this.$speech
-                    .addText(this.t('SORRY'))
-                    .addBreak('100ms')
-                    .addText(this.t('UNKNOWN_REQUEST'))
-                    .addBreak('100ms')
-                    .addText(this.t('HELP_MESSAGE'));
-                return this
-                    .$alexaSkill
-                    .$dialog
-                    .elicitSlot('facility_slot', this.t('REPEAT_REQUEST'), this.$speech);
-            }
-        }
-        // else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() !== 'CONFIRMED') {
-        //     let reprompt = speech = `So you would like to order ${this.$inputs.facility_slot.value}, right?`;
-        //     return this.$alexaSkill.$dialog.confirmIntent(speech, reprompt);
-        // }
-
-        // Check if the item exists before asking for count
-        let item = {};   // Step 1
-        try {
-            item = await DBFuncs.item(hotel_id, item_name, absMatch);
-        } catch (error) {
-            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
-                return this.tell(this.t('SYSTEM_ERROR'));
-            }
-        }
-
-        // If the hotel does not have this item, say so and ask for something else  
-        if (_.isEmpty(item)) {
-            this
-                .$speech
-                .addText(this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name }))
-                .addBreak('200ms')
-                .addText(this.t('ORDER_ANYTHING_ELSE'));
-            return this.ask(this.$speech);
-        }
-
         let itemObj = {};
-        if (!_.isEmpty(item)) {
+
+        // HACK: This is almost a hack, since as per Jovo doc, setting this.$data to a key should be good for the next intent input
+        // But this does not seem to work
+        //  this.$data.facility_slot = this.$session.$data.facility_slot;
+        // https://www.jovo.tech/docs/data
+        let enquiry = false;    //flag to check if the intent came from enquiry
+        if (_.has(this.$session.$data, 'facility_slot') && !_.isUndefined(this.$session.$data.facility_slot)) {
+            item_name = this.$session.$data.facility_slot;  // This request has come from Enquiry_facility_exists
+            let item = this.$session.$data.itemObj;
+            console.log('Got facility_slot from session...', item_name, '--itemObj=', item);
+            enquiry = true;
             itemObj = Item.load(item);
         }
 
+        if (!enquiry) { // This is a direct invocation like 'I want to order a soap'
+            console.log('+++hasValue+++', this.$inputs.facility_slot);
+            console.log('---hasEntityMatch---', JSON.stringify(this.$alexaSkill.hasEntityMatch('facility_slot')));
+            console.log('---getEntityMatches---', JSON.stringify(this.$alexaSkill.getEntityMatches('facility_slot')));
+            console.log('---getDynamicEntityMatches---', JSON.stringify(this.$alexaSkill.getDynamicEntityMatches('facility_slot')));
+            console.log('---getStaticEntityMatches---', JSON.stringify(this.$alexaSkill.getStaticEntityMatches('ifacility_slot')));
+
+            let absMatch = true;
+            if (!this.$alexaSkill.$dialog.isCompleted()) {
+                this.$alexaSkill.$dialog.delegate();
+            } else if (_.isEmpty(item_name)) {
+                if (!this.$alexaSkill.hasEntityMatch('facility_slot') &&
+                    _.isEmpty(this.$alexaSkill.getEntityMatches('facility_slot'))) {
+                    console.log('+++--No Matches--+++');
+                    absMatch = false;
+                    this.$speech
+                        .addText(this.t('SORRY'))
+                        .addBreak('100ms')
+                        .addText(this.t('UNKNOWN_REQUEST'))
+                        .addBreak('100ms')
+                        .addText(this.t('HELP_MESSAGE'));
+                    return this
+                        .$alexaSkill
+                        .$dialog
+                        .elicitSlot('facility_slot', this.t('REPEAT_REQUEST'), this.$speech);
+                }
+            }
+            // else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() !== 'CONFIRMED') {
+            //     let reprompt = speech = `So you would like to order ${this.$inputs.facility_slot.value}, right?`;
+            //     return this.$alexaSkill.$dialog.confirmIntent(speech, reprompt);
+            // }
+
+            // Check if the item exists before asking for count
+            let item = {};   // Step 1
+            try {
+                item = await DBFuncs.item(hotel_id, item_name, absMatch);
+            } catch (error) {
+                if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                    return this.tell(this.t('SYSTEM_ERROR'));
+                }
+            }
+
+            // If the hotel does not have this item, say so and ask for something else  
+            if (_.isEmpty(item)) {
+                this
+                    .$speech
+                    .addText(this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name }))
+                    .addBreak('200ms')
+                    .addText(this.t('ORDER_ANYTHING_ELSE'));
+                return this.ask(this.$speech);
+            }
+
+            if (!_.isEmpty(item)) {
+                itemObj = Item.load(item);
+            }
+
+            // If item is not available say so and ask for something else
+            let msg = '';
+            if (!itemObj.available()) {
+                msg = itemObj.msgNo();
+                this.$speech
+                    .addText(msg)
+                    .addBreak('200ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+                return this.ask(this.$speech);
+            }
+
+            // If item is not orderable, tell about the item and ask for something else
+            if (!itemObj.orderable()) {
+                console.log('isOrdeerable is false');
+                // Item is present, 'cannot' be ordered. Give information about the item
+                msg = itemObj.msgYes();
+                this.$speech
+                    .addText(msg)
+                    .addBreak('200ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+                return this.ask(this.$speech);
+            }
+        }   // end of (enquiry)
+
         let reqCount = 1;
-        if (_.has(this.$inputs.req_count, 'value')) {
+        if (_.has(this.$inputs.req_count, 'value')) {   // Checks against invalid input, like non-numbers
             reqCount = parseInt(this.$inputs.req_count.value);
             if (isNaN(reqCount)) reqCount = -1;
         }
+        console.log('+++itemObj=', itemObj, '--instanceof=', itemObj instanceof RoomItem, '---count=', this.$inputs.req_count, '---hasCount=', itemObj.hasCount());
         if (itemObj.hasCount()) {
             if (!this.$alexaSkill.$dialog.isCompleted()) {
-                this.$alexaSkill.$dialog.delegate();
-            } else if (_.isEqual(reqCount, -1)) {
-                console.log('+++--No Matches--+++');
+                const updatedIntent = {
+                    name: 'Order_item',
+                    confirmationStatus: 'NONE',
+                    slots: {
+                        facility_slot: {
+                            name: 'facility_slot',
+                            value: item_name,
+                            confirmationStatus: 'CONFIRMED'
+                        },
+                        req_count: {
+                            name: 'req_count',
+                            confirmationStatus: 'NONE'
+                        }
+                    }
+                };
+                console.log('$$$$ Dialog not complete.....Sending updated intent......');
+                return this.$alexaSkill.$dialog.delegate(updatedIntent);
+                //this.$alexaSkill.$dialog.delegate();
+            } else if (!_.has(this.$inputs, 'req_count') || !_.has(this.$inputs.req_count, 'value')) {
+                console.log('+++--No req_count Matches--+++');
+                const updatedIntent = {
+                    name: 'Order_item',
+                    confirmationStatus: 'NONE',
+                    slots: {
+                        facility_slot: {
+                            name: 'facility_slot',
+                            value: item_name,
+                            confirmationStatus: 'CONFIRMED'
+                        },
+                        req_count: {
+                            name: 'req_count',
+                            confirmationStatus: 'NONE'
+                        }
+                    }
+                };
                 return this
                     .$alexaSkill
                     .$dialog
-                    .elicitSlot('req_count', this.t('REQUEST_ITEM_COUNT'), this.t('REQUEST_ITEM_COUNT'));
+                    .elicitSlot('req_count', this.t('REQUEST_ITEM_COUNT'), this.t('REQUEST_ITEM_COUNT'), updatedIntent);
+                //.elicitSlot('req_count', this.t('REQUEST_ITEM_COUNT'), updatedIntent);
             }
             //  else if (this.$alexaSkill.$dialog.getIntentConfirmationStatus() !== 'CONFIRMED') {
             //     let reprompt = speech = `So you would like ${req_count} of ${item_name}, right?`;
@@ -180,29 +258,6 @@ module.exports = {
             //     // return this.tell('You have requested for ' + req_count + ' ' + item_name);
             //     // FIXME: Populate the count
             // }
-        }
-
-        // If item is not available say so and ask for something else
-        let msg = '';
-        if (!itemObj.available()) {
-            msg = itemObj.msgNo();
-            this.$speech
-                .addText(msg)
-                .addBreak('200ms')
-                .addText(this.t('ANYTHING_ELSE'));
-            return this.ask(this.$speech);
-        }
-
-        // If item is not orderable, tell about the item and ask for something else
-        if (!itemObj.orderable()) {
-            console.log('isOrdeerable is false');
-            // Item is present, 'cannot' be ordered. Give information about the item
-            msg = itemObj.msgYes();
-            this.$speech
-                .addText(msg)
-                .addBreak('200ms')
-                .addText(this.t('ANYTHING_ELSE'));
-            return this.ask(this.$speech);
         }
 
         // Check for re-orders
@@ -285,6 +340,7 @@ module.exports = {
         NoIntent() {
             console.log('User does not want anything');
             this.$session.$data.tmpItem = {};
+            //FIXME: The user must have already ordered for multiple orders that are in session. Repeat those orders and ask for confirmation
             this.$speech
                 .addText(this.t('ANYTHING_ELSE'));
             this.removeState(); // This makes the next invocation go global

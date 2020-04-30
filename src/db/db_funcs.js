@@ -150,7 +150,7 @@ async function search(name, g) {
  * @param absMatch, if true, do not fuzzy search, else perform fuzzy search
  * @returns the item from database
  */
-module.exports.item = async function (hotel_id, name, absMatch) {
+module.exports.item = async function (hotel_id, name, absMatch=false) {
     console.log('@@facility hotel_id=' + hotel_id + ',name=' + name);
     if (_.isNull(hotel_id) || _.isUndefined(hotel_id) ||
         _.isNull(name) || _.isUndefined(name)) {
@@ -164,6 +164,7 @@ module.exports.item = async function (hotel_id, name, absMatch) {
         console.log('error while getting item from cache:', error)
         throw error;
     }
+    console.log('Found hotel.....');
 
     // Three step process. Optimized
     // 1. Search for the item using fuzzy search
@@ -290,7 +291,7 @@ module.exports.already_ordered_items = async function (hotel_id, room_no, itemOb
             .findOne(filter)
             .populate('orders')
             .exec();
-        console.log('----room=', JSON.stringify(room));
+        //console.log('----room=', JSON.stringify(room));
         let sameOrder = _.filter(room.orders, (o) => {
             return _.isEqual(_.lowerCase(o.item.name), _.lowerCase(itemObj.name));
             // { item: { name: itemObj.name() } }

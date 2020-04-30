@@ -56,7 +56,7 @@ class Facility extends Item {
         this.msg = facility.msg;
         this.timings = facility.timings;
         this.location = facility.location;
-        this.price = facility.price;
+        this.price = parseInt(facility.price);
         this.reserve = facility.reserve;
     }
 
@@ -103,7 +103,7 @@ class RoomItem extends Item {
         this.ri = roomitem.ri;
         this.o = roomitem.o;
         this.c = roomitem.c;
-        this.price = roomitem.price;
+        this.price = parseInt(roomitem.price);
         this.limit = roomitem.limit;
         this.msg = roomitem.msg;
     }
@@ -120,7 +120,7 @@ class RoomItem extends Item {
         return this.price;
     }
 
-    limit() {
+    limitCount() {
         return this.limit.count;
     }
 
@@ -145,8 +145,8 @@ class MenuItem extends Item {
         this.o = menuitem.o;
         this.mtype = menuitem.mtype;
         this.c = menuitem.c;
-        this.qty = menuitem.qty;
-        this.price = menuitem.price;
+        this.qty = parseInt(menuitem.qty);
+        this.price = parseInt(menuitem.price);
     }
 
     orderable() {

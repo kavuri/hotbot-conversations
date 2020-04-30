@@ -29,6 +29,13 @@
     "FACILITY_NOT_AVAILABLE": " we do not have {{item_name}} ",
     "FACILITY_FOLLOWUP_QUESTION": " Would you like to know more about the {{item}}? ",
 
+    "ITEM_EXISTS": " We have {{item_name}} at our hotel ",
+    "ITEM_LIKE_TO_ORDER": " Would you like to order this item?",
+    "ITEM_FREE": " it is free  ",
+    "ITEM_COSTS": " it costs {{price}}  ",
+    "LIMIT_PER_DAY": " There is a limit of {{limit}} per day ",
+    "LIMIT_PER_STAY": " There is a limit of {{limit}} for your stay ",
+
     "REPEAT_REQUEST": "  I did not understand your request. Can you please repeat?  ",
     "REQUEST_ITEM_COUNT": "How many of {{item_name}} would you like?",
     "REPEAT_ITEM_NAME": " Can you please repeat the name of the item? ",
@@ -41,9 +48,6 @@
     "TELL_ORDER_CONFIRMED": " Your order is confirmed. We will serve your order as soon as possible. Have a nice day ",
     "ORDER_ANYTHING_ELSE": " Would you like to order anything else? ",
     "ORDER_ASK_ITEM_NAME": " What would you like to order? ",
-    "ORDER_ITEM_EXISTS_WITH_PRICE": " We have {{item_name}} at our hotel and {{price_msg}}  ",
-    "ORDER_FREE": " {{item_name}} is free  ",
-    "ORDER_COSTS": " {{item_name}} costs {{price}}  ",
     "ORDER_IN_PROGRESS": "  You have already ordered for {{req_count}} {{item_name}} and we are working on it.  ",
     "ORDER_ASK_AGAIN": "  Would you like to order again? ",
     "ORDER_UNABLE_TO_SERVE": " Sorry, that we were unable to serve your previous order . ",
@@ -58,7 +62,7 @@
     "ORDER_CANCEL_REQUEST_CANCEL_AT_FRONTDESK": " I am placing a request to cancel {{req_count}} of {{item_name}} at front desk. But since the front desk is processing the order, I cannot guarantee it. ",
     "ORDER_LIST": " You have asked for {{items}} ",
     "ORDER_LIST_AT_FRONTDESK": " You have previously placed an order for {{items}} ",
-    "ORDER_WHICH_TO_CANCEL":  " Please let me know the name of the item to cancel. ",
+    "ORDER_WHICH_TO_CANCEL": " Please let me know the name of the item to cancel. ",
     "ORDERS_NONE": " You do not have any open orders ",
     "NO_SUCH_ORDER": " I do not see any order for {{item_name}}  ",
 

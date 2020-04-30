@@ -412,7 +412,7 @@ function createGraph(hotel) {
     g.setParent('Paper napkins', 'Tissues');
     g.setParent('Paper napkin', 'Tissues');
     g.setParent('Wipes', 'Tissues');
-    g.setNode('Dustbin', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'A dustbin is provided in your room', no: 'We do not have dustbins in  the room' } });
+    g.setNode('Dustbin', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'A dustbin is provided in your room', no: 'We do not have dustbins in  the room' } });
     g.setParent('dust basket', 'Dustbin');
     g.setParent('garbage can', 'Dustbin');
     g.setParent('waste basket', 'Dustbin');
@@ -422,7 +422,7 @@ function createGraph(hotel) {
     g.setParent('Watch', 'Clock');
     g.setNode('Pullover', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
     g.setParent('Rug', 'Pullover');
-    g.setNode('Pillow', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are pillows provided in the room', no: 'We do not provide extra pillows' } });
+    g.setNode('Pillow', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: -1, for: 'stay' }, msg: { yes: 'There are pillows provided in the room', no: 'We do not provide extra pillows' } });
     g.setNode('Towel', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
     g.setParent('Bath towel', 'Towel');
     g.setNode('Napkin', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are napkins provided in your room', no: 'We do not provide napkins' } });
@@ -431,7 +431,7 @@ function createGraph(hotel) {
     g.setParent('Bath soap', 'Soap');
     g.setParent('Bath cream', 'Soap');
     g.setParent('Shower cream', 'Soap');
-    g.setNode('Shampoo', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There is liquid shampoo in you bathroom', no: 'We do not provide any shampoo' } });
+    g.setNode('Shampoo', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: -1, for: 'stay' }, msg: { yes: 'There is liquid shampoo in you bathroom', no: 'We do not provide any shampoo' } });
     g.setParent('Hair liquid', 'Shampoo');
     g.setNode('Comb', { a: false, o: true, price: 0, ri: true, c: true, limit: { count: 1, for: 'stay' }, msg: { yes: 'There is a comb provided in your bathroom', no: 'We do not provide a comb' } });
     g.setParent('Hair comb', 'Comb');
@@ -937,4 +937,4 @@ module.exports.create = function (hotel, hotel_name, genFile = false) {
 }
 
 // require('./graph').create();
-require('./graph').addOrUpdate("1");
+//require('./graph').addOrUpdate("1");
