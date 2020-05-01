@@ -15,9 +15,9 @@ const _ = require('lodash'),
  * @param {Hotel id} hotel_id 
  * @param {*} policy 
  */
-async function policyMessage(hotel_id, policy) {
+async function policyMessage(thisObj, hotel_id, policy) {
     try {
-        policy = await DBFuncs.item(hotel_id, policy);
+        policy = await DBFuncs.getNode(hotel_id, policy);
     } catch (error) {
         console.log('error while fetching hotel policies:', error);
         throw error;
@@ -26,7 +26,7 @@ async function policyMessage(hotel_id, policy) {
     let msg;
     if (_.isEmpty(policy) || _.has(policy, 'f') || _.isEqual(policy.f, true)) {
         // No such policy defined for this hotel
-        msg = this.t('POLICY_DOES_NOT_EXIST');
+        msg = thisObj.t('POLICY_DOES_NOT_EXIST');
     }
 
     if (_.has(policy, 'p') && _.isEqual(policy.p, true)) {
@@ -42,7 +42,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'smoking');
+            msg = await policyMessage(this, hotel_id, 'smoking');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
@@ -63,7 +63,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'alcohol');
+            msg = await policyMessage(this, hotel_id, 'alcohol');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
@@ -84,7 +84,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'cancellation');
+            msg = await policyMessage(this, hotel_id, 'cancellation');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
@@ -105,7 +105,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'infants');
+            msg = await policyMessage(this, hotel_id, 'infants');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
@@ -126,7 +126,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'checkout time');
+            msg = await policyMessage(this, hotel_id, 'checkout time');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
@@ -147,7 +147,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'no show');
+            msg = await policyMessage(this, hotel_id, 'no show');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
@@ -168,7 +168,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'outside food');
+            msg = await policyMessage(this, hotel_id, 'outside food');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
@@ -189,7 +189,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'checkin time');
+            msg = await policyMessage(this, hotel_id, 'checkin time');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
@@ -210,7 +210,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'pets');
+            msg = await policyMessage(this, hotel_id, 'pets');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
@@ -231,7 +231,7 @@ module.exports = {
 
         let msg;
         try {
-            msg = await policyMessage(hotel_id, 'payment methods');
+            msg = await policyMessage(this, hotel_id, 'payment methods');
         } catch (error) {
             console.log('error while fetching hotel policies:', error);
             return this.tell(this.t('SYSTEM_ERROR'));
