@@ -9,13 +9,15 @@
 
 module.exports = {
     logging: true,
- 
+
     intentMap: {
-       'AMAZON.StopIntent': 'END',
-       'AMAZON.YesIntent': 'YesIntent',
-       'AMAZON.NoIntent': 'NoIntent'
+        'AMAZON.StopIntent': 'END',
+        'AMAZON.YesIntent': 'YesIntent',
+        'AMAZON.NoIntent': 'NoIntent',
+        'AMAZON.HelpIntent': 'HelpIntent',
+        'AMAZON.RepeatIntent': 'RepeatIntent',
     },
- 
+
     // db: {
     //      DynamoDb: {
     //          tableName: 'conversations',
@@ -28,7 +30,7 @@ module.exports = {
     //     }
     //  },
 
-     db: {
+    db: {
         MongoDb: {
             databaseName: 'test',
             collectionName: 'conversations',
@@ -44,9 +46,9 @@ module.exports = {
             useUnifiedTopology: true,
             useFindAndModify: false
         },
-     },
+    },
 
-     i18n: {
+    i18n: {
         filesDir: '../i18n/',
     },
 
@@ -58,5 +60,5 @@ module.exports = {
     system: {
         DATABASE: 'mongo'
     }
- };
- 
+};
+

@@ -145,7 +145,7 @@ module.exports = {
 
         NoIntent() {
             console.log('Ending session at "AllFacilitiesState"');
-            return this.tell(this.t('END'));
+            return this.toStatelessIntent('END');
         },
 
         Unhandled() {
@@ -268,17 +268,9 @@ module.exports = {
      * Global NoIntent
      */
     async NoIntent() {
-        // If the cache is not cleared and if data is changed from UI, the cache will have old data
-        // This is a hack to get around this problem - beats the purpose of cache
-        // FIXME: Find time to fix this
-        DBFuncs.delCache(this.$session.$data.hotel.hotel_id);
-
-        // Clear the dynamic entities
-        this.$alexaSkill.clearDynamicEntities();
-
         console.log('ENDING IN FACILITIES...');
         // Say thank you and end
-        this.tell(this.t('END'));
+        this.toStatelessIntent('END');
     },
 
     async Enquiry_Facility_timings() {

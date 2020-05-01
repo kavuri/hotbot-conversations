@@ -1,25 +1,24 @@
 # All TODOs
   - Fix the intent conflicts - DONE
-  - Implement hook for dynamic entities. This is for updataing the current session with the facilities that the hotel has (esp. menu items) during the session. https://github.com/FlorianHollandt/jovo-example-dynamicEntities/blob/master/src/hooks/dynamicEntitiesHook.js. Also here: https://www.jovo.tech/docs/hooks
+  - Implement hook for dynamic entities. This is for updataing the current session with the facilities that the hotel has (esp. menu items) during the session.
+    https://github.com/FlorianHollandt/jovo-example-dynamicEntities/blob/master/src/hooks/dynamicEntitiesHook.js. Also here: https://www.jovo.tech/docs/hooks - DONE
   - Implement CanFulfillIntentRequest, where if a user invokes an intent that cannot be fulfilled by Amazon, it can be by our skill - https://www.jovo.tech/docs/amazon-alexa/canfulfill
   - Add ProactiveAPI to the project. This is to send notifications to the user. Useful with order fulfilment. https://www.jovo.tech/docs/amazon-alexa/proactive-events
   - Add upselling food orders. Like if the guest asks for "Get me a pizza" and if the hotel does not have the pizza, then return the list of items that are related to menu (as the guest is hungry). The ask guest if they would like to order something from the list
 
 # FIXMEs
   * Whenever a user app_metadata is changed in Auth0, the corresponding user has to be deleted from mongodb. This is because, getting the user with /api/v1/user api call first checks the user in the mongodb database. If the user exists, that user data is returned. So, whatever the changes are in Auth0 user, will not be reflected for the application. This is for the API project
-
   * Change launch keywords from 'hotel reception' to 'front desk', as the utterance 'launch hotel reception is hitting 'Enquiry_All_Facilities'
   * Add AMAZON.FallbackIntent and corresponding Google fallback intent for a catch-all intent
   * Can *App Data* in Jovo be used for storing hotel info, policies and facilities? https://www.jovo.tech/docs/data - DONE
   * Implement account linking - DONE
   * Implement global fallback intents for the final pieces in every conversation
   * Fix the conversations and their strings
-  * Check-in & Check-out functionality has to implemented. How does the front desk tell the system on user check-in & check-out - Backend complete
+  * Check-in & Check-out functionality has to implemented. How does the front desk tell the system on user check-in & check-out - Backend complete - DONE
   * Write a automation script to check the graph.js for data consistency - DONE
-  * If a hotel changes the available facilities, they should be updated to the graph and the facilities node should be regenerated
+  * If a hotel changes the available facilities, they should be updated to the graph and the facilities node should be regenerated - DONE
 
 # Go To Market
-
  1. Kamamishu Website
   - Build a site in wix.com. Buy domain kamamishu.com and kamamishu.in
   - Create emails. 1. contact@kamamishu.com, 2. admin@kamamishu.com

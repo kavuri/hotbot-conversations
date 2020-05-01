@@ -405,7 +405,6 @@
                         "is there a {facility_slot}",
                         "tell me about the {facility_slot}",
                         "do you have {req_count} of {facility_slot}",
-                        "can I get {facility_slot} {req_count} each",
                         "is there a {facility_slot} in the room"
                     ]
                 },
@@ -700,10 +699,7 @@
                     "slots": [
                         {
                             "name": "facility_slot",
-                            "type": "facility_types",
-                            "samples": [
-                                "{facility_slot}"
-                            ]
+                            "type": "facility_types"
                         }
                     ],
                     "samples": [
@@ -744,9 +740,8 @@
                     "samples": [
                         "How does this help",
                         "Help please",
-                        "what all features do you have",
                         "Please help me",
-                        "What is this alex",
+                        "What is this alexa",
                         "What is this thing",
                         "Does this work",
                         "What all this does",
@@ -756,7 +751,9 @@
                 },
                 {
                     "name": "AMAZON.StopIntent",
-                    "samples": []
+                    "samples": [
+                        "quit"
+                    ]
                 },
                 {
                     "name": "AMAZON.NavigateHomeIntent",
@@ -771,6 +768,9 @@
                         }
                     ],
                     "samples": [
+                        "what did i order",
+                        "what are my orders",
+                        "read out my order",
                         "what are my order until now",
                         "what all did i order",
                         "can you repeat my previous order",
@@ -997,6 +997,11 @@
                 {
                     "name": "facility_types",
                     "values": [
+                        {
+                            "name": {
+                                "value": "remote"
+                            }
+                        },
                         {
                             "name": {
                                 "value": "lift"
@@ -1269,15 +1274,6 @@
                                     "room cooler",
                                     "air heater",
                                     "room warmer"
-                                ]
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "remote",
-                                "synonyms": [
-                                    "tv remote",
-                                    "television remote"
                                 ]
                             }
                         },
@@ -1937,10 +1933,10 @@
                         {
                             "name": "facility_slot",
                             "type": "facility_types",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
+                            "confirmationRequired": true,
+                            "elicitationRequired": false,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.1375556536431.527999853785"
+                                "confirmation": "Confirm.Slot.40356969090.1244352932852"
                             }
                         }
                     ]
@@ -2031,9 +2027,10 @@
                         {
                             "name": "facility_slot",
                             "type": "facility_types",
-                            "confirmationRequired": false,
+                            "confirmationRequired": true,
                             "elicitationRequired": true,
                             "prompts": {
+                                "confirmation": "Confirm.Slot.108050682343.327735684908",
                                 "elicitation": "Elicit.Slot.363953356564.658273988386"
                             }
                         }
@@ -2206,6 +2203,32 @@
                     {
                         "type": "PlainText",
                         "value": "Can you please repeat the item name"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Slot.40356969090.1244352932852",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Should I cancel order for {facility_slot}"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "Should I confirm the cancellation of {facility_slot}"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Slot.108050682343.327735684908",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Can you confirm that there is a problem with {facility_slot}"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "So there is  a problem with {facility_slot}"
                     }
                 ]
             }

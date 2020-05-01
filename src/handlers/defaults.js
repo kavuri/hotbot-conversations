@@ -148,8 +148,13 @@ module.exports = {
     },
 
     END() {
-        //TODO: Store the reason to database
-        console.log('THE END ....');
+        // If the cache is not cleared and if data is changed from UI, the cache will have old data
+        // This is a hack to get around this problem - beats the purpose of cache
+        // FIXME: Find time to fix this
+        DBFuncs.delCache(this.$session.$data.hotel.hotel_id);
+
+        // Clear the dynamic entities
+        this.$alexaSkill.clearDynamicEntities();
 
         return this.tell(this.t('END'));
     },
@@ -163,6 +168,14 @@ module.exports = {
             .addText(this.t('UNKNOWN_REQUEST'))
             .addBreak('100ms')
             .addText(this.t('HELP_MESSAGE'));
+        return this.ask(this.$speech);
+    },
+
+    HelpIntent() {
+        this.$speech
+            .addText('HELP_MESSAGE')
+            .addBreak('200ms')
+            .addText('HOW_CAN_I_HELP');
         return this.ask(this.$speech);
     }
 }
