@@ -56,7 +56,7 @@ class Facility extends Item {
         this.msg = facility.msg;
         this.timings = facility.timings;
         this.location = facility.location;
-        this.price = parseInt(facility.price);
+        this.price = facility.price;
         this.reserve = facility.reserve;
     }
 

@@ -324,33 +324,42 @@ module.exports = {
      * Intent to give the price of the item
      * */
     async Enquiry_Facility_price() {
+        console.log('++facility exists intent');
         let hotel_id = this.$session.$data.hotel.hotel_id,
+            room_no = this.$session.$data.hotel.room_no,
             item_name = this.$inputs.facility_slot.value;
-        let item;
+
+        // Check if the item exists before asking for count
+        console.log('++++item name=', item_name);
+        let item = {};   // Step 1
         try {
             item = await DBFuncs.item(hotel_id, item_name);
         } catch (error) {
-            if (error instanceof KamError.InputError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.DBError) {
-                this.tell(this.t('SYSTEM_ERROR'));
+            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                return this.tell(this.t('SYSTEM_ERROR'));
             }
         }
-        if (_.isEmpty(item) || _.isUndefined(item)) {
-            this.$speech
-                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+
+        console.log('found item=', item);
+        // If the hotel does not have this item, say so and ask for something else  
+        if (_.isEmpty(item)) {
+            this
+                .$speech
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name }))
                 .addBreak('200ms')
-                .addText(this.t('ANYTHING_ELSE'));
+                .addText(this.t('ORDER_ANYTHING_ELSE'));
             return this.ask(this.$speech);
         }
 
-        console.log('+++item=', item);
+        let itemObj = {};
+        if (!_.isEmpty(item)) {
+            itemObj = Item.load(item);
+        }
 
-        // Price can be a separate node of the facility, or it can be a price tag
+        // If item is not available say so and ask for something else
         let msg = '';
-        if (_.isEqual(item.a, false)) {
-            // Facility is not available
-            msg = item.msg['no'];
+        if (!itemObj.available()) {
+            msg = itemObj.msgNo();
             this.$speech
                 .addText(msg)
                 .addBreak('200ms')
@@ -358,17 +367,31 @@ module.exports = {
             return this.ask(this.$speech);
         }
 
-        msg = priceMsg(this, hotel_id, item);
-        // Price can be an attribute of the node or a successor
-
+        msg = priceMsg(this, hotel_id, itemObj);
         this.$speech
-            .addText(msg)
-            .addBreak('200ms')
-            .addText(this.t('ITEM_ORDER_QUESTION', {    // We have dosa at our restaurant. Its cost is rupees 60. Would you like to order one?
-                item_name: item.name
-            }));
+            .addText(this.t('ITEM_EXISTS', { item_name: itemObj.name }))
+            .addBreak('100ms')
+            .addText(this.t('AND'))
+            .addText(msg);
 
-        return this.ask(this.$speech);
+        // If item is not orderable, tell about the item and ask for something else
+        if (itemObj.orderable()) {   // Item is orderable, ask user if they would like to order
+            // Get the price message and tell the user about it
+            this.$speech
+                .addBreak('400ms')
+                .addText(this.t('ITEM_LIKE_TO_ORDER'));
+
+            this.$session.$data.facility_slot = item_name;
+            this.$session.$data.itemObj = itemObj;
+            return this
+                .followUpState('Query_To_Order_State')
+                .ask(this.$speech, this.t('YES_NO_REPROMPT'));
+        } else {
+            this.$speech
+                .addBreak('200ms')
+                .addText(this.t('ANYTHING_ELSE'));
+            this.ask(this.$speech);
+        }
     },
 
     /**
