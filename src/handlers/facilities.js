@@ -371,48 +371,48 @@ module.exports = {
         return this.ask(this.$speech);
     },
 
+    /**
+     * Intent to tell the location of the facility
+     * */
     async Enquiry_Facility_location() {
+        console.log('++Enquiry_Facility_timings intent');
         let hotel_id = this.$session.$data.hotel.hotel_id,
             item_name = this.$inputs.facility_slot.value;
-        let item;
+
+        // Check if the item exists before asking for count
+        console.log('++++item name=', item_name);
+        let item = {};   // Step 1
         try {
             item = await DBFuncs.item(hotel_id, item_name);
         } catch (error) {
-            if (error instanceof KamError.InputError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.DBError) {
-                this.tell(this.t('SYSTEM_ERROR'));
+            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                return this.tell(this.t('SYSTEM_ERROR'));
             }
         }
-        if (_.isEmpty(item) || _.isUndefined(item)) {
+
+        console.log('found item=', item);
+        // If the hotel does not have this item, say so and ask for something else  
+        if (_.isEmpty(item)) {
             this.$speech
-                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name }))
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$speech);
         }
 
-        console.log('+++item=', item);
+        let itemObj = {};
+        if (!_.isEmpty(item)) {
+            itemObj = Item.load(item);
+        }
 
+        // If item is not available say so and ask for something else
         let msg = '';
-        if (_.isEqual(item.a, false)) {
-            // Facility is not available
-            msg = item.msg['no'];
-            this.$speech
-                .addText(msg)
-                .addBreak('200ms')
-                .addText(this.t('ANYTHING_ELSE'));
-            return this.ask(this.$speech);
+        if (!itemObj.available()) {
+            msg = itemObj.msgNo();
+        } else {
+            msg = itemObj.locationMsg();
         }
 
-        // Get the timings node
-        let location_node_name = item.name.toLowerCase() + '_location';
-        let location = await DBFuncs.getNode(hotel_id, location_node_name);
-        if (_.isUndefined(location)) {   // FIXME: Ensure this does not happen
-            this.tell(this.t('SYSTEM_ERROR'));
-        }
-
-        msg = location.msg;
         this.$speech
             .addText(msg)
             .addBreak('200ms')
