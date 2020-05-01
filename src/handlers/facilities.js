@@ -274,55 +274,55 @@ module.exports = {
     },
 
     async Enquiry_Facility_timings() {
+        console.log('++Enquiry_Facility_timings intent');
         let hotel_id = this.$session.$data.hotel.hotel_id,
             item_name = this.$inputs.facility_slot.value;
-        let item;
+
+        // Check if the item exists before asking for count
+        console.log('++++item name=', item_name);
+        let item = {};   // Step 1
         try {
             item = await DBFuncs.item(hotel_id, item_name);
         } catch (error) {
-            if (error instanceof KamError.InputError) {
-                this.tell(this.t('SYSTEM_ERROR'));
-            } else if (error instanceof KamError.DBError) {
-                this.tell(this.t('SYSTEM_ERROR'));
+            if ((error instanceof KamError.InputError) || (error instanceof KamError.DBError)) {
+                return this.tell(this.t('SYSTEM_ERROR'));
             }
         }
-        if (_.isEmpty(item) || _.isUndefined(item)) {
+
+        console.log('found item=', item);
+        // If the hotel does not have this item, say so and ask for something else  
+        if (_.isEmpty(item)) {
             this.$speech
-                .addText(this.t('FACILITY_NOT_AVAILABLE', { facility: item_name }))
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name }))
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$speech);
         }
 
-        console.log('+++timings item=', item);
+        let itemObj = {};
+        if (!_.isEmpty(item)) {
+            itemObj = Item.load(item);
+        }
 
+        // If item is not available say so and ask for something else
         let msg = '';
-        if (_.isEqual(item.a, false)) {
-            // Facility is not available
-            msg = item.msg['no'];
-            this.$speech
-                .addText(msg)
-                .addBreak('200ms')
-                .addText(this.t('ANYTHING_ELSE'));
-            return this.ask(this.$speech);
+        if (!itemObj.available()) {
+            msg = itemObj.msgNo();
+        } else {
+            msg = itemObj.timingsMsg();
         }
 
-        // Get the timings node
-        let timings_node_name = item.name.toLowerCase() + '_timings';
-        console.log('getting node_name=', timings_node_name);
-        let timings = await DBFuncs.getNode(hotel_id, timings_node_name);
-        if (_.isUndefined(timings)) {   // FIXME: Ensure this does not happen
-            this.tell(this.t('SYSTEM_ERROR'));
-        }
-
-        msg = timings.msg;
-        this.$speech.addText(msg)
+        this.$speech
+            .addText(msg)
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
 
         return this.ask(this.$speech);
     },
 
+    /**
+     * Intent to give the price of the item
+     * */
     async Enquiry_Facility_price() {
         let hotel_id = this.$session.$data.hotel.hotel_id,
             item_name = this.$inputs.facility_slot.value;

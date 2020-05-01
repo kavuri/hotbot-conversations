@@ -170,9 +170,9 @@ function createGraph(hotel) {
         price: { price: 200, msg: 'There is a charge of 200 rupees for using the childrens pool' },
         reserve: { flag: true, msg: { yes: 'You will need to register with the front desk to book a slot', no: 'There is no registration required' } },
     });
-    g.setParent('childrens pool', 'Kids Pool');
-    g.setParent('childrens swimming pool', 'Kids Pool');
-    g.setParent('kids swimming pool', 'Kids Pool');
+    g.setParent('childrens pool', 'Kids pool');
+    g.setParent('childrens swimming pool', 'Kids pool');
+    g.setParent('kids swimming pool', 'Kids pool');
 
     g.setNode('Adults pool', {
         f: true, iType: 'f', a: true, o: false,
@@ -182,8 +182,8 @@ function createGraph(hotel) {
         reserve: { flag: true, msg: { yes: 'You will need to register with the front desk to book a slot', no: 'There is no registration required' } },
         price: { price: 200, msg: 'There is a charge of 200 rupees for using the pool' }
     });
-    g.setParent('adults pool', 'Adults Pool');
-    g.setParent('big swimming pool', 'Adults Pool');
+    g.setParent('adults pool', 'Adults pool');
+    g.setParent('big swimming pool', 'Adults pool');
 
     g.setNode('Sauna', {
         f: true, iType: 'f', a: true, o: false,
@@ -204,7 +204,7 @@ function createGraph(hotel) {
         reserve: { flag: true, msg: { yes: 'you will need to register with the front desk to book a slot', no: 'There is no registration required' } },
         price: { price: 400, msg: 'There are separate charges for different clothes. You can check the charges in the closet' }
     });
-    g.setParent('Dry wash', 'Dry Cleaning');
+    g.setParent('Dry wash', 'Dry cleaning');
 
     g.setNode('Laundry', {
         f: true, iType: 'f', a: true, o: false,
@@ -336,8 +336,8 @@ function createGraph(hotel) {
         price: { price: 200, msg: 'The price of the spa varies. Please contact the spa for the details' },
         billing: { msg: 'You will have to pay separately at the spa. The charges will not be made part of bill' }
     });
-    g.setParent('Spa', 'body treatment');
-    g.setParent('Spa', 'facials');
+    g.setParent('body treatment', 'Spa');
+    g.setParent('facials', 'Spa');
 
     g.setNode('Room Service', {
         f: true, iType: 'f', a: true, o: true,
@@ -755,7 +755,6 @@ function linkFacilities(hotel_id) {
             if (!_.isUndefined(node['f']) && _.isEqual(node['f'], true)) {
                 // console.log(facilities + '->' + name);
                 g.setEdge(facilities, nodes[i], { label: 'facility' });
-                if (!_.isEqual(nodes[i], 'main_facilities')) g.setParent(nodes[i], 'main_facilities');  // Not to create cycles in the graph
             }
         }
     }
@@ -815,20 +814,19 @@ function createAllItemsNode(hotel_id) {
                 (!_.isUndefined(node['m']) && _.isEqual(node['m'], true)) ||
                 (!_.isUndefined(node['ri']) && _.isEqual(node['ri'], true))
             ) {
-                // Add the children of this node, if any
-                children = g.children(name);
-                for (var j = 0; j < children.length; j++) {
-                    allItems.push(children[j]);
-                }
-
                 // Add to the list
                 allItems.push(name);
+
+                // Add the children of this node, if any
+                children = g.children(name);
+                //console.log('children=', children);
+                allItems = _.concat(allItems, children);
             }
         }
     }
     g.setNode('all_items', allItems);
 
-    console.log('all items=', g.node('all_items'), ',count=', g.node('all_items').length);
+    console.dir(g.node('all_items'), { 'maxArrayLength': null });
 }
 
 function createEdges(source, targets, label) {
