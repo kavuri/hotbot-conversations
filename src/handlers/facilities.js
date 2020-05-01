@@ -472,36 +472,43 @@ module.exports = {
     },
     */
 
+    /**
+     * Responds with the cuisine types for the hotel
+     */
     async Enquiry_menu_cuisinetype() {
-        let hotel_id = this.$session.$data.hotel.hotel_id;
-        let item;
+        var hotel_id = this.$session.$data.hotel.hotel_id;
+
+        let main_facilities, item = {};
         try {
             item = await DBFuncs.item(hotel_id, 'Cuisines');
         } catch (error) {
-            if (error instanceof KamError.InputError) {
-                this.tell(this.t('SYSTEM_ERROR'));
+            if (error instanceof KamError.DBSetupError) {
+                this
+                    .$speech
+                    .addText(this.t('NO_FACILITIES'))
+                    .addBreak('100ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+                return this.ask(this.$speech);
             }
         }
 
-        if (_.isUndefined(item) || _.isEmpty(item)) {
+        if (_.isEmpty(item)) {
             this.$speech
-                .addText(this.t('FACILITY_NONAME_NOT_AVAILABLE'))
+                .addText(this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name }))
                 .addBreak('200ms')
                 .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$speech);
         }
 
-        console.log('+++cuisines=', item);
-        let msg = '';
-        if (_.isEqual(item.a, false)) {
-            // Facility is not available
-            msg = item.msg['no'];
-        } else if (_.isEqual(item.a, true)) {
-            msg = item.msg['yes'];
-        }
-        this.$speech.addText(msg)
+
+        let itemObj = Item.load(item);
+
+        this
+            .$speech
+            .addText(itemObj.msgYes())
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
+
         return this.ask(this.$speech);
     },
 

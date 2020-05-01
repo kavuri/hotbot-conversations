@@ -150,6 +150,15 @@ function createGraph(hotel) {
         reserve: { msg: { yes: ' ', no: ' ' } },
     });
 
+    g.setNode('Cuisines', {
+        f: true, iType: 'f', a: true, o: false,
+        msg: { yes: 'We serve South India, North Indian food', no: 'We do not have restaurant facility' },
+        timings: { msg: ' ', time: { from: ' ', to: ' ' } },
+        location: { msg: ' ' },
+        price: { msg: ' ', price: 0 },
+        reserve: { msg: { yes: ' ', no: ' ' } },
+    });
+
     // Create facilities
     g.setNode('Gym', {
         f: true, iType: 'f', a: true, o: false,
@@ -457,7 +466,6 @@ function createGraph(hotel) {
     g.setParent('door lock', 'lock');
 
     // Menu items
-    // g.setNode('Cuisines', { f: true, a: true, o: true, msg: { yes: 'We serve South India, North Indian food', no: 'We do not have restaurant facility' } });
     // g.setParent('menu options', 'cuisines');
     // g.setParent('menu types', 'cuisines');
     // g.setParent('food types', 'cuisines');
