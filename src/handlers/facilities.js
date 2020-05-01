@@ -100,11 +100,9 @@ module.exports = {
     async Enquiry_all_facilities() {
         var hotel_id = this.$session.$data.hotel.hotel_id;
 
-        let allFacilities, main_facilities;
+        let main_facilities, item = {};
         try {
-            main_facilities = await DBFuncs.main_facilities(hotel_id);
-            allFacilities = await DBFuncs.allFacilities(hotel_id);
-            console.log('###returned facilities=', facility_names);
+            item = await DBFuncs.item(hotel_id, 'main_facilities');
         } catch (error) {
             if (error instanceof KamError.DBSetupError) {
                 this
@@ -116,11 +114,11 @@ module.exports = {
             }
         }
 
-        let stitch = _.join(main_facilities, ',');
+        let itemObj = Item.load(item);
 
         this
             .$speech
-            .addText(this.t('HOTEL_FACILITIES', { facilities: stitch }))
+            .addText(itemObj.msgYes())
             .addBreak('200ms')
             .addText(this.t('ANYTHING_ELSE'));
 
