@@ -173,9 +173,9 @@ module.exports = {
 
     HelpIntent() {
         this.$speech
-            .addText('HELP_MESSAGE')
+            .addText(this.t('HELP_MESSAGE'))
             .addBreak('200ms')
-            .addText('HOW_CAN_I_HELP');
+            .addText(this.t('HOW_CAN_I_HELP'));
         return this.ask(this.$speech);
     }
 }
