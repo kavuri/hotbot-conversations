@@ -340,7 +340,24 @@ module.exports = {
         NoIntent() {
             console.log('User does not want anything');
             this.$session.$data.tmpItem = {};
-            //FIXME: The user must have already ordered for multiple orders that are in session. Repeat those orders and ask for confirmation
+
+            // Read out all the current orders
+            let orders = _.isUndefined(this.$session.$data.orders) ? [] : this.$session.$data.orders;
+            if (orders.length > 0) {
+                let inSessionOrders = new OrdersInSession(orders);
+                // Guest has finalized the order. Configm the order, check and close
+                let msg = inSessionOrders.toString();
+
+                this.$speech
+                    .addText(this.t('UNTIL_NOW'))
+                    .addText(this.t('ORDER_LIST', { items: msg }))
+                    .addBreak('200ms')
+                    .addText(this.t('ANYTHING_ELSE'));
+                return this
+                    .followUpState('ConfirmRoomItemOrder_State')
+                    .ask(this.$speech, this.t('YES_NO_REPROMPT'))
+            }
+
             this.$speech
                 .addText(this.t('ANYTHING_ELSE'));
             this.removeState(); // This makes the next invocation go global

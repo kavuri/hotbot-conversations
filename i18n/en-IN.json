@@ -11,6 +11,7 @@
 
     "TRY_AGAIN": "  try again. ",
     "AND": "  and  ",
+    "UNTIL_NOW":  " until now, ",
     "YES_NO_PROMPT": " Please answer with a Yes or No. ",
     "WELCOME": "  Hello, {{hotel_name}} front desk. How can I help?  ",
     "HELP_MESSAGE": " I can help with facilities available at the hotel, ordering services like food, laundry and also can provide info about this place. How can I help you today? ",
