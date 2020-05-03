@@ -13,8 +13,6 @@ mongoose.Promise = global.Promise;
 var config = require('../config').db.MongoDb;
 var mongo_url = encodeURI(config.uri);
 
-console.log('mongo url=' + mongo_url);
-
 var connection = mongoose.createConnection(mongo_url, {
     dbName: config.databaseName,
     poolSize: config.poolSize,

@@ -4,25 +4,27 @@
  */
 
 'use strict';
-const graphlib = require('graphlib');
-const graph = require('../src/utils/graph');
+
+const env = require('../env');
 const _ = require('lodash');
+const GraphModel = require('../src/db/Graph');
+const graphlib = require('graphlib');
+let dbsetup = require('./dbsetup');
 
 let g;
-
-jest.setTimeout(500);
+//jest.setTimeout(500);
 
 /**
  * Initialize graph
  */
 beforeAll(async () => {
-    const json = await graph.addOrUpdate('1', true);
-    g = graphlib.json.read(json);
-    //console.log('node count=', g.nodeCount());
+    await dbsetup.build();
+    let graph = await GraphModel.findOne({ value: '1' }).lean().exec();
+    g = graphlib.json.read(graph);
 });
 
-afterAll(() => {
-    // Do nothing
+afterAll(async () => {
+    await dbsetup.destroy();
 });
 
 test('policy should have policy and available flag', () => {

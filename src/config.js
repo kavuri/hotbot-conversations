@@ -7,11 +7,10 @@
 // APP CONFIGURATION
 // ------------------------------------------------------------------
 
-var ENV_PATH = require('path').resolve(process.cwd(), '../.env');
-const dotenv = require('dotenv').config({ path: ENV_PATH });
+const env = require('../env');
 
 module.exports = {
-    logging: true,
+    logging: process.env.LOGGING,
 
     intentMap: {
         'AMAZON.StopIntent': 'END',
