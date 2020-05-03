@@ -7,6 +7,9 @@
 // APP CONFIGURATION
 // ------------------------------------------------------------------
 
+var ENV_PATH = require('path').resolve(process.cwd(), '../.env');
+const dotenv = require('dotenv').config({ path: ENV_PATH });
+
 module.exports = {
     logging: true,
 
@@ -33,19 +36,18 @@ module.exports = {
 
     db: {
         MongoDb: {
-            databaseName: 'test',
-            collectionName: 'conversations',
-            //uri: 'mongodb://ec2-13-235-45-238.ap-south-1.compute.amazonaws.com:27017,ec2-13-235-45-238.ap-south-1.compute.amazonaws.com:27018/test?replicaSet=rs0',
-            uri: 'mongodb://localhost:27017,localhost:27018/test?replicaSet=rs0',
-            replicaSet: 'rs0',
-            poolSize: 5,
-            useNewUrlParser: true,
-            autoIndex: false,
-            autoCreate: true,
-            retryWrites: true,
-            w: 'majority',
-            useUnifiedTopology: true,
-            useFindAndModify: false
+            databaseName: process.env.DB_NAME,
+            collectionName: process.env.LOG_COLLECTION_NAME,
+            uri: process.env.DB_URI,
+            replicaSet: process.env.DB_REPLSET_NAME,
+            poolSize: process.env.DB_POOLSIZE,
+            useNewUrlParser: process.env.DB_USE_NEW_URL_PARSER,
+            autoIndex: process.env.DB_AUTO_INDEX,
+            autoCreate: process.env.DB_AUTO_CREATE,
+            retryWrites: process.env.DB_RETRY_WRITES,
+            w: process.env.DB_W,
+            useUnifiedTopology: process.env.DB_USE_UNIFIED_TOPOLOGY,
+            useFindAndModify: process.env.DB_USE_FIND_AND_MODIFY
         },
     },
 
@@ -54,8 +56,8 @@ module.exports = {
     },
 
     intentsToSkipUnhandled: [
-        'CancelIntent',
-        'HelpIntent'
+        //'CancelIntent',
+        //'HelpIntent'
     ],
 
     system: {

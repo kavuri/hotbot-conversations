@@ -1,6 +1,11 @@
+/* Copyright (C) Kamamishu Pvt. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 'use strict';
 const graphlib = require('graphlib');
-const graph = require('../scripts/graph');
+const graph = require('../src/utils/graph');
 const _ = require('lodash');
 
 let g;
@@ -13,7 +18,7 @@ jest.setTimeout(500);
 beforeAll(async () => {
     const json = await graph.addOrUpdate('1', true);
     g = graphlib.json.read(json);
-    console.log('node count=', g.nodeCount());
+    //console.log('node count=', g.nodeCount());
 });
 
 afterAll(() => {
@@ -98,9 +103,10 @@ test('all menu items check', () => {
             if (_.has(node, 'm')) {
                 expect(node.a).toBeDefined();
                 expect(node.o).toBeDefined();
+                expect(node.mtype).toBeDefined();
                 expect(node.msg).toBeUndefined();
                 expect(node.c).toBeDefined();
-                expect(node.quantity).toBeDefined();
+                expect(node.qty).toBeDefined();
                 expect(node.price).toBeDefined();
             }
         } catch (error) {

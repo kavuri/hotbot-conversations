@@ -408,13 +408,38 @@ function createGraph(hotel) {
     g.setParent('morning food', 'Breakfast');
 
     // Kitchen items
-    g.setNode('Bottle Steralizer', { price: 0, ri: true, iType: 'ri', a: true, o: true, limit: { count: 2, for: 'day' }, msg: { yes: 'Bottle sterilization possible. Please visit the kitchen to get it done', no: 'Bottle sterilization not possilbe' } });
-    g.setNode('Microwave', { price: 0, ri: true, o: false, iType: 'ri', a: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have a microwave in the common floor downstairs', no: 'We do not have a microwave' } });
-    g.setNode('Oven', { price: 0, ri: true, iType: 'ri', a: true, o: false, limit: { count: 2, for: 'day' }, msg: { yes: 'We have a oven in this hotel. You can use it downstairs', no: 'We do not have an oven' } });
-    g.setNode('Cutlery', { price: 0, ri: true, o: true, iType: 'ri', a: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not supply cutlery' } }); //FIXME: Complete the flow of ordering cutlery
-    g.setNode('Cleaning liquid', { price: 0, ri: true, o: true, iType: 'ri', a: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not supply cutlery' } }); //FIXME: Complete the flow of ordering cutlery
+    g.setNode('Bottle Steralizer', {
+        f: true, iType: 'f', a: true, o: false,
+        msg: { yes: 'Bottle sterilization possible. Please visit the kitchen to get it done', no: 'Bottle sterilization not possilbe' },
+        timings: { time: { from: '0700', to: '1000' }, msg: 'We can help you with steralization from morning 7 AM to night 10 PM' },
+        location: { msg: 'Please visit the kitchen on the first floor for bottle steralization' },
+        price: { price: 0, msg: 'Its free of cost' },
+    });
+
+    g.setNode('Microwave', {
+        f: true, iType: 'f', a: true, o: false,
+        msg: { yes: 'The microwave is a common facility of the hotel and is available near the kitchen on the ground floor', no: 'We do not have microwave facility' },
+        timings: { time: { from: '0700', to: '1000' }, msg: 'The facility is available 24 by 7' },
+        location: { msg: 'Its near the kitchen on the ground floor' },
+        price: { price: 0, msg: 'Its free of cost' },
+    });
+    g.setNode('Oven', {
+        f: true, iType: 'f', a: true, o: false,
+        msg: { yes: 'The oven is a common facility of the hotel and is available near the kitchen on the ground floor', no: 'We do not have oven in our hotel' },
+        timings: { time: { from: '0700', to: '1000' }, msg: 'The facility is available 24 by 7' },
+        location: { msg: 'Its near the kitchen on the ground floor' },
+        price: { price: 0, msg: 'Its free of cost' },
+    });
+    g.setNode('Cutlery', {
+        f: true, iType: 'f', a: true, o: false,
+        msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not have cooking facility in our hotel' },
+        timings: { time: { from: '0700', to: '1000' }, msg: 'The facility is available 24 by 7' },
+        location: { msg: 'Please ask at the reception' },
+        price: { price: 0, msg: 'Its free of cost' },
+    });
 
     // Room items
+    g.setNode('Cleaning liquid', { price: 0, ri: true, o: true, iType: 'ri', a: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'The cleaning liquid is in your room', no: 'We do not have cooking facility and hence no cleaning liquid is avilable' } }); //FIXME: Complete the flow of ordering cutlery
     g.setNode('TV', { o: false, price: 0, ri: true, iType: 'ri', a: true, c: false, limit: { count: 1, for: 'stay' }, msg: { yes: 'We have a TV in your room and it plays all Indian channels', no: 'This room does not have a TV facility' } });
     g.setParent('television', 'TV');
     g.setNode('Tissues', { o: true, price: 0, ri: true, iType: 'ri', a: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have tissues at our hotel', no: 'We do not have tissues to order' } });
@@ -834,7 +859,7 @@ function createAllItemsNode(hotel_id) {
     }
     g.setNode('all_items', allItems);
 
-    console.dir(g.node('all_items'), { 'maxArrayLength': null });
+    //console.dir(g.node('all_items'), { 'maxArrayLength': null });
 }
 
 function createEdges(source, targets, label) {

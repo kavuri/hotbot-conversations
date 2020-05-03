@@ -157,3 +157,40 @@
       AUTH0_ADMIN_AUDIENCE=https://kamamishu.eu.auth0.com/api/v2/
       ```
   - Replace the Auth0 details above with the details from Auth0
+
+# Skill description in Alexa settings
+## Skill preview:
+ - Public name: Kamamishu - The Hotel Bot
+ - One sentence description: Make your guests to experience the ultimate hotel experience
+ - Detailed description: The Kamamishu hotel bot is for the guests of a hotel to interact with the hotel. Guests can interact with the hotel by asking for information about the hotel, placing orders.
+The Kamamishu mobile and web application provides a real-time information on the orders placed by the guests including facility not working, menu orders, room item orders (like towels, soap etc.). The app also enables the hotel management to have a real-time view of the inventory of the hotel to enable them to have a crystal clear view of the usage of the hotel resources.
+More information at: https://kamamishu.com
+- Example phrases
+ - Alexa, talk to Front Desk.
+ - Alexa, open Front Desk.
+ - Alexa, launch Front Desk.
+- Category
+ - Productivity - Organizers & Assistants
+- Keywords
+ - hotel, digital, assistant, guest, hotel, management
+- Privacy policy URL: https://kamamishu.s3.ap-south-1.amazonaws.com/Kamamishu_Privacy_Policy.pdf
+- Terms of use URL: https://kamamishu.s3.ap-south-1.amazonaws.com/Kamamishu_Privacy_Policy.pdf
+
+## Privacy & Compliance
+ - Does this skill allow users to make purchases or spend real money? 
+  - No
+ - Does this Alexa skill collect users' personal information? *
+  - No
+ - Is this skill directed to or does it target children under the age of 13? *
+  - No
+ - Does this skill contain advertising? *
+  - No
+ - Export compliance: Check
+ - Testing instructions
+  - 
+
+## Availability
+ - Who should have access to this skill? *
+  - Public
+ - 
+

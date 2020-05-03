@@ -30,7 +30,7 @@ if (process.argv.indexOf('--webhook') > -1) {
         console.info(`Local server listening on port ${port}.`);
     });
 
-    Webhook.post(['/webhook','/webhook_alexa'], async (req, res) => {
+    Webhook.post(['/webhook', '/webhook_alexa'], async (req, res) => {
         await app.handle(new ExpressJS(req, res));
     });
 }

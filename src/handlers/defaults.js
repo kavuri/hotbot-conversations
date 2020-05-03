@@ -177,6 +177,10 @@ module.exports = {
             .addBreak('200ms')
             .addText(this.t('HOW_CAN_I_HELP'));
         return this.ask(this.$speech);
+    },
+
+    RepeatIntent() {
+        this.repeat();
     }
 }
 

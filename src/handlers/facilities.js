@@ -199,7 +199,7 @@ module.exports = {
                 .$speech
                 .addText(this.t('FACILITY_NOT_AVAILABLE', { item_name: item_name }))
                 .addBreak('200ms')
-                .addText(this.t('ORDER_ANYTHING_ELSE'));
+                .addText(this.t('ANYTHING_ELSE'));
             return this.ask(this.$speech);
         }
 

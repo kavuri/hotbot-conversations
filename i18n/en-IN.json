@@ -13,7 +13,7 @@
     "AND": "  and  ",
     "UNTIL_NOW":  " until now, ",
     "YES_NO_PROMPT": " Please answer with a Yes or No. ",
-    "WELCOME": "  Hello, {{hotel_name}} front desk. How can I help?  ",
+    "WELCOME": " Hello, {{hotel_name}} front desk. Would you like to order anything or know about the hotel services?  ",
     "HELP_MESSAGE": " I can help with facilities available at the hotel, ordering services like food, laundry and also can provide info about this place",
     "SORRY": " I am sorry! ",
     "END": "  Thank you. Please wake me up incase of need; I am here to make your stay pleasant.  ",
