@@ -32,7 +32,7 @@ DeviceSchema.index({ device_id: 1, hotel_id: 1 }, { unique: true });
 
 //Setup the middleware
 DeviceSchema.post('save', async function (doc) {
-    console.log('%%% Device save post hook.', doc);
+    //console.log('%%% Device save post hook.', doc);
     let audit = new AuditLogModel({
         coll: DeviceModel.collection.name,
         change: 'created',
@@ -58,7 +58,7 @@ DeviceSchema.post('updateOne', async function (doc) {
 });
 
 DeviceSchema.post('remove', async function (doc) {
-    console.log('Device removed. Should not happen', doc);
+    //console.log('Device removed. Should not happen', doc);
 
     let audit = new AuditLogModel({
         coll: DeviceModel.collection.name,

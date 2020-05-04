@@ -18,13 +18,11 @@ let g;
  * Initialize graph
  */
 beforeAll(async () => {
-    await dbsetup.build();
     let graph = await GraphModel.findOne({ value: '1' }).lean().exec();
     g = graphlib.json.read(graph);
 });
 
 afterAll(async () => {
-    await dbsetup.destroy();
 });
 
 test('policy should have policy and available flag', () => {
