@@ -31,6 +31,7 @@ class Item {
         if (_.has(item, 'f') && item.f) { item.iType = 'f'; return new Facility(item); }
         if (_.has(item, 'ri') && item.ri) { item.iType = 'ri'; return new RoomItem(item); }
         if (_.has(item, 'm') && item.m) { item.iType = 'm'; return new MenuItem(item); }
+        return {};
     }
 }
 module.exports.Item = Item;

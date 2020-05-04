@@ -148,11 +148,6 @@ module.exports = {
     },
 
     END() {
-        // If the cache is not cleared and if data is changed from UI, the cache will have old data
-        // This is a hack to get around this problem - beats the purpose of cache
-        // FIXME: Find time to fix this
-        DBFuncs.delCache(this.$session.$data.hotel.hotel_id);
-
         // Clear the dynamic entities
         this.$alexaSkill.clearDynamicEntities();
 

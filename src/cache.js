@@ -12,6 +12,30 @@ const KamError = require('./utils/KamError');
 const GraphModel = require('./db/Graph');
 const graphlib = require('graphlib');
 
+const itemChangeListener = () => {
+    console.log('watching for changes in items...');
+    GraphModel.watch({ fullDocument: 'updateLookup' }).on('change', async (data) => {
+        //console.log('item changed:', JSON.stringify(data), '+++\n', data.fullDocument);
+
+        if (_.isEqual(data.operationType, 'delete')) { // Document is deleted. Should not be!
+            cache.del(data.hotel_id);
+            //TODO: Documents should never be deleted. Maybe add an audit log?
+        } else if (_.isEqual(data.operationType, 'insert') || _.isEqual(data.operationType, 'update') || _.isEqual(data.operationType, 'replace')) {
+            const hotel_id = data.fullDocument.value;
+            console.log('graph data changed..updating cache for hotel_id:', hotel_id);
+            cache.set(hotel_id, data.fullDocument);
+        }
+    });
+
+    GraphModel.watch().on('close', () => {
+        // TODO: Underlying connection is closed. Do something
+    });
+
+    GraphModel.watch().on('error', () => {
+        // TODO: Error with underlying connection. Do something
+    });
+}
+
 module.exports.set = async function (key, value) {
     cache.set(key, value);
 }
@@ -20,6 +44,9 @@ module.exports.get = async function (key) {
     if (_.isUndefined(key)) {
         throw new KamError.InputError('invalid input. key=' + key);
     }
+
+    // Register the item listener
+    itemChangeListener();
 
     let graph = cache.get(key);
     if (_.isUndefined(graph)) {

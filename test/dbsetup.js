@@ -129,3 +129,6 @@ module.exports.item = (key) => {
 module.exports.allItems = () => {
     return g.nodes();
 }
+
+//var test = require('./dbsetup');
+//test.createAndAssignDevice();
