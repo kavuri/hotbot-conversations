@@ -119,7 +119,7 @@ function createGraph(hotel) {
     g.setNode('outside food', { p: true, iType: 'p', a: true, msg: 'We do not allow outside food to be brought into the hotel' });
     g.setParent('food from outside', 'outside food');
 
-    g.setNode('check-in time', { p: true, iType: 'p', a: true, msg: 'The check in time for this hotel is 12:00PM' });
+    g.setNode('checkin time', { p: true, iType: 'p', a: true, msg: 'The check in time for this hotel is 12:00PM' });
 
     g.setNode('pets', { p: true, iType: 'p', a: true, msg: 'Usually pets are not allowed in this hotel. Please check with the front desk on the kind of pets you can bring to this hotel' });
     g.setParent('cat', 'pets');

@@ -12,6 +12,14 @@ const RoomModel = require('../src/db/Room');
 const GraphModel = require('../src/db/Graph');
 const DeviceModel = require('../src/db/Device');
 
+const graphlib = require('graphlib');
+var g;
+const initGraph = async () => {
+    let graph = await GraphModel.findOne({ value: '1' }).lean().exec();
+    g = graphlib.json.read(graph);
+}
+initGraph();
+
 const hotelData = {
     group: { name: 'Keys Group of Hotels', description: 'Keys group of hotels' },
     hotel: { name: 'Keys Hotel', description: 'This is a Keys hotel', address: { address1: 'ITPL Main Road 7, 7', address2: 'Near SAP office ', address3: 'Whitefield', city: 'Bengaluru', pin: '560037', state: 'Karnataka', country: 'India' }, contact: { phone: ['9888888888', '11111111'], email: ['whitefield@keyshotels.com'] }, coordinates: { lat: '12.979326', lng: '77.709559' }, rooms: [], front_desk_count: 2, reception_number: '9' },
@@ -112,4 +120,12 @@ module.exports.createAndAssignDevice = async () => {
     });
 
     await dummyDevice.save();
+}
+
+module.exports.item = (key) => {
+    return g.node(key);
+}
+
+module.exports.allItems = () => {
+    return g.nodes();
 }
