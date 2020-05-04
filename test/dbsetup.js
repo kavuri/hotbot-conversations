@@ -14,11 +14,10 @@ const DeviceModel = require('../src/db/Device');
 
 const graphlib = require('graphlib');
 var g;
-const initGraph = async () => {
+module.exports.initGraph = async () => {
     let graph = await GraphModel.findOne({ value: '1' }).lean().exec();
     g = graphlib.json.read(graph);
 }
-initGraph();
 
 const hotelData = {
     group: { name: 'Keys Group of Hotels', description: 'Keys group of hotels' },
@@ -108,27 +107,77 @@ module.exports.createAndAssignDevice = async () => {
     // Get the hotel object and the room object references
     let hotelObjId = await HotelModel.findOne({ hotel_id: '1' });
     let roomObjId = await RoomModel.findOne({ hotel_id: '1', room_no: hotelData.rooms[0].room_no })
-    const dummyDevice = new DeviceModel({
+    const dummyDevice = {
         status: "active",   // Got this device id from the testing. In two runs, the device id did not change. Can't be sure. If this changes, all further tests will fail
         device_id: "amzn1.ask.device.XXXXXA6LX6BOBJF6XNWQM2ZO4NVVGZRFFEL6PMXKWLOHI36IY3B4XCSZKZPR42RAWCBSQEDNGS746OCC2PKR5KDIVAUY6F2DX5GV2SQAXPD7GMKQRWLG4LFKXFPVLVTXHFGLCQKHB7ZNBKLHQU4SJG6NNGA",
-        user_id: "xxxxx123xxx",
+        user_id: "xxxxx123xxxxx",
         hotel_id: '1',
         room_no: hotelData.rooms[0].room_no,
         address: hotelData.hotel.address,
         belongs_to: hotelObjId,
         room: roomObjId
-    });
+    };
 
-    await dummyDevice.save();
+    await DeviceModel.findOneAndUpdate({ hotel_id: '1', room_no: hotelData.rooms[0].room_no }, dummyDevice, { new: false, upsert: true });
 }
 
-module.exports.item = (key) => {
-    return g.node(key);
+module.exports.deleteDevice = async () => {
+    await DeviceModel.deleteOne({ hotel_id: '1', room_no: hotelData.rooms[0].room_no });
+}
+
+/**
+ * Method takes a response from server, removes the breaks and returns the response.
+ * The tests do not have to compare the SSML break tags
+ * @param {any} response
+ */
+module.exports.removeSpace = (response) => {
+    //return response.replace(/<.*>/, '').replace(/ +(?= )/g, '');
+    return response.replace(/\s/g, '');
+    //return response.replace(/ +(?= )/g, '');
+}
+
+module.exports.ConversationConfig = {
+    runtime: 'app',
+    userId: '111',
+    locale: 'keys-only',
+    defaultDbDirectory: './db/tests/',
+    httpOptions: {
+        host: 'localhost',
+        port: 3002,
+        path: '/webhook',
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json',
+            'jovo-test': 'true'
+        },
+    },
+};
+
+/**
+ * Updates a graph node with new value
+ * GraphModel.find({value:'1', 'nodes.v':'Gym'}, {'nodes.$.v':1})
+ * @param {any} name
+ * @param {any} key
+ * @param {any} value
+ */
+module.exports.setValue = async (name, key, value) => {
+    var field = 'nodes.$.value.' + key, fieldObj = {};
+    fieldObj[field] = value ;
+    let ret = await GraphModel.findOneAndUpdate({ value: '1', 'nodes.v': name }, { $set: fieldObj }, { upsert: false, fields: { 'nodes.$': 1 } }).exec();
+    console.log('++++ After updated=', fieldObj, ',---',JSON.stringify(ret));
+}
+
+/**
+ * Returns the node of the item
+ * @param {any} key
+ */
+module.exports.item = async (key) => {
+    let ret = await GraphModel.findOne({ value: '1', 'nodes.v': key }, { 'nodes.$.v': 1 });
+    console.log('---ret+++++=', ret.nodes[0].value);
+    return !_.isUndefined(ret.nodes[0].value) ? ret.nodes[0].value : {};
 }
 
 module.exports.allItems = () => {
     return g.nodes();
 }
-
-//var test = require('./dbsetup');
-//test.createAndAssignDevice();

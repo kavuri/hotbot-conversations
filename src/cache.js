@@ -15,14 +15,15 @@ const graphlib = require('graphlib');
 const itemChangeListener = () => {
     console.log('watching for changes in items...');
     GraphModel.watch({ fullDocument: 'updateLookup' }).on('change', async (data) => {
-        //console.log('item changed:', JSON.stringify(data), '+++\n', data.fullDocument);
+        //console.log('item changed:', JSON.stringify(data));
 
-        if (_.isEqual(data.operationType, 'delete')) { // Document is deleted. Should not be!
-            cache.del(data.hotel_id);
-            //TODO: Documents should never be deleted. Maybe add an audit log?
+        if (_.isUndefined(data.fullDocument)) return;
+
+        const hotel_id = data.fullDocument.value;
+        console.log('graph data changed..updating cache for hotel_id:', hotel_id, ', for operation=', data.operationType);
+        if (_.isEqual(data.operationType, 'delete')) {
+            cache.del(hotel_id);
         } else if (_.isEqual(data.operationType, 'insert') || _.isEqual(data.operationType, 'update') || _.isEqual(data.operationType, 'replace')) {
-            const hotel_id = data.fullDocument.value;
-            console.log('graph data changed..updating cache for hotel_id:', hotel_id);
             cache.set(hotel_id, data.fullDocument);
         }
     });
@@ -67,6 +68,7 @@ module.exports.get = async function (key) {
 }
 
 module.exports.del = async (key) => {
+    console.log('^^^^ DELETING ^^^^', key);
     cache.del(key);
 }
 
