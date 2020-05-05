@@ -569,7 +569,4 @@ module.exports = {
         return this.ask(this.$speech);
     },
 
-    async Order_Request() {
-        this.tell('Not implemented yet');
-    }
 }
