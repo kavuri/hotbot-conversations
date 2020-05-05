@@ -13,7 +13,8 @@ const time = require('./time');
 const sinon = require('sinon');
 sinon.stub(time, 'setTimeout');
 
-jest.setTimeout(10000);
+jest.setTimeout(102000);
+
 beforeAll(async () => {
     await dbsetup.initGraph();
 
@@ -25,7 +26,7 @@ for (const p of [new Alexa()]) {
     const testSuite = p.makeTestSuite();
     const conversation = testSuite.conversation(dbsetup.ConversationConfig);
 
-    describe('Testing Facilities handler', () => {
+    describe('Testing General items', () => {
         beforeEach(async () => {
             // Initiate the launch request before any of the facility intents
             const launchRequest = await testSuite.requestBuilder.launch();
@@ -45,29 +46,216 @@ for (const p of [new Alexa()]) {
             expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace(facility.msg.yes + ' ANYTHING_ELSE')));
         });
 
-        test('Enquiry_facility_exists:no such facility', async () => {
+        /************* General Item Tests ******************/
+        test('Enquiry_facility_exists:no such item', async () => {
             const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_facility_exists', { facility_slot: 'xyz' });
             const facilityIntentResponse = await conversation.send(facilityIntent);
             let ret = facilityIntentResponse.getSpeechPlain();
             expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace('FACILITY_NOT_AVAILABLE ANYTHING_ELSE')));
         });
 
-        test('Enquiry_facility_exists:facility:available:not-orderable', async () => {
-            const facility = await dbsetup.item('Gym');
-            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_facility_exists', { facility_slot: 'Gym' });
+        test('Enquiry_facility_exists:item:available:not-orderable', async () => {
+            const item = await dbsetup.createItem('f', { a: true, o: false });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_facility_exists', { facility_slot: item.v });
             const facilityIntentResponse = await conversation.send(facilityIntent);
             let ret = facilityIntentResponse.getSpeechPlain();
-            expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace(facility.msg.yes + ' ANYTHING_ELSE')));
+            expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace(item.value.msg.yes + ' ANYTHING_ELSE')));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
         });
 
-        test('Enquiry_facility_exists:facility:not-available', async () => {
-            await dbsetup.setValue('Gym', 'a', false);
-            const facility = await dbsetup.item('Gym');
-            console.log('----++++facility=', facility);
-            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_facility_exists', { facility_slot: 'Gym' });
+        test('Enquiry_facility_exists:item:not-available', async () => {
+            const item = await dbsetup.createItem('f', { a: false });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_facility_exists', { facility_slot: item.v });
             const facilityIntentResponse = await conversation.send(facilityIntent);
             let ret = facilityIntentResponse.getSpeechPlain();
-            expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace(facility.msg.no + ' ANYTHING_ELSE')));
+            expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace(item.value.msg.no + ' ANYTHING_ELSE')));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+    });
+
+    describe('Testing Facilities', () => {
+        beforeEach(async () => {
+            // Initiate the launch request before any of the facility intents
+            const launchRequest = await testSuite.requestBuilder.launch();
+            const responseLaunchRequest = await conversation.send(launchRequest);
+        });
+
+        afterEach(async () => {
+            //const endIntent = await testSuite.requestBuilder.intent('AMAZON.StopIntent');
+            //await conversation.send(endIntent);
+        });
+
+        /************* Facility Tests ******************/
+        test('Enquiry_facility_exists:facility:available:orderable', async () => {
+            const item = await dbsetup.createItem('f', { a: true, o: true });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_facility_exists', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS AND ' + item.value.price.msg + ' ITEM_LIKE_TO_ORDER'));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:orderable:no-to-order', async () => {
+            const item = await dbsetup.createItem('f', { a: true, o: true });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_facility_exists', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            const noIntent = await testSuite.requestBuilder.intent('AMAZON.NoIntent');
+            let noIntentResponse = await conversation.send(noIntent);
+            console.log('......Sent a NoIntent.....')
+            let ret = noIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ANYTHING_ELSE'));
+
+            // Close the conversation by saying no
+            console.log('......Sending No again .....')
+            noIntentResponse = await conversation.send(noIntent);
+            ret = noIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('END'));
+        });
+
+        test('Enquiry_facility_exists:facility:available:orderable:yes-to-order', async () => {
+            const item = await dbsetup.createItem('f', { a: true, o: true });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_facility_exists', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            const yesIntent = await testSuite.requestBuilder.intent('AMAZON.YesIntent');
+            let yesIntentResponse = await conversation.send(yesIntent);
+            let ret = yesIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('REQUEST_ITEM_COUNT'));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:location', async () => {
+            const item = await dbsetup.createItem('f', { a: true, o: false });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_location', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace(item.value.location.msg + ' ANYTHING_ELSE'));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:not-available:location', async () => {
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_location', { facility_slot: 'xyz' });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('FACILITY_NOT_AVAILABLE ANYTHING_ELSE'));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:unavailable:location', async () => {
+            const item = await dbsetup.createItem('f', { a: false });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_location', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace(item.value.msg.no + ' ANYTHING_ELSE'));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:timings', async () => {
+            const item = await dbsetup.createItem('f', { a: true, o: false });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_timings', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace(item.value.timings.msg + ' ANYTHING_ELSE'));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:not-available:timings', async () => {
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_timings', { facility_slot: 'xyz' });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('FACILITY_NOT_AVAILABLE ANYTHING_ELSE'));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:unavailable:timings', async () => {
+            const item = await dbsetup.createItem('f', { a: false });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_timings', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace(item.value.msg.no + ' ANYTHING_ELSE'));
+
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:facility price', async () => {
+            const item = await dbsetup.createItem('f', { a: true });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace(item.value.price.msg + ' ANYTHING_ELSE'));
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:orderable:menuitem-price-free', async () => {
+            const item = await dbsetup.createItem('m', { a: true, o: true, price: 0 });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS AND ITEM_FREE ITEM_LIKE_TO_ORDER'));
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:orderable:menuitem-price-not-free', async () => {
+            const item = await dbsetup.createItem('m', { a: true, o: true, price: 10 });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS AND ITEM_COSTS ITEM_LIKE_TO_ORDER'));
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:orderable:roomitem-without-limit-for-day-price-free', async () => {
+            const item = await dbsetup.createItem('m', { a: true, o: true, limit: { count: -1, for: 'day' }, price: 0 });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS AND ITEM_LIKE_TO_ORDER'));
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:orderable:roomitem-with-limit-price-free', async () => {
+            const item = await dbsetup.createItem('ri', { a: true, o: true, limit: { count: 1, for: 'day' }, price: 0 });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS LIMIT_PER_DAY AND ITEM_LIKE_TO_ORDER'));
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:orderable:roomitem-without-limit-price-not-free', async () => {
+            const item = await dbsetup.createItem('ri', { a: true, o: true, limit: { count: -1, for: 'day' }, price: 10 });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS AND ITEM_COSTS ITEM_LIKE_TO_ORDER'));
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:orderable:roomitem-with-limit-price-not-free', async () => {
+            const item = await dbsetup.createItem('ri', { a: true, o: true, limit: { count: 1, for: 'day' }, price: 10 });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS AND ITEM_COSTS LIMIT_PER_DAY ITEM_LIKE_TO_ORDER'));
+            //await dbsetup.deleteItem(item.v);   //cleanup
+        });
+
+        test('Enquiry_facility_exists:facility:available:orderable:roomitem-with-limit-for-stay-price-not-free', async () => {
+            const item = await dbsetup.createItem('ri', { a: true, o: true, limit: { count: 1, for: 'stay' }, price: 10 });
+            const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
+            const facilityIntentResponse = await conversation.send(facilityIntent);
+            let ret = facilityIntentResponse.getSpeechPlain();
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS AND ITEM_COSTS LIMIT_PER_STAY ITEM_LIKE_TO_ORDER'));
+            //await dbsetup.deleteItem(item.v);   //cleanup
         });
     });
 }

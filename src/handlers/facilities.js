@@ -128,6 +128,7 @@ module.exports = {
         //     .ask(this.$speech, this.t('YES_NO_REPROMPT'));
     },
 
+    /*
     'ReadOutAllFacilitiesState': {
         async YesIntent() {
 
@@ -156,6 +157,7 @@ module.exports = {
             return this.ask(this.$speech);
         }
     },
+    */
 
     /**
      * Flow

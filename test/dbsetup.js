@@ -139,7 +139,8 @@ module.exports.removeSpace = (response) => {
 module.exports.ConversationConfig = {
     runtime: 'app',
     userId: '111',
-    locale: 'keys-only',
+    locale: 'en-IN',
+    //locale: 'keys-only',
     defaultDbDirectory: './db/tests/',
     httpOptions: {
         host: 'localhost',
@@ -163,9 +164,9 @@ module.exports.ConversationConfig = {
  */
 module.exports.setValue = async (name, key, value) => {
     var field = 'nodes.$.value.' + key, fieldObj = {};
-    fieldObj[field] = value ;
+    fieldObj[field] = value;
     let ret = await GraphModel.findOneAndUpdate({ value: '1', 'nodes.v': name }, { $set: fieldObj }, { upsert: false, fields: { 'nodes.$': 1 } }).exec();
-    console.log('++++ After updated=', fieldObj, ',---',JSON.stringify(ret));
+    //console.log('++++ After updated=', fieldObj, ',---', JSON.stringify(ret));
 }
 
 /**
@@ -174,7 +175,7 @@ module.exports.setValue = async (name, key, value) => {
  */
 module.exports.item = async (key) => {
     let ret = await GraphModel.findOne({ value: '1', 'nodes.v': key }, { 'nodes.$.v': 1 });
-    console.log('---ret+++++=', ret.nodes[0].value);
+    //console.log('---ret+++++=', ret.nodes[0].value);
     return !_.isUndefined(ret.nodes[0].value) ? ret.nodes[0].value : {};
 }
 
@@ -182,7 +183,102 @@ module.exports.allItems = () => {
     return g.nodes();
 }
 
-module.exports.setTimeout = function () {
-    return global.setTimeout.apply(global, arguments);
-};
+/**
+ * Function to create a dummy item
+ * @param {any} type The type of the item
+ * @returns {any} the created item
+ */
+module.exports.createItem = async (type, settings = {}) => {
+    let facility = {
+        v: 'Fagra',
+        value: {
+            f: true, iType: 'f',
+            a: true,
+            o: false,
+            msg: { yes: 'There is one Fagra available in the hotel', no: 'We do not have Fagra in this hotel' },
+            timings: { msg: 'The Fagra is open from 06:00 AM to 11:00 PM', time: { from: '0500', to: '1200' } },
+            location: { msg: 'Fagra is located next to the cafe on the 4th floor' },
+            price: { msg: 'The Fagra is free of cost to use for our guests', price: 0 },
+            reserve: { msg: { yes: 'Call up the frontdesk to make a reservation', no: 'No reservation is required. You can walk-in to the gym' } },
+        }
+    };
 
+    let menuitem = {
+        v: 'Magra',
+        value: {
+            o: true,
+            mtype: 'd',
+            iType: 'm',
+            a: true,
+            c: true,
+            m: true,
+            qty: 1,
+            price: 50
+        }
+    };
+
+    let roomitem = {
+        v: 'Ragra',
+        value: {
+            iType: 'ri',
+            a: true,
+            o: true,
+            price: 0,
+            ri: true,
+            c: true,
+            limit: { count: -1, for: 'stay' },
+            msg: { yes: 'There is Lukra in you bathroom', no: 'We do not provide any Lukra' }
+        }
+    };
+
+    let policy = {
+        v: 'Pagra',
+        value: {
+            iType: 'p',
+            p: true,
+            a: true,
+            msg: 'Makra is allowed in the room'
+        }
+    };
+
+    let item = {};
+    switch (type) {
+        case 'm':
+            item = menuitem;
+            break;
+        case 'f':
+            item = facility;
+            break;
+        case 'ri':
+            item = roomitem;
+            break;
+        case 'p':
+            item = policy;
+            break;
+        default:
+            // Invalid item type
+            return;
+    };
+    let updated = _.merge({}, item.value, settings);
+    item.value = updated;
+
+    await GraphModel.findOneAndUpdate({ value: '1', 'nodes.v': 'all_items' }, { $push: { 'nodes.$.value': item.v } }).exec();   // Add to all_items node, since search uses this to find the item
+    let ret = await GraphModel.findOneAndUpdate({ value: '1' }, { $push: { nodes: item } }, { upsert: true }).exec();
+    return item;
+}
+
+module.exports.deleteItem = async (name) => {
+    await GraphModel.findOneAndUpdate({ value: '1' }, { $pull: { 'nodes.$.v': name } }).exec();
+    await GraphModel.findOneAndUpdate({ value: '1', 'nodes.v': 'all_items' }, { $pull: { 'nodes.$.value': name } }).exec();
+}
+
+async function test() {
+    var createItem = require('./dbsetup').createItem;
+    let r = await createItem('m');
+    r = await createItem('ri');
+    r = await createItem('f');
+    //console.log(r);
+    r = await createItem('p');
+}
+
+//test();
