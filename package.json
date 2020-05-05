@@ -43,6 +43,7 @@
     "jest": "^25.4.0",
     "mocha": "^6.2.3",
     "pem": "https://github.com/beameio/pem/archive/v1.8.4.tar.gz",
+    "sinon": "^9.0.2",
     "yargs": "^15.3.1"
   },
   "scripts": {

@@ -181,3 +181,8 @@ module.exports.item = async (key) => {
 module.exports.allItems = () => {
     return g.nodes();
 }
+
+module.exports.setTimeout = function () {
+    return global.setTimeout.apply(global, arguments);
+};
+

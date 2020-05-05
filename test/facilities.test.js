@@ -8,8 +8,12 @@
 const { App, Util } = require('jovo-framework');
 const { Alexa } = require('jovo-platform-alexa');
 let dbsetup = require('./dbsetup');
-//jest.setTimeout(900);
+const time = require('./time');
 
+const sinon = require('sinon');
+sinon.stub(time, 'setTimeout');
+
+jest.setTimeout(10000);
 beforeAll(async () => {
     await dbsetup.initGraph();
 
