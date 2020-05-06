@@ -7,7 +7,6 @@
 
 const mongoose = require('mongoose'),
     DBConn = require('./index').DBConn,
-    Room = require('./Room'),
     _ = require('lodash');
 
 const CheckinCheckoutSchema = new mongoose.Schema({
@@ -20,6 +19,10 @@ const CheckinCheckoutSchema = new mongoose.Schema({
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }]
 });
 
+CheckinCheckoutSchema.index({ hotel_id: 1 });
+
+module.exports = DBConn.model('CheckinCheckout', CheckinCheckoutSchema);
+const RoomModel = require('./Room');
 CheckinCheckoutSchema.post('save', async (doc) => {
     // If doc.checkout === null, its a check-in
     // If doc.checkout !== null, its a check-out
@@ -28,9 +31,5 @@ CheckinCheckoutSchema.post('save', async (doc) => {
         // Add reference of doc to room.checkincheckout
         ref = doc;
     }
-    await Room.findOneAndUpdate({ hotel_id: doc.hotel_id, room_no: doc.room_no }, { $set: { checkincheckout: ref } }).exec();
+    await RoomModel.findOneAndUpdate({ hotel_id: doc.hotel_id, room_no: doc.room_no }, { $set: { checkincheckout: ref } }).exec();
 });
-
-CheckinCheckoutSchema.index({ hotel_id: 1 });
-
-module.exports = DBConn.model('CheckinCheckout', CheckinCheckoutSchema);

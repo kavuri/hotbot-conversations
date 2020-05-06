@@ -11,6 +11,8 @@ const HotelModel = require('../src/db/Hotel');
 const RoomModel = require('../src/db/Room');
 const GraphModel = require('../src/db/Graph');
 const DeviceModel = require('../src/db/Device');
+const CheckinCheckoutModel = require('../src/db/CheckinCheckout');
+const OrderModel = require('../src/db/Order');
 
 const graphlib = require('graphlib');
 var g;
@@ -101,6 +103,8 @@ module.exports.destroy = async (GLOBAL_STATE) => {
     await HotelGroupModel.deleteOne({ name: hotelData.group.name });
     await GraphModel.deleteOne({ value: '1' });
     await DeviceModel.deleteOne({ hotel_id: '1', room_no: hotelData.rooms[0].room_no });
+    await CheckinCheckoutModel.deleteMany({ hotel_id: '1' });
+    await OrderModel.deleteMany({ hotel_id: '1' });
 }
 
 module.exports.createAndAssignDevice = async () => {
@@ -192,7 +196,8 @@ module.exports.createItem = async (type, settings = {}) => {
     let facility = {
         v: 'Fagra',
         value: {
-            f: true, iType: 'f',
+            f: true,
+            iType: 'f',
             a: true,
             o: false,
             msg: { yes: 'There is one Fagra available in the hotel', no: 'We do not have Fagra in this hotel' },
@@ -272,7 +277,42 @@ module.exports.deleteItem = async (name) => {
     await GraphModel.findOneAndUpdate({ value: '1', 'nodes.v': 'all_items' }, { $pull: { 'nodes.$.value': name } }).exec();
 }
 
-async function test() {
+module.exports.checkinGuest = async () => {
+    const checkin = new CheckinCheckoutModel({
+        hotel_id: '1',
+        room_no: hotelData.rooms[0].room_no,
+        guestName: 'Abc',
+        guestNumber: '9999999999'
+    });
+
+    let cin = await checkin.save();
+    return cin;
+}
+
+module.exports.createOrder = async (items, cin) => {
+    let order;
+    let user_id = 'xxxxx123xxxxx';
+    items.forEach(async (item) => {
+        let type;
+        if (item.value.iType === 'm') type = 'menu';
+        if (item.value.iType === 'ri') type = 'roomitem';
+        let t = { name: item.v, type: type, req_count: 2 };
+        order = new OrderModel({
+            order_group_id: '1',
+            user_id: user_id,
+            hotel_id: '1',
+            room_no: hotelData.rooms[0].room_no,
+            item: t,
+            curr_status: { status: 'new', set_by: user_id },
+            curr_priority: { priority: 'asap', set_by: user_id },
+            checkincheckout: cin._id
+        });
+
+        await order.save();
+    })
+}
+
+async function testCreateItem() {
     var createItem = require('./dbsetup').createItem;
     let r = await createItem('m');
     r = await createItem('ri');
@@ -281,4 +321,17 @@ async function test() {
     r = await createItem('p');
 }
 
-//test();
+async function testCheckin() {
+    await require('./dbsetup').checkinGuest();
+}
+
+async function testCreateOrder() {
+    let dbsetup = require('./dbsetup');
+    let item = await dbsetup.createItem('ri', { a: true, o: true });
+    let cin = await dbsetup.checkinGuest();
+    await dbsetup.createOrder([item, item], cin);
+}
+
+//testCreateOrder();
+//testCheckin();
+//testCreateItem();

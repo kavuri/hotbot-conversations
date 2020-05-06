@@ -8,12 +8,12 @@
 
 # FIXMEs
   * Whenever a user app_metadata is changed in Auth0, the corresponding user has to be deleted from mongodb. This is because, getting the user with /api/v1/user api call first checks the user in the mongodb database. If the user exists, that user data is returned. So, whatever the changes are in Auth0 user, will not be reflected for the application. This is for the API project
-  * Change launch keywords from 'hotel reception' to 'front desk', as the utterance 'launch hotel reception is hitting 'Enquiry_All_Facilities'
-  * Add AMAZON.FallbackIntent and corresponding Google fallback intent for a catch-all intent
+  * Change launch keywords from 'hotel reception' to 'front desk', as the utterance 'launch hotel reception is hitting 'Enquiry_All_Facilities' - DONE
+  * Add AMAZON.FallbackIntent and corresponding Google fallback intent for a catch-all intent - DONE
   * Can *App Data* in Jovo be used for storing hotel info, policies and facilities? https://www.jovo.tech/docs/data - DONE
   * Implement account linking - DONE
   * Implement global fallback intents for the final pieces in every conversation - DONE
-  * Fix the conversations and their strings
+  * Fix the conversations and their strings - DONE
   * Check-in & Check-out functionality has to implemented. How does the front desk tell the system on user check-in & check-out - Backend complete - DONE
   * Write a automation script to check the graph.js for data consistency - DONE
   * If a hotel changes the available facilities, they should be updated to the graph and the facilities node should be regenerated - DONE
@@ -28,7 +28,7 @@
   - A single pager on how it works
   - Brochure design - DONE
  3. Test kamamishu voice conversations
-  - Write test plan with all the scenarios
+  - Write test plan with all the scenarios - DONE
   - Create jest unit test cases
   - Automate testing with every change
   - Create deployment package for hotbot-conversations, hotbot-api
@@ -36,7 +36,7 @@
    - Create deployment script for mongodb
    - Create 2 EC2 instances in AWS
    - Deploy conversations and api servers
-  -  Dev complete
+  -  Dev complete - DONE
    - Code review
    - Fix the conversation flow
    - Fix the messages that are sent to the guest
@@ -59,7 +59,6 @@
   - Create End user License agreement
   - Create device ownership agreement
   - Anything else?
-
 
 # Provisioning for a new hotel
  - Create a kamamishu email id, like hotel@kamamishu.com

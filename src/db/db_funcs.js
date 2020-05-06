@@ -291,6 +291,10 @@ module.exports.already_ordered_items = async function (hotel_id, room_no, itemOb
             .findOne(filter)
             .populate('orders')
             .exec();
+        if (_.isNull(room) || _.isUndefined(room)) {
+            // Checkin of the guest was probably not done
+            return [];  // FIXME: Should we return empty list and let the orders be logged?
+        }
         //console.log('----room=', JSON.stringify(room));
         let sameOrder = _.filter(room.orders, (o) => {
             return _.isEqual(_.lowerCase(o.item.name), _.lowerCase(itemObj.name));

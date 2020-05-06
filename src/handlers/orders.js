@@ -184,7 +184,7 @@ module.exports = {
                 this.$speech
                     .addText(msg)
                     .addBreak('200ms')
-                    .addText(this.t('ANYTHING_ELSE'));
+                    .addText(this.t('ORDER_ANYTHING_ELSE'));
                 return this.ask(this.$speech);
             }
 
@@ -620,7 +620,7 @@ module.exports = {
                 .addBreak('200ms');
         }
 
-        this.$speech.addText(this.t('ANYTHING_ELSE'));
+        this.$speech.addText(this.t('ORDER_ANYTHING_ELSE'));
         this.ask(this.$speech);
     },
 

@@ -9,6 +9,14 @@ const _ = require('lodash');
 
 const { Facility, MenuItem, RoomItem } = require('./Item');
 
+/**
+ * Structure of the item object
+  {
+     name: 'item name',
+     req_count: 2,
+     type: 'menu'
+  }
+ * */
 class OrdersInSession {
     constructor(orders = []) {
         this.orders = orders;
