@@ -212,7 +212,7 @@ for (const p of [new Alexa()]) {
         });
 
         test('Enquiry_Facility_price:facility:available:orderable:roomitem-without-limit-for-day-price-free', async () => {
-            const item = await dbsetup.createItem('m', { a: true, o: true, limit: { count: -1, for: 'day' }, price: 0 });
+            const item = await dbsetup.createItem('ri', { a: true, o: true, limit: { count: -1, for: 'day' }, price: 0 });
             const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
             const facilityIntentResponse = await conversation.send(facilityIntent);
             let ret = facilityIntentResponse.getSpeechPlain();
@@ -225,7 +225,7 @@ for (const p of [new Alexa()]) {
             const facilityIntent = await testSuite.requestBuilder.intent('Enquiry_Facility_price', { facility_slot: item.v });
             const facilityIntentResponse = await conversation.send(facilityIntent);
             let ret = facilityIntentResponse.getSpeechPlain();
-            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS LIMIT_PER_DAY AND ITEM_LIKE_TO_ORDER'));
+            expect(dbsetup.removeSpace(ret)).toMatch(dbsetup.removeSpace('ITEM_EXISTS AND LIMIT_PER_DAY ITEM_LIKE_TO_ORDER'));
             //await dbsetup.deleteItem(item.v);   //cleanup
         });
 
