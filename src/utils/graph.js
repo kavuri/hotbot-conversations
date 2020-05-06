@@ -93,7 +93,7 @@ function createGraph(hotel) {
     g.setParent('cigar', 'smoking');
     g.setParent('hookah', 'smoking');
 
-    g.setNode('alcohol', { iType: 'p', p: true, a: true, msg: 'alcohol consumption is allowed in the room' });
+    g.setNode('alcohol', { iType: 'p', p: true, a: true, msg: 'alcohol consumption is not allowed in your room or hotel premises' });
     g.setParent('rum', 'alcohol');
     g.setParent('gin', 'alcohol');
     g.setParent('whiskey', 'alcohol');
@@ -104,14 +104,14 @@ function createGraph(hotel) {
     g.setParent('cognac', 'alcohol');
     g.setParent('wine', 'alcohol');
 
-    g.setNode('cancellation', { iType: 'p', p: true, a: true, msg: 'The room cancellation policy is mentioned in your booking details. Please contact hotel reception for any information about this' });
+    g.setNode('cancellation', { iType: 'p', p: true, a: true, msg: 'The room cancellation policy is mentioned in your booking details.' });
     g.setParent('room cancellation', 'cancellation');
 
-    g.setNode('infants', { p: true, iType: 'p', a: true, msg: 'There are no charges for infants below the age of 5 years and are welcome to stay. ' });
+    g.setNode('infants', { p: true, iType: 'p', a: true, msg: 'There are no charges for children below the age of 5 years.' });
     g.setParent('children policy', 'infants');
     g.setParent('infants stay', 'infants');
 
-    g.setNode('checkout time', { p: true, iType: 'p', a: true, msg: 'The checkout time for the room is 12:00PM. Please contact reception if you want to extend your stay beyond checkout time.' });
+    g.setNode('checkout time', { p: true, iType: 'p', a: true, msg: 'The checkout time for the room is 12:00PM. If you want to extend your stay, you will need to contact the reception.' });
     g.setParent('vacate time', 'checkout time');
 
     g.setNode('no show', { p: true, iType: 'p', a: true, msg: 'In case of no show the first nights room rent would be charged. The rest of the booking amount would be refunded to your account.' });
@@ -121,7 +121,7 @@ function createGraph(hotel) {
 
     g.setNode('checkin time', { p: true, iType: 'p', a: true, msg: 'The check in time for this hotel is 12:00PM' });
 
-    g.setNode('pets', { p: true, iType: 'p', a: true, msg: 'Usually pets are not allowed in this hotel. Please check with the front desk on the kind of pets you can bring to this hotel' });
+    g.setNode('pets', { p: true, iType: 'p', a: true, msg: 'Usually pets are not allowed in this hotel. For special requests, please talk to the reception ' });
     g.setParent('cat', 'pets');
     g.setParent('dog', 'pets');
     g.setParent('my pet', 'pets');
@@ -143,7 +143,7 @@ function createGraph(hotel) {
 
     g.setNode('main_facilities', {
         f: true, iType: 'f', a: false, o: false,
-        msg: { yes: ' ', no: ' ' },
+        msg: { yes: ' We have facilitie like restaurant, luggage storage, clothes ironing, room service', no: ' ' },
         timings: { msg: ' ', time: { from: ' ', to: ' ' } },
         location: { msg: ' ' },
         price: { msg: ' ', price: 0 },
@@ -165,7 +165,7 @@ function createGraph(hotel) {
         msg: { yes: 'There is one fitness center available on the 4th floor next to the cafe', no: 'There is no gym in this hotel' },
         timings: { msg: 'The gym is open from 06:00 AM to 11:00 PM', time: { from: '0500', to: '1200' } },
         location: { msg: 'gym is located next to the cafe on the 4th floor' },
-        price: { msg: 'The gym is free of cost to use for our guests', price: 0 },
+        price: { msg: 'The gym is free to use for our guests', price: 0 },
         reserve: { msg: { yes: 'Call up the frontdesk to make a reservation', no: 'No reservation is required. You can walk-in to the gym' } },
     });
     g.setParent('fitness center', 'Gym');   // synonyms of the facility are set as children
@@ -173,9 +173,9 @@ function createGraph(hotel) {
 
     g.setNode('Kids pool', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'There is a childrens pool available', no: 'There is no childrens pool in this hotel' },
-        location: { msg: 'kids pool is located on the top floor.You can take the lift to reach the floor' },
-        timings: { msg: 'The childrens pool is open from morning 06:00 AM to 05:00 PM and again in the evening 0600 to 2200', time: { 'from': '0500', 'to': '1200' } },
+        msg: { yes: 'We have a childrens pool on the ground floor', no: 'There is no childrens pool in this hotel' },
+        location: { msg: 'kids pool is located on the groud floor. You can take the lift to reach the floor' },
+        timings: { msg: 'The childrens pool is open from morning 06:00 A.M to 02:00 P.M and again in the evening 06:00 P.M to 11:00 P.M', time: { 'from': '0500', 'to': '1200' } },
         price: { price: 200, msg: 'There is a charge of 200 rupees for using the childrens pool' },
         reserve: { flag: true, msg: { yes: 'You will need to register with the front desk to book a slot', no: 'There is no registration required' } },
     });
@@ -185,64 +185,64 @@ function createGraph(hotel) {
 
     g.setNode('Adults pool', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'There is an adults pool available', no: 'There is no swimming pool in this hotel' },
-        location: { msg: 'Sky pool on the top floor. You can take the lift to reach the floor' },
+        msg: { yes: 'We have an an adults pool and it is on the west wing of the hotel', no: 'There is no adults swimming pool in this hotel' },
+        location: { msg: 'The adults swimming pool is on the west wing of the hotel ' },
         timings: { msg: 'The adults pool is open from morning 06:00 AM to 05:00 PM and again in the evening 0600 to 2200', time: { 'from': '0500', 'to': '1200' } },
         reserve: { flag: true, msg: { yes: 'You will need to register with the front desk to book a slot', no: 'There is no registration required' } },
-        price: { price: 200, msg: 'There is a charge of 200 rupees for using the pool' }
+        price: { price: 200, msg: 'The adults pool is free to use for our guests' }
     });
     g.setParent('adults pool', 'Adults pool');
     g.setParent('big swimming pool', 'Adults pool');
 
     g.setNode('Sauna', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'There is a Sauna available', no: 'There is no Sauna in this hotel' },
-        location: { msg: 'Sauna is located on the ground floor' },
+        msg: { yes: 'We have a sauna facility in our hotel. Its on the top floor and you can take the lift ', no: 'We do not have sauna facility in this hotel' },
+        location: { msg: 'Sauna is located on the top floor and you can take the lift to reach it' },
         timings: { msg: 'The Sauna is open from morning 06:00 AM to 09:00 PM and again in the evening 0600 to 2200', time: { from: '0500', to: '1200' } },
         reserve: { flag: true, msg: { yes: 'You will need to register with the front desk to book a slot', no: 'There is no registration required' } },
-        price: { price: 200, msg: 'There is a charge of 500 rupees for using the Sauna' }
+        price: { price: 200, msg: 'There is a charge of 500 rupees for using the Sauna. The cost will be added to your hotel bill' }
     });
     g.setParent('steam room', 'Sauna');
     g.setParent('steam bath', 'Sauna');
 
     g.setNode('Dry cleaning', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'we offer dry_clean service', no: 'we do not have Dry cleaning service' },
-        location: { msg: 'please leave the clothes to be Dry cleaned in the bag provided in the closet.We will pick them up for Dry cleaning' },
-        timings: { msg: 'We will deliver the Dry cleaned clothes in ', time: { 'from': '0500', 'to': '1200' } },
+        msg: { yes: 'we offer dry cleaning service of your clothes at our hotel', no: 'we do not have Dry cleaning service at our hotel' },
+        location: { msg: 'To use the dry cleaning service, please leave the clothes in the bag provided in the closet. We will dry clean and return to your room on completion' },
+        timings: { msg: 'We pick up clothes two times per day, once in the morning around 08:00 A.M and another in the evening around 04:00 P.M', time: { 'from': '0500', 'to': '1200' } },
         reserve: { flag: true, msg: { yes: 'you will need to register with the front desk to book a slot', no: 'There is no registration required' } },
-        price: { price: 400, msg: 'There are separate charges for different clothes. You can check the charges in the closet' }
+        price: { price: 400, msg: 'The dry cleaning charges are mentioned in the laundry charges sheet in the closet ' }
     });
     g.setParent('Dry wash', 'Dry cleaning');
 
     g.setNode('Laundry', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'We offer Laundry service', no: 'We do not have Laundry service' },
-        location: { msg: 'Please leave the clothes to be washed in the bag provided in the closet. We will pick them up for washing' },
-        timings: { msg: 'We will deliver the washed and ironed clothes in ', time: { 'from': '0500', 'to': '1200' } },
+        msg: { yes: 'We offer Laundry service at our hotel', no: 'We do not have Laundry service at our hotel' },
+        location: { msg: 'To use the laundry service, please leave the clothes in the bag provided in the closet. We will wash and iron the clothes and return to your room on completion' },
+        timings: { msg: 'For clothes laundry, We pick up clothes two times per day, once in the morning around 08:00 A.M and another in the evening around 04:00 P.M', time: { 'from': '0500', 'to': '1200' } },
         reserve: { flag: true, msg: { yes: 'You will need to register with the front desk to book a slot', no: 'There is no registration required' } },
-        price: { price: 200, msg: 'There are separate charges for different clothes. You can check the charges in the closet' }
+        price: { price: 400, msg: 'The dry cleaning charges are mentioned in the laundry charges sheet in the closet ' }
     });
     g.setParent('washing', 'Laundry');
     g.setParent('clothes wash', 'Laundry');
 
     g.setNode('Ironing', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'We have an iron box in the room. You can find it in the closet', no: 'We do not have clothes Ironing facility' },
-        Ironing_location: { msg: 'Please leave the clothes to be ironed in the bag in the closet. We will pick them up for Ironing' },
-        Ironing_timings: { msg: 'You can place an order to iron your clothes anytime ', time: { 'from': '0500', 'to': '1200' } },
-        Ironing_reserve: { flag: true, msg: { yes: 'You can place an order for Ironing clothes', no: 'You can do the Ironing yourself with the iron box provided in the room' } },
-        Ironing_price: { price: 200, msg: 'There is a charge of Rs.5 per piece' }
+        msg: { yes: 'For ironing clothes, we have an iron box in your room. It is in the closet', no: 'We do not have clothes Ironing facility at this hotel' },
+        location: { msg: 'The iron box is available in the closet in your room' },
+        timings: { msg: 'You can use the iron box any time of the day ', time: { 'from': '0500', 'to': '1200' } },
+        reserve: { flag: true, msg: { yes: 'You can place an order for Ironing clothes', no: 'You can do the Ironing yourself with the iron box provided in the room' } },
+        price: { price: 200, msg: 'The iron box is free to use for our guests' }
     });
     g.setParent('clothes iron', 'Ironing');
 
     g.setNode('Taxi', {
         f: true, iType: 'f', a: true, o: true,
-        msg: { yes: 'We have taxi service with the hotel', no: 'We do not provide taxi service. But Uber, Ola do reach our hotel' },
-        location: { msg: 'The taxi will be available right in front of the hotel' },
-        timings: { msg: 'The taxi is available round the clock ', time: { 'from': '0500', 'to': '2400' } },
+        msg: { yes: 'For taxi service, we suggest our guests to use services like Ola or Uber', no: 'For taxi service, we suggest our guests to use services like Ola or Uber' },
+        location: { msg: 'The taxi will arrive right in front of the hotel' },
+        timings: { msg: 'The taxi services are available round the clock', time: { 'from': '0500', 'to': '2400' } },
         reserve: { flag: true, msg: { yes: 'I can place an order to book a taxi', no: 'I cannot make a taxi booking. You will have to use the taxi apps like Ola or Uber to book one' } },
-        price: { price: 200, msg: 'You will be charged an amount of 5000 for a full day' },
+        price: { price: 200, msg: 'You will pay to the taxi can operator as per the usage' },
         billing: { flag: true, msg: { yes: 'The taxi charges are included in your bill', no: 'You have to pay the driver yourself' } }
     });
     g.setParent('cab', 'Taxi');
@@ -251,20 +251,20 @@ function createGraph(hotel) {
 
     g.setNode('Shuttle', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'We have a shuttle service', no: 'We do not provide a shuttle service' },
+        msg: { yes: 'We have a shuttle service that can take you around 2 kilometers radius from the hotel', no: 'We do not have shuttle service at the hotel' },
         reserve: { flag: true, msg: { yes: 'I can place an order to book a taxi', no: 'I cannot make a taxi booking. You will have to use the taxi apps like Ola or Uber to book one' } },
-        timings: { msg: 'The shuttle service is available from morning 0800 to evening 1800hrs at a gap of 30 minutes. You will need to wait at the reception to board a shuttle ' },
-        location: { msg: 'The shuttle service is available near the entracen ' },
-        price: { price: 200, msg: 'There is a charge of 500 rupees for using the shuttle' },
+        timings: { msg: 'The shuttle service is available from morning 0800 to evening 1800hrs at a gap of 30 minutes. You will need to wait at the reception to board a shuttle ', time: { from: '0700', to: '1200' } },
+        location: { msg: 'The shuttle service is available near the entrance of the hotel ' },
+        price: { price: 200, msg: 'The shuttle service is free of charge for our guests' },
         billing: { flag: true, msg: { yes: 'You do not have to pay for the shuttle', no: 'You will have to pay the driver directly' } }
     });
 
     g.setNode('Wifi', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'We have wifi facility. Please contact frontdesk for the details', no: 'We do not have wifi facility' },
-        location: { msg: 'Wifi is available everywhere' },
+        msg: { yes: 'We have wifi facility all across the hotel. The hotel reception will provide your the login details for usage', no: 'We do not have wifi facility for our guests' },
+        location: { msg: 'Wifi is available everywhere in the hotel' },
         timings: { msg: 'The wifi is available round the clock', time: { from: '0000', to: '0000' } },
-        price: { price: 200, msg: 'There is a charge of 100 rupees for the wifi' },
+        price: { price: 200, msg: 'Wifi facility is free to use for our guests' },
         billing: { flag: true, msg: { yes: 'Wifi charges will be added to your bill', no: 'You will have to pay for your wifi charges separately' } },
         password: { flag: true, msg: { yes: 'The frontdesk will provide the wifi password', no: 'There is no wifi password' } }
     });
@@ -275,18 +275,18 @@ function createGraph(hotel) {
 
     g.setNode('Massage', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'We have a masseur in the hotel', no: 'We do not have massage facility in the hotel' },
-        location: { msg: 'massage room is located to the left of the reception area on the ground floor' },
-        timings: { msg: 'The massage is open from morning 06:00 AM to 05:00 PM and again in the evenings from 1600 to 2200', time: { 'from': '0700', 'to': '1400' } },
+        msg: { yes: 'We have body massage facility at the hotel. Please get in touch with the front desk for details', no: 'We do not have massage facility at the hotel' },
+        location: { msg: 'The massage facility is available on the 3rd floor in a room marked as massage' },
+        timings: { msg: 'The massage facility is open from morning 06:00 AM to 05:00 PM and again in the evenings from 1600 to 2200', time: { 'from': '0700', 'to': '1400' } },
         reserve: { flag: true, msg: { yes: 'You  will need to register with the front desk to book a slot', no: 'There is no registration required' } },
-        price: { price: 800, msg: 'There is a charge of 1000 rupees for the massage' }
+        price: { price: 800, msg: 'There is a charge of 1000 rupees per session for the massage' }
     });
     g.setParent('Massage_room', 'Massage');
 
     g.setNode('Car cleaning', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'We can help you get your vehicle cleaned', no: 'We do not have vehicle cleaning service' },
-        location: { msg: 'Car cleaning can be done once you hand over the car keys at the reception' },
+        msg: { yes: 'We have car cleaning service at our hotel. Contact reception to book a for a slot', no: 'We do not have vehicle cleaning service at the hotel' },
+        location: { msg: 'For cleaning leave the keys of your vehicle at the reception' },
         timings: { msg: 'The Car cleaning is done from morning 05:00 AM to 10:00 AM in the morning', time: { 'from': '0700', 'to': '1900' } },
         reserve: { flag: true, msg: { yes: 'You will need to register with the front desk to book a slot', no: 'There is no registration required' } },
         price: { price: 100, msg: 'There is a charge of 100 rupees for cleaning the car' }
@@ -295,32 +295,32 @@ function createGraph(hotel) {
 
     g.setNode('Bicycle', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'We have bicycle rental service.', no: 'We do not have bicycle rental service' },
-        location: { msg: 'bicycles are located at the bicycle parking space in front of the hotel' },
-        timings: { msg: 'Bicycles are available for rent round the clock', time: { 'from': '0500', 'to': '2400' } },
+        msg: { yes: 'We have bicycle rental service. Contact the reception for booking a bicycle', no: 'We do not have bicycle rental service at the hotel' },
+        location: { msg: 'Bicycles are located at the bicycle parking space in front of the hotel' },
+        timings: { msg: 'Bicycles can be rented from morning 07:00 A.M to evening 05:00 P.M', time: { 'from': '0500', 'to': '2400' } },
         reserve: { flag: true, msg: { yes: 'You will need to register at the front desk for renting the bicycle', no: 'There is no bicycle rental service available in the hotel' } },
-        price: { price: 100, msg: 'There is a charge of 100 rupees for renting the bicycle for 24 hours' }
+        price: { price: 100, msg: 'There is a charge of 200 rupees for renting the bicycle for 24 hours' }
     });
     g.setParent('Bicycle rental', 'Bicycle');
 
     g.setNode('Bike', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'We have motorbike rental service.', no: 'We do not have motorbike rental service' },
-        location: { msg: 'bikes are located at the bike rental space near the entrance of the hotel' },
-        timings: { msg: 'bikes are available for rent round the clock', time: { 'from': '0500', 'to': '2400' } },
+        msg: { yes: 'We have motor bike rental service at our hotel. Contact the reception for booking a motor bike', no: 'We do not have motorbike rental service at the hotel' },
+        location: { msg: 'The rental bikes are located at the bike rental space near the entrance of the hotel' },
+        timings: { msg: 'Motor bikes can be rented from morning 08:00 A.M to 10:00 P.M ', time: { 'from': '0500', 'to': '2400' } },
         reserve: { flag: true, msg: { yes: 'You will need to register at the front desk for renting the bike', no: 'There is no bike rental service available in the hotel' } },
-        price: { price: 300, msg: 'There is a charge of 1000 rupees for renting the bike for 24 hours' }
+        price: { price: 300, msg: 'There is a charge of 5000 rupees for renting the bike for 24 hours with a security deposit of 10000 rupees' }
     });
     g.setParent('bike rental', 'Bike');
     g.setParent('bike for rent', 'Bike');
 
     g.setNode('Bar', {
         f: true, iType: 'f', a: true, o: true,
-        msg: { yes: 'We have a bar on the terrace of the hotel.', no: 'We do not have a bar' },
-        location: { msg: 'bar is located on the terrace of the hotel' },
-        timings: { msg: 'Bar is open from morning 07:00 PM to 12:00 AM and again in the evening from 1800 to 2300', time: { 'from': '1030', 'to': '1500' } },
+        msg: { yes: 'We have a bar on the terrace of the hotel.', no: 'We do not have a bar at the hotel' },
+        location: { msg: 'The bar is located on the terrace of the hotel. You can reach using the lift' },
+        timings: { msg: 'The Bar is open from 11:00 A.M to 11:30 P.M', time: { from: '1030', to: '1500' } },
         reserve: { flag: true, msg: { yes: 'You can call the bar extension code to reserve a table', no: 'There is no bar available in the hotel premises' } },
-        price: { price: 300, msg: 'You will know the prices at the bar' }
+        price: { price: 300, msg: 'You will have to pay the price as per the consumption directly to the bar' }
     });
     g.setParent('pub', 'Bar');
     g.setParent('night club', 'Bar');
@@ -329,63 +329,64 @@ function createGraph(hotel) {
     g.setNode('Reception', {
         f: true, iType: 'f', a: true, o: false,
         msg: { yes: 'The hotel reception is located near the entrance', no: 'I am your receptionist. Please let me know what you want' },
-        timings: { time: { from: '0000', to: '0000' }, msg: 'The reception is open 27 by 7' },
-        location: { time: { from: '0000', to: '0000' }, msg: 'The reception is open 27 by 7' },
+        timings: { time: { from: '0000', to: '0000' }, msg: { yes: 'The reception is open round the clock', no: 'I am your reception. Please let me know how I can help' } },
+        location: { time: { from: '0000', to: '0000' }, msg: 'The reception is located near the entrance' },
         languages: { msg: 'The reception speaks english, hindi, telugu, tamil, malayalam, kannada' },
-        price: { msg: 'The reception is available at your service' }
+        price: { msg: 'The reception is available at your service', price: 0 }
     });
     g.setParent('front desk', 'Reception');
 
     g.setNode('Spa', {
         f: true, iType: 'f', iType: 'f', a: true, o: true,
-        msg: { yes: 'There is a Sauna available', no: 'There is no Sauna in this hotel' },
-        location: { msg: 'The spa is located on the outer corridor' },
-        timings: { msg: 'Spa is available from 07:00 AM to 10:00 PM and again in the evening 0600 to 2200', time: { 'from': '0500', 'to': '1200' } },
+        msg: { yes: 'We have Spa facility at our hotel. Contact reception for booking a slot', no: 'We do not have Spa facility at this hotel' },
+        location: { msg: 'The spa facility is located on the outer corridor' },
+        timings: { msg: 'Spa is available from 06:00 A.M to 12:00 P.M and again in the evening from 04:00 P.M to 10:00 P.M', time: { 'from': '0500', 'to': '1200' } },
         reserve: { flag: true, msg: { yes: 'You will need to register with the front desk to book a slot', no: 'There is no registration required' } },
-        price: { price: 200, msg: 'The price of the spa varies. Please contact the spa for the details' },
+        price: { price: 200, msg: 'The price of the spa varies per treatment. Please contact the reception for the details' },
         billing: { msg: 'You will have to pay separately at the spa. The charges will not be made part of bill' }
     });
     g.setParent('body treatment', 'Spa');
     g.setParent('facials', 'Spa');
 
     g.setNode('Room Service', {
-        f: true, iType: 'f', a: true, o: true,
-        msg: { yes: 'Room service is available', no: 'There is no Room service' },
-        price: { price: 50, msg: 'You are charged an amount of 100 rupees for Room service' },
-        location: { msg: 'You are charged an amount of 100 rupees for Room service' },
-        timings: { timings: { from: '05:00', to: '23:00' }, msg: 'It takes approximately 06:00 AM for ordering food to Room service' },
+        f: true, iType: 'f', a: true, o: false,
+        msg: { yes: 'We have room Room service at the hotel', no: 'We do not have Room service available at the hotel' },
+        price: { price: 50, msg: 'The room service is free of charge for our guests' },
+        location: { msg: 'We have room service at the hotel and we can get your food order to your room' },
+        timings: { time: { from: '05:00', to: '23:00' }, msg: 'Room service is available from morning 06:00 A.M to night 10:30 P.M' },
         billing: { msg: 'The charges would be added to your room bill, that you can pay at checkout time' }
     });
     g.setParent('room delivery', 'Room Service');
 
     g.setNode('Cooking', {
-        f: true, iType: 'f', a: true, o: true,
-        msg: { yes: 'This hotel can provide cooking facilities. Let me know what you want', no: 'This hotel does not have cooking facilities' },
-        price: { price: 0, msg: 'The cooking facility is free of cost ' },
-        location: { msg: 'Its at the kitchen on the first floor ' },
-        timings: { timings: { from: '05:00', to: '23:00' }, msg: 'Its during morning time only' },
+        f: true, iType: 'f', a: true, o: false,
+        msg: { yes: 'We have cooking facilities at the hotel. Ask reception for any cutlery items you might need.', no: 'We do not have cooking facility at the hotel ' },
+        price: { price: 0, msg: 'The cooking facility is free of cost for our guests' },
+        location: { msg: 'You can cook in your room ' },
+        timings: { time: { from: '05:00', to: '23:00' }, msg: 'You can cook any time of the day, but ensure you do not cause any untoward incidents' },
         billing: { msg: 'The charges would be added to your room bill, that you can pay at checkout time' }
     });
     g.setParent('Cooking facilities', 'Cooking');
     g.setParent('Cooking utilities', 'Cooking');
 
     g.setNode('Storage', {
-        f: true, iType: 'f', a: true, o: true,
-        msg: { yes: 'We do have a storage space near the reception. Please carry your baggage to the reception for storage', no: 'we do not have storage space' },
-        price: { price: 50, msg: 'We charge a price of 100 rupees for 1 day of storage' },
+        f: true, iType: 'f', a: true, o: false,
+        msg: { yes: 'We help you store you luggage in a safe place in our hotel. carry your baggage to the reception for storage', no: 'we do not have storage space at the hotel' },
+        price: { price: 50, msg: 'We charge 100 rupees per piece of luggage for 1 day of storage' },
         size: { msg: 'We can store a maximum of 2 bags. But please visit the reception for clarification' },
-        location: { msg: 'Its at the reception' },
-        timings: { msg: 'Visit at the reception timings', time: { from: '04:00', to: '11:00' } }
+        location: { msg: 'The storage location is near the reception' },
+        timings: { msg: 'We can help with the storage from morning 06:00 A.M to 11:00 P.M at the reception ', time: { from: '04:00', to: '11:00' } }
     });
     g.setParent('Luggage', 'Storage');
     g.setParent('Cloak room', 'Storage');
     g.setParent('Storage space', 'Storage');
 
     g.setNode('Restaurant', {
-        f: true, iType: 'f', a: true, o: true,
-        msg: { yes: 'There is an inhouse restaurant in this hotel', no: 'There is no reservation in this hotel' },
-        timings: { time: { 'from': '0600', 'to': '2300' }, msg: 'the restaurant is open from morning 0600 to 1100 and again in the evening 0600 to 2200' },
+        f: true, iType: 'f', a: true, o: false,
+        msg: { yes: 'We have a restaurant on the ground floor', no: 'We do not have a  restaurant in the hotel' },
+        timings: { time: { from: '0600', to: '2300' }, msg: 'the restaurant is open from morning 06:00 A.M to night 11:00 P.M ' },
         location: { msg: 'the restaurant located on the ground floor' },
+        price: { price: 50, msg: 'You can pay as per your consumption at the restaurant' },
         reserve: { flag: true, msg: { yes: 'You will need to book a table for the restaurant', no: 'You can walk-in. There is no registration required' } },
         take_away: { flag: true, msg: { yes: 'Takeway of food is possible. Ask at the reservation', no: 'Takeway of food is not possible. Ask for options at restaurant' } }
     });
@@ -395,11 +396,11 @@ function createGraph(hotel) {
 
     g.setNode('Breakfast', {
         f: true, iType: 'f', a: true, o: true,
-        msg: { yes: 'This restaurant serves breakfast', no: 'There is no breakfast facility in this hotel' },
-        timings: { time: { from: '0700', to: '1000' }, msg: 'Breakfast is served from 0700 to 0900 during weekdays and from 0700 to 1000 on saturdays and sundays' },
+        msg: { yes: 'We have breakfast facility at the hotel. It might be included in your package as per your booking', no: 'We do not have breakfast facility at the hotel' },
+        timings: { time: { from: '0700', to: '1000' }, msg: 'Breakfast is served from morning 07:00 A.M to 10:00 A.M during weekdays and from 07:00 A.M to 11:00 P.M on weekends' },
         location: { msg: 'Breakfast is served in the restaurant on the ground floor' },
         room_service: { msg: 'Breakfast can be served in the room. Would you like me to order?' },
-        price: { price: 200, msg: 'There is a charge of 200 rupees per person for the breakfast' },
+        price: { price: 200, msg: 'If breakfast is not included in your package, there is a charge of 400 rupees per person per day' },
         content: { msg: 'We serve South Indian, continental buffet breakfast' },
         takeaway: { flag: true, msg: { yes: 'Ask the staff to pack a quantity of food for You', no: 'There is no takeaway facility' } },
         billing: { msg: 'Breakfast price is added to your room bill' }
@@ -410,54 +411,54 @@ function createGraph(hotel) {
     // Kitchen items
     g.setNode('Bottle Steralizer', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'Bottle sterilization possible. Please visit the kitchen to get it done', no: 'Bottle sterilization not possilbe' },
-        timings: { time: { from: '0700', to: '1000' }, msg: 'We can help you with steralization from morning 7 AM to night 10 PM' },
-        location: { msg: 'Please visit the kitchen on the first floor for bottle steralization' },
+        msg: { yes: 'We can help you with Bottle sterilization. Please visit the kitchen with the bottle', no: 'We do not have Bottle sterilization facility at the hotel' },
+        timings: { time: { from: '0700', to: '1000' }, msg: 'We can help with bottle steralization from morning 07:00 A.M to 12:00 P.M and from evening 05:00 P.M to night 09:00 P.M' },
+        location: { msg: 'Bottle steralization will be done in the kitchen on the ground floor' },
         price: { price: 0, msg: 'Its free of cost' },
     });
 
     g.setNode('Microwave', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'The microwave is a common facility of the hotel and is available near the kitchen on the ground floor', no: 'We do not have microwave facility' },
-        timings: { time: { from: '0700', to: '1000' }, msg: 'The facility is available 24 by 7' },
-        location: { msg: 'Its near the kitchen on the ground floor' },
-        price: { price: 0, msg: 'Its free of cost' },
+        msg: { yes: 'We have a common microwave facility at the hotel near the kitchen on the ground floor', no: 'We do not have microwave facility at the hotel' },
+        timings: { time: { from: '0700', to: '1000' }, msg: 'The microwave facility is available 24 by 7 round the clock' },
+        location: { msg: 'The microwave is near the kitchen on the ground floor' },
+        price: { price: 0, msg: 'The microwave is free to use for our guests ' },
     });
     g.setNode('Oven', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'The oven is a common facility of the hotel and is available near the kitchen on the ground floor', no: 'We do not have oven in our hotel' },
-        timings: { time: { from: '0700', to: '1000' }, msg: 'The facility is available 24 by 7' },
-        location: { msg: 'Its near the kitchen on the ground floor' },
-        price: { price: 0, msg: 'Its free of cost' },
+        msg: { yes: 'We have a common oven facility at the hotel near the kitchen on the ground floor', no: 'We do not have oven facility at the hotel' },
+        timings: { time: { from: '0700', to: '1000' }, msg: 'The oven facility is available 24 by 7 round the clock' },
+        location: { msg: 'The oven is near the kitchen on the ground floor' },
+        price: { price: 0, msg: 'The oven is free to use for our guests ' },
     });
     g.setNode('Cutlery', {
         f: true, iType: 'f', a: true, o: false,
-        msg: { yes: 'We have some cutlery with the hotel. Check with the kitchen for the same', no: 'We do not have cooking facility in our hotel' },
-        timings: { time: { from: '0700', to: '1000' }, msg: 'The facility is available 24 by 7' },
-        location: { msg: 'Please ask at the reception' },
-        price: { price: 0, msg: 'Its free of cost' },
+        msg: { yes: 'We have some cutlery at the hotel that you can use for cooking. You are provided some in your room. Check with the reception if you need more ', no: 'We do not have cooking facility at the hotel' },
+        timings: { time: { from: '0700', to: '1000' }, msg: 'We can provide extra cutlery between morning 07:00 A.M to night 07:00 P.M' },
+        location: { msg: 'Cutlery is available in your room' },
+        price: { price: 0, msg: 'The cutlery is free to use for our guests' },
     });
 
     // Room items
-    g.setNode('Cleaning liquid', { price: 0, ri: true, o: true, iType: 'ri', a: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'The cleaning liquid is in your room', no: 'We do not have cooking facility and hence no cleaning liquid is avilable' } }); //FIXME: Complete the flow of ordering cutlery
-    g.setNode('TV', { o: false, price: 0, ri: true, iType: 'ri', a: true, c: false, limit: { count: 1, for: 'stay' }, msg: { yes: 'We have a TV in your room and it plays all Indian channels', no: 'This room does not have a TV facility' } });
+    g.setNode('Cleaning liquid', { price: 0, ri: true, o: true, iType: 'ri', a: false, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'We have provided cleaning liquid in your room', no: 'We do not have cleaning liquid in our rooms' } });
+    g.setNode('TV', { o: false, price: 0, ri: true, iType: 'ri', a: true, c: false, limit: { count: 1, for: 'stay' }, msg: { yes: 'We have a TV in your room and it plays all Indian channels', no: 'We do not have TV facility in our hotel' } });
     g.setParent('television', 'TV');
-    g.setNode('Tissues', { o: true, price: 0, ri: true, iType: 'ri', a: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have tissues at our hotel', no: 'We do not have tissues to order' } });
+    g.setNode('Tissues', { o: true, price: 0, ri: true, iType: 'ri', a: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'We have tissues at our hotel and can get you some', no: 'We do not have tissues to order at our hotel' } });
     g.setParent('Paper napkins', 'Tissues');
     g.setParent('Paper napkin', 'Tissues');
     g.setParent('Wipes', 'Tissues');
-    g.setNode('Dustbin', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'A dustbin is provided in your room', no: 'We do not have dustbins in  the room' } });
+    g.setNode('Dustbin', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'A dustbin is provided in your room', no: 'We do not have dustbins in the room. You can drop your garbage in the common area on each floor' } });
     g.setParent('dust basket', 'Dustbin');
     g.setParent('garbage can', 'Dustbin');
     g.setParent('waste basket', 'Dustbin');
-    g.setNode('Hanger', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 10, for: 'stay' }, msg: { yes: 'Hangers are provided in the closet in your room', no: 'We do not provide hangers' } });
+    g.setNode('Hanger', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 10, for: 'stay' }, msg: { yes: 'Hangers are provided in the closet in your room', no: 'We do not provide extra hangers apart from the ones in your room ' } });
     g.setParent('Clothe hangers', 'Hanger');
-    g.setNode('Clock', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a table clock in your room', no: 'We do not have a clock. You can ask Alexa for the time instead' } });
+    g.setNode('Clock', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 1, for: 'stay' }, msg: { yes: 'There is a table clock provided in your room', no: 'We do not have a clock. You can ask Alexa for the time instead' } });
     g.setParent('Watch', 'Clock');
-    g.setNode('Pullover', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
+    g.setNode('Pullover', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'stay' }, msg: { yes: 'There are pull overs provided in the room', no: 'We do not provide more than 2 pull overs for your stay at the hotel' } });
     g.setParent('Rug', 'Pullover');
-    g.setNode('Pillow', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: -1, for: 'stay' }, msg: { yes: 'There are pillows provided in the room', no: 'We do not provide extra pillows' } });
-    g.setNode('Towel', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are towels provided in the room', no: 'We do not provide towels. You need to get your own' } });
+    g.setNode('Pillow', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: -1, for: 'stay' }, msg: { yes: 'There are pillows provided in the room', no: 'We do not provide extra pillows other than the ones provided in your room' } });
+    g.setNode('Towel', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: true, limit: { count: 5, for: 'day' }, msg: { yes: 'There are towels provided in your bathroom', no: 'We do not provide towels. You need to get your own' } });
     g.setParent('Bath towel', 'Towel');
     g.setNode('Napkin', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'day' }, msg: { yes: 'There are napkins provided in your room', no: 'We do not provide napkins' } });
     g.setParent('Hand napkin', 'Napkin');
@@ -467,11 +468,11 @@ function createGraph(hotel) {
     g.setParent('Shower cream', 'Soap');
     g.setNode('Shampoo', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: -1, for: 'stay' }, msg: { yes: 'There is liquid shampoo in you bathroom', no: 'We do not provide any shampoo' } });
     g.setParent('Hair liquid', 'Shampoo');
-    g.setNode('Comb', { a: false, o: true, price: 0, ri: true, c: true, limit: { count: 1, for: 'stay' }, msg: { yes: 'There is a comb provided in your bathroom', no: 'We do not provide a comb' } });
+    g.setNode('Comb', { a: false, o: true, price: 0, ri: true, c: true, limit: { count: 2, for: 'stay' }, msg: { yes: 'There is a comb provided in your bathroom', no: 'We do not provide a comb' } });
     g.setParent('Hair comb', 'Comb');
-    g.setNode('Fridge', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a fridge in your room', no: 'We do not provide a fridge' } });
+    g.setNode('Fridge', { a: false, o: false, price: 0, ri: true, c: false, limit: { count: 0, for: 'day' }, msg: { yes: 'There is a fridge in your room', no: 'We do not provide a fridge' } });
     g.setParent('Refrigerator', 'Fridge');
-    g.setNode('AC', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is an AC in your room', no: 'We do not provide an AC' } }); // FIXME: AC is per room and not across the hotel. This needs to be linked to a room number
+    g.setNode('AC', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is an AC in your room', no: 'We do not provide an AC' } }); // FIXME: AC is per room and not across the hotel. This needs to be linked to a room number
     g.setParent('Air Conditioner', 'AC');
     g.setParent('Air cooler', 'AC');
     g.setNode('Iron box', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is an iron box in your room', no: 'We do not provide an iron box' } });
@@ -479,14 +480,14 @@ function createGraph(hotel) {
     // g.setNode('Coffee machine', { a: false, o: true, price: 0, ri: true, c: false, msg: { yes: 'There is a coffee machine in your room ', no: 'We do not have a coffee machine' } });
     // g.setParent('Coffee brew', 'Coffee machine');
     // g.setParent('Expresso machine', 'Coffee machine');
-    g.setNode('Tea machine', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a tea machine in your room ', no: 'We do not have a tea machine' } });
-    g.setNode('Dish washer', { a: false, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a dish washer in your room ', no: 'We do not have a dish washer' } });
-    g.setNode('Fan', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a fan in your room ', no: 'We do not have a fan in the room' } });
-    g.setNode('Water', { iType: 'ri', a: true, o: true, ri: true, c: true, price: 20, limit: { count: 1, for: 'day' }, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water' } });
+    g.setNode('Tea machine', { a: false, o: false, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a tea machine in your room ', no: 'We do not have a tea machine' } });
+    g.setNode('Dish washer', { a: false, o: false, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a dish washer in your room ', no: 'We do not have a dish washer' } });
+    g.setNode('Fan', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a fan in your room ', no: 'We do not have a fan in the room' } });
+    g.setNode('Water', { iType: 'ri', a: true, o: true, ri: true, c: true, price: 0, limit: { count: 2, for: 'day' }, msg: { yes: 'We provide two water bottles daily', no: 'We do not have water at our hotel' } });
     g.setParent('Water bottle', 'Water');
     g.setParent('Bottle of water', 'Water');
-    g.setNode('Extra bed', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 1, for: 'day' }, msg: { yes: 'We can provide an extra bed on request', no: 'We do not have provison for extra bed' } });
-    g.setNode('Menu', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Call the front desk' } });
+    g.setNode('Extra bed', { iType: 'ri', a: true, o: true, price: 0, ri: true, c: true, limit: { count: 1, for: 'stay' }, msg: { yes: 'We can provide an extra bed on request', no: 'We do not have provison for extra bed at our hotel' } });
+    g.setNode('Menu', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: false, limit: { count: 2, for: 'day' }, msg: { yes: 'There is a menu in the room', no: 'We do not have a menu in the room. Please let me know what you would like to order' } });
     g.setNode('lock', { iType: 'ri', a: true, o: false, price: 0, ri: true, c: false, limit: { count: 1, for: 'stay' }, msg: { yes: 'Its an automatic lock', no: 'You do not need a separate lock' } });
     g.setParent('door lock', 'lock');
 
@@ -515,7 +516,56 @@ function createGraph(hotel) {
     g.setNode('Salt', { o: true, iType: 'm', a: true, m: true, mtype: 'e', c: false, qty: 1, price: 0 });
     g.setNode('Sugar', { o: true, iType: 'm', a: true, m: true, mtype: 'e', c: false, qty: 1, price: 0 });
 
-    g.setNode('Desserts', { submenu: true });
+    g.setNode('Beverages', { submenu: true });
+    g.setNode('Coffee', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 30 });
+    g.setNode('Tea', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 30 });
+    g.setNode('Hot Badam Milk', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Plain Milk', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 30 });
+
+    g.setNode('Breakfast', { submenu: true });
+    g.setNode('Idly', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 2, price: 40 });
+    g.setNode('Vada', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Idly Vada', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Poori', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 3, price: 75 });
+    g.setNode('Rice bath', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 60 });
+    g.setNode('Curd Vada', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
+    g.setNode('Bonda Soup', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
+    g.setNode('Rava Idly', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
+
+    g.setNode('Dosas', { submenu: true });
+    g.setNode('Plain Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 60 });
+    g.setNode('Masala Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Butter Masala Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 85 });
+    g.setNode('Butter Plain Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 75 });
+    g.setNode('Special Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Paper plain Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Paper masala Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Onion Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setParent('Uttappam', 'Onion Dosa');
+    g.setNode('Rava Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Open Butter masala Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Set Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
+    g.setNode('Rava onion Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Rava masala Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Cheese masala Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 100 });
+    g.setNode('Cheese plain Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Ragi Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 80 });
+    g.setNode('Ragi masala Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Veg Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Bread onion Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Spring Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 90 });
+    g.setNode('Rava onion masala Dosa', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 100 });
+
+    g.setNode('Meals', { submenu: true });
+    g.setNode('South Indian meals', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 125 });
+    g.setNode('North Indian meals', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
+
+    g.setNode('Papad', { submenu: true });
+    g.setNode('Masala papad', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Roasted Masala papad', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 40 });
+    g.setNode('Roasted papad', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 25 });
+    g.setNode('Fry papad', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 25 });
+
     g.setNode('Guru Prasad Special Kulfi Falooda', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
     g.setNode('Fruit Salad Ice cream', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
     g.setNode('Chocolate Cup', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 75 });
@@ -533,32 +583,6 @@ function createGraph(hotel) {
     g.setNode('Icecream Falooda', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
     g.setNode('Gulab Jamun & Vanilla Ice-cream', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
     createEdges('Desserts', ['Guru Prasad Special Kulfi Falooda', 'Fruit Salad Ice cream', 'Chocolate Cup', 'Kesar Pista Cup', 'Butterscotch Cup', 'Mango Cup', 'Vanilla Cup', 'Strawberry Cup', 'Guru Prasad Udupi Spl. Ice Cream', 'Garber Ice Cream', 'Banana Spl. Ice Cream', 'Hot Chocolate Fudge', 'Orange Stunt', 'Mix Furit punch', 'Icecream Falooda', 'Gulab Jamun & Vanilla Ice-cream',], { label: 'Desserts' });
-
-    g.setNode('Light Eats', { submenu: true });
-    g.setNode('Rice Idli Sambar & Chutney', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 105 });
-    g.setNode('Vada with Sambar Chutney', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 115 });
-    g.setNode('Idli (1 Piece) + Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Rava Idli with Korma', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
-    g.setNode('Dahi Vada', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Upma', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Idli (2 Pieces) + Vada (1 Pieces)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 155 });
-    g.setNode('Upma & Rava Kesari', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 200 });
-    g.setNode('Rasam Vada with Papad', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Rasam Idli with Papad', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 135 });
-    g.setNode('Rasam with Papad', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 105 });
-    g.setNode('Poori with 2 Veg/Raita', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 143 });
-    g.setNode('Sambar', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 60 });
-    g.setNode('Dahi Idli', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 143 });
-    g.setNode('Upma & Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 172 });
-    g.setNode('Rasam Idli (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 85 });
-    g.setNode('Rasam Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 95 });
-    g.setNode('Rava Idli (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 75 });
-    g.setNode('Dahi Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 75 });
-    g.setNode('Idli (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 60 });
-    g.setNode('Vada (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 70 });
-    g.setNode('Papad (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 20 });
-    g.setNode('Poori (1 Piece)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 10 });
-    createEdges('Light Eats', ['Rice Idli Sambar & Chutney', 'Vada with Sambar Chutney', 'Idli (1 Piece) + Vada (1 Piece)', 'Rava Idli with Korma', 'Dahi Vada', 'Upma', 'Idli (2 Pieces) + Vada (1 Pieces)', 'Upma & Rava Kesari', 'Rasam Vada with Papad', 'Rasam Idli with Papad', 'Rasam with Papad', 'Poori with 2 Veg/Raita', 'Sambar', 'Dahi Idli', 'Upma & Vada (1 Piece)', 'Rasam Idli (1 Piece)', 'Rasam Vada (1 Piece)', 'Rava Idli (1 Piece)', 'Dahi Vada (1 Piece)', 'Idli (1 Piece)', 'Vada (1 Piece)', 'Papad (1 Piece)', 'Poori (1 Piece)',], { label: 'Light Eats' });
 
     g.setNode('Soft Drinks', { submenu: true });
     g.setNode('Ice Tea', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 50 });
@@ -619,60 +643,6 @@ function createGraph(hotel) {
     g.setNode('Half Veg. Chowmien', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 95 });
     g.setNode('Manchurian (Half)', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
     createEdges('Chinese Items', ['Veg Chopsuey', 'Veg Manchurian Dry', 'Veg Sweet & Sour', 'Chili Paneer Dry', 'Chili Paneer Gravy', 'Chili Mushroom Dry', 'Chili Mushroom Gravy', 'Crispy Potato', 'Chili Potato', 'Potato Pepper', 'Veg Spring Roll', 'Half Veg. Chowmien', 'Manchurian (Half)'], { label: 'Chinese Items' });
-
-    g.setNode('Dosas');
-    g.setNode('Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 100 });
-    g.setNode('Butter Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Butter Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Paneer Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 165 });
-    g.setNode('Mysore Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Mysore Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 180 });
-    g.setNode('Mysore Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 135 });
-    g.setNode('Onion Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 145 });
-    g.setNode('Onion Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Onion Butter Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 165 });
-    g.setNode('Paper Plain Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Paper Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 210 });
-    g.setNode('Special Paper Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 290 });
-    g.setNode('Special Family Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 980 });
-    g.setNode('Family Paneer Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 1150 });
-    g.setNode('Vada (1 Piece) with Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 55 });
-    createEdges('Dosas', ['Masala Dosa', 'Sada Dosa', 'Butter Masala Dosa', 'Butter Sada Dosa', 'Paneer Masala Dosa', 'Mysore Masala Dosa', 'Mysore Paneer Dosa', 'Mysore Sada Dosa', 'Onion Masala Dosa', 'Onion Sada Dosa', 'Onion Butter Masala Dosa', 'Paper Plain Dosa', 'Paper Masala Dosa', 'Special Paper Paneer Dosa', 'Special Family Masala Dosa', 'Family Paneer Masala Dosa', 'Vada (1 Piece) with Dosa',], { label: 'Dosas' });
-
-    g.setNode('Rava Dosas');
-    g.setNode('Rava Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 165 });
-    g.setNode('Rava Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 135 });
-    g.setNode('Rava Sada Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Coconut Rava Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 200 });
-    g.setNode('Coconut Rava Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 160 });
-    g.setNode('Coconut Rava Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
-    g.setNode('Onion Rava Paneer Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 190 });
-    g.setNode('Onion Rava Masala Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 150 });
-    g.setNode('Onion Rava Dosa', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
-    createEdges('Rava Dosas', ['Rava Paneer Dosa', 'Rava Masala Dosa', 'Rava Sada Dosa', 'Coconut Rava Paneer Dosa', 'Coconut Rava Masala Dosa', 'Coconut Rava Dosa', 'Onion Rava Paneer Dosa', 'Onion Rava Masala Dosa', 'Onion Rava Dosa',], { label: 'Rava Dosas' });
-
-    g.setNode('Uttapam Items');
-    g.setNode('Mixed Veg Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Coconut Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Onion Tomato Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 140 });
-    g.setNode('Tomato Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 130 });
-    g.setNode('Onion Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });
-    g.setNode('Sada Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 110 });
-    g.setNode('Paneer Uttapam', { o: true, mtype: 'e', iType: 'm', a: true, c: true, m: true, qty: 1, price: 200 });
-    createEdges('Uttapam Items', ['Mixed Veg Uttapam', 'Coconut Uttapam', 'Onion Tomato Uttapam', 'Tomato Uttapam', 'Onion Uttapam', 'Sada Uttapam', 'Paneer Uttapam',], { label: 'Uttapam Items' });
-
-    g.setNode('North Indian Thali');
-
-    g.setNode('North Indian Mini Thali');
-
-    g.setNode('Fixed Meals (South Indian)');
-
-    g.setNode('Mini Snacks');
-
-    g.setNode('South Indian Thali');
-
-    g.setNode('North Indian Menu (Veg Alacarta)');
 
     g.setNode('Chinese Soups');
     g.setNode('Cream of Tomato Soup', { o: true, mtype: 'd', iType: 'm', a: true, c: true, m: true, qty: 1, price: 120 });

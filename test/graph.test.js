@@ -63,6 +63,15 @@ test('all facility nodes should have msg flag in yes/no', () => {
                 expect(node.msg).toBeDefined();
                 expect(node.msg.yes).toBeDefined();
                 expect(node.msg.no).toBeDefined();
+                expect(node.timings).toBeDefined();
+                expect(node.price).toBeDefined();
+                expect(node.location).toBeDefined();
+                expect(node.timings.msg).toBeDefined();
+                expect(node.timings.time.from).toBeDefined();
+                expect(node.timings.time.to).toBeDefined();
+                expect(node.location.msg).toBeDefined();
+                expect(node.price.msg).toBeDefined();
+                expect(node.price.price).toBeDefined();
             } catch (error) {
                 console.error(n + '=' + JSON.stringify(node) + ' failed');
                 throw error;

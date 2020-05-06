@@ -34,7 +34,7 @@
     "ITEM_EXISTS": " We have {{item_name}} at our hotel ",
     "ITEM_LIKE_TO_ORDER": " Would you like to order this item?",
     "ITEM_FREE": " it is free  ",
-    "ITEM_COSTS": " it costs {{price}}  ",
+    "ITEM_COSTS": " it costs {{price}}  rupees ",
     "LIMIT_PER_DAY": " There is a limit of {{limit}} per day ",
     "LIMIT_PER_STAY": " There is a limit of {{limit}} for your stay ",
 

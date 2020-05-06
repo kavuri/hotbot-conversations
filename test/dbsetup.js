@@ -141,7 +141,7 @@ module.exports.ConversationConfig = {
     userId: '111',
     locale: 'en-IN',
     //locale: 'keys-only',
-    defaultDbDirectory: './db/tests/',
+    defaultDbDirectory: './test/user/',
     httpOptions: {
         host: 'localhost',
         port: 3002,
