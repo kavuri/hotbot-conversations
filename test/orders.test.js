@@ -34,8 +34,10 @@ for (const p of [new Alexa()]) {
         });
 
         afterEach(async () => {
-            //const endIntent = await testSuite.requestBuilder.intent('AMAZON.StopIntent');
-            //await conversation.send(endIntent);
+            // Cleanup
+            await dbsetup.deleteCheckins();
+            await dbsetup.deleteOrders();
+            setTimeout(() => {}, 2000);
         });
 
         test('Order_item:item_name not provided', async () => {
@@ -48,7 +50,6 @@ for (const p of [new Alexa()]) {
 
         test('Order_item:not-available', async () => {
             const item = await dbsetup.createItem('ri', { a: false, o: true });
-            console.log('====', item);
             const orderIntent = await testSuite.requestBuilder.intent('Order_item', { facility_slot: item.v });
             const orderIntentResponse = await conversation.send(orderIntent);
             let ret = orderIntentResponse.getSpeechPlain();
@@ -57,7 +58,6 @@ for (const p of [new Alexa()]) {
 
         test('Order_item:available:not-orderable', async () => {
             const item = await dbsetup.createItem('ri', { a: true, o: false });
-            console.log('====', item);
             const orderIntent = await testSuite.requestBuilder.intent('Order_item', { facility_slot: item.v });
             const orderIntentResponse = await conversation.send(orderIntent);
             let ret = orderIntentResponse.getSpeechPlain();
@@ -66,7 +66,6 @@ for (const p of [new Alexa()]) {
 
         test('Order_item:available:orderable:guest-not-checked-in:count-not-provided', async () => {
             const item = await dbsetup.createItem('ri', { a: true, o: true });
-            console.log('====', item);
             let orderIntent = await testSuite.requestBuilder.intent('Order_item', { facility_slot: item.v });
             let orderIntentResponse = await conversation.send(orderIntent);
             let ret = orderIntentResponse.getSpeechPlain();
@@ -79,11 +78,10 @@ for (const p of [new Alexa()]) {
             expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace('REPEAT_ORDER_WITH_COUNT ORDER_ANYTHING_ELSE')));
         });
 
-        test('Order_item:available:orderable:guest-checked-in:count-not-provided', async () => {
+        test('Order_item:available:orderable:guest-checked-in:count-not-provided:order-created', async () => {
             const item = await dbsetup.createItem('ri', { a: true, o: true });
             await dbsetup.checkinGuest();
 
-            console.log('====', item);
             let orderIntent = await testSuite.requestBuilder.intent('Order_item', { facility_slot: item.v });
             let orderIntentResponse = await conversation.send(orderIntent);
             let ret = orderIntentResponse.getSpeechPlain();
@@ -145,6 +143,7 @@ for (const p of [new Alexa()]) {
             ret = orderIntentResponse.getSpeechPlain();
             expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace('REPEAT_ORDER_WITH_COUNT ORDER_ANYTHING_ELSE')));
 
+            let noIntent = await testSuite.requestBuilder.intent('AMAZON.NoIntent');
             orderIntentResponse = await conversation.send(noIntent);
             ret = orderIntentResponse.getSpeechPlain();
             expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace('ORDER_LIST ORDER_CONFIRM_MSG')));
@@ -171,6 +170,7 @@ for (const p of [new Alexa()]) {
             ret = orderIntentResponse.getSpeechPlain();
             expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace('REPEAT_ORDER_WITH_COUNT ORDER_ANYTHING_ELSE')));
 
+            let noIntent = await testSuite.requestBuilder.intent('AMAZON.NoIntent');
             orderIntentResponse = await conversation.send(noIntent);
             ret = orderIntentResponse.getSpeechPlain();
             expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace('ORDER_LIST ORDER_CONFIRM_MSG')));
@@ -202,6 +202,7 @@ for (const p of [new Alexa()]) {
             ret = orderIntentResponse.getSpeechPlain();
             expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace('REPEAT_ORDER_WITH_COUNT ORDER_ANYTHING_ELSE')));
 
+            let noIntent = await testSuite.requestBuilder.intent('AMAZON.NoIntent');
             orderIntentResponse = await conversation.send(noIntent);
             ret = orderIntentResponse.getSpeechPlain();
             expect(dbsetup.removeSpace(ret)).toEqual(expect.stringMatching(dbsetup.removeSpace('ORDER_LIST ORDER_CONFIRM_MSG')));

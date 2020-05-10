@@ -300,7 +300,7 @@ module.exports.already_ordered_items = async function (hotel_id, room_no, itemOb
             return _.isEqual(_.lowerCase(o.item.name), _.lowerCase(itemObj.name));
             // { item: { name: itemObj.name() } }
         });
-        console.log('----sameOrder=', sameOrder);
+        //console.log('----sameOrder=', sameOrder);
         return sameOrder;
     } catch (error) {
         console.log('error thrown', error);
@@ -326,7 +326,7 @@ module.exports.new_orders = async function (hotel_id, room_no, user_id) {
             .findOne(filter)
             .populate('orders')
             .exec();
-        // console.log('found orders=', JSON.stringify(checkinCheckout.orders));
+         //console.log('found orders=', JSON.stringify(checkinCheckout.orders));
         var newOrders = _.filter(checkinCheckout.orders, { curr_status: { status: "new" } });
         var progressOrders = _.filter(checkinCheckout.orders, { curr_status: { status: "progress" } });
         //console.log('%%%newOrders=', newOrders, ',%%% progressOrders=', progressOrders);
@@ -360,7 +360,7 @@ module.exports.all_orders = async function (hotel_id, room_no, user_id) {
         allOrders = checkinCheckout.orders;
         // Of these orders, remove the cancelled orders
         _.remove(allOrders, (o) => { return _.isEqual(o.curr_status.status, 'cancelled'); });
-        console.log('++allOrders=', allOrders);
+        //console.log('++allOrders=', allOrders);
         return allOrders;
     } catch (error) {
         console.error('error in storing order reference to CheckinCheckout:', error);
@@ -459,4 +459,4 @@ const test_cancel_order = async () => {
 
 // test_search();
 // test_all_facilities();
-// order_create();
+ //order_create();

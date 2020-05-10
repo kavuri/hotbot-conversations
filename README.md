@@ -114,7 +114,18 @@
     - Domain list = kamamishu-in-dev.auth0.com
  - Save
 
- # Deployment steps
+# Deployment steps
+
+## MongoDB Atlas
+  - Sign-in with kamamishu@gmail.com (Google login)
+  - Create a cluster: 'Clouster0'
+  - Choose AWS sount-1 region
+  - Create a mongodb user: hotbotuser/HotbotUser
+  - Create one more dbuser (Security -> Database Access)
+  - username: dbuser, password: HotbotUser
+  - Whitelist AWS EC2 instance address
+  - Connection URL: mongodb+srv://<username>:<password>@cluster0-jolus.mongodb.net/test?retryWrites=true&w=majority
+## AWS EC2 instance
   - Start a EC2 instance in AWS. Use Ubuntu 18.04
   - Install MongoDB for Ubuntu 18.04. Instruction - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/. Follow steps 1-4
   - Clone hotbot-conversations repository. `git clone https://hotbot@bitbucket.org/hotbotty/hotbbot-conversations.git`

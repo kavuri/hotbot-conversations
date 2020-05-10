@@ -268,13 +268,13 @@ module.exports.createItem = async (type, settings = {}) => {
     item.value = updated;
 
     await GraphModel.findOneAndUpdate({ value: '1', 'nodes.v': 'all_items' }, { $push: { 'nodes.$.value': item.v } }).exec();   // Add to all_items node, since search uses this to find the item
-    let ret = await GraphModel.findOneAndUpdate({ value: '1' }, { $push: { nodes: item } }, { upsert: true }).exec();
+    await GraphModel.findOneAndUpdate({ value: '1' }, { $push: { nodes: item } }, { upsert: false }).exec();
     return item;
 }
 
 module.exports.deleteItem = async (name) => {
-    await GraphModel.findOneAndUpdate({ value: '1' }, { $pull: { 'nodes.$.v': name } }).exec();
     await GraphModel.findOneAndUpdate({ value: '1', 'nodes.v': 'all_items' }, { $pull: { 'nodes.$.value': name } }).exec();
+    await GraphModel.findOneAndUpdate({ value: '1' }, { $pull: { 'nodes.$.v': name } }).exec();
 }
 
 module.exports.checkinGuest = async () => {
@@ -289,14 +289,18 @@ module.exports.checkinGuest = async () => {
     return cin;
 }
 
+module.exports.deleteCheckins = async () => {
+    await CheckinCheckoutModel.deleteMany({ hotel_id: '1' });
+}
+
 module.exports.createOrder = async (items, cin) => {
     let order;
     let user_id = 'xxxxx123xxxxx';
-    items.forEach(async (item) => {
+    for (let i = 0; i < items.length; i++) {
         let type;
-        if (item.value.iType === 'm') type = 'menu';
-        if (item.value.iType === 'ri') type = 'roomitem';
-        let t = { name: item.v, type: type, req_count: 2 };
+        if (items[i].value.iType === 'm') type = 'menu';
+        if (items[i].value.iType === 'ri') type = 'roomitem';
+        let t = { name: items[i].v, type: type, req_count: 2 };
         order = new OrderModel({
             order_group_id: '1',
             user_id: user_id,
@@ -309,7 +313,16 @@ module.exports.createOrder = async (items, cin) => {
         });
 
         await order.save();
-    })
+    }
+}
+
+module.exports.orderCount = async () => {
+    let count = await OrderModel.countDocuments({ hotel_id: '1' });
+    return count;
+}
+
+module.exports.deleteOrders = async () => {
+    await OrderModel.deleteMany({ hotel_id: '1' });
 }
 
 async function testCreateItem() {

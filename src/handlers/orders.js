@@ -177,6 +177,8 @@ module.exports = {
                 itemObj = Item.load(item);
             }
 
+            console.log('Order_item::item=', itemObj);
+
             // If item is not available say so and ask for something else
             let msg = '';
             if (!itemObj.available()) {
@@ -458,8 +460,14 @@ module.exports = {
     async Order_cancel() {
         const hotel_id = this.$session.$data.hotel.hotel_id,
             user_id = this.$request.context.System.user.userId,
-            room_no = this.$session.$data.hotel.room_no,
+            room_no = this.$session.$data.hotel.room_no;
+
+        let item_name;
+        if (_.has(this.$inputs, 'facility_slot') && !_.isUndefined(this.$inputs.facility_slot) && !_.isUndefined(this.$inputs.facility_slot.value)) {
             item_name = this.$inputs.facility_slot.value;
+        }
+
+        console.log('+++item name for cancellation=', item_name);
 
         let orderCount = 0;
         let ordersInSession = _.isUndefined(this.$session.$data.orders) ? [] : this.$session.$data.orders;
@@ -485,7 +493,8 @@ module.exports = {
         }
         console.log('mesages=', msg_InSession, '++at fd=', msg_AtFrontDesk);
 
-        if (_.isEmpty(item_name) || (!this.$alexaSkill.hasEntityMatch('facility_slot') && _.isEmpty(this.$alexaSkill.getEntityMatches('facility_slot')))) {
+        if (_.isEmpty(item_name) || _.isUndefined(item_name) ||
+            (!this.$alexaSkill.hasEntityMatch('facility_slot') && _.isEmpty(this.$alexaSkill.getEntityMatches('facility_slot')))) {
             console.log('item name not provided...');
             if (!this.$alexaSkill.$dialog.isCompleted()) {
                 console.log('delegating...');
@@ -635,8 +644,12 @@ module.exports = {
     async Equipment_not_working() {
         let hotel_id = this.$session.$data.hotel.hotel_id,
             user_id = this.$request.context.System.user.userId,
-            room_no = this.$session.$data.hotel.room_no,
+            room_no = this.$session.$data.hotel.room_no;
+
+        let item_name;
+        if (_.has(this.$inputs, 'facility_slot') && !_.isUndefined(this.$inputs.facility_slot) && !_.isUndefined(this.$inputs.facility_slot.value)) {
             item_name = this.$inputs.facility_slot.value;
+        }
 
         console.log('Requested item name=', item_name);
         let item = {};

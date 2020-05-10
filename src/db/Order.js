@@ -83,20 +83,20 @@ OrderSchema.post('save', async (doc) => {
     // E.g.: Guest modifies the count of items they want. "I want to change the count of coffee to one"
     // This is useful for checking if the guest has ordered the same item again
     // console.log('Updating orders to room.', doc);
-    let filter = { hotel_id: doc.hotel_id, room_no: doc.room_no, orders: doc._id, checkout: null };
+    //let filter = { hotel_id: doc.hotel_id, room_no: doc.room_no, orders: doc._id, checkout: null };
     try {
-        let currentOrder = await CheckinCheckoutModel
-            .findOne(filter)
+        //let currentOrder = await CheckinCheckoutModel
+        //    .findOne(filter)
+        //    .exec();
+        //console.log('post save:currentOrders=', currentOrder);
+        //if (_.isUndefined(currentOrder) || _.isNull(currentOrder)) {
+        // This order is not part of checkincheckout, add to the list
+        let filter = { hotel_id: doc.hotel_id, room_no: doc.room_no, checkout: null };
+        let updated = await CheckinCheckoutModel
+            .findOneAndUpdate(filter, { $push: { orders: doc } })
             .exec();
-        console.log('post save:currentOrders=', currentOrder);
-        if (_.isUndefined(currentOrder) || _.isNull(currentOrder)) {
-            // This order is not part of checkincheckout, add to the list
-            filter = { hotel_id: doc.hotel_id, room_no: doc.room_no, checkout: null };
-            let updated = await CheckinCheckoutModel
-                .findOneAndUpdate(filter, { $push: { orders: doc } })
-                .exec();
-            console.log('updated checkincheckout=', updated);
-        }
+        console.log('updated checkincheckout=', updated);
+        //}
     } catch (error) {
         console.error('error in storing order reference to CheckinCheckout:', error);
     }
