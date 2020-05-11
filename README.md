@@ -125,6 +125,7 @@
   - username: dbuser, password: HotbotUser
   - Whitelist AWS EC2 instance address
   - Connection URL: mongodb+srv://<username>:<password>@cluster0-jolus.mongodb.net/test?retryWrites=true&w=majority
+
 ## AWS EC2 instance
   - Start a EC2 instance in AWS. Use Ubuntu 18.04
   - Install MongoDB for Ubuntu 18.04. Instruction - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/. Follow steps 1-4
@@ -134,7 +135,7 @@
   - Launch mongodb = `./start_db`
    - This will start two mongo DB instances with replica sets in directories rs01, rs02
   - Install NodeJS
-   - Install NVM. Follow instruction here = `https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/`
+   - Install NVM. Follow instruction here = `https://github.com/nvm-sh/nvm`
     - `nvm --version` should give `0.34.0`
     - `nvm install 12.13.0` (13.11.0 version)
    - `cd hotbot-conversations`
