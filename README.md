@@ -5,14 +5,84 @@
     * `beame-insta-ssl tunnel make --dst 3000 --proto http`
  * Using fusejs for fuzzy search. https://fusejs.io/
 
-## Setup
- - To setup the system
-      - Generate the AppSync configuration
-            npm run appsync <appId>
-      - Get the appId from the appsync aws console
-      - This cmd generates the utils/appsync_config.json
-      - Note that the region is hardcoded in the script to ap-south-1. Use appropriate region
-      - 
+## Deployment Setup
+ 0. Get a free certificate from letsencrypt.org
+ 1. Setup AWS ec2 instance
+ 2. Deploy MongoDB in Atlas (see below for details)
+ 3. Create Auth0 Kam-App (SPA) and Kam-machine-to-machine applications (see below for detailed steps)
+ 3. Sync code to ec2 instance using git
+ 4. Ensure .env.prod has settings pointing to the right Auth0 and MongoDB settings for `hotbot-conversations` and `api`
+
+# MongoDB Atlas
+  - Sign-in with kamamishu@gmail.com (Google login)
+  - Create a cluster: 'Clouster0'
+  - Choose AWS sount-1 region
+  - Create a mongodb user: hotbotuser/HotbotUser
+  - Create one more dbuser (Security -> Database Access)
+  - username: dbuser, password: HotbotUser
+  - Whitelist AWS EC2 instance address
+  - Connection URL: mongodb+srv://<username>:<password>@cluster0-jolus.mongodb.net/test?retryWrites=true&w=majority
+
+# Herouku account for API (saving money) - IGNORE (not using anymore)
+ - Account created (kamamishu@gmail.com)
+ - Folow instrctions here - https://dashboard.heroku.com/apps/hotbot-api/deploy/heroku-git
+
+# AWS EC2 instance
+ - Launch 2 micro instances (one for hotbot-conversations and another for hotbot-api)
+## Port settings
+ - Incoming ports
+  - open ssh (22), https (443) ports
+  - Start a EC2 instance in AWS. Use Ubuntu 18.04
+ - Outgoing ports
+  - 27017 for mongodb Atlas
+
+## Other setup
+  - Launch command-line shell in ec2 instance
+  - `sudo apt update`
+  - `sudo apt install gcc make g++`
+  - Install MongoDB for Ubuntu 18.04. Instruction - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/. Follow steps 1-4
+  - Clone hotbot-conversations repository. `git clone https://hotbot@bitbucket.org/hotbotty/hotbbot-conversations.git`
+  to the root directory
+  - `npm install` in `hotbot-conversations` and `api/`
+  - `cd hotbot-conversations/scripts`
+  - Launch mongodb = `./start_db`
+   - This will start two mongo DB instances with replica sets in directories rs01, rs02
+  - Install NodeJS
+   - Install NVM. Follow instruction here = `https://github.com/nvm-sh/nvm`
+    - `wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash`
+    - `nvm --version` should give `0.34.0`
+    - `nvm install 12.13.0` (13.11.0 version)
+   - `cd hotbot-conversations`
+   - `npm install`
+   - `cd hotbot-converstaions/api`
+   - `npm install`
+   - Create a file `hotbot-conversations/api/.env` and add the following contents
+      ```
+      AUTH0_CLIENT_ID=
+      AUTH0_DOMAIN=
+      AUTH0_AUDIENCE=
+      AUTH0_CLIENT_SECRET=
+      AUTH0_CALLBACK_URL=
+      SESSION_SECRET='bam bam baaam..rock..'
+      AUTH0_ADMIN_AUDIENCE=https://kamamishu.eu.auth0.com/api/v2/
+      ```
+  - Replace the Auth0 details above with the details from Auth0
+  - Create a file `hotbot-conversations/.env` and add the following contents
+      ```
+      MONGO_CLUSTER_URI=mongodb+srv://hotbbotuser:Abcd1234@cluster0-i07kz.mongodb.net/test?retryWrites=true&w=majority
+      MONGO_DB_NAME=
+      MONGO_USERNAME=
+      MONGO_PASSWORD=
+      MONGO_POOL_SIZE=5
+      AUTH0_CLIENT_ID=CbQUvI1aHMwJewlcqnF3t38I9g9jUU1T
+      AUTH0_DOMAIN=kamamishu-in-dev.auth0.com
+      AUTH0_AUDIENCE=https://kamamishu-in-dev.auth0.com/api/v2/
+      AUTH0_CLIENT_SECRET=IQHh1vemyo8J-p-yVQqIpEXIOr_C86FL_cHmMAnqZnBfmMIPOhg29J1dCylSRm6I
+      AUTH0_CALLBACK_URL=https://pitangui.amazon.com/api/skill/link/MLHXQP7BSLB59, https://layla.amazon.com/api/skill/link/MLHXQP7BSLB59, https://alexa.amazon.co.jp/api/skill/link/MLHXQP7BSLB59
+      SESSION_SECRET='bam bam baaam..rock..'
+      AUTH0_ADMIN_AUDIENCE=https://kamamishu.eu.auth0.com/api/v2/
+      ```
+  - Replace the Auth0 details above with the details from Auth0
 
 # Auth0 Setup
  1. Create an account in Auth0
@@ -114,64 +184,8 @@
     - Domain list = kamamishu-in-dev.auth0.com
  - Save
 
-# Deployment steps
-
-## MongoDB Atlas
-  - Sign-in with kamamishu@gmail.com (Google login)
-  - Create a cluster: 'Clouster0'
-  - Choose AWS sount-1 region
-  - Create a mongodb user: hotbotuser/HotbotUser
-  - Create one more dbuser (Security -> Database Access)
-  - username: dbuser, password: HotbotUser
-  - Whitelist AWS EC2 instance address
-  - Connection URL: mongodb+srv://<username>:<password>@cluster0-jolus.mongodb.net/test?retryWrites=true&w=majority
-
-## AWS EC2 instance
-  - Start a EC2 instance in AWS. Use Ubuntu 18.04
-  - Install MongoDB for Ubuntu 18.04. Instruction - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/. Follow steps 1-4
-  - Clone hotbot-conversations repository. `git clone https://hotbot@bitbucket.org/hotbotty/hotbbot-conversations.git`
-  to the root directory
-  - `cd hotbot-conversations/scripts`
-  - Launch mongodb = `./start_db`
-   - This will start two mongo DB instances with replica sets in directories rs01, rs02
-  - Install NodeJS
-   - Install NVM. Follow instruction here = `https://github.com/nvm-sh/nvm`
-    - `nvm --version` should give `0.34.0`
-    - `nvm install 12.13.0` (13.11.0 version)
-   - `cd hotbot-conversations`
-   - `npm install`
-   - `cd hotbot-converstaions/api`
-   - `npm install`
-   - Create a file `hotbot-conversations/api/.env` and add the following contents
-      ```
-      AUTH0_CLIENT_ID=
-      AUTH0_DOMAIN=
-      AUTH0_AUDIENCE=
-      AUTH0_CLIENT_SECRET=
-      AUTH0_CALLBACK_URL=
-      SESSION_SECRET='bam bam baaam..rock..'
-      AUTH0_ADMIN_AUDIENCE=https://kamamishu.eu.auth0.com/api/v2/
-      ```
-  - Replace the Auth0 details above with the details from Auth0
-  - Create a file `hotbot-conversations/.env` and add the following contents
-      ```
-      MONGO_CLUSTER_URI=mongodb+srv://hotbbotuser:Abcd1234@cluster0-i07kz.mongodb.net/test?retryWrites=true&w=majority
-      MONGO_DB_NAME=
-      MONGO_USERNAME=
-      MONGO_PASSWORD=
-      MONGO_POOL_SIZE=5
-      AUTH0_CLIENT_ID=CbQUvI1aHMwJewlcqnF3t38I9g9jUU1T
-      AUTH0_DOMAIN=kamamishu-in-dev.auth0.com
-      AUTH0_AUDIENCE=https://kamamishu-in-dev.auth0.com/api/v2/
-      AUTH0_CLIENT_SECRET=IQHh1vemyo8J-p-yVQqIpEXIOr_C86FL_cHmMAnqZnBfmMIPOhg29J1dCylSRm6I
-      AUTH0_CALLBACK_URL=https://pitangui.amazon.com/api/skill/link/MLHXQP7BSLB59, https://layla.amazon.com/api/skill/link/MLHXQP7BSLB59, https://alexa.amazon.co.jp/api/skill/link/MLHXQP7BSLB59
-      SESSION_SECRET='bam bam baaam..rock..'
-      AUTH0_ADMIN_AUDIENCE=https://kamamishu.eu.auth0.com/api/v2/
-      ```
-  - Replace the Auth0 details above with the details from Auth0
-
-# Skill description in Alexa settings
-## Skill preview:
+## Skill description in Alexa settings
+### Skill preview:
  - Public name: Kamamishu - The Hotel Bot
  - One sentence description: Make your guests to experience the ultimate hotel experience
  - Detailed description: The Kamamishu hotel bot is for the guests of a hotel to interact with the hotel. Guests can interact with the hotel by asking for information about the hotel, placing orders.
@@ -188,7 +202,7 @@ More information at: https://kamamishu.com
 - Privacy policy URL: https://kamamishu.s3.ap-south-1.amazonaws.com/Kamamishu_Privacy_Policy.pdf
 - Terms of use URL: https://kamamishu.s3.ap-south-1.amazonaws.com/Kamamishu_Privacy_Policy.pdf
 
-## Privacy & Compliance
+### Privacy & Compliance
  - Does this skill allow users to make purchases or spend real money? 
   - No
  - Does this Alexa skill collect users' personal information? *
@@ -201,7 +215,7 @@ More information at: https://kamamishu.com
  - Testing instructions
   - 
 
-## Availability
+### Availability
  - Who should have access to this skill? *
   - Public
  - 

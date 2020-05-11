@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "npm-run-all --parallel start server",
-    "build": "next build",
     "start": "node ./bin/www"
   },
   "dependencies": {

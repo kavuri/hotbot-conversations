@@ -25,7 +25,6 @@
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.28",
     "momentjs": "^2.0.0",
-    "mongodb-client-encryption": "^1.0.1",
     "mongoose": "^5.9.10",
     "mongoose-auto-increment": "^5.0.1",
     "node-cache": "^5.1.0",
