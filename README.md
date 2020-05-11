@@ -38,7 +38,19 @@
 
 ## Other setup
 # Get Letsencrypt SSL certificate
- - https://certbot.eff.org/lets-encrypt/ubuntubionic-other
+ - https://certbot.eff.org/lets-encrypt/ubuntubionic-other (or https://itnext.io/node-express-letsencrypt-generate-a-free-ssl-certificate-and-run-an-https-server-in-5-minutes-a730fbe528ca)
+    ```
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt-get update
+    sudo apt-get install certbot
+    certbot certonly --manual
+    ```
+ - Open port 80 (temporarily) in EC2 inbound rules. This is to just create a certificate
+ - Start server from letsencrypt
+   ```
+   cd letsencrypt
+   node server.js
+   ```
 
 # EC2 setup
   - Launch command-line shell in ec2 instance
@@ -60,33 +72,41 @@
    - `npm install`
    - `cd hotbot-converstaions/api`
    - `npm install`
-   - Create a file `hotbot-conversations/api/.env` and add the following contents
+   - Ensure .env.prod have the correct settings
       ```
-      AUTH0_CLIENT_ID=
-      AUTH0_DOMAIN=
-      AUTH0_AUDIENCE=
-      AUTH0_CLIENT_SECRET=
-      AUTH0_CALLBACK_URL=
-      SESSION_SECRET='bam bam baaam..rock..'
-      AUTH0_ADMIN_AUDIENCE=https://kamamishu.eu.auth0.com/api/v2/
+      # hotbot-conversations and api settings
+        ##### MONGODB Settings #####
+		DB_NAME = 'hotbot-prod'
+		DB_URI = 'mongodb+srv://<dbuser>:<password>@cluster0-jolus.mongodb.net/'
+		DB_REPLSET_NAME = 'Cluster0-shard-0'
+		DB_POOLSIZE = 5
+		DB_USE_NEW_URL_PARSER = true
+		DB_AUTO_INDEX = false
+		DB_AUTO_CREATE = true
+		DB_RETRY_WRITES = true
+		DB_W = majority
+		DB_USE_UNIFIED_TOPOLOGY = true
+		DB_USE_FIND_AND_MODIFY = false
+		DB_STORAGE_ENGINE = wiredTiger
+
+		##### Conversations settings #####
+		LOG_COLLECTION_NAME = 'conversations'
+		LOGGING = true
+
+		# The Auth0 CLIENT_ID, SECRET are of the machine-machine admin API and not the KamApp (for web application)
+		AUTH0_CLIENT_ID=rG2lXE6UdXfgpe1HLWVnpSlcsuvp6jtm
+		AUTH0_DOMAIN=kamamishu-in.auth0.com
+		AUTH0_CLIENT_SECRET=JcQ6DBRF03bARYxDuqsudNInqZdV4i7kDt1fJ4ZlGK-HpAhQIBYm0KcGAYWvSMFR
+		AUTH0_ADMIN_AUDIENCE=https://kamamishu-in.auth0.com/api/v2/
+		AUTH0_CALLBACK_URL=https://app.kamamishu.online
+		SESSION_SECRET='digi digi bam bam baaam..rock..'
       ```
   - Replace the Auth0 details above with the details from Auth0
-  - Create a file `hotbot-conversations/.env` and add the following contents
-      ```
-      MONGO_CLUSTER_URI=mongodb+srv://hotbbotuser:Abcd1234@cluster0-i07kz.mongodb.net/test?retryWrites=true&w=majority
-      MONGO_DB_NAME=
-      MONGO_USERNAME=
-      MONGO_PASSWORD=
-      MONGO_POOL_SIZE=5
-      AUTH0_CLIENT_ID=CbQUvI1aHMwJewlcqnF3t38I9g9jUU1T
-      AUTH0_DOMAIN=kamamishu-in-dev.auth0.com
-      AUTH0_AUDIENCE=https://kamamishu-in-dev.auth0.com/api/v2/
-      AUTH0_CLIENT_SECRET=IQHh1vemyo8J-p-yVQqIpEXIOr_C86FL_cHmMAnqZnBfmMIPOhg29J1dCylSRm6I
-      AUTH0_CALLBACK_URL=https://pitangui.amazon.com/api/skill/link/MLHXQP7BSLB59, https://layla.amazon.com/api/skill/link/MLHXQP7BSLB59, https://alexa.amazon.co.jp/api/skill/link/MLHXQP7BSLB59
-      SESSION_SECRET='bam bam baaam..rock..'
-      AUTH0_ADMIN_AUDIENCE=https://kamamishu.eu.auth0.com/api/v2/
-      ```
-  - Replace the Auth0 details above with the details from Auth0
+
+## EC2 instance for Alexa conversations engine
+ - Install node using nvm
+ - Pull the code
+ - Get certificate from letsencrypt
 
 # Auth0 Setup
  1. Create an account in Auth0
