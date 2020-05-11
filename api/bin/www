@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('hotbot-api:server');
 var http = require('http');
+const https = require('https');
+const fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +22,21 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+// HTTPS server
+if (port === 443) {
+    const privateKey = fs.readFileSync('/etc/letsencrypt/live/app.kamamishu.online/privkey.pem', 'utf8');
+    const certificate = fs.readFileSync('/etc/letsencrypt/live/app.kamamishu.online/cert.pem', 'utf8');
+    const ca = fs.readFileSync('/etc/letsencrypt/live/app.kamamishu.online/chain.pem', 'utf8');
+
+    const credentials = {
+        key: privateKey,
+        cert: certificate,
+        ca: ca
+    };
+
+    server = https.createServer(credentials, app);
+}
 
 /**
  * Listen on provided port, on all network interfaces.

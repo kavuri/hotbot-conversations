@@ -37,6 +37,10 @@
   - 27017 for mongodb Atlas
 
 ## Other setup
+# Get Letsencrypt SSL certificate
+ - https://certbot.eff.org/lets-encrypt/ubuntubionic-other
+
+# EC2 setup
   - Launch command-line shell in ec2 instance
   - `sudo apt update`
   - `sudo apt install gcc make g++`
