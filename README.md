@@ -43,7 +43,6 @@
     sudo add-apt-repository ppa:certbot/certbot
     sudo apt-get update
     sudo apt-get install certbot
-    certbot certonly --manual
     ```
  - Open port 80 (temporarily) in EC2 inbound rules. This is to just create a certificate
  - Start server from letsencrypt
@@ -51,6 +50,14 @@
    cd letsencrypt
    node server.js
    ```
+ - Open URL `http://alexa.kamamishu.online/.well-known/acme-challenge/a291fa84-d117-4a87-94b0-aaa75eb25755` to verify if everything is working fine
+ - `certbot certonly --manual`
+ - Details:
+   ```
+   Enter domain names: alexa.kamamishu.online
+   ```
+ - Follow the rest of the instructions to create a file
+ - Shutdown the temporary server in letsencrypt directory (ctrl+c)
 
 # EC2 setup
   - Launch command-line shell in ec2 instance
