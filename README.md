@@ -1,4 +1,4 @@
-
+﻿
 # Hotbot Conversations
 
  * Using Beame for launching a http proxy: https://github.com/beameio/beame-insta-ssl#table-of-contents
@@ -59,6 +59,54 @@
  - Follow the rest of the instructions to create a file
  - Shutdown the temporary server in letsencrypt directory (ctrl+c)
 
+# PM2 startup services at server start (https://pm2.keymetrics.io/docs/usage/startup/)
+ - `sudo apt install authbind`
+ - `pm2 startup` - this generates a script that enables starting the service at startup
+ - `sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v14.2.0/bin /home/ubuntu/.nvm/versions/node/v14.2.0/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu`
+ - output:
+ ```
+[PM2] Init System found: systemd
+Platform systemd
+Template
+[Unit]
+Description=PM2 process manager
+Documentation=https://pm2.keymetrics.io/
+After=network.target
+
+[Service]
+Type=forking
+User=ubuntu
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+Environment=PATH=/home/ubuntu/.nvm/versions/node/v14.2.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ubuntu/.nvm/versions/node/v14.2.0/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Environment=PM2_HOME=/home/ubuntu/.pm2
+PIDFile=/home/ubuntu/.pm2/pm2.pid
+Restart=on-failure
+
+ExecStart=/home/ubuntu/.nvm/versions/node/v14.2.0/lib/node_modules/pm2/bin/pm2 resurrect
+ExecReload=/home/ubuntu/.nvm/versions/node/v14.2.0/lib/node_modules/pm2/bin/pm2 reload all
+ExecStop=/home/ubuntu/.nvm/versions/node/v14.2.0/lib/node_modules/pm2/bin/pm2 kill
+
+[Install]
+WantedBy=multi-user.target
+
+Target path
+/etc/systemd/system/pm2-ubuntu.service
+Command list
+[ 'systemctl enable pm2-ubuntu' ]
+[PM2] Writing init configuration in /etc/systemd/system/pm2-ubuntu.service
+[PM2] Making script booting at startup...
+[PM2] [-] Executing: systemctl enable pm2-ubuntu...
+Created symlink /etc/systemd/system/multi-user.target.wants/pm2-ubuntu.service → /etc/systemd/system/pm2-ubuntu.service.
+[PM2] [v] Command successfully executed.
++---------------------------------------+
+[PM2] Freeze a process list on reboot via:
+$ pm2 save
+
+[PM2] Remove init script via:
+$ pm2 unstartup systemd
+ ```
 # EC2 setup
   - Launch command-line shell in ec2 instance
   - `sudo apt update`
