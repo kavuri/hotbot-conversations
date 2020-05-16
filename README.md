@@ -299,3 +299,17 @@ More information at: https://kamamishu.com
   - Public
  - 
 
+# Alexa certification testing instructions
+Kamamishu provides a web application to manage the hotel details, its services (for customization), manage the check-in and checkout process. The web application is available at https://app.kamamishu.online
+Before a hotel guest can start to interact with the conversational bot, the hotel has to be onboarded. For the sake of Alexa certification, a dummy hotel with 3 rooms are created. Following are the instructions to be followed for registering a device
+
+ 1. Invoke the skill by saying "Alexa, launch front desk"
+ 2. The skill will say "This device is not registered. Would you like to register this device? "
+ 3. Say Yes
+ 4. Alexa says: " Device successfully registered. From the web application, add the device to hotel . "
+ 5. Launch https://app.kamamishu.online. Enter the username: kamamishu@gmail.com, password: Abcd1234#
+ 6. Register the device by clicking ? at the top right of the dashboard. Or Here they are
+   - Go to Device Management -> UNASSIGNED. Select "Device " option from drop down -> select hotel -> select room (say 100) -> Click "Assign Device". Select ASSIGNED -> Select "Fantastic Hotel" -> Change Status to "Inactive"
+ 7. Checkin a dummy guest. Go to Checkin-Checkout -> CHECKIN-CHECKOUT -> Enter Guest name, guest number -> Click "Checkin" button. You should see the guest details are moved to the Checkout section
+ 8. Go back to launching the skill again by invoking "Alexa, launch front desk".
+ 9. Continue with using the service

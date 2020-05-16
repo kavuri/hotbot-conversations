@@ -1,6 +1,6 @@
 {
   "translation": {
-    "DEVICE_REGISTRATION_SUCCESS": " Device successfully registered. Add device to hotel from application. ",
+    "DEVICE_REGISTRATION_SUCCESS": " Device successfully registered. From the web application, add the device to hotel . ",
     "DEVICE_ADDRESS_NOT_SET": " The address for this device in Alexa app is not set. Set it up and re launch ",
     "NOTIFY_MISSING_PERMISSIONS": " Please grant permission to read address from your Alexa app and re launch ",
     "DEVICE_REGISTER_ERROR": " Uh Oh. Looks like something went wrong. Please try again.  ",

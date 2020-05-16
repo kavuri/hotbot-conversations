@@ -127,7 +127,7 @@ module.exports = {
 
     async LAUNCH() {
         // FIXME: Add user in Device_To_Hotel/separate login table for tracking purpose
-        //const user = checkSessionToken(this);
+        const user = checkSessionToken(this);
 
         // Inject menu items
         // We do not inject any items that are not part of the skill in Alexa
