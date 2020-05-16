@@ -22,7 +22,7 @@ const CheckinCheckoutSchema = new mongoose.Schema({
 CheckinCheckoutSchema.index({ hotel_id: 1 });
 
 module.exports = DBConn.model('CheckinCheckout', CheckinCheckoutSchema);
-const RoomModel = require('./Room');
+/*
 CheckinCheckoutSchema.post('save', async (doc) => {
     // If doc.checkout === null, its a check-in
     // If doc.checkout !== null, its a check-out
@@ -33,3 +33,4 @@ CheckinCheckoutSchema.post('save', async (doc) => {
     }
     await RoomModel.findOneAndUpdate({ hotel_id: doc.hotel_id, room_no: doc.room_no }, { $set: { checkincheckout: ref } }).exec();
 });
+*/

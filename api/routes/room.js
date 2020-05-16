@@ -148,7 +148,6 @@ router.patch('/:_id',
 router.post('/:room_no/checkin',
     auth0.authorize('create:checkin'),
     [
-        check('hotel_id').exists({ checkNull: true, checkFalsy: true }),
         check('room_no').exists({ checkNull: true, checkFalsy: true }),
         check('guestNumber').exists({ checkNull: true, checkFalsy: true }),
         check('guestName').exists({ checkNull: true, checkFalsy: true })
@@ -180,6 +179,10 @@ router.post('/:room_no/checkin',
             });
 
             let cin = await checkin.save();
+
+            // Update the room object
+            await RoomModel.findOneAndUpdate({ hotel_id: hotel_id, room_no: room_no }, { $set: { checkincheckout: cin } }).exec();
+
             console.log('guest ' + checkin.guestNumber + ' checked in:', cin);
             return res.status(200).send(cin);
         } catch (error) {
