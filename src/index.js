@@ -7,7 +7,8 @@
 
 const { WebhookVerified: Webhook, ExpressJS } = require('jovo-framework');
 
-const { app } = require ('./app.js');
+const { app } = require('./app.js');
+const env = require('../env');
 
 // ------------------------------------------------------------------
 // HOST CONFIGURATION
@@ -16,15 +17,16 @@ const { app } = require ('./app.js');
 //TODO: Enable SSL with the real certificate
 const fs = require('fs');
 const path = require('path');
-Webhook.ssl = {
-    key: fs.readFileSync('/etc/letsencrypt/live/alexa.kamamishu.online/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/alexa.kamamishu.online/fullchain.pem'),
-};
-
+const port = process.env.PORT || 3000;
+if (port === 443) {
+    Webhook.ssl = {
+        key: fs.readFileSync('/etc/letsencrypt/live/alexa.kamamishu.online/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/alexa.kamamishu.online/fullchain.pem'),
+    };
+}
 
 // ExpressJS (Jovo Webhook)
 if (process.argv.indexOf('--webhook') > -1) {
-    const port = process.env.PORT || 3000;
     Webhook.jovoApp = app;
 
     Webhook.listen(port, () => {

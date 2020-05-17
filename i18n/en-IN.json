@@ -1,13 +1,14 @@
 {
   "translation": {
     "DEVICE_REGISTRATION_SUCCESS": " Device successfully registered. From the web application, add the device to hotel . ",
-    "DEVICE_ADDRESS_NOT_SET": " The address for this device in Alexa app is not set. Set it up and re launch ",
-    "NOTIFY_MISSING_PERMISSIONS": " Please grant permission to read address from your Alexa app and re launch ",
+    "DEVICE_ADDRESS_NOT_SET": " Please set the device address in your Alexa app. This is useful to properly add the device to the right hotel. ",
+    "NOTIFY_MISSING_PERMISSIONS": " This skill requires to read the address of your device. Please grant permission to read address from your Alexa app and re launch ",
     "DEVICE_REGISTER_ERROR": " Uh Oh. Looks like something went wrong. Please try again.  ",
     "SYSTEM_ERROR": " There is some problem with the service. Please try again ",
     "DEVICE_NOT_REGISTERED": " This device is not registered.  ",
     "DEVICE_NOT_ASSIGNED_TO_HOTEL": " This device is not assigned to hotel. Please contact the front desk. ",
     "ASK_TO_REGISTER_DEVICE": " Would you like to register this device?  ",
+    "ASK_TO_LINK_ACCOUNT":  "You need to link you account to use this skill. I sent a card to your alexa app. Open the app and follow the instructions to link the skill",
 
     "TRY_AGAIN": "  try again. ",
     "AND": "  and  ",
