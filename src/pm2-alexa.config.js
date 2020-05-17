@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: 'hotbot-conversations',
+    name: 'hotbot-conversation',
     script: './index.js',
     watch: true,
     env:{

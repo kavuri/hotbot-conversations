@@ -28,7 +28,38 @@ module.exports = {
         var device_id = this.$request.context.System.device.deviceId;
 
         let data;
+        // Check for account linking first
+        //checkSessionToken(this);
+        let token = await this.$request.getAccessToken();
+        console.log('checking for token:', token);
+        if (_.isEmpty(token) || _.isNull(token) || _.isUndefined(token)) {
+            //console.log('no token in request. Sending account linking card');
+            this.$alexaSkill.showAccountLinkingCard();
+            return this.tell(this.t('ASK_TO_LINK_ACCOUNT'));
+        }
+
+        // Check if the permission is granted to read device address
         try {
+            let address = await this.$alexaSkill.$user.getDeviceAddress();
+        } catch (error) {
+            console.log('error while getting address:', error);
+            return this.$alexaSkill.showAskForAddressCard().tell(this.t('NOTIFY_MISSING_PERMISSIONS'));
+            if (error.code === 'NO_USER_PERMISSION') {
+                console.log('user permission not given');
+            } else {
+                // Do something
+                console.log('@@doing nothing:', error);
+            }
+        }
+        /*
+        if (!_.has(address, 'addressLine1') || !_.has(address, 'addressLine2')) {
+            // Admin has not set the hotel_id in addressLine1 and room_no in addressLine2
+            return this.tell(this.t('DEVICE_ADDRESS_NOT_SET'));
+        }
+        */
+
+        try {
+            // Check for device registration
             console.log('getting device...', device_id);
             // Get the hotel id from this device_id and user_id
             data = await DeviceModel
@@ -76,7 +107,6 @@ module.exports = {
                 const address = await this.$alexaSkill.$user.getDeviceAddress();
                 console.log('address=', address);
 
-                this.tell('got full address');
                 if (!_.has(address, 'addressLine1') || !_.has(address, 'addressLine2')) {
                     // Admin has not set the hotel_id in addressLine1 and room_no in addressLine2
                     return this.tell(this.t('DEVICE_ADDRESS_NOT_SET'));
@@ -127,7 +157,6 @@ module.exports = {
 
     async LAUNCH() {
         // FIXME: Add user in Device_To_Hotel/separate login table for tracking purpose
-        const user = checkSessionToken(this);
 
         // Inject menu items
         // We do not inject any items that are not part of the skill in Alexa
@@ -181,12 +210,14 @@ module.exports = {
 
 async function checkSessionToken(thisObj) {
     let token = await thisObj.$request.getAccessToken();
-    //console.log('checking for token:', token);
+    console.log('checking for token:', token);
     if (_.isEmpty(token) || _.isNull(token) || _.isUndefined(token)) {
         //console.log('no token in request. Sending account linking card');
         thisObj.$alexaSkill.showAccountLinkingCard();
-        return thisObj.tell('Please link you Account');
-    } else {
+        return thisObj.tell(thisObj.t('ASK_TO_LINK_ACCOUNT'));
+    }
+    /*
+    else {
         //console.log('invoking GET userinfo');
         const user = await fetch('https://' + process.env.AUTH0_DOMAIN + '/userinfo', {
             method: 'GET',
@@ -197,5 +228,6 @@ async function checkSessionToken(thisObj) {
         //console.log('userinfo=', user);
         return user;
     }
+    */
     // Account linking ends
 }
