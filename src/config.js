@@ -42,11 +42,14 @@ module.exports = {
             poolSize: process.env.DB_POOLSIZE,
             useNewUrlParser: process.env.DB_USE_NEW_URL_PARSER,
             autoIndex: process.env.DB_AUTO_INDEX,
+            bufferCommands: process.env.DB_BUFFER_COMMANDS,
             autoCreate: process.env.DB_AUTO_CREATE,
             retryWrites: process.env.DB_RETRY_WRITES,
             w: process.env.DB_W,
             useUnifiedTopology: process.env.DB_USE_UNIFIED_TOPOLOGY,
-            useFindAndModify: process.env.DB_USE_FIND_AND_MODIFY
+            useFindAndModify: process.env.DB_USE_FIND_AND_MODIFY,
+            keepAlive: process.env.DB_KEEP_ALIVE,
+            keepAliveInitialDelay: process.env.DB_KEEP_ALIVE_TIMEOUT
         },
     },
 
