@@ -18,7 +18,8 @@ const env = require('../env');
 const fs = require('fs');
 const path = require('path');
 const port = process.env.PORT || 3000;
-if (port === 443) {
+if (process.env.NODE_ENV === 'prod') {
+    console.log('running in production environment. Setting certificates');
     Webhook.ssl = {
         key: fs.readFileSync('/etc/letsencrypt/live/alexa.kamamishu.online/privkey.pem'),
         cert: fs.readFileSync('/etc/letsencrypt/live/alexa.kamamishu.online/fullchain.pem'),
@@ -27,15 +28,15 @@ if (port === 443) {
 
 // ExpressJS (Jovo Webhook)
 //if (process.argv.indexOf('--webhook') > -1) {
-    Webhook.jovoApp = app;
+Webhook.jovoApp = app;
 
-    Webhook.listen(port, () => {
-        console.info(`Local server listening on port ${port}.`);
-    });
+Webhook.listen(port, () => {
+    console.info(`Local server listening on port ${port}.`);
+});
 
-    Webhook.post(['/webhook', '/webhook_alexa'], async (req, res) => {
-        await app.handle(new ExpressJS(req, res));
-    });
+Webhook.post(['/webhook', '/webhook_alexa'], async (req, res) => {
+    await app.handle(new ExpressJS(req, res));
+});
 //}
 
 // AWS Lambda
