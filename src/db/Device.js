@@ -7,10 +7,8 @@
 
 var _ = require('lodash'),
     mongoose = require('mongoose'),
-    AuditLogModel = require('./AuditLog'),
     DBConn = require('./index').DBConn,
     HotelModel = require('./Hotel'),
-    DeviceModel = require('./Hotel'),
     RoomModel = require('./Room');
 
 /**
@@ -29,6 +27,8 @@ var DeviceSchema = new mongoose.Schema({
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }, strict: false });
 
 DeviceSchema.index({ device_id: 1, hotel_id: 1 }, { unique: true });
+
+/*
 
 //Setup the middleware
 DeviceSchema.post('save', async function (doc) {
@@ -69,5 +69,7 @@ DeviceSchema.post('remove', async function (doc) {
 
     var log = await audit.save(audit);
 });
+
+*/
 
 module.exports = DBConn.model('Device', DeviceSchema);
