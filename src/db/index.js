@@ -17,6 +17,7 @@ var connection = mongoose.createConnection(mongo_url, {
     dbName: config.databaseName,
     poolSize: config.poolSize,
     replicaSet: config.replicaSet,
+    useCreateIndex: config.useCreateIndex,
     useNewUrlParser: config.useNewUrlParser,
     autoIndex: config.autoIndex,
     bufferCommands: config.bufferCommands,
@@ -29,7 +30,7 @@ var connection = mongoose.createConnection(mongo_url, {
     keepAliveInitialDelay: config.keepAliveInitialDelay
 });
 
-console.log('++connection=', connection);
+console.log('Mongo config=', config);
 
 // Initialize auto increment plugin
 autoIncrement.initialize(connection);

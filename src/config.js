@@ -40,6 +40,7 @@ module.exports = {
             uri: process.env.DB_URI,
             replicaSet: process.env.DB_REPLSET_NAME,
             poolSize: process.env.DB_POOLSIZE,
+            useCreateIndex: process.env.DB_USE_CREATE_INDEX,
             useNewUrlParser: process.env.DB_USE_NEW_URL_PARSER,
             autoIndex: process.env.DB_AUTO_INDEX,
             bufferCommands: process.env.DB_BUFFER_COMMANDS,

@@ -16,10 +16,10 @@ const app = new App();
 app.use(
     new Alexa(),
     //new GoogleAssistant(),
-    new JovoDebugger(),
+    //new JovoDebugger(),
     // new DynamoDb()
     // new FileDb(),
-    new MongoDb()
+    //new MongoDb()
 );
 
 
