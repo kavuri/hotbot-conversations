@@ -40,4 +40,5 @@ HotelGroupSchema.plugin(AutoIncrement.plugin, {
     incrementBy: 1
 });
 
+console.log('created hotelGroup');
 module.exports = DBConn.model('HotelGroup', HotelGroupSchema);

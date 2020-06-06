@@ -14,7 +14,8 @@ const graphlib = require('graphlib');
 
 const itemChangeListener = () => {
     console.log('watching for changes in items...');
-    GraphModel.watch({ fullDocument: 'updateLookup' }).on('change', async (data) => {
+    //GraphModel.watch({ fullDocument: 'updateLookup' }).on('change', async (data) => {
+    GraphModel.watch().on('change', async (data) => {
         //console.log('item changed:', JSON.stringify(data));
 
         if (_.isUndefined(data.fullDocument)) return;
@@ -37,6 +38,29 @@ const itemChangeListener = () => {
     });
 }
 
+// Register the item listener
+//itemChangeListener();
+
+/**
+ * Method invoked by the API server whenever an item is changed in the UI
+ * Reload the graph from the database whenever an item for the corresponding hotel (key) is changed
+ * @param {any} key the hotel_id of the graph
+ */
+module.exports.itemChanged = async (key) => {
+    console.log('item ' + key + ' has changed');
+    let graph;
+    try {
+        let g = await GraphModel.findOne({ value: key }).lean().exec();
+        graph = graphlib.json.read(g);
+        console.log('graph updated with the change:', graph.nodeCount());
+    } catch (error) {
+        throw KamError.DBError('error getting hotel info:', key);
+    }
+
+    // Store this graph to cache
+    cache.set(key, graph);
+}
+
 module.exports.set = async function (key, value) {
     cache.set(key, value);
 }
@@ -46,14 +70,12 @@ module.exports.get = async function (key) {
         throw new KamError.InputError('invalid input. key=' + key);
     }
 
-    // Register the item listener
-    itemChangeListener();
-
     let graph = cache.get(key);
     if (_.isUndefined(graph)) {
         // Item does not exist in cache. Retrieve from database
         try {
-            graph = await GraphModel.findOne({ value: key }).lean().exec();
+            let g = await GraphModel.findOne({ value: key }).lean().exec();
+            graph = graphlib.json.read(g);
         } catch (error) {
             throw KamError.DBError('error getting hotel info:', key);
         }
@@ -64,7 +86,7 @@ module.exports.get = async function (key) {
 
     //console.log(graph);
     // Return the graph
-    return graphlib.json.read(graph);
+    return graph;
 }
 
 module.exports.del = async (key) => {

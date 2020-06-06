@@ -21,4 +21,5 @@ var UserSchema = new mongoose.Schema({
 UserSchema.index({email: 1}, {unique: true});
 UserSchema.index({user_id: 1}, {unique: true});
 
+console.log('created user ');
 module.exports = DBConn.model('User', UserSchema);

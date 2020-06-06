@@ -61,4 +61,6 @@ HotelSchema.post('save', async (doc) => {
     }
 });
 
+console.log('created hotel ');
+
 module.exports = DBConn.model('Hotel', HotelSchema);

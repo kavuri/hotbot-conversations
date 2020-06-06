@@ -21,6 +21,7 @@ const CheckinCheckoutSchema = new mongoose.Schema({
 
 CheckinCheckoutSchema.index({ hotel_id: 1 });
 
+console.log('created checkincheckout')
 module.exports = DBConn.model('CheckinCheckout', CheckinCheckoutSchema);
 /*
 CheckinCheckoutSchema.post('save', async (doc) => {

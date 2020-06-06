@@ -22,6 +22,7 @@ DummySchema.plugin(AutoIncrement.plugin, {
     incrementBy: 1
 });
 
+console.log('created dummy');
 module.exports = DBConn.model('Dummy', DummySchema);
 
 async function test() {
@@ -32,5 +33,3 @@ async function test() {
     console.log('@@hg=',hg);
     return hg;
 }
-
-test();

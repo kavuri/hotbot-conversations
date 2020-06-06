@@ -7,11 +7,24 @@
 const express = require('express');
 const router = express.Router();
 const auth0 = require('../lib/auth0');
-const cache = require('../../src/cache');
 const graphlib = require('graphlib');
+const fetch = require('node-fetch');
+const dotenv = require('dotenv');
 const GraphModel = require('../../src/db/Graph'),
     _ = require('lodash'),
     { check, validationResult } = require('express-validator');
+
+dotenv.config();
+/**
+ * Method to post a change in the graph. This change is posted to Bot server
+ *
+ */
+async function sendItemChangedNotif(hotel_id) {
+    console.log('Bot server URL=', process.env.BOT_SERVER_URL);
+    fetch(process.env.BOT_SERVER_URL + '/itemChanged?hotel_id=' + hotel_id, { method: 'POST', body: {} })
+        .then(res => res.json())
+        .then(json => console.log(json));
+}
 
 /**
  * Gets a graph given a hotel id
@@ -93,10 +106,14 @@ router.post('/',
                     .updateOne({ value: hotel_id, 'nodes.v': { $ne: synonyms[i] } }, { $addToSet: { nodes: { v: synonyms[i], parent: name } } })
                     .exec();
             }
-            res.status(200).send(u);
+
+            // Send notification that item has changed
+            sendItemChangedNotif(hotel_id);
+
+            return res.status(200).send(u);
         } catch (error) {
             console.error('error in getting hotel data:', hotel_id, error);
-            res.status(500).send(error);
+            return res.status(500).send(error);
         }
     });
 
@@ -157,7 +174,11 @@ router.put('/',
                 .findOneAndUpdate({ value: hotel_id, 'nodes.v': name }, { $set: setObj }, { upsert: false, fields: { 'nodes.$': 1 } })
                 .exec();
             console.log('node=', JSON.stringify(u));
-            res.status(200).send(u);
+
+            // Send notification that item has changed
+            sendItemChangedNotif(hotel_id);
+
+            return res.status(200).send(u);
         } catch (error) {
             console.error('error in getting hotel data:', hotel_id, error);
             res.status(500).send(error);
@@ -191,6 +212,10 @@ router.post('/synonym',
             let s = await GraphModel
                 .updateOne({ value: hotel_id, 'nodes.v': { $ne: synonym } }, { $addToSet: { nodes: { v: synonym, parent: parent } } })
                 .exec();
+
+            // Send notification that item has changed
+            sendItemChangedNotif(hotel_id);
+
             res.status(200).send({ parent: parent, v: synonym });
         } catch (error) {
             console.error('error in getting hotel data:', hotel_id, error);
@@ -225,6 +250,10 @@ router.delete('/synonym',
             let s = await GraphModel
                 .updateOne({ value: hotel_id }, { $pull: { nodes: { v: synonym } } })
                 .exec();
+
+            // Send notification that item has changed
+            sendItemChangedNotif(hotel_id);
+
             res.status(200).send({ v: synonym });
         } catch (error) {
             console.error('error in getting hotel data:', hotel_id, error);

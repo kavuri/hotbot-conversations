@@ -13,6 +13,69 @@
  3. Sync code to ec2 instance using git
  4. Ensure .env.prod has settings pointing to the right Auth0 and MongoDB settings for `hotbot-conversations` and `api`
 
+# Install MongoDB in the two EC2 nodes
+ - Follow instructions here: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/ to install MongoDB in Ubuntu EC2
+ - Follow instructions here: https://docs.mongodb.com/manual/tutorial/deploy-replica-set-with-keyfile-access-control/#deploy-repl-set-with-auth to create a replica set
+ - Start mongo from cmdline
+    ```
+        mkdir /var/lib/mongodb
+        mkdir /var/log/mongodb
+        mongod --keyFile /etc/mongod-keyfile --replSet rs0 --bind_ip 172.31.6.58,172.31.42.217 --dbpath /var/lib/mongodb
+    ```
+ - Exit from mongo shell. Run the command `mongo -u 'admin' -p --authenticationDatabase admin`
+ - Create replica set and create admin and cluster users
+    ```
+	    rs.initiate({ _id:"rs0", members:[ {_id:0,host:"172.31.6.58:27017"}, {_id:1,host:"172.31.42.217:27017"} ] });
+        rs0:PRIMARY> use admin
+        rs0:PRIMARY> db.createUser({user:"admin", pwd:"Admin#123", roles:[{role:"userAdminAnyDatabase", db:"admin"}]})
+        admin.createUser({user:"cluster",pwd:"Cluster#123", roles:[{role:"clusterAdmin", db:"admin"}]})
+    ```
+ - Create a app user: dbuser 
+ ```
+    use hotbot-prod
+    db.createUser({user:"dbuser",pwd:"HotbotUser",roles:[{role:"readWrite",db:"hotbot-prod"}]})
+ ```
+        # Where and how to store data.
+        storage:
+            dbPath: /var/lib/mongodb
+            journal:
+            enabled: true
+        #  engine:
+        #  mmapv1:
+        #  wiredTiger:
+
+        # where to write logging data.
+        systemLog:
+            destination: file
+            logAppend: true
+            path: /var/log/mongodb/mongod.log
+
+        # network interfaces
+        net:
+            port: 27017
+            bindIp: 127.0.0.1,172.31.6.58
+
+        # how the process runs
+        processManagement:
+            timeZoneInfo: /usr/share/zoneinfo
+
+        security:
+            keyFile: /etc/mongod-keyfile
+
+        #operationProfiling:
+
+        replication:
+            replSetName: "rs0"
+
+        #sharding:
+
+		## Enterprise-Only Options:
+
+		#auditLog:
+
+		#snmp:
+    ```
+
 # MongoDB Atlas
   - Sign-in with kamamishu@gmail.com (Google login)
   - Create a cluster: 'Clouster0'

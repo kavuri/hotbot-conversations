@@ -20,4 +20,5 @@ const RoomSchema = new mongoose.Schema({
 
 RoomSchema.index({ hotel_id: 1, room_no: 1 }, { unique: true });
 
+console.log('created room');
 module.exports = DBConn.model('Room', RoomSchema);

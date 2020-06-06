@@ -23,4 +23,5 @@ var AuditLogSchema = new mongoose.Schema({
 
 AuditLogSchema.index({coll: 1, change: 1});
 
+console.log('created audit log ');
 module.exports = DBConn.model('AuditLog', AuditLogSchema);

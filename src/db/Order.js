@@ -121,4 +121,5 @@ OrderSchema.plugin(AutoIncrement.plugin, {
     incrementBy: 1
 });
 
+console.log('created order');
 module.exports = DBConn.model('Order', OrderSchema);

@@ -26,6 +26,16 @@ if (process.env.NODE_ENV === 'prod') {
     };
 }
 
+const { itemChanged } = require('./cache');
+/**
+ * This REST API is to get a notification whenever a graph item is changed
+ * FIXME: This API is not protected. Do not expose this to external parties
+ */
+Webhook.post('/itemChanged', async (req, res) => {
+    itemChanged(req.query.hotel_id);
+    return res.status(200).send({ msg: 'notification sent' });
+});
+
 // ExpressJS (Jovo Webhook)
 //if (process.argv.indexOf('--webhook') > -1) {
 Webhook.jovoApp = app;

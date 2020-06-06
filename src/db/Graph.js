@@ -17,4 +17,5 @@ var GraphSchema = new mongoose.Schema({
 GraphSchema.index({ 'nodes.v': 1 }, { unique: true });
 GraphSchema.index({ 'edges.v': 1, 'edges.w': 1 }, { unique: true });
 
+console.log('created graph');
 module.exports = DBConn.model('Graph', GraphSchema);
