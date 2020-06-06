@@ -11,6 +11,7 @@ const _ = require('lodash'),
     OrderModel = require('./Order'),
     cache = require('../cache'),
     CheckinCheckoutModel = require('./CheckinCheckout'),
+    notifyOrder = require('../utils/notifyOrder'),
     uuid = require('uuid');
 
 /**
@@ -258,7 +259,10 @@ module.exports.create_order = async function (hotel_id, room_no, user_id, items)
     try {
         for (var i = 0; i < orders.length; i++) {
             r[i] = await orders[i].save();
-            console.log('saved order:', r[i]);
+            //console.log('saved order:', r[i]);
+
+            // Notify the UI about the newly created order
+            notifyOrder(r[i]);
         }
     } catch (error) {
         console.log('error while saving order to db');
@@ -399,6 +403,9 @@ module.exports.cancel_order = async (hotel_id, room_no, user_id, item_name) => {
                 newOrders[i].curr_status = { status: "cancelled", set_by: user_id };
                 newOrders[i].status.push({ set_by: user_id, status: "cancelled" });
                 cancelledOrder = await newOrders[i].save();
+
+                // Notify UI of the cancelled order
+                notifyOrder(cancelledOrder);
                 console.log('new order cancelled =', cancelledOrder);
             }
         }
@@ -409,7 +416,10 @@ module.exports.cancel_order = async (hotel_id, room_no, user_id, item_name) => {
                     set_by: user_id
                 }
                 progressOrders[i].status.push({ set_by: user_id, status: "cancelled" });
-                cancelledOrder = progressOrders[i].save();
+                cancelledOrder = await progressOrders[i].save();
+
+                // Notify UI of the cancelled order
+                notifyOrder(cancelledOrder);
                 console.log('progress order cancelled =', cancelledOrder);
             }
         }

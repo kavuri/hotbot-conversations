@@ -135,6 +135,9 @@ router.get('/',
 
     });
 
+/**
+ * Endpoint for UI to listen for orders
+ */
 router.get('/listen',
     auth0.authorize('read:order'),
     async (req, res, next) => {

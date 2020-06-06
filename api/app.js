@@ -27,7 +27,7 @@ const app = express();
 
 dotenv.config();
 
-const { watchOrders } = require('./lib/ordersListener');
+//const { watchOrders } = require('./lib/ordersListener');
 
 // var corsOptions = {
 //   origin: '*',
@@ -49,8 +49,12 @@ app.use(session);
 
 app.use(flash());
 
-app.use(auth0.authenticate);
-app.use(userBelongsTo); //This does the mapping of the user to the hotel and sets in the request
+// FIXME: This is an internal API that is used by Bot server to notify of new orders
+// THIS API IS NOT AUTHENTICATED. USED AUTH0 Machine-to-machine authentication
+app.use('/orderWatch/', require('./routes/_watchOrders'));
+
+app.use(config.api.prefix, auth0.authenticate);
+app.use(config.api.prefix, userBelongsTo); //This does the mapping of the user to the hotel and sets in the request
 
 app.use('/', require('./routes/index'));
 app.use(config.api.prefix + '/user', require('./routes/user'));
@@ -63,7 +67,7 @@ app.use(config.api.prefix + '/room', require('./routes/room'));
 app.use(config.api.prefix + '/checkincheckout', require('./routes/checkincheckout'));
 
 // Listen for order changes
-watchOrders();
+// watchOrders();
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
