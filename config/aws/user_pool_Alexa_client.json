@@ -1,6 +1,6 @@
 {
     "UserPoolClient": {
-        "ClientSecret": "14vnb3f0i5km80db540df7brlnnsope8if12nlnk6v4mm66sfmb4", 
+        "ClientSecret": "****", 
         "CallbackURLs": [
             "http://localhost:3000/"
         ], 
@@ -9,7 +9,7 @@
             "openid", 
             "phone"
         ], 
-        "UserPoolId": "ap-south-1_M1pQu9BIA", 
+        "UserPoolId": "****", 
         "AllowedOAuthFlowsUserPoolClient": true, 
         "LastModifiedDate": 1573118066.947, 
         "ClientId": "1v9nbc9ck9uo242tt9429ptcn4", 
